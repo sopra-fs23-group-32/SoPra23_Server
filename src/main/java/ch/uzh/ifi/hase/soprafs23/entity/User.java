@@ -20,8 +20,6 @@ import java.util.Date;
 @Entity
 @Table(name = "USER")
 public class User implements Serializable {
-
-    @Serial
     private static final long serialVersionUID = 1L;
 
     @Id

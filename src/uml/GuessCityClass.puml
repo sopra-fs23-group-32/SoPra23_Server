@@ -1,0 +1,156 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+enum UserStatus {
+    ONLINE
+    OFFLINE
+}
+
+class User {
+    - userId: long
+    - username: String
+    - password: String
+    - userStatus: UserStatus
+    - createDay: Date
+    - birthDay: Date
+    + userStatistics: UserStatistics
+    + User(String name, String password)
+    + getUserId(): long
+    + getUsername(): String
+    + setUsername(String name): void
+    + changePassword(String oldPwd, String newPwd): boolean
+    + getUserStatus(): UserStatus
+    + setUserStatus(UserStatus status): void
+    + getUserCreateDay(): Date
+    + getUserBirthDay(): Date
+    + setUserBirthDay(Date birthday): void
+}
+
+class UserStatistics {
+    - totalScore: long
+    - totalGameNum: long
+    - gameHistories: List<GameHistory>
+    + UserStatistics()
+    + getTotalScore(): long
+    + addScore(long score): void
+    + getTotalGameNum(): long
+    + addGameNum(): long
+    + showGameHistory(): void
+    + addGameHistory(GameHistory history): void
+}
+
+class GameHistory {
+    - gameId: long
+    - gameInfo: GameInfo
+    - answerList: List<String>
+    + GameHistory(long gameId, GameInfo gameInfo)
+    + getGameInfo(): GameInfo
+    + getAnswer(): List<String>
+}
+
+class GameInfo {
+    - gameId: long
+    - gameCategory: String
+    - gameTime: Date
+    - gameRound: int
+    - playerNum: int
+    - labelList: List<String>
+    + GameInfo(long gameId, String category,
+      int gameRound, int playerNum)
+    + getCategoryName(): String
+    + getGameTime(): Date
+    + getPlayerNum(): int
+    + getGameRound(): int
+    + addLabel(String label): void
+    + getLabel(): List<String>
+}
+
+User <-- UserStatistics
+User <-- UserStatus
+UserStatistics *-- GameHistory
+GameHistory o-- GameInfo
+
+'CityCategory --> GameHistory
+
+class Game {
+    - playerList: List<Player>
+    - cityCategory: CityCategory
+    + Game(CityCategory category)
+    + getCategoryName(): String
+    + addPlayer(User player): void
+    + showPlayers(): void
+    + showRanking(): void
+    + drawCity(): City
+    + generateOptions(): List<String>
+}
+
+class Player {
+    - userId: long
+    - username: String
+    - score: int
+    - answerList: List<String>
+    + Player(long userId, String username)
+    + getUserId(): long
+    + getUsername(): String
+    + getScore(): int
+    + addAnswer(String answer): void
+}
+
+abstract CityCategory {
+    - categoryName: String
+    - cityList: List<City>
+    + {abstract}getCategoryName(): String
+    + {abstract}getCityNum(): int
+    + {abstract}drawCity(): City
+    + {abstract}randomDrawCityName(): List<String>
+}
+
+class City {
+    - cityName: String
+    - countryName: String
+    - location: String
+    - pictureBase: List<Picture>
+    + City(String name, String country, String location,
+      List<Picture> picBase)
+    + getCityName(): String
+    + getCountryName(): String
+    + getLocation(): String
+    + drawPicture(): Picture
+    + flushPictureList(): void
+}
+
+class Picture {
+    - pictureId: long
+    - picturePath: String
+    + Picture(long pictureId, String path)
+    + getPictureId(): long
+    + getPicturePath(): String
+}
+
+
+Game <-- CityCategory
+Player <-- User
+Player -o Game
+CityCategory o- City
+
+City o-- Picture
+
+class EuroCity {
+    + EuroCity(String name, List<City> cities)
+}
+class AsiaCity {
+    + AsiaCity(String name, List<City> cities)
+}
+class NorthAmericaCity {
+    + NorthAmericaCity(String name, List<City> cities)
+}
+class WorldCity {
+    + WorldCity(String name, List<City> cities)
+}
+
+CityCategory <|-- EuroCity
+CityCategory <|--- AsiaCity
+CityCategory <|--- NorthAmericaCity
+CityCategory <|---- WorldCity
+
+@enduml

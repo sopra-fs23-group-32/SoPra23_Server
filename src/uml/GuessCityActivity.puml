@@ -1,0 +1,88 @@
+@startuml
+'https://plantuml.com/activity-diagram-beta
+
+start
+:show login page;
+:ClickServlet.handleRequest();
+switch (CLick)
+case (Login)
+    :Enter username and password;
+    :Check password;
+case (Register)
+    :Choose username & Set password;
+    :new User;
+    :Create user profile;
+endswitch
+:Update user state;
+'========= success login =========
+repeat :show homepage;
+
+switch (Click)
+case (My Profile)
+    :load user profile;
+    repeat :show user profile;
+    if (change profile?) then(yes)
+        :update user profile;
+        :save user profile;
+    endif
+    repeat while(return home?) is(no)
+case (Select Category)
+    :show all categories;
+    :choose category;
+    :new CityCategory;
+    :show chosen category;
+case (Start Game)
+    :new Game;
+    if (Multiplayer Mode?) then(yes)
+        :generate shared link;
+        while(startGame?) is(no)
+            :Game.addPlayer();
+        endwhile (yes)
+    else (no)
+        :Game.addPlayer();
+    endif
+    :new GameInfo;
+
+    repeat :Game.drawCity();
+        :Game.generateOptions();
+        :City.drawPicture();
+        :show options and Picture;
+        if (give up game?) then(yes)
+            stop
+        endif
+        :select options;
+        if (correct?) then(yes)
+            :add playerScore;
+        endif
+        :show correct answer;
+        :show current ranking;
+    repeat while(end game (final round)?) is(no)
+
+'    if (record score?) then (yes)
+'        :UserStatistic.addScore();
+'    endif
+    :new GameHistory;
+    :Save GameHistory;
+    :show game result;
+case (Ranking)
+    :load all users' profile;
+    repeat :show overall ranking;
+    switch (Click)
+    case (user)
+        :load user profile;
+        :show user profile;
+    case (category)
+        :change ranking type;
+    endswitch
+    repeat while(return home?) is(no)
+case (History)
+    :load user statistics;
+    repeat :show user's game history;
+    repeat while(return home?) is(no)
+endswitch
+
+repeat while(logout?) is(no)
+:logout;
+stop
+
+@enduml

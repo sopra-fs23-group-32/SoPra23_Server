@@ -1,0 +1,88 @@
+@startuml
+'https://plantuml.com/component-diagram
+
+component "Flickr API Module"
+
+interface "Flickr API"
+interface "Login / Sign Up"
+interface "Show Profile"
+interface "Change Profile"
+interface "Show Statistics"
+interface "Play Single Mode"
+interface "Play Multiplayer Mode"
+interface "Create / Update User"
+interface "Load Profile"
+interface "Load Statistics"
+interface "Draw Pictures"
+
+package "Client" {
+  component [Welcome Page]
+  component [Single Mode]
+  component [Multiplayer Mode]
+  component [Profile View]
+  component [Statistics View]
+'  port "Port1" as P1
+'  port "Port2" as P2
+'  port "Port9" as P9
+'  port "Port14" as P14
+'  port "Port15" as P15
+}
+
+[Welcome Page] -- [Login / Sign Up]
+[Profile View] --( [Show Profile]
+[Profile View] -- [Change Profile]
+[Statistics View] --( [Show Statistics]
+[Single Mode] ..> [Play Single Mode]
+[Multiplayer Mode] ..> [Play Multiplayer Mode]
+
+package "Server" {
+    component [Game Information]
+    component [Game Logic]
+'  port "Port3" as P3
+'  port "Port4" as P4
+'  port "Port5" as P5
+'  port "Port8" as P8
+'  port "Port11" as P11
+'  port "Port12" as P12
+'  port "Port16" as P16
+'  port "Port17" as P17
+'  port "Port20" as P20
+'  port "Port21" as P21
+}
+'[Login / Sign Up] )-- P1
+'[Show Profile] -- P1
+'[Change Profile] )-- P1
+'[Show Statistics] -- P1
+'P1 -- [Game Information]
+[Login / Sign Up] )-- [Game Information]
+[Show Profile] -- [Game Information]
+[Change Profile] )-- [Game Information]
+[Show Statistics] -- [Game Information]
+[Play Single Mode] -- [Game Logic]
+[Play Multiplayer Mode] -- [Game Logic]
+[Game Information] --( [Load Profile]
+[Game Information] --( [Load Statistics]
+[Game Information] -- [Create / Update User]
+[Game Logic] --( [Draw Pictures]
+
+database "Database" {
+    component [User Repository]
+    component [Statistic Repository]
+    component [Picture Repository]
+'  port "Port6" as P6
+'  port "Port7" as P7
+'  port "Port13" as P13
+'  port "Port18" as P18
+'  port "Port19" as P19
+}
+
+[Flickr API] )-- [Flickr API Module]: Retrieve Pictures
+[Flickr API Module] ..> [Picture Repository]: Store Pictures
+[Draw Pictures] -- [Picture Repository]
+
+[Statistic Repository] .right.> [User Repository]
+[Create / Update User]  )-- [User Repository]
+[Load Profile] -- [User Repository]
+[Load Statistics] -- [Statistic Repository]
+
+@enduml
