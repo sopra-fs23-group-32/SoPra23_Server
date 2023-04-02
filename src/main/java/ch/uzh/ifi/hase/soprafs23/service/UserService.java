@@ -71,11 +71,14 @@ public class UserService {
     public User updateUser(Long userId, User user) {
         checkIfIdExist(userId);
         User updateUser = userRepository.findByUserId(userId);
-        if(user.getUsername() != null && !user.getUsername().equals(updateUser.getUsername()))
+        if(user.getUsername() != null && !user.getUsername().equals(updateUser.getUsername())){
             checkIfUsernameExist(user.getUsername());
             updateUser.setUsername(user.getUsername());
+        };
+        
 //        checkIfBirthDayValid(user.getBirthDay());
         updateUser.setBirthDay(user.getBirthDay());
+        updateUser.setPassword(user.setPassword());
 
         log.debug("Updated User: {}", updateUser);
         return updateUser;
