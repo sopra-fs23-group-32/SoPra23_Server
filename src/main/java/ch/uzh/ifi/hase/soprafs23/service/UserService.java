@@ -78,7 +78,7 @@ public class UserService {
         
 //        checkIfBirthDayValid(user.getBirthDay());
         updateUser.setBirthDay(user.getBirthDay());
-        updateUser.setPassword(user.setPassword());
+        updateUser.setPassword(user.getPassword());
 
         log.debug("Updated User: {}", updateUser);
         return updateUser;
