@@ -30,6 +30,7 @@ public interface DTOMapper {
     @Mapping(source = "userId", target = "userId")
     @Mapping(source = "username", target = "username")
     @Mapping(source = "password", target = "password")
+    @Mapping(source = "token", target = "token")
     @Mapping(source = "status", target = "status")
     @Mapping(source = "createDay", target = "createDay")
     @Mapping(source = "birthDay", target = "birthDay")
