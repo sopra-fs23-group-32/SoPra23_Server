@@ -43,7 +43,6 @@ public class UserService {
     public User createUser(User newUser) {
 //        newUser.setToken(UUID.randomUUID().toString());
         checkIfUsernameExist(newUser.getUsername());
-        checkPasswordCondition(newUser.getPassword());
         newUser.setStatus(UserStatus.OFFLINE);
         newUser.setCreateDay(new Date());
         // saves the given entity but data is only persisted in the database once flush() is called
@@ -53,31 +52,6 @@ public class UserService {
         log.debug("Created Information for User: {}", newUser);
         return newUser;
     }
-
-    private void checkPasswordCondition(String password) throws ResponseStatusException{
-        boolean hasUppercase = false;
-        boolean hasLowercase = false;
-        boolean hasDigit = false;
-
-        for (int i = 0; i < password.length(); i++) {
-            char ch = password.charAt(i);
-
-            if (Character.isUpperCase(ch)) {
-                hasUppercase = true;
-            }
-            else if (Character.isLowerCase(ch)) {
-                hasLowercase = true;
-            }
-            else if (Character.isDigit(ch)) {
-                hasDigit = true;
-            }
-        }
-        if (!hasUppercase || !hasLowercase || !hasDigit) {
-            throw new ResponseStatusException(HttpStatus.CONFLICT,
-                    "Invalid password format. Please make sure your password contains at least one uppercase letter, one lowercase letter, and one number.");
-        }
-    }
-
 
     public User loginUser(User user) {
         checkLogin(user);
