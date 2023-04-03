@@ -20,6 +20,7 @@ import java.util.Date;
 @Entity
 @Table(name = "USER")
 public class User implements Serializable {
+    @Serial
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -31,9 +32,6 @@ public class User implements Serializable {
 
     @Column(nullable = false)
     private String password;
-
-    @Column(nullable = false, unique = true)
-    private String token;
 
     @Column(nullable = false)
     private UserStatus status;
@@ -52,13 +50,6 @@ public class User implements Serializable {
 
     public String getPassword() {return password;}
     public void setPassword(String pwd) {this.password = pwd;}
-
-    public String getToken() {
-        return token;
-    }
-    public void setToken(String token) {
-        this.token = token;
-    }
 
     public UserStatus getStatus() {return status;}
     public void setStatus(UserStatus status) {this.status = status;}
