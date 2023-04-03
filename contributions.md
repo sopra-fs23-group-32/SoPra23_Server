@@ -11,3 +11,7 @@ Zilong Deng, https://github.com/sopra-fs23-group-32/SoPra23_Client/issues/6
 Zilong Deng, https://github.com/sopra-fs23-group-32/SoPra23_Client/issues/14
 
 Zilong Deng, https://github.com/sopra-fs23-group-32/SoPra23_Server/issues/24
+
+Dominic Vogel, https://github.com/sopra-fs23-group-32/SoPra23_Client/issues/4
+
+Dominic Vogel, https://github.com/sopra-fs23-group-32/SoPra23_Client/issues/10
