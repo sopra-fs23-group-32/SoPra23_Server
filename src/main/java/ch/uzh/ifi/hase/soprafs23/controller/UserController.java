@@ -51,7 +51,6 @@ public class UserController {
      */
     @GetMapping("/users/{userId}")
     @ResponseStatus(HttpStatus.OK)
-    @ResponseBody
     public UserGetDTO getOneUser(@PathVariable Long userId) {
         User user = userService.searchUserById(userId);
         return DTOMapper.INSTANCE.convertEntityToUserGetDTO(user);
@@ -90,15 +89,15 @@ public class UserController {
 
     /**
      * Logout user
-     * @param userPutDTO DTO for logout
+     * @param authorizationHeader which contains the token
      * @return DTO of created user
      */
     @PutMapping("/logout")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @ResponseBody
-    public UserGetDTO logoutUser(@RequestBody UserPutDTO userPutDTO) {
-        User userInput = DTOMapper.INSTANCE.convertUserPutDTOtoEntity(userPutDTO);
-        User logoutUser = userService.logoutUser(userInput);
+    public UserGetDTO logoutUser(@RequestHeader("Authorization") String authorizationHeader) {
+        String token = authorizationHeader.substring(7);
+        User logoutUser = userService.logoutUser(token);
         return DTOMapper.INSTANCE.convertEntityToUserGetDTO(logoutUser);
     }
 
@@ -111,9 +110,10 @@ public class UserController {
     @PutMapping("/users/{userId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @ResponseBody
-    public UserGetDTO updateUser(@RequestBody UserPutDTO userPutDTO, @PathVariable Long userId) {
+    public UserGetDTO updateUser(@RequestBody UserPutDTO userPutDTO, @PathVariable Long userId, @RequestHeader("Authorization") String authorizationHeader) {
         User userInput = DTOMapper.INSTANCE.convertUserPutDTOtoEntity(userPutDTO);
-        User updatedUser = userService.updateUser(userId, userInput);
+        String token = authorizationHeader.substring(7);
+        User updatedUser = userService.updateUser(userId, userInput, token);
         return DTOMapper.INSTANCE.convertEntityToUserGetDTO(updatedUser);
     }
 }

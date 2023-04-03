@@ -41,10 +41,9 @@ public class UserService {
     }
 
     public User createUser(User newUser) {
-//        newUser.setToken(UUID.randomUUID().toString());
+        newUser.setToken(UUID.randomUUID().toString());
         checkIfUsernameExist(newUser.getUsername());
-        checkPasswordCondition(newUser.getPassword());
-        newUser.setStatus(UserStatus.OFFLINE);
+        newUser.setStatus(UserStatus.ONLINE);
         newUser.setCreateDay(new Date());
         // saves the given entity but data is only persisted in the database once flush() is called
         newUser = userRepository.save(newUser);
@@ -54,64 +53,46 @@ public class UserService {
         return newUser;
     }
 
-    private void checkPasswordCondition(String password) throws ResponseStatusException{
-        boolean hasUppercase = false;
-        boolean hasLowercase = false;
-        boolean hasDigit = false;
-
-        for (int i = 0; i < password.length(); i++) {
-            char ch = password.charAt(i);
-
-            if (Character.isUpperCase(ch)) {
-                hasUppercase = true;
-            }
-            else if (Character.isLowerCase(ch)) {
-                hasLowercase = true;
-            }
-            else if (Character.isDigit(ch)) {
-                hasDigit = true;
-            }
-        }
-        if (!hasUppercase || !hasLowercase || !hasDigit) {
-            throw new ResponseStatusException(HttpStatus.CONFLICT,
-                    "Invalid password format. Please make sure your password contains at least one uppercase letter, one lowercase letter, and one number.");
-        }
-    }
-
-
     public User loginUser(User user) {
         checkLogin(user);
         User loginUser = userRepository.findByUsername(user.getUsername());
+        loginUser.setToken(UUID.randomUUID().toString());
         loginUser.setStatus(UserStatus.ONLINE);
         log.debug("Login User: {}", loginUser);
         return loginUser;
     }
 
-    public User logoutUser(User user) {
-        User logoutUser = userRepository.findByUsername(user.getUsername());
+    public User logoutUser(String token) {
+        User logoutUser = userRepository.findByToken(token);
         logoutUser.setStatus(UserStatus.OFFLINE);
         log.debug("Logout User: {}", logoutUser);
         return logoutUser;
     }
 
-    public User updateUser(Long userId, User user) {
+    public User updateUser(Long userId, User user, String token) {
         checkIfIdExist(userId);
         User updateUser = userRepository.findByUserId(userId);
-        if(user.getUsername() != null && !user.getUsername().equals(updateUser.getUsername())){
-            checkIfUsernameExist(user.getUsername());
-            updateUser.setUsername(user.getUsername());
-        }
-        if(user.getBirthDay() != null) {
+        String updateUserToken = updateUser.getToken();
+        if (token.equals(updateUserToken)){
+            if(user.getUsername() != null && !user.getUsername().equals(updateUser.getUsername())){
+                checkIfUsernameExist(user.getUsername());
+                updateUser.setUsername(user.getUsername());
+            }
+            if(user.getBirthDay() != null) {
 //            checkIfBirthDayValid(user.getBirthDay());
-            updateUser.setBirthDay(user.getBirthDay());
-        }
-        if(user.getPassword() != null) {
+                updateUser.setBirthDay(user.getBirthDay());
+            }
+            if(user.getPassword() != null) {
 //            checkIfPasswordValid(user.getPassword());
-            updateUser.setPassword(user.getPassword());
-        }
+                updateUser.setPassword(user.getPassword());
+            }
 
-        log.debug("Updated User: {}", updateUser);
-        return updateUser;
+            log.debug("Updated User: {}", updateUser);
+            return updateUser;
+        } else {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED,
+                    String.format("You are not authorized to edit the profile!"));
+        }
     }
 
     public User searchUserById(Long userId){
@@ -129,7 +110,7 @@ public class UserService {
     private void checkIfUsernameExist(String username) throws ResponseStatusException{
         User userByUsername = userRepository.findByUsername(username);
 
-        String baseErrorMessage = "The %s provided %s not unique. Therefore, the user could not be created!\n";
+        String baseErrorMessage = "The %s provided %s not unique. Please try another username!\n";
         if (userByUsername != null) {
             throw new ResponseStatusException(HttpStatus.CONFLICT,
                     String.format(baseErrorMessage, "username", "is"));
