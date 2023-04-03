@@ -13,3 +13,6 @@ Dominic Vogel, https://github.com/sopra-fs23-group-32/SoPra23_Client/issues/10
 
 Jano Vukadinovic, [https://github.com/sopra-fs23-group-32/SoPra23_Server/issues/12](https://github.com/sopra-fs23-group-32/SoPra23_Client/issues/27) \
 Jano Vukadinovic, https://github.com/sopra-fs23-group-32/SoPra23_Client/issues/28
+
+Leyi Xu, https://github.com/sopra-fs23-group-32/SoPra23_Client/issues/7 \
+Leyi Xu, https://github.com/sopra-fs23-group-32/SoPra23_Client/issues/8
