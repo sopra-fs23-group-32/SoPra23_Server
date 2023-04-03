@@ -74,11 +74,14 @@ public class UserService {
         if(user.getUsername() != null && !user.getUsername().equals(updateUser.getUsername())){
             checkIfUsernameExist(user.getUsername());
             updateUser.setUsername(user.getUsername());
-        };
-        
-//        checkIfBirthDayValid(user.getBirthDay());
-        updateUser.setBirthDay(user.getBirthDay());
-        updateUser.setPassword(user.getPassword());
+        }
+        if(user.getBirthDay() != null) {
+            //        checkIfBirthDayValid(user.getBirthDay());
+            updateUser.setBirthDay(user.getBirthDay());
+        }
+        if(user.getPassword() != null) {
+            updateUser.setPassword(user.getPassword());
+        }
 
         log.debug("Updated User: {}", updateUser);
         return updateUser;
