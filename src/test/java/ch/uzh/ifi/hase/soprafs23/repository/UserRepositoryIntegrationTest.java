@@ -24,8 +24,8 @@ public class UserRepositoryIntegrationTest {
     public void findByName_success() {
         // given
         User user = new User();
-        user.setUsername("firstname lastname");
-        user.setPassword("12345678");
+        user.setUsername("testUsername");
+        user.setPassword("SoPraHS23");
         user.setStatus(UserStatus.OFFLINE);
         user.setCreateDay(new Date());
         user.setBirthDay(new Date());
