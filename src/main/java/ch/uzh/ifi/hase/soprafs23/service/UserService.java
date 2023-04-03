@@ -76,11 +76,11 @@ public class UserService {
             updateUser.setUsername(user.getUsername());
         }
         if(user.getBirthDay() != null) {
-            //        checkIfBirthDayValid(user.getBirthDay());
+//            checkIfBirthDayValid(user.getBirthDay());
             updateUser.setBirthDay(user.getBirthDay());
         }
         if(user.getPassword() != null) {
-//	checkIfPasswordValid(user.getPassword());
+//            checkIfPasswordValid(user.getPassword());
             updateUser.setPassword(user.getPassword());
         }
 
