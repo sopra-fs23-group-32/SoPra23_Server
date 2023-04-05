@@ -107,6 +107,7 @@ public class UserService {
         }
         if(user.getPassword() != null) {
 //            checkIfPasswordValid(user.getPassword());
+            checkPasswordCondition(user.getPassword());
             updateUser.setPassword(user.getPassword());
         }
 
