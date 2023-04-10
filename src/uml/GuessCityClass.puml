@@ -24,7 +24,8 @@ class User {
     + getUserId(): long
     + getUsername(): String
     + setUsername(String name): void
-    + changePassword(String oldPwd, String newPwd): boolean
+    + getPassword(): String
+    + setPassword(String password): void
     + getUserStatus(): UserStatus
     + setUserStatus(UserStatus status): void
     + getUserCreateDay(): Date
@@ -37,7 +38,7 @@ class Player {
     - playerName: String
     - score: int
     - answerList: List<String>
-    + Player(long userId, String username)
+    + Player(long userId, String name)
     + getUserId(): long
     + getPlayerName(): String
     + getScore(): int
@@ -48,41 +49,48 @@ class Player {
 class UserStatistics {
     - totalScore: long
     - totalGameNum: long
-    - specificScore: Map<CityCategory, long>
-    - gameHistories: List<GameHistory>
+    - specificScore: Map<CityCategory, Long>
+    - gameHistories: List<UserGameHistory>
     + UserStatistics()
     + getTotalScore(): long
     + getSpecificScore(CityCategory category): long
-    + addScore(long score, CityCategory category): void
+    + updateScore(long score, CityCategory category): void
     + getTotalGameNum(): long
-    + addGameNum(): long
-    + showGameHistory(): void
-    + addGameHistory(GameHistory history): void
+    + addTotalGameNum(): void
+    + getGameHistoryList(): Iterator<UserGameHistory>
+    + addGameHistory(UserGameHistory history): void
 }
 
 class UserGameHistory {
     - gameId: long
     - gameInfo: GameInfo
-    - score: int
+    - gameScore: int
     - answerList: List<String>
-    + GameHistory(long gameId, GameInfo gameInfo)
-    + getGameInfo(): GameInfo
+    + UserGameHistory(long gameId, GameInfo gameInfo,
+      int score)
+    + getGameId(): long
     + getScore(): int
-    + getAnswer(): List<String>
+    + getGameInfo(): GameInfo
+    + addAnswer(String answer): void
+    + getAnswerList(): Iterator<String>
 }
 
 User <-- UserStatistics
-User <-- UserStatus
+UserStatus -> User
 UserStatistics *-- UserGameHistory
 
 
 class Game {
     - playerList: List<Player>
-    - gameRounds: int
-    - cityDB: CityBase
-    + Game(int rounds, CityBase cityDB)
+    - currentRound: int
+    - totalRounds: int
+    - countdownTime: int
+    + cityDB: CityBase
+    + Game(int totalRounds, int countdownTime, CityBase cityDB)
     + addPlayer(User userAsPlayer): void
-    + getGameRounds(): int
+    + getCurrentRounds(): int
+    + getTotalRounds(): int
+    + getCountdownTime(): int
     + showRanking(): void
 }
 
@@ -91,7 +99,7 @@ class CityBase {
     - cityList: List<City>
     + CityBase(CityCategory category)
     + getCategory(): CityCategory
-    + loadCityList(): void
+    - loadCityList(): void
     + getCityListLength(): int
     + drawCities(): List<City>
 }
@@ -110,18 +118,16 @@ class GameInfo {
     + getPlayerNum(): int
     + getGameRound(): int
     + addLabel(String label): void
-    + getLabel(): List<String>
+    + getLabelList(): Iterator<String>
 }
 
 class City {
-    - cityName: String
-    - countryName: String
+    - name: String
+    - country: String
     - location: String
-    - pictureBase: List<Picture>
-    + City(String name, String country,
-      String location, List<Picture> picBase)
-    + getCityName(): String
-    + getCountryName(): String
+    + City(String name, String country, String location)
+    + getName(): String
+    + getCountry(): String
     + getLocation(): String
     + generatePicture(): Picture
 }
