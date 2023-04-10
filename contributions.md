@@ -16,3 +16,7 @@ Jano Vukadinovic, https://github.com/sopra-fs23-group-32/SoPra23_Client/issues/2
 
 Leyi Xu, https://github.com/sopra-fs23-group-32/SoPra23_Client/issues/7 \
 Leyi Xu, https://github.com/sopra-fs23-group-32/SoPra23_Client/issues/8
+
+Week 04.03.2023-10.04.2023
+
+Zilong Deng, update class diagram, activity diagram and user stories according to the feedback for M2.
