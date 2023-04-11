@@ -1,37 +1,37 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentStyleType="text/css" height="949.8px" preserveAspectRatio="none" style="width:874px;height:949px;background:#FFFFFF;" version="1.1" viewBox="0 0 874 949" width="874.8px" zoomAndPan="magnify"><defs/><g><!--MD5=[51fd3fce36c976f35b405d5800336138]
-class UserStatus--><g id="elem_UserStatus"><rect codeLine="3" fill="#F1F1F1" height="51.7441" id="UserStatus" rx="1.5" ry="1.5" style="stroke:#181818;stroke-width:0.3;" width="60.6" x="4.2" y="477.9"/><ellipse cx="13.2" cy="487.5" fill="#EB937F" rx="6.6" ry="6.6" style="stroke:#181818;stroke-width:0.6;"/><path d="M10.8375,485.1 L10.8375,484.0875 L15.4688,484.0875 L16.0406,486.0187 L15.5531,486.3937 Q15.0938,485.6344 14.7188,485.3719 Q14.3438,485.1 13.9125,485.1 L12.6188,485.1 Q12.4969,485.1 12.45,485.1281 Q12.4125,485.1469 12.4125,485.1656 L12.4125,487.0875 L13.2938,487.0875 Q13.575,487.0875 13.6875,486.9562 Q13.8,486.8156 13.8,486.4875 L13.8,486.0375 L14.8125,486.0375 L14.8125,489.15 L13.8,489.15 L13.8,488.7844 Q13.8,488.4281 13.6781,488.2687 Q13.5656,488.1 13.2938,488.1 L12.4125,488.1 L12.4125,490.0594 Q12.4031,490.0594 12.4406,490.0781 Q12.4781,490.0875 12.6,490.0875 L13.7531,490.0875 Q14.3531,490.0875 14.7656,489.7969 Q15.1781,489.5062 15.5156,488.6156 L16.0406,489.0094 L15.4969,491.1 L10.8,491.1 L10.8,490.0875 L11.2406,490.0875 Q11.3719,490.0875 11.3813,490.0781 Q11.4,490.0687 11.4,490.0219 L11.4,485.1656 Q11.4,485.1188 11.3813,485.1094 Q11.3719,485.1 11.2406,485.1 L10.8375,485.1 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="8.4" lengthAdjust="spacing" textLength="41.4" x="21.6" y="491.3903">UserStatus</text><line style="stroke:#181818;stroke-width:0.3;" x1="4.8" x2="64.2" y1="497.1" y2="497.1"/><text fill="#000000" font-family="sans-serif" font-size="8.4" lengthAdjust="spacing" textLength="29.4" x="7.8" y="509.1264">ONLINE</text><text fill="#000000" font-family="sans-serif" font-size="8.4" lengthAdjust="spacing" textLength="34.8" x="7.8" y="520.5984">OFFLINE</text><line style="stroke:#181818;stroke-width:0.3;" x1="4.8" x2="64.2" y1="524.8441" y2="524.8441"/></g><!--MD5=[3fd616f346a44cd59a91eb10b19e157c]
-class User--><g id="elem_User"><rect codeLine="8" fill="#F1F1F1" height="223.8252" id="User" rx="1.5" ry="1.5" style="stroke:#181818;stroke-width:0.3;" width="233.4" x="60" y="172.2"/><ellipse cx="165.45" cy="181.8" fill="#ADD1B2" rx="6.6" ry="6.6" style="stroke:#181818;stroke-width:0.6;"/><path d="M165.2625,185.4 Q164.1,185.4 163.425,184.5469 Q162.75,183.6844 162.75,181.9125 Q162.75,180.4125 163.4625,179.4 Q164.175,178.3875 165.4125,178.3875 Q165.7031,178.3875 166.0031,178.4531 Q166.2469,178.5375 166.3969,178.5375 Q166.5187,178.5375 166.5656,178.5281 Q166.6219,178.5094 166.9406,178.1063 L167.3813,180.6469 L166.8,181.0031 Q166.5,180.075 166.1531,179.7375 Q165.8156,179.4 165.2719,179.4 Q164.5781,179.4 164.1656,180.1125 Q163.7625,180.8156 163.7625,181.9125 Q163.7625,183.1125 164.1094,183.75 Q164.4562,184.3875 165.2344,184.3875 Q165.7875,184.3875 166.1719,184.05 Q166.5656,183.7031 166.7719,182.8688 L167.3906,183.1781 Q167.1563,184.2281 166.5938,184.8188 Q166.0313,185.4 165.2625,185.4 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="8.4" lengthAdjust="spacing" textLength="17.4" x="177.75" y="185.6903">User</text><line style="stroke:#181818;stroke-width:0.3;" x1="60.6" x2="292.8" y1="191.4" y2="191.4"/><rect fill="none" height="3.6" style="stroke:#C82930;stroke-width:0.6;" width="3.6" x="64.8" y="198.636"/><text fill="#000000" font-family="sans-serif" font-size="8.4" lengthAdjust="spacing" textLength="44.4" x="72" y="203.4264">userId: long</text><rect fill="none" height="3.6" style="stroke:#C82930;stroke-width:0.6;" width="3.6" x="64.8" y="210.1081"/><text fill="#000000" font-family="sans-serif" font-size="8.4" lengthAdjust="spacing" textLength="64.8" x="72" y="214.8984">username: String</text><rect fill="none" height="3.6" style="stroke:#C82930;stroke-width:0.6;" width="3.6" x="64.8" y="221.5802"/><text fill="#000000" font-family="sans-serif" font-size="8.4" lengthAdjust="spacing" textLength="63" x="72" y="226.3705">password: String</text><rect fill="none" height="3.6" style="stroke:#C82930;stroke-width:0.6;" width="3.6" x="64.8" y="233.0522"/><text fill="#000000" font-family="sans-serif" font-size="8.4" lengthAdjust="spacing" textLength="87" x="72" y="237.8426">userStatus: UserStatus</text><rect fill="none" height="3.6" style="stroke:#C82930;stroke-width:0.6;" width="3.6" x="64.8" y="244.5243"/><text fill="#000000" font-family="sans-serif" font-size="8.4" lengthAdjust="spacing" textLength="61.8" x="72" y="249.3146">createDay: Date</text><rect fill="none" height="3.6" style="stroke:#C82930;stroke-width:0.6;" width="3.6" x="64.8" y="255.9964"/><text fill="#000000" font-family="sans-serif" font-size="8.4" lengthAdjust="spacing" textLength="54.6" x="72" y="260.7867">birthDay: Date</text><ellipse cx="66.6" cy="269.2685" fill="none" rx="1.8" ry="1.8" style="stroke:#038048;stroke-width:0.6;"/><text fill="#000000" font-family="sans-serif" font-size="8.4" lengthAdjust="spacing" textLength="106.2" x="72" y="272.2588">userStatistics: UserStatistics</text><line style="stroke:#181818;stroke-width:0.3;" x1="60.6" x2="292.8" y1="276.5045" y2="276.5045"/><ellipse cx="66.6" cy="285.5405" fill="#84BE84" rx="1.8" ry="1.8" style="stroke:#038048;stroke-width:0.6;"/><text fill="#000000" font-family="sans-serif" font-size="8.4" lengthAdjust="spacing" textLength="134.4" x="72" y="288.5309">User(String name, String password)</text><ellipse cx="66.6" cy="297.0126" fill="#84BE84" rx="1.8" ry="1.8" style="stroke:#038048;stroke-width:0.6;"/><text fill="#000000" font-family="sans-serif" font-size="8.4" lengthAdjust="spacing" textLength="63" x="72" y="300.0029">getUserId(): long</text><ellipse cx="66.6" cy="308.4847" fill="#84BE84" rx="1.8" ry="1.8" style="stroke:#038048;stroke-width:0.6;"/><text fill="#000000" font-family="sans-serif" font-size="8.4" lengthAdjust="spacing" textLength="83.4" x="72" y="311.475">getUsername(): String</text><ellipse cx="66.6" cy="319.9567" fill="#84BE84" rx="1.8" ry="1.8" style="stroke:#038048;stroke-width:0.6;"/><text fill="#000000" font-family="sans-serif" font-size="8.4" lengthAdjust="spacing" textLength="121.8" x="72" y="322.9471">setUsername(String name): void</text><ellipse cx="66.6" cy="331.4288" fill="#84BE84" rx="1.8" ry="1.8" style="stroke:#038048;stroke-width:0.6;"/><text fill="#000000" font-family="sans-serif" font-size="8.4" lengthAdjust="spacing" textLength="217.8" x="72" y="334.4191">changePassword(String oldPwd, String newPwd): boolean</text><ellipse cx="66.6" cy="342.9009" fill="#84BE84" rx="1.8" ry="1.8" style="stroke:#038048;stroke-width:0.6;"/><text fill="#000000" font-family="sans-serif" font-size="8.4" lengthAdjust="spacing" textLength="105.6" x="72" y="345.8912">getUserStatus(): UserStatus</text><ellipse cx="66.6" cy="354.3729" fill="#84BE84" rx="1.8" ry="1.8" style="stroke:#038048;stroke-width:0.6;"/><text fill="#000000" font-family="sans-serif" font-size="8.4" lengthAdjust="spacing" textLength="145.8" x="72" y="357.3633">setUserStatus(UserStatus status): void</text><ellipse cx="66.6" cy="365.845" fill="#84BE84" rx="1.8" ry="1.8" style="stroke:#038048;stroke-width:0.6;"/><text fill="#000000" font-family="sans-serif" font-size="8.4" lengthAdjust="spacing" textLength="99" x="72" y="368.8354">getUserCreateDay(): Date</text><ellipse cx="66.6" cy="377.3171" fill="#84BE84" rx="1.8" ry="1.8" style="stroke:#038048;stroke-width:0.6;"/><text fill="#000000" font-family="sans-serif" font-size="8.4" lengthAdjust="spacing" textLength="90.6" x="72" y="380.3074">getUserBirthDay(): Date</text><ellipse cx="66.6" cy="388.7892" fill="#84BE84" rx="1.8" ry="1.8" style="stroke:#038048;stroke-width:0.6;"/><text fill="#000000" font-family="sans-serif" font-size="8.4" lengthAdjust="spacing" textLength="138.6" x="72" y="391.7795">setUserBirthDay(Date birthday): void</text></g><!--MD5=[5a56d00b2ec6db6c7881cba88cf6014f]
-class UserStatistics--><g id="elem_UserStatistics"><rect codeLine="28" fill="#F1F1F1" height="143.5207" id="UserStatistics" rx="1.5" ry="1.5" style="stroke:#181818;stroke-width:0.3;" width="181.2" x="86.1" y="432"/><ellipse cx="148.65" cy="441.6" fill="#ADD1B2" rx="6.6" ry="6.6" style="stroke:#181818;stroke-width:0.6;"/><path d="M148.4625,445.2 Q147.3,445.2 146.625,444.3469 Q145.95,443.4844 145.95,441.7125 Q145.95,440.2125 146.6625,439.2 Q147.375,438.1875 148.6125,438.1875 Q148.9031,438.1875 149.2031,438.2531 Q149.4469,438.3375 149.5969,438.3375 Q149.7188,438.3375 149.7656,438.3281 Q149.8219,438.3094 150.1406,437.9063 L150.5812,440.4469 L150,440.8031 Q149.7,439.875 149.3531,439.5375 Q149.0156,439.2 148.4719,439.2 Q147.7781,439.2 147.3656,439.9125 Q146.9625,440.6156 146.9625,441.7125 Q146.9625,442.9125 147.3094,443.55 Q147.6563,444.1875 148.4344,444.1875 Q148.9875,444.1875 149.3719,443.85 Q149.7656,443.5031 149.9719,442.6688 L150.5906,442.9781 Q150.3563,444.0281 149.7938,444.6188 Q149.2313,445.2 148.4625,445.2 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="8.4" lengthAdjust="spacing" textLength="51" x="160.95" y="445.4903">UserStatistics</text><line style="stroke:#181818;stroke-width:0.3;" x1="86.7" x2="266.7" y1="451.2" y2="451.2"/><rect fill="none" height="3.6" style="stroke:#C82930;stroke-width:0.6;" width="3.6" x="90.9" y="458.436"/><text fill="#000000" font-family="sans-serif" font-size="8.4" lengthAdjust="spacing" textLength="59.4" x="98.1" y="463.2264">totalScore: long</text><rect fill="none" height="3.6" style="stroke:#C82930;stroke-width:0.6;" width="3.6" x="90.9" y="469.9081"/><text fill="#000000" font-family="sans-serif" font-size="8.4" lengthAdjust="spacing" textLength="76.8" x="98.1" y="474.6984">totalGameNum: long</text><rect fill="none" height="3.6" style="stroke:#C82930;stroke-width:0.6;" width="3.6" x="90.9" y="481.3802"/><text fill="#000000" font-family="sans-serif" font-size="8.4" lengthAdjust="spacing" textLength="129.6" x="98.1" y="486.1705">gameHistories: List&lt;GameHistory&gt;</text><line style="stroke:#181818;stroke-width:0.3;" x1="86.7" x2="266.7" y1="490.4162" y2="490.4162"/><ellipse cx="92.7" cy="499.4522" fill="#84BE84" rx="1.8" ry="1.8" style="stroke:#038048;stroke-width:0.6;"/><text fill="#000000" font-family="sans-serif" font-size="8.4" lengthAdjust="spacing" textLength="57" x="98.1" y="502.4426">UserStatistics()</text><ellipse cx="92.7" cy="510.9243" fill="#84BE84" rx="1.8" ry="1.8" style="stroke:#038048;stroke-width:0.6;"/><text fill="#000000" font-family="sans-serif" font-size="8.4" lengthAdjust="spacing" textLength="80.4" x="98.1" y="513.9146">getTotalScore(): long</text><ellipse cx="92.7" cy="522.3964" fill="#84BE84" rx="1.8" ry="1.8" style="stroke:#038048;stroke-width:0.6;"/><text fill="#000000" font-family="sans-serif" font-size="8.4" lengthAdjust="spacing" textLength="102.6" x="98.1" y="525.3867">addScore(long score): void</text><ellipse cx="92.7" cy="533.8685" fill="#84BE84" rx="1.8" ry="1.8" style="stroke:#038048;stroke-width:0.6;"/><text fill="#000000" font-family="sans-serif" font-size="8.4" lengthAdjust="spacing" textLength="97.8" x="98.1" y="536.8588">getTotalGameNum(): long</text><ellipse cx="92.7" cy="545.3405" fill="#84BE84" rx="1.8" ry="1.8" style="stroke:#038048;stroke-width:0.6;"/><text fill="#000000" font-family="sans-serif" font-size="8.4" lengthAdjust="spacing" textLength="81" x="98.1" y="548.3309">addGameNum(): long</text><ellipse cx="92.7" cy="556.8126" fill="#84BE84" rx="1.8" ry="1.8" style="stroke:#038048;stroke-width:0.6;"/><text fill="#000000" font-family="sans-serif" font-size="8.4" lengthAdjust="spacing" textLength="94.2" x="98.1" y="559.8029">showGameHistory(): void</text><ellipse cx="92.7" cy="568.2847" fill="#84BE84" rx="1.8" ry="1.8" style="stroke:#038048;stroke-width:0.6;"/><text fill="#000000" font-family="sans-serif" font-size="8.4" lengthAdjust="spacing" textLength="165.6" x="98.1" y="571.275">addGameHistory(GameHistory history): void</text></g><!--MD5=[02bd49bb545bca0336c8ab590448ce42]
-class GameHistory--><g id="elem_GameHistory"><rect codeLine="41" fill="#F1F1F1" height="97.6324" id="GameHistory" rx="1.5" ry="1.5" style="stroke:#181818;stroke-width:0.3;" width="195" x="54.6" y="617.1"/><ellipse cx="125.25" cy="626.7" fill="#ADD1B2" rx="6.6" ry="6.6" style="stroke:#181818;stroke-width:0.6;"/><path d="M125.0625,630.3 Q123.9,630.3 123.225,629.4469 Q122.55,628.5844 122.55,626.8125 Q122.55,625.3125 123.2625,624.3 Q123.975,623.2875 125.2125,623.2875 Q125.5031,623.2875 125.8031,623.3531 Q126.0469,623.4375 126.1969,623.4375 Q126.3188,623.4375 126.3656,623.4281 Q126.4219,623.4094 126.7406,623.0063 L127.1812,625.5469 L126.6,625.9031 Q126.3,624.975 125.9531,624.6375 Q125.6156,624.3 125.0719,624.3 Q124.3781,624.3 123.9656,625.0125 Q123.5625,625.7156 123.5625,626.8125 Q123.5625,628.0125 123.9094,628.65 Q124.2563,629.2875 125.0344,629.2875 Q125.5875,629.2875 125.9719,628.95 Q126.3656,628.6031 126.5719,627.7688 L127.1906,628.0781 Q126.9563,629.1281 126.3938,629.7188 Q125.8313,630.3 125.0625,630.3 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="8.4" lengthAdjust="spacing" textLength="48.6" x="137.55" y="630.5903">GameHistory</text><line style="stroke:#181818;stroke-width:0.3;" x1="55.2" x2="249" y1="636.3" y2="636.3"/><rect fill="none" height="3.6" style="stroke:#C82930;stroke-width:0.6;" width="3.6" x="59.4" y="643.536"/><text fill="#000000" font-family="sans-serif" font-size="8.4" lengthAdjust="spacing" textLength="48.6" x="66.6" y="648.3264">gameId: long</text><rect fill="none" height="3.6" style="stroke:#C82930;stroke-width:0.6;" width="3.6" x="59.4" y="655.0081"/><text fill="#000000" font-family="sans-serif" font-size="8.4" lengthAdjust="spacing" textLength="76.2" x="66.6" y="659.7984">gameInfo: GameInfo</text><rect fill="none" height="3.6" style="stroke:#C82930;stroke-width:0.6;" width="3.6" x="59.4" y="666.4802"/><text fill="#000000" font-family="sans-serif" font-size="8.4" lengthAdjust="spacing" textLength="90" x="66.6" y="671.2705">answerList: List&lt;String&gt;</text><line style="stroke:#181818;stroke-width:0.3;" x1="55.2" x2="249" y1="675.5162" y2="675.5162"/><ellipse cx="61.2" cy="684.5522" fill="#84BE84" rx="1.8" ry="1.8" style="stroke:#038048;stroke-width:0.6;"/><text fill="#000000" font-family="sans-serif" font-size="8.4" lengthAdjust="spacing" textLength="179.4" x="66.6" y="687.5426">GameHistory(long gameId, GameInfo gameInfo)</text><ellipse cx="61.2" cy="696.0243" fill="#84BE84" rx="1.8" ry="1.8" style="stroke:#038048;stroke-width:0.6;"/><text fill="#000000" font-family="sans-serif" font-size="8.4" lengthAdjust="spacing" textLength="96" x="66.6" y="699.0146">getGameInfo(): GameInfo</text><ellipse cx="61.2" cy="707.4964" fill="#84BE84" rx="1.8" ry="1.8" style="stroke:#038048;stroke-width:0.6;"/><text fill="#000000" font-family="sans-serif" font-size="8.4" lengthAdjust="spacing" textLength="95.4" x="66.6" y="710.4867">getAnswer(): List&lt;String&gt;</text></g><!--MD5=[3dbdd82daa10279c055138dc8d63ad7f]
-class GameInfo--><g id="elem_GameInfo"><rect codeLine="50" fill="#F1F1F1" height="189.409" id="GameInfo" rx="1.5" ry="1.5" style="stroke:#181818;stroke-width:0.3;" width="166.2" x="69" y="756.6"/><ellipse cx="131.25" cy="766.2" fill="#ADD1B2" rx="6.6" ry="6.6" style="stroke:#181818;stroke-width:0.6;"/><path d="M131.0625,769.8 Q129.9,769.8 129.225,768.9469 Q128.55,768.0844 128.55,766.3125 Q128.55,764.8125 129.2625,763.8 Q129.975,762.7875 131.2125,762.7875 Q131.5031,762.7875 131.8031,762.8531 Q132.0469,762.9375 132.1969,762.9375 Q132.3188,762.9375 132.3656,762.9281 Q132.4219,762.9094 132.7406,762.5063 L133.1813,765.0469 L132.6,765.4031 Q132.3,764.475 131.9531,764.1375 Q131.6156,763.8 131.0719,763.8 Q130.3781,763.8 129.9656,764.5125 Q129.5625,765.2156 129.5625,766.3125 Q129.5625,767.5125 129.9094,768.15 Q130.2563,768.7875 131.0344,768.7875 Q131.5875,768.7875 131.9719,768.45 Q132.3656,768.1031 132.5719,767.2688 L133.1906,767.5781 Q132.9562,768.6281 132.3937,769.2188 Q131.8312,769.8 131.0625,769.8 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="8.4" lengthAdjust="spacing" textLength="36.6" x="143.55" y="770.0903">GameInfo</text><line style="stroke:#181818;stroke-width:0.3;" x1="69.6" x2="234.6" y1="775.8" y2="775.8"/><rect fill="none" height="3.6" style="stroke:#C82930;stroke-width:0.6;" width="3.6" x="73.8" y="783.036"/><text fill="#000000" font-family="sans-serif" font-size="8.4" lengthAdjust="spacing" textLength="48.6" x="81" y="787.8264">gameId: long</text><rect fill="none" height="3.6" style="stroke:#C82930;stroke-width:0.6;" width="3.6" x="73.8" y="794.5081"/><text fill="#000000" font-family="sans-serif" font-size="8.4" lengthAdjust="spacing" textLength="82.8" x="81" y="799.2984">gameCategory: String</text><rect fill="none" height="3.6" style="stroke:#C82930;stroke-width:0.6;" width="3.6" x="73.8" y="805.9802"/><text fill="#000000" font-family="sans-serif" font-size="8.4" lengthAdjust="spacing" textLength="62.4" x="81" y="810.7705">gameTime: Date</text><rect fill="none" height="3.6" style="stroke:#C82930;stroke-width:0.6;" width="3.6" x="73.8" y="817.4522"/><text fill="#000000" font-family="sans-serif" font-size="8.4" lengthAdjust="spacing" textLength="60" x="81" y="822.2426">gameRound: int</text><rect fill="none" height="3.6" style="stroke:#C82930;stroke-width:0.6;" width="3.6" x="73.8" y="828.9243"/><text fill="#000000" font-family="sans-serif" font-size="8.4" lengthAdjust="spacing" textLength="54" x="81" y="833.7146">playerNum: int</text><rect fill="none" height="3.6" style="stroke:#C82930;stroke-width:0.6;" width="3.6" x="73.8" y="840.3964"/><text fill="#000000" font-family="sans-serif" font-size="8.4" lengthAdjust="spacing" textLength="81" x="81" y="845.1867">labelList: List&lt;String&gt;</text><line style="stroke:#181818;stroke-width:0.3;" x1="69.6" x2="234.6" y1="849.4324" y2="849.4324"/><ellipse cx="75.6" cy="858.4685" fill="#84BE84" rx="1.8" ry="1.8" style="stroke:#038048;stroke-width:0.6;"/><text fill="#000000" font-family="sans-serif" font-size="8.4" lengthAdjust="spacing" textLength="150.6" x="81" y="861.4588">GameInfo(long gameId, String category,</text><text fill="#000000" font-family="sans-serif" font-size="8.4" lengthAdjust="spacing" textLength="117" x="81" y="872.9309">int gameRound, int playerNum)</text><ellipse cx="75.6" cy="881.4126" fill="#84BE84" rx="1.8" ry="1.8" style="stroke:#038048;stroke-width:0.6;"/><text fill="#000000" font-family="sans-serif" font-size="8.4" lengthAdjust="spacing" textLength="101.4" x="81" y="884.4029">getCategoryName(): String</text><ellipse cx="75.6" cy="892.8847" fill="#84BE84" rx="1.8" ry="1.8" style="stroke:#038048;stroke-width:0.6;"/><text fill="#000000" font-family="sans-serif" font-size="8.4" lengthAdjust="spacing" textLength="82.2" x="81" y="895.875">getGameTime(): Date</text><ellipse cx="75.6" cy="904.3567" fill="#84BE84" rx="1.8" ry="1.8" style="stroke:#038048;stroke-width:0.6;"/><text fill="#000000" font-family="sans-serif" font-size="8.4" lengthAdjust="spacing" textLength="72.6" x="81" y="907.3471">getPlayerNum(): int</text><ellipse cx="75.6" cy="915.8288" fill="#84BE84" rx="1.8" ry="1.8" style="stroke:#038048;stroke-width:0.6;"/><text fill="#000000" font-family="sans-serif" font-size="8.4" lengthAdjust="spacing" textLength="79.8" x="81" y="918.8191">getGameRound(): int</text><ellipse cx="75.6" cy="927.3009" fill="#84BE84" rx="1.8" ry="1.8" style="stroke:#038048;stroke-width:0.6;"/><text fill="#000000" font-family="sans-serif" font-size="8.4" lengthAdjust="spacing" textLength="104.4" x="81" y="930.2912">addLabel(String label): void</text><ellipse cx="75.6" cy="938.7729" fill="#84BE84" rx="1.8" ry="1.8" style="stroke:#038048;stroke-width:0.6;"/><text fill="#000000" font-family="sans-serif" font-size="8.4" lengthAdjust="spacing" textLength="88.8" x="81" y="941.7633">getLabel(): List&lt;String&gt;</text></g><!--MD5=[b6dcce5e5ef3c84b0b048d11301373dd]
-class Game--><g id="elem_Game"><rect codeLine="74" fill="#F1F1F1" height="132.0486" id="Game" rx="1.5" ry="1.5" style="stroke:#181818;stroke-width:0.3;" width="135" x="380.4" y="4.2"/><ellipse cx="433.95" cy="13.8" fill="#ADD1B2" rx="6.6" ry="6.6" style="stroke:#181818;stroke-width:0.6;"/><path d="M433.7625,17.4 Q432.6,17.4 431.925,16.5469 Q431.25,15.6844 431.25,13.9125 Q431.25,12.4125 431.9625,11.4 Q432.675,10.3875 433.9125,10.3875 Q434.2031,10.3875 434.5031,10.4531 Q434.7469,10.5375 434.8969,10.5375 Q435.0188,10.5375 435.0656,10.5281 Q435.1219,10.5094 435.4406,10.1063 L435.8812,12.6469 L435.3,13.0031 Q435,12.075 434.6531,11.7375 Q434.3156,11.4 433.7719,11.4 Q433.0781,11.4 432.6656,12.1125 Q432.2625,12.8156 432.2625,13.9125 Q432.2625,15.1125 432.6094,15.75 Q432.9563,16.3875 433.7344,16.3875 Q434.2875,16.3875 434.6719,16.05 Q435.0656,15.7031 435.2719,14.8687 L435.8906,15.1781 Q435.6563,16.2281 435.0938,16.8187 Q434.5313,17.4 433.7625,17.4 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="8.4" lengthAdjust="spacing" textLength="22.8" x="446.25" y="17.6903">Game</text><line style="stroke:#181818;stroke-width:0.3;" x1="381" x2="514.8" y1="23.4" y2="23.4"/><rect fill="none" height="3.6" style="stroke:#C82930;stroke-width:0.6;" width="3.6" x="385.2" y="30.636"/><text fill="#000000" font-family="sans-serif" font-size="8.4" lengthAdjust="spacing" textLength="88.2" x="392.4" y="35.4264">playerList: List&lt;Player&gt;</text><rect fill="none" height="3.6" style="stroke:#C82930;stroke-width:0.6;" width="3.6" x="385.2" y="42.1081"/><text fill="#000000" font-family="sans-serif" font-size="8.4" lengthAdjust="spacing" textLength="101.4" x="392.4" y="46.8984">cityCategory: CityCategory</text><line style="stroke:#181818;stroke-width:0.3;" x1="381" x2="514.8" y1="51.1441" y2="51.1441"/><ellipse cx="387" cy="60.1802" fill="#84BE84" rx="1.8" ry="1.8" style="stroke:#038048;stroke-width:0.6;"/><text fill="#000000" font-family="sans-serif" font-size="8.4" lengthAdjust="spacing" textLength="113.4" x="392.4" y="63.1705">Game(CityCategory category)</text><ellipse cx="387" cy="71.6522" fill="#84BE84" rx="1.8" ry="1.8" style="stroke:#038048;stroke-width:0.6;"/><text fill="#000000" font-family="sans-serif" font-size="8.4" lengthAdjust="spacing" textLength="101.4" x="392.4" y="74.6426">getCategoryName(): String</text><ellipse cx="387" cy="83.1243" fill="#84BE84" rx="1.8" ry="1.8" style="stroke:#038048;stroke-width:0.6;"/><text fill="#000000" font-family="sans-serif" font-size="8.4" lengthAdjust="spacing" textLength="108" x="392.4" y="86.1146">addPlayer(User player): void</text><ellipse cx="387" cy="94.5964" fill="#84BE84" rx="1.8" ry="1.8" style="stroke:#038048;stroke-width:0.6;"/><text fill="#000000" font-family="sans-serif" font-size="8.4" lengthAdjust="spacing" textLength="73.8" x="392.4" y="97.5867">showPlayers(): void</text><ellipse cx="387" cy="106.0685" fill="#84BE84" rx="1.8" ry="1.8" style="stroke:#038048;stroke-width:0.6;"/><text fill="#000000" font-family="sans-serif" font-size="8.4" lengthAdjust="spacing" textLength="76.8" x="392.4" y="109.0588">showRanking(): void</text><ellipse cx="387" cy="117.5405" fill="#84BE84" rx="1.8" ry="1.8" style="stroke:#038048;stroke-width:0.6;"/><text fill="#000000" font-family="sans-serif" font-size="8.4" lengthAdjust="spacing" textLength="57.6" x="392.4" y="120.5309">drawCity(): City</text><ellipse cx="387" cy="129.0126" fill="#84BE84" rx="1.8" ry="1.8" style="stroke:#038048;stroke-width:0.6;"/><text fill="#000000" font-family="sans-serif" font-size="8.4" lengthAdjust="spacing" textLength="119.4" x="392.4" y="132.0029">generateOptions(): List&lt;String&gt;</text></g><!--MD5=[2cb47ba637a0d19583e6199456f6ad0b]
-class Player--><g id="elem_Player"><rect codeLine="86" fill="#F1F1F1" height="132.0486" id="Player" rx="1.5" ry="1.5" style="stroke:#181818;stroke-width:0.3;" width="154.8" x="169.5" y="4.2"/><ellipse cx="232.35" cy="13.8" fill="#ADD1B2" rx="6.6" ry="6.6" style="stroke:#181818;stroke-width:0.6;"/><path d="M232.1625,17.4 Q231,17.4 230.325,16.5469 Q229.65,15.6844 229.65,13.9125 Q229.65,12.4125 230.3625,11.4 Q231.075,10.3875 232.3125,10.3875 Q232.6031,10.3875 232.9031,10.4531 Q233.1469,10.5375 233.2969,10.5375 Q233.4188,10.5375 233.4656,10.5281 Q233.5219,10.5094 233.8406,10.1063 L234.2813,12.6469 L233.7,13.0031 Q233.4,12.075 233.0531,11.7375 Q232.7156,11.4 232.1719,11.4 Q231.4781,11.4 231.0656,12.1125 Q230.6625,12.8156 230.6625,13.9125 Q230.6625,15.1125 231.0094,15.75 Q231.3563,16.3875 232.1344,16.3875 Q232.6875,16.3875 233.0719,16.05 Q233.4656,15.7031 233.6719,14.8687 L234.2906,15.1781 Q234.0562,16.2281 233.4937,16.8187 Q232.9312,17.4 232.1625,17.4 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="8.4" lengthAdjust="spacing" textLength="24" x="244.65" y="17.6903">Player</text><line style="stroke:#181818;stroke-width:0.3;" x1="170.1" x2="323.7" y1="23.4" y2="23.4"/><rect fill="none" height="3.6" style="stroke:#C82930;stroke-width:0.6;" width="3.6" x="174.3" y="30.636"/><text fill="#000000" font-family="sans-serif" font-size="8.4" lengthAdjust="spacing" textLength="44.4" x="181.5" y="35.4264">userId: long</text><rect fill="none" height="3.6" style="stroke:#C82930;stroke-width:0.6;" width="3.6" x="174.3" y="42.1081"/><text fill="#000000" font-family="sans-serif" font-size="8.4" lengthAdjust="spacing" textLength="64.8" x="181.5" y="46.8984">username: String</text><rect fill="none" height="3.6" style="stroke:#C82930;stroke-width:0.6;" width="3.6" x="174.3" y="53.5802"/><text fill="#000000" font-family="sans-serif" font-size="8.4" lengthAdjust="spacing" textLength="34.8" x="181.5" y="58.3705">score: int</text><rect fill="none" height="3.6" style="stroke:#C82930;stroke-width:0.6;" width="3.6" x="174.3" y="65.0522"/><text fill="#000000" font-family="sans-serif" font-size="8.4" lengthAdjust="spacing" textLength="90" x="181.5" y="69.8426">answerList: List&lt;String&gt;</text><line style="stroke:#181818;stroke-width:0.3;" x1="170.1" x2="323.7" y1="74.0883" y2="74.0883"/><ellipse cx="176.1" cy="83.1243" fill="#84BE84" rx="1.8" ry="1.8" style="stroke:#038048;stroke-width:0.6;"/><text fill="#000000" font-family="sans-serif" font-size="8.4" lengthAdjust="spacing" textLength="139.2" x="181.5" y="86.1146">Player(long userId, String username)</text><ellipse cx="176.1" cy="94.5964" fill="#84BE84" rx="1.8" ry="1.8" style="stroke:#038048;stroke-width:0.6;"/><text fill="#000000" font-family="sans-serif" font-size="8.4" lengthAdjust="spacing" textLength="63" x="181.5" y="97.5867">getUserId(): long</text><ellipse cx="176.1" cy="106.0685" fill="#84BE84" rx="1.8" ry="1.8" style="stroke:#038048;stroke-width:0.6;"/><text fill="#000000" font-family="sans-serif" font-size="8.4" lengthAdjust="spacing" textLength="83.4" x="181.5" y="109.0588">getUsername(): String</text><ellipse cx="176.1" cy="117.5405" fill="#84BE84" rx="1.8" ry="1.8" style="stroke:#038048;stroke-width:0.6;"/><text fill="#000000" font-family="sans-serif" font-size="8.4" lengthAdjust="spacing" textLength="54" x="181.5" y="120.5309">getScore(): int</text><ellipse cx="176.1" cy="129.0126" fill="#84BE84" rx="1.8" ry="1.8" style="stroke:#038048;stroke-width:0.6;"/><text fill="#000000" font-family="sans-serif" font-size="8.4" lengthAdjust="spacing" textLength="120" x="181.5" y="132.0029">addAnswer(String answer): void</text></g><!--MD5=[2ecf1105c8164485bc3e6f82ac667166]
-class CityCategory--><g id="elem_CityCategory"><rect codeLine="98" fill="#F1F1F1" height="97.6324" id="CityCategory" rx="1.5" ry="1.5" style="stroke:#181818;stroke-width:0.3;" width="156" x="431.7" y="235.2"/><ellipse cx="482.55" cy="244.8" fill="#A9DCDF" rx="6.6" ry="6.6" style="stroke:#181818;stroke-width:0.6;"/><path d="M483.1969,245.4 L481.3781,245.4 L481.0219,246.3563 Q480.9938,246.4594 480.9938,246.5438 Q480.9938,246.6563 481.0219,246.7219 Q481.05,246.7875 481.1813,246.7875 L481.5094,246.7875 L481.5094,247.8 L479.55,247.8 L479.55,246.7875 L479.8875,246.7875 Q480.0187,246.7875 480.0844,246.75 Q480.1594,246.7125 480.1875,246.6 L481.9688,240.7875 L482.9437,240.7875 L484.6875,246.5344 Q484.7438,246.675 484.8281,246.7313 Q484.9125,246.7875 485.025,246.7875 L485.3625,246.7875 L485.3625,247.8 L483.1688,247.8 L483.1688,246.7875 L483.5344,246.7875 Q483.6375,246.7875 483.6375,246.7781 Q483.6469,246.7687 483.6469,246.7313 Q483.6469,246.6281 483.6281,246.5719 L483.1969,245.4 Z M480.0656,247.2 L480.0656,247.2 Z M480.4688,247.2 L480.4688,247.2 Z M483.3,247.2 L483.3,247.2 Z M483.975,247.2 L483.975,247.2 Z M482.2969,241.7437 L482.3438,241.7437 L481.6125,244.3875 L483.0094,244.3875 L482.2969,241.7437 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="8.4" font-style="italic" lengthAdjust="spacing" textLength="49.2" x="494.85" y="248.6903">CityCategory</text><line style="stroke:#181818;stroke-width:0.3;" x1="432.3" x2="587.1" y1="254.4" y2="254.4"/><rect fill="none" height="3.6" style="stroke:#C82930;stroke-width:0.6;" width="3.6" x="436.5" y="261.636"/><text fill="#000000" font-family="sans-serif" font-size="8.4" lengthAdjust="spacing" textLength="81.6" x="443.7" y="266.4264">categoryName: String</text><rect fill="none" height="3.6" style="stroke:#C82930;stroke-width:0.6;" width="3.6" x="436.5" y="273.1081"/><text fill="#000000" font-family="sans-serif" font-size="8.4" lengthAdjust="spacing" textLength="67.8" x="443.7" y="277.8984">cityList: List&lt;City&gt;</text><line style="stroke:#181818;stroke-width:0.3;" x1="432.3" x2="587.1" y1="282.1441" y2="282.1441"/><ellipse cx="438.3" cy="291.1802" fill="#84BE84" rx="1.8" ry="1.8" style="stroke:#038048;stroke-width:0.6;"/><text fill="#000000" font-family="sans-serif" font-size="8.4" font-style="italic" lengthAdjust="spacing" textLength="102" x="443.7" y="294.1705">getCategoryName(): String</text><ellipse cx="438.3" cy="302.6522" fill="#84BE84" rx="1.8" ry="1.8" style="stroke:#038048;stroke-width:0.6;"/><text fill="#000000" font-family="sans-serif" font-size="8.4" font-style="italic" lengthAdjust="spacing" textLength="63.6" x="443.7" y="305.6426">getCityNum(): int</text><ellipse cx="438.3" cy="314.1243" fill="#84BE84" rx="1.8" ry="1.8" style="stroke:#038048;stroke-width:0.6;"/><text fill="#000000" font-family="sans-serif" font-size="8.4" font-style="italic" lengthAdjust="spacing" textLength="57.6" x="443.7" y="317.1146">drawCity(): City</text><ellipse cx="438.3" cy="325.5964" fill="#84BE84" rx="1.8" ry="1.8" style="stroke:#038048;stroke-width:0.6;"/><text fill="#000000" font-family="sans-serif" font-size="8.4" font-style="italic" lengthAdjust="spacing" textLength="140.4" x="443.7" y="328.5867">randomDrawCityName(): List&lt;String&gt;</text></g><!--MD5=[9466097c40aeafc62ec36a0cc4f3c955]
-class City--><g id="elem_City"><rect codeLine="107" fill="#F1F1F1" height="154.9928" id="City" rx="1.5" ry="1.5" style="stroke:#181818;stroke-width:0.3;" width="197.4" x="673.2" y="206.7"/><ellipse cx="762.15" cy="216.3" fill="#ADD1B2" rx="6.6" ry="6.6" style="stroke:#181818;stroke-width:0.6;"/><path d="M761.9625,219.9 Q760.8,219.9 760.125,219.0469 Q759.45,218.1844 759.45,216.4125 Q759.45,214.9125 760.1625,213.9 Q760.875,212.8875 762.1125,212.8875 Q762.4031,212.8875 762.7031,212.9531 Q762.9469,213.0375 763.0969,213.0375 Q763.2188,213.0375 763.2656,213.0281 Q763.3219,213.0094 763.6406,212.6063 L764.0813,215.1469 L763.5,215.5031 Q763.2,214.575 762.8531,214.2375 Q762.5156,213.9 761.9719,213.9 Q761.2781,213.9 760.8656,214.6125 Q760.4625,215.3156 760.4625,216.4125 Q760.4625,217.6125 760.8094,218.25 Q761.1563,218.8875 761.9344,218.8875 Q762.4875,218.8875 762.8719,218.55 Q763.2656,218.2031 763.4719,217.3688 L764.0906,217.6781 Q763.8562,218.7281 763.2937,219.3188 Q762.7312,219.9 761.9625,219.9 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="8.4" lengthAdjust="spacing" textLength="14.4" x="774.45" y="220.1903">City</text><line style="stroke:#181818;stroke-width:0.3;" x1="673.8" x2="870" y1="225.9" y2="225.9"/><rect fill="none" height="3.6" style="stroke:#C82930;stroke-width:0.6;" width="3.6" x="678" y="233.136"/><text fill="#000000" font-family="sans-serif" font-size="8.4" lengthAdjust="spacing" textLength="61.2" x="685.2" y="237.9264">cityName: String</text><rect fill="none" height="3.6" style="stroke:#C82930;stroke-width:0.6;" width="3.6" x="678" y="244.6081"/><text fill="#000000" font-family="sans-serif" font-size="8.4" lengthAdjust="spacing" textLength="76.8" x="685.2" y="249.3984">countryName: String</text><rect fill="none" height="3.6" style="stroke:#C82930;stroke-width:0.6;" width="3.6" x="678" y="256.0802"/><text fill="#000000" font-family="sans-serif" font-size="8.4" lengthAdjust="spacing" textLength="56.4" x="685.2" y="260.8705">location: String</text><rect fill="none" height="3.6" style="stroke:#C82930;stroke-width:0.6;" width="3.6" x="678" y="267.5522"/><text fill="#000000" font-family="sans-serif" font-size="8.4" lengthAdjust="spacing" textLength="99" x="685.2" y="272.3426">pictureBase: List&lt;Picture&gt;</text><line style="stroke:#181818;stroke-width:0.3;" x1="673.8" x2="870" y1="276.5883" y2="276.5883"/><ellipse cx="679.8" cy="285.6243" fill="#84BE84" rx="1.8" ry="1.8" style="stroke:#038048;stroke-width:0.6;"/><text fill="#000000" font-family="sans-serif" font-size="8.4" lengthAdjust="spacing" textLength="181.8" x="685.2" y="288.6146">City(String name, String country, String location,</text><text fill="#000000" font-family="sans-serif" font-size="8.4" lengthAdjust="spacing" textLength="84.6" x="685.2" y="300.0867">List&lt;Picture&gt; picBase)</text><ellipse cx="679.8" cy="308.5685" fill="#84BE84" rx="1.8" ry="1.8" style="stroke:#038048;stroke-width:0.6;"/><text fill="#000000" font-family="sans-serif" font-size="8.4" lengthAdjust="spacing" textLength="81" x="685.2" y="311.5588">getCityName(): String</text><ellipse cx="679.8" cy="320.0405" fill="#84BE84" rx="1.8" ry="1.8" style="stroke:#038048;stroke-width:0.6;"/><text fill="#000000" font-family="sans-serif" font-size="8.4" lengthAdjust="spacing" textLength="96.6" x="685.2" y="323.0309">getCountryName(): String</text><ellipse cx="679.8" cy="331.5126" fill="#84BE84" rx="1.8" ry="1.8" style="stroke:#038048;stroke-width:0.6;"/><text fill="#000000" font-family="sans-serif" font-size="8.4" lengthAdjust="spacing" textLength="77.4" x="685.2" y="334.5029">getLocation(): String</text><ellipse cx="679.8" cy="342.9847" fill="#84BE84" rx="1.8" ry="1.8" style="stroke:#038048;stroke-width:0.6;"/><text fill="#000000" font-family="sans-serif" font-size="8.4" lengthAdjust="spacing" textLength="81.6" x="685.2" y="345.975">drawPicture(): Picture</text><ellipse cx="679.8" cy="354.4567" fill="#84BE84" rx="1.8" ry="1.8" style="stroke:#038048;stroke-width:0.6;"/><text fill="#000000" font-family="sans-serif" font-size="8.4" lengthAdjust="spacing" textLength="84" x="685.2" y="357.4471">flushPictureList(): void</text></g><!--MD5=[18b89e0834131a909517048318a5909c]
-class Picture--><g id="elem_Picture"><rect codeLine="121" fill="#F1F1F1" height="86.1604" id="Picture" rx="1.5" ry="1.5" style="stroke:#181818;stroke-width:0.3;" width="145.2" x="713.1" y="460.5"/><ellipse cx="769.95" cy="470.1" fill="#ADD1B2" rx="6.6" ry="6.6" style="stroke:#181818;stroke-width:0.6;"/><path d="M769.7625,473.7 Q768.6,473.7 767.925,472.8469 Q767.25,471.9844 767.25,470.2125 Q767.25,468.7125 767.9625,467.7 Q768.675,466.6875 769.9125,466.6875 Q770.2031,466.6875 770.5031,466.7531 Q770.7469,466.8375 770.8969,466.8375 Q771.0188,466.8375 771.0656,466.8281 Q771.1219,466.8094 771.4406,466.4063 L771.8813,468.9469 L771.3,469.3031 Q771,468.375 770.6531,468.0375 Q770.3156,467.7 769.7719,467.7 Q769.0781,467.7 768.6656,468.4125 Q768.2625,469.1156 768.2625,470.2125 Q768.2625,471.4125 768.6094,472.05 Q768.9563,472.6875 769.7344,472.6875 Q770.2875,472.6875 770.6719,472.35 Q771.0656,472.0031 771.2719,471.1688 L771.8906,471.4781 Q771.6563,472.5281 771.0938,473.1188 Q770.5313,473.7 769.7625,473.7 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="8.4" lengthAdjust="spacing" textLength="26.4" x="782.25" y="473.9903">Picture</text><line style="stroke:#181818;stroke-width:0.3;" x1="713.7" x2="857.7" y1="479.7" y2="479.7"/><rect fill="none" height="3.6" style="stroke:#C82930;stroke-width:0.6;" width="3.6" x="717.9" y="486.936"/><text fill="#000000" font-family="sans-serif" font-size="8.4" lengthAdjust="spacing" textLength="53.4" x="725.1" y="491.7264">pictureId: long</text><rect fill="none" height="3.6" style="stroke:#C82930;stroke-width:0.6;" width="3.6" x="717.9" y="498.4081"/><text fill="#000000" font-family="sans-serif" font-size="8.4" lengthAdjust="spacing" textLength="70.2" x="725.1" y="503.1984">picturePath: String</text><line style="stroke:#181818;stroke-width:0.3;" x1="713.7" x2="857.7" y1="507.4441" y2="507.4441"/><ellipse cx="719.7" cy="516.4802" fill="#84BE84" rx="1.8" ry="1.8" style="stroke:#038048;stroke-width:0.6;"/><text fill="#000000" font-family="sans-serif" font-size="8.4" lengthAdjust="spacing" textLength="129.6" x="725.1" y="519.4705">Picture(long pictureId, String path)</text><ellipse cx="719.7" cy="527.9522" fill="#84BE84" rx="1.8" ry="1.8" style="stroke:#038048;stroke-width:0.6;"/><text fill="#000000" font-family="sans-serif" font-size="8.4" lengthAdjust="spacing" textLength="72" x="725.1" y="530.9426">getPictureId(): long</text><ellipse cx="719.7" cy="539.4243" fill="#84BE84" rx="1.8" ry="1.8" style="stroke:#038048;stroke-width:0.6;"/><text fill="#000000" font-family="sans-serif" font-size="8.4" lengthAdjust="spacing" textLength="88.8" x="725.1" y="542.4146">getPicturePath(): String</text></g><!--MD5=[bc83f44ef899e69f8342983a819ee1cb]
-class EuroCity--><g id="elem_EuroCity"><rect codeLine="137" fill="#F1F1F1" height="109.1045" id="EuroCity" rx="1.5" ry="1.5" style="stroke:#181818;stroke-width:0.3;" width="163.2" x="300.9" y="449.1"/><ellipse cx="363.75" cy="458.7" fill="#ADD1B2" rx="6.6" ry="6.6" style="stroke:#181818;stroke-width:0.6;"/><path d="M363.5625,462.3 Q362.4,462.3 361.725,461.4469 Q361.05,460.5844 361.05,458.8125 Q361.05,457.3125 361.7625,456.3 Q362.475,455.2875 363.7125,455.2875 Q364.0031,455.2875 364.3031,455.3531 Q364.5469,455.4375 364.6969,455.4375 Q364.8187,455.4375 364.8656,455.4281 Q364.9219,455.4094 365.2406,455.0062 L365.6813,457.5469 L365.1,457.9031 Q364.8,456.975 364.4531,456.6375 Q364.1156,456.3 363.5719,456.3 Q362.8781,456.3 362.4656,457.0125 Q362.0625,457.7156 362.0625,458.8125 Q362.0625,460.0125 362.4094,460.65 Q362.7562,461.2875 363.5344,461.2875 Q364.0875,461.2875 364.4719,460.95 Q364.8656,460.6031 365.0719,459.7688 L365.6906,460.0781 Q365.4563,461.1281 364.8938,461.7188 Q364.3313,462.3 363.5625,462.3 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="8.4" lengthAdjust="spacing" textLength="32.4" x="376.05" y="462.5903">EuroCity</text><line style="stroke:#181818;stroke-width:0.3;" x1="301.5" x2="463.5" y1="468.3" y2="468.3"/><rect fill="none" height="3.6" style="stroke:#C82930;stroke-width:0.6;" width="3.6" x="305.7" y="475.536"/><text fill="#000000" font-family="sans-serif" font-size="8.4" lengthAdjust="spacing" textLength="81.6" x="312.9" y="480.3264">categoryName: String</text><rect fill="none" height="3.6" style="stroke:#C82930;stroke-width:0.6;" width="3.6" x="305.7" y="487.0081"/><text fill="#000000" font-family="sans-serif" font-size="8.4" lengthAdjust="spacing" textLength="67.8" x="312.9" y="491.7984">cityList: List&lt;City&gt;</text><line style="stroke:#181818;stroke-width:0.3;" x1="301.5" x2="463.5" y1="496.0441" y2="496.0441"/><ellipse cx="307.5" cy="505.0802" fill="#84BE84" rx="1.8" ry="1.8" style="stroke:#038048;stroke-width:0.6;"/><text fill="#000000" font-family="sans-serif" font-size="8.4" lengthAdjust="spacing" textLength="147.6" x="312.9" y="508.0705">EuroCity(String name, List&lt;City&gt; cities)</text><ellipse cx="307.5" cy="516.5522" fill="#84BE84" rx="1.8" ry="1.8" style="stroke:#038048;stroke-width:0.6;"/><text fill="#000000" font-family="sans-serif" font-size="8.4" lengthAdjust="spacing" textLength="101.4" x="312.9" y="519.5426">getCategoryName(): String</text><ellipse cx="307.5" cy="528.0243" fill="#84BE84" rx="1.8" ry="1.8" style="stroke:#038048;stroke-width:0.6;"/><text fill="#000000" font-family="sans-serif" font-size="8.4" lengthAdjust="spacing" textLength="63" x="312.9" y="531.0146">getCityNum(): int</text><ellipse cx="307.5" cy="539.4964" fill="#84BE84" rx="1.8" ry="1.8" style="stroke:#038048;stroke-width:0.6;"/><text fill="#000000" font-family="sans-serif" font-size="8.4" lengthAdjust="spacing" textLength="57.6" x="312.9" y="542.4867">drawCity(): City</text><ellipse cx="307.5" cy="550.9685" fill="#84BE84" rx="1.8" ry="1.8" style="stroke:#038048;stroke-width:0.6;"/><text fill="#000000" font-family="sans-serif" font-size="8.4" lengthAdjust="spacing" textLength="139.8" x="312.9" y="553.9588">randomDrawCityName(): List&lt;String&gt;</text></g><!--MD5=[10155fd2c002845596279413b18433c0]
-class AsiaCity--><g id="elem_AsiaCity"><rect codeLine="146" fill="#F1F1F1" height="109.1045" id="AsiaCity" rx="1.5" ry="1.5" style="stroke:#181818;stroke-width:0.3;" width="161.4" x="270.6" y="611.4"/><ellipse cx="333.45" cy="621" fill="#ADD1B2" rx="6.6" ry="6.6" style="stroke:#181818;stroke-width:0.6;"/><path d="M333.2625,624.6 Q332.1,624.6 331.425,623.7469 Q330.75,622.8844 330.75,621.1125 Q330.75,619.6125 331.4625,618.6 Q332.175,617.5875 333.4125,617.5875 Q333.7031,617.5875 334.0031,617.6531 Q334.2469,617.7375 334.3969,617.7375 Q334.5188,617.7375 334.5656,617.7281 Q334.6219,617.7094 334.9406,617.3063 L335.3812,619.8469 L334.8,620.2031 Q334.5,619.275 334.1531,618.9375 Q333.8156,618.6 333.2719,618.6 Q332.5781,618.6 332.1656,619.3125 Q331.7625,620.0156 331.7625,621.1125 Q331.7625,622.3125 332.1094,622.95 Q332.4563,623.5875 333.2344,623.5875 Q333.7875,623.5875 334.1719,623.25 Q334.5656,622.9031 334.7719,622.0688 L335.3906,622.3781 Q335.1563,623.4281 334.5938,624.0188 Q334.0313,624.6 333.2625,624.6 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="8.4" lengthAdjust="spacing" textLength="30.6" x="345.75" y="624.8903">AsiaCity</text><line style="stroke:#181818;stroke-width:0.3;" x1="271.2" x2="431.4" y1="630.6" y2="630.6"/><rect fill="none" height="3.6" style="stroke:#C82930;stroke-width:0.6;" width="3.6" x="275.4" y="637.836"/><text fill="#000000" font-family="sans-serif" font-size="8.4" lengthAdjust="spacing" textLength="81.6" x="282.6" y="642.6264">categoryName: String</text><rect fill="none" height="3.6" style="stroke:#C82930;stroke-width:0.6;" width="3.6" x="275.4" y="649.3081"/><text fill="#000000" font-family="sans-serif" font-size="8.4" lengthAdjust="spacing" textLength="67.8" x="282.6" y="654.0984">cityList: List&lt;City&gt;</text><line style="stroke:#181818;stroke-width:0.3;" x1="271.2" x2="431.4" y1="658.3441" y2="658.3441"/><ellipse cx="277.2" cy="667.3802" fill="#84BE84" rx="1.8" ry="1.8" style="stroke:#038048;stroke-width:0.6;"/><text fill="#000000" font-family="sans-serif" font-size="8.4" lengthAdjust="spacing" textLength="145.8" x="282.6" y="670.3705">AsiaCity(String name, List&lt;City&gt; cities)</text><ellipse cx="277.2" cy="678.8522" fill="#84BE84" rx="1.8" ry="1.8" style="stroke:#038048;stroke-width:0.6;"/><text fill="#000000" font-family="sans-serif" font-size="8.4" lengthAdjust="spacing" textLength="101.4" x="282.6" y="681.8426">getCategoryName(): String</text><ellipse cx="277.2" cy="690.3243" fill="#84BE84" rx="1.8" ry="1.8" style="stroke:#038048;stroke-width:0.6;"/><text fill="#000000" font-family="sans-serif" font-size="8.4" lengthAdjust="spacing" textLength="63" x="282.6" y="693.3146">getCityNum(): int</text><ellipse cx="277.2" cy="701.7964" fill="#84BE84" rx="1.8" ry="1.8" style="stroke:#038048;stroke-width:0.6;"/><text fill="#000000" font-family="sans-serif" font-size="8.4" lengthAdjust="spacing" textLength="57.6" x="282.6" y="704.7867">drawCity(): City</text><ellipse cx="277.2" cy="713.2685" fill="#84BE84" rx="1.8" ry="1.8" style="stroke:#038048;stroke-width:0.6;"/><text fill="#000000" font-family="sans-serif" font-size="8.4" lengthAdjust="spacing" textLength="139.8" x="282.6" y="716.2588">randomDrawCityName(): List&lt;String&gt;</text></g><!--MD5=[74db1811a5180ad2de10f0161e4e8a79]
-class NorthAmericaCity--><g id="elem_NorthAmericaCity"><rect codeLine="155" fill="#F1F1F1" height="109.1045" id="NorthAmericaCity" rx="1.5" ry="1.5" style="stroke:#181818;stroke-width:0.3;" width="196.2" x="453" y="611.4"/><ellipse cx="515.85" cy="621" fill="#ADD1B2" rx="6.6" ry="6.6" style="stroke:#181818;stroke-width:0.6;"/><path d="M515.6625,624.6 Q514.5,624.6 513.825,623.7469 Q513.15,622.8844 513.15,621.1125 Q513.15,619.6125 513.8625,618.6 Q514.575,617.5875 515.8125,617.5875 Q516.1031,617.5875 516.4031,617.6531 Q516.6469,617.7375 516.7969,617.7375 Q516.9187,617.7375 516.9656,617.7281 Q517.0219,617.7094 517.3406,617.3063 L517.7813,619.8469 L517.2,620.2031 Q516.9,619.275 516.5531,618.9375 Q516.2156,618.6 515.6719,618.6 Q514.9781,618.6 514.5656,619.3125 Q514.1625,620.0156 514.1625,621.1125 Q514.1625,622.3125 514.5094,622.95 Q514.8562,623.5875 515.6344,623.5875 Q516.1875,623.5875 516.5719,623.25 Q516.9656,622.9031 517.1719,622.0688 L517.7906,622.3781 Q517.5563,623.4281 516.9938,624.0188 Q516.4313,624.6 515.6625,624.6 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="8.4" lengthAdjust="spacing" textLength="65.4" x="528.15" y="624.8903">NorthAmericaCity</text><line style="stroke:#181818;stroke-width:0.3;" x1="453.6" x2="648.6" y1="630.6" y2="630.6"/><rect fill="none" height="3.6" style="stroke:#C82930;stroke-width:0.6;" width="3.6" x="457.8" y="637.836"/><text fill="#000000" font-family="sans-serif" font-size="8.4" lengthAdjust="spacing" textLength="81.6" x="465" y="642.6264">categoryName: String</text><rect fill="none" height="3.6" style="stroke:#C82930;stroke-width:0.6;" width="3.6" x="457.8" y="649.3081"/><text fill="#000000" font-family="sans-serif" font-size="8.4" lengthAdjust="spacing" textLength="67.8" x="465" y="654.0984">cityList: List&lt;City&gt;</text><line style="stroke:#181818;stroke-width:0.3;" x1="453.6" x2="648.6" y1="658.3441" y2="658.3441"/><ellipse cx="459.6" cy="667.3802" fill="#84BE84" rx="1.8" ry="1.8" style="stroke:#038048;stroke-width:0.6;"/><text fill="#000000" font-family="sans-serif" font-size="8.4" lengthAdjust="spacing" textLength="180.6" x="465" y="670.3705">NorthAmericaCity(String name, List&lt;City&gt; cities)</text><ellipse cx="459.6" cy="678.8522" fill="#84BE84" rx="1.8" ry="1.8" style="stroke:#038048;stroke-width:0.6;"/><text fill="#000000" font-family="sans-serif" font-size="8.4" lengthAdjust="spacing" textLength="101.4" x="465" y="681.8426">getCategoryName(): String</text><ellipse cx="459.6" cy="690.3243" fill="#84BE84" rx="1.8" ry="1.8" style="stroke:#038048;stroke-width:0.6;"/><text fill="#000000" font-family="sans-serif" font-size="8.4" lengthAdjust="spacing" textLength="63" x="465" y="693.3146">getCityNum(): int</text><ellipse cx="459.6" cy="701.7964" fill="#84BE84" rx="1.8" ry="1.8" style="stroke:#038048;stroke-width:0.6;"/><text fill="#000000" font-family="sans-serif" font-size="8.4" lengthAdjust="spacing" textLength="57.6" x="465" y="704.7867">drawCity(): City</text><ellipse cx="459.6" cy="713.2685" fill="#84BE84" rx="1.8" ry="1.8" style="stroke:#038048;stroke-width:0.6;"/><text fill="#000000" font-family="sans-serif" font-size="8.4" lengthAdjust="spacing" textLength="139.8" x="465" y="716.2588">randomDrawCityName(): List&lt;String&gt;</text></g><!--MD5=[de6ff2786e7a735a47a66b59b71fe521]
-class WorldCity--><g id="elem_WorldCity"><rect codeLine="164" fill="#F1F1F1" height="109.1045" id="WorldCity" rx="1.5" ry="1.5" style="stroke:#181818;stroke-width:0.3;" width="167.4" x="597.6" y="796.8"/><ellipse cx="660.45" cy="806.4" fill="#ADD1B2" rx="6.6" ry="6.6" style="stroke:#181818;stroke-width:0.6;"/><path d="M660.2625,810 Q659.1,810 658.425,809.1469 Q657.75,808.2844 657.75,806.5125 Q657.75,805.0125 658.4625,804 Q659.175,802.9875 660.4125,802.9875 Q660.7031,802.9875 661.0031,803.0531 Q661.2469,803.1375 661.3969,803.1375 Q661.5188,803.1375 661.5656,803.1281 Q661.6219,803.1094 661.9406,802.7063 L662.3813,805.2469 L661.8,805.6031 Q661.5,804.675 661.1531,804.3375 Q660.8156,804 660.2719,804 Q659.5781,804 659.1656,804.7125 Q658.7625,805.4156 658.7625,806.5125 Q658.7625,807.7125 659.1094,808.35 Q659.4563,808.9875 660.2344,808.9875 Q660.7875,808.9875 661.1719,808.65 Q661.5656,808.3031 661.7719,807.4688 L662.3906,807.7781 Q662.1563,808.8281 661.5938,809.4187 Q661.0313,810 660.2625,810 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="8.4" lengthAdjust="spacing" textLength="36.6" x="672.75" y="810.2903">WorldCity</text><line style="stroke:#181818;stroke-width:0.3;" x1="598.2" x2="764.4" y1="816" y2="816"/><rect fill="none" height="3.6" style="stroke:#C82930;stroke-width:0.6;" width="3.6" x="602.4" y="823.236"/><text fill="#000000" font-family="sans-serif" font-size="8.4" lengthAdjust="spacing" textLength="81.6" x="609.6" y="828.0264">categoryName: String</text><rect fill="none" height="3.6" style="stroke:#C82930;stroke-width:0.6;" width="3.6" x="602.4" y="834.7081"/><text fill="#000000" font-family="sans-serif" font-size="8.4" lengthAdjust="spacing" textLength="67.8" x="609.6" y="839.4984">cityList: List&lt;City&gt;</text><line style="stroke:#181818;stroke-width:0.3;" x1="598.2" x2="764.4" y1="843.7441" y2="843.7441"/><ellipse cx="604.2" cy="852.7802" fill="#84BE84" rx="1.8" ry="1.8" style="stroke:#038048;stroke-width:0.6;"/><text fill="#000000" font-family="sans-serif" font-size="8.4" lengthAdjust="spacing" textLength="151.8" x="609.6" y="855.7705">WorldCity(String name, List&lt;City&gt; cities)</text><ellipse cx="604.2" cy="864.2522" fill="#84BE84" rx="1.8" ry="1.8" style="stroke:#038048;stroke-width:0.6;"/><text fill="#000000" font-family="sans-serif" font-size="8.4" lengthAdjust="spacing" textLength="101.4" x="609.6" y="867.2426">getCategoryName(): String</text><ellipse cx="604.2" cy="875.7243" fill="#84BE84" rx="1.8" ry="1.8" style="stroke:#038048;stroke-width:0.6;"/><text fill="#000000" font-family="sans-serif" font-size="8.4" lengthAdjust="spacing" textLength="63" x="609.6" y="878.7146">getCityNum(): int</text><ellipse cx="604.2" cy="887.1964" fill="#84BE84" rx="1.8" ry="1.8" style="stroke:#038048;stroke-width:0.6;"/><text fill="#000000" font-family="sans-serif" font-size="8.4" lengthAdjust="spacing" textLength="57.6" x="609.6" y="890.1867">drawCity(): City</text><ellipse cx="604.2" cy="898.6685" fill="#84BE84" rx="1.8" ry="1.8" style="stroke:#038048;stroke-width:0.6;"/><text fill="#000000" font-family="sans-serif" font-size="8.4" lengthAdjust="spacing" textLength="139.8" x="609.6" y="901.6588">randomDrawCityName(): List&lt;String&gt;</text></g><!--MD5=[3582fbb016336012346c31a00cd27035]
-reverse link User to UserStatistics--><g id="link_User_UserStatistics"><path codeLine="67" d="M176.7,399.258 C176.7,410.298 176.7,421.272 176.7,431.718 " fill="none" id="User-backto-UserStatistics" style="stroke:#181818;stroke-width:0.6;"/><polygon fill="#181818" points="176.7,396.138,174.3,401.538,176.7,399.138,179.1,401.538,176.7,396.138" style="stroke:#181818;stroke-width:0.6;"/></g><!--MD5=[bf2fdfe05571cb59ff2fe6a1a06cc23c]
-reverse link User to UserStatus--><g id="link_User_UserStatus"><path codeLine="68" d="M96.942,398.592 C89.508,409.8 82.182,421.068 75.3,432 C65.898,446.934 56.028,464.082 48.354,477.798 " fill="none" id="User-backto-UserStatus" style="stroke:#181818;stroke-width:0.6;"/><polygon fill="#181818" points="98.634,396.054,93.6417,399.2158,96.9699,398.5502,97.6355,401.8784,98.634,396.054" style="stroke:#181818;stroke-width:0.6;"/></g><!--MD5=[8c3eca5601b4b425f97ef33c94d5ebe4]
-reverse link UserStatistics to GameHistory--><g id="link_UserStatistics_GameHistory"><path codeLine="69" d="M164.652,583.212 C162.882,594.774 161.112,606.378 159.48,617.076 " fill="none" id="UserStatistics-backto-GameHistory" style="stroke:#181818;stroke-width:0.6;"/><polygon fill="#181818" points="165.84,575.43,162.9216,578.6242,164.7476,582.5466,167.666,579.3525,165.84,575.43" style="stroke:#181818;stroke-width:0.6;"/></g><!--MD5=[cc45f50a47cfbd24cef30bfc567bb8a5]
-reverse link GameHistory to GameInfo--><g id="link_GameHistory_GameInfo"><path codeLine="70" d="M152.1,722.838 C152.1,733.548 152.1,745.026 152.1,756.552 " fill="none" id="GameHistory-backto-GameInfo" style="stroke:#181818;stroke-width:0.6;"/><polygon fill="none" points="152.1,714.996,149.7,718.596,152.1,722.196,154.5,718.596,152.1,714.996" style="stroke:#181818;stroke-width:0.6;"/></g><!--MD5=[a06280fe4d7a2576f7e2d3ce392935b6]
-reverse link Game to CityCategory--><g id="link_Game_CityCategory"><path codeLine="130" d="M467.82,139.356 C476.886,170.556 487.398,206.742 495.624,235.05 " fill="none" id="Game-backto-CityCategory" style="stroke:#181818;stroke-width:0.6;"/><polygon fill="#181818" points="466.944,136.35,466.1359,142.2038,467.7761,139.2323,470.7476,140.8725,466.944,136.35" style="stroke:#181818;stroke-width:0.6;"/></g><!--MD5=[02f36e01e966f9911ab616b886036f2b]
-reverse link Player to User--><g id="link_Player_User"><path codeLine="131" d="M224.286,139.308 C220.806,149.856 217.14,160.968 213.45,172.158 " fill="none" id="Player-backto-User" style="stroke:#181818;stroke-width:0.6;"/><polygon fill="#181818" points="225.264,136.35,221.2913,140.7247,224.323,139.1986,225.8491,142.2303,225.264,136.35" style="stroke:#181818;stroke-width:0.6;"/></g><!--MD5=[86fb2dafc5e601216a471b22a40ae449]
-link Player to Game--><g id="link_Player_Game"><path codeLine="132" d="M324.432,70.2 C340.458,70.2 356.484,70.2 372.51,70.2 " fill="none" id="Player-to-Game" style="stroke:#181818;stroke-width:0.6;"/><polygon fill="none" points="380.382,70.2,376.782,67.8,373.182,70.2,376.782,72.6,380.382,70.2" style="stroke:#181818;stroke-width:0.6;"/></g><!--MD5=[8068c3aa954061e21ec47ba086bc808a]
-reverse link CityCategory to City--><g id="link_CityCategory_City"><path codeLine="133" d="M595.638,284.1 C621.492,284.1 647.34,284.1 673.194,284.1 " fill="none" id="CityCategory-backto-City" style="stroke:#181818;stroke-width:0.6;"/><polygon fill="none" points="587.796,284.1,591.396,286.5,594.996,284.1,591.396,281.7,587.796,284.1" style="stroke:#181818;stroke-width:0.6;"/></g><!--MD5=[acac3f43e1b51be3beca20bdbfc8206d]
-reverse link City to Picture--><g id="link_City_Picture"><path codeLine="135" d="M777.252,369.396 C779.22,400.53 781.362,434.466 783,460.356 " fill="none" id="City-backto-Picture" style="stroke:#181818;stroke-width:0.6;"/><polygon fill="none" points="776.754,361.548,774.5884,365.2937,777.213,368.7334,779.3786,364.9877,776.754,361.548" style="stroke:#181818;stroke-width:0.6;"/></g><!--MD5=[c3a671dd5e487461eee8348f3c6bfd5e]
-reverse link CityCategory to EuroCity--><g id="link_CityCategory_EuroCity"><path codeLine="174" d="M475.308,343.752 C456.21,376.542 432.618,417.048 414,449.01 " fill="none" id="CityCategory-backto-EuroCity" style="stroke:#181818;stroke-width:0.6;"/><polygon fill="none" points="471.804,341.424,481.47,333.168,479.058,345.654,471.804,341.424" style="stroke:#181818;stroke-width:0.6;"/></g><!--MD5=[c59794f86dcfe994c501b36d2fa4ad32]
-reverse link CityCategory to AsiaCity--><g id="link_CityCategory_AsiaCity"><path codeLine="175" d="M515.76,345.276 C519.042,407.346 515.832,504.54 474.3,575.4 C468.312,585.618 451.476,599.688 432.114,613.674 " fill="none" id="CityCategory-backto-AsiaCity" style="stroke:#181818;stroke-width:0.6;"/><polygon fill="none" points="511.56,345.39,515.01,333.156,519.942,344.874,511.56,345.39" style="stroke:#181818;stroke-width:0.6;"/></g><!--MD5=[fb414299df9254cbda62ae59fc14a3ad]
-reverse link CityCategory to NorthAmericaCity--><g id="link_CityCategory_NorthAmericaCity"><path codeLine="176" d="M516.27,345.102 C524.244,418.434 537.57,541.008 545.22,611.352 " fill="none" id="CityCategory-backto-NorthAmericaCity" style="stroke:#181818;stroke-width:0.6;"/><polygon fill="none" points="512.088,345.492,514.962,333.108,520.44,344.586,512.088,345.492" style="stroke:#181818;stroke-width:0.6;"/></g><!--MD5=[73a2de00e2988e2bc969f2da9132649d]
-reverse link CityCategory to WorldCity--><g id="link_CityCategory_WorldCity"><path codeLine="177" d="M544.302,343.722 C579.828,407.442 633.516,513.054 659.7,611.4 C676.236,673.5 680.694,747.522 681.618,796.644 " fill="none" id="CityCategory-backto-WorldCity" style="stroke:#181818;stroke-width:0.6;"/><polygon fill="none" points="540.546,345.612,538.326,333.096,547.866,341.496,540.546,345.612" style="stroke:#181818;stroke-width:0.6;"/></g><!--MD5=[7292971a92a98706dc9d99f0c6d3f710]
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentStyleType="text/css" height="718px" preserveAspectRatio="none" style="width:509px;height:718px;background:#FFFFFF;" version="1.1" viewBox="0 0 509 718" width="509.5px" zoomAndPan="magnify"><defs/><g><!--MD5=[51fd3fce36c976f35b405d5800336138]
+class UserStatus--><g id="elem_UserStatus"><rect codeLine="3" fill="#F1F1F1" height="43.1201" id="UserStatus" rx="1.25" ry="1.25" style="stroke:#181818;stroke-width:0.25;" width="50.5" x="3.5" y="239"/><ellipse cx="11" cy="247" fill="#EB937F" rx="5.5" ry="5.5" style="stroke:#181818;stroke-width:0.5;"/><path d="M9.0313,245 L9.0313,244.1563 L12.8906,244.1563 L13.3672,245.7656 L12.9609,246.0781 Q12.5781,245.4453 12.2656,245.2266 Q11.9531,245 11.5938,245 L10.5156,245 Q10.4141,245 10.375,245.0234 Q10.3438,245.0391 10.3438,245.0547 L10.3438,246.6563 L11.0781,246.6563 Q11.3125,246.6563 11.4063,246.5469 Q11.5,246.4297 11.5,246.1563 L11.5,245.7813 L12.3438,245.7813 L12.3438,248.375 L11.5,248.375 L11.5,248.0703 Q11.5,247.7734 11.3984,247.6406 Q11.3047,247.5 11.0781,247.5 L10.3438,247.5 L10.3438,249.1328 Q10.3359,249.1328 10.3672,249.1484 Q10.3984,249.1563 10.5,249.1563 L11.4609,249.1563 Q11.9609,249.1563 12.3047,248.9141 Q12.6484,248.6719 12.9297,247.9297 L13.3672,248.2578 L12.9141,250 L9,250 L9,249.1563 L9.3672,249.1563 Q9.4766,249.1563 9.4844,249.1484 Q9.5,249.1406 9.5,249.1016 L9.5,245.0547 Q9.5,245.0156 9.4844,245.0078 Q9.4766,245 9.3672,245 L9.0313,245 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="7" lengthAdjust="spacing" textLength="34.5" x="18" y="250.2419">UserStatus</text><line style="stroke:#181818;stroke-width:0.25;" x1="4" x2="53.5" y1="255" y2="255"/><text fill="#000000" font-family="sans-serif" font-size="7" lengthAdjust="spacing" textLength="24.5" x="6.5" y="265.022">ONLINE</text><text fill="#000000" font-family="sans-serif" font-size="7" lengthAdjust="spacing" textLength="29" x="6.5" y="274.582">OFFLINE</text><line style="stroke:#181818;stroke-width:0.25;" x1="4" x2="53.5" y1="278.1201" y2="278.1201"/></g><!--MD5=[2ecf1105c8164485bc3e6f82ac667166]
+class CityCategory--><g id="elem_CityCategory"><rect codeLine="8" fill="#F1F1F1" height="52.6802" id="CityCategory" rx="1.25" ry="1.25" style="stroke:#181818;stroke-width:0.25;" width="64.5" x="259" y="431.5"/><ellipse cx="269.875" cy="439.5" fill="#EB937F" rx="5.5" ry="5.5" style="stroke:#181818;stroke-width:0.5;"/><path d="M267.9063,437.5 L267.9063,436.6563 L271.7656,436.6563 L272.2422,438.2656 L271.8359,438.5781 Q271.4531,437.9453 271.1406,437.7266 Q270.8281,437.5 270.4688,437.5 L269.3906,437.5 Q269.2891,437.5 269.25,437.5234 Q269.2188,437.5391 269.2188,437.5547 L269.2188,439.1563 L269.9531,439.1563 Q270.1875,439.1563 270.2813,439.0469 Q270.375,438.9297 270.375,438.6563 L270.375,438.2813 L271.2188,438.2813 L271.2188,440.875 L270.375,440.875 L270.375,440.5703 Q270.375,440.2734 270.2734,440.1406 Q270.1797,440 269.9531,440 L269.2188,440 L269.2188,441.6328 Q269.2109,441.6328 269.2422,441.6484 Q269.2734,441.6563 269.375,441.6563 L270.3359,441.6563 Q270.8359,441.6563 271.1797,441.4141 Q271.5234,441.1719 271.8047,440.4297 L272.2422,440.7578 L271.7891,442.5 L267.875,442.5 L267.875,441.6563 L268.2422,441.6563 Q268.3516,441.6563 268.3594,441.6484 Q268.375,441.6406 268.375,441.6016 L268.375,437.5547 Q268.375,437.5156 268.3594,437.5078 Q268.3516,437.5 268.2422,437.5 L267.9063,437.5 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="7" lengthAdjust="spacing" textLength="41" x="277.625" y="442.7419">CityCategory</text><line style="stroke:#181818;stroke-width:0.25;" x1="259.5" x2="323" y1="447.5" y2="447.5"/><text fill="#000000" font-family="sans-serif" font-size="7" lengthAdjust="spacing" textLength="28.5" x="262" y="457.522">EUROPE</text><text fill="#000000" font-family="sans-serif" font-size="7" lengthAdjust="spacing" textLength="15" x="262" y="467.082">ASIA</text><text fill="#000000" font-family="sans-serif" font-size="7" lengthAdjust="spacing" textLength="58.5" x="262" y="476.6421">NORTH_AMERICA</text><line style="stroke:#181818;stroke-width:0.25;" x1="259.5" x2="323" y1="480.1802" y2="480.1802"/></g><!--MD5=[3fd616f346a44cd59a91eb10b19e157c]
+class User--><g id="elem_User"><rect codeLine="14" fill="#F1F1F1" height="196.0811" id="User" rx="1.25" ry="1.25" style="stroke:#181818;stroke-width:0.25;" width="134.5" x="71.5" y="162.5"/><ellipse cx="129.375" cy="170.5" fill="#ADD1B2" rx="5.5" ry="5.5" style="stroke:#181818;stroke-width:0.5;"/><path d="M129.2188,173.5 Q128.25,173.5 127.6875,172.7891 Q127.125,172.0703 127.125,170.5938 Q127.125,169.3438 127.7188,168.5 Q128.3125,167.6563 129.3438,167.6563 Q129.5859,167.6563 129.8359,167.7109 Q130.0391,167.7813 130.1641,167.7813 Q130.2656,167.7813 130.3047,167.7734 Q130.3516,167.7578 130.6172,167.4219 L130.9844,169.5391 L130.5,169.8359 Q130.25,169.0625 129.9609,168.7813 Q129.6797,168.5 129.2266,168.5 Q128.6484,168.5 128.3047,169.0938 Q127.9688,169.6797 127.9688,170.5938 Q127.9688,171.5938 128.2578,172.125 Q128.5469,172.6563 129.1953,172.6563 Q129.6563,172.6563 129.9766,172.375 Q130.3047,172.0859 130.4766,171.3906 L130.9922,171.6484 Q130.7969,172.5234 130.3281,173.0156 Q129.8594,173.5 129.2188,173.5 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="7" lengthAdjust="spacing" textLength="14.5" x="139.625" y="173.7419">User</text><line style="stroke:#181818;stroke-width:0.25;" x1="72" x2="205.5" y1="178.5" y2="178.5"/><rect fill="none" height="3" style="stroke:#C82930;stroke-width:0.5;" width="3" x="75.5" y="184.53"/><text fill="#000000" font-family="sans-serif" font-size="7" lengthAdjust="spacing" textLength="37" x="81.5" y="188.522">userId: long</text><rect fill="none" height="3" style="stroke:#C82930;stroke-width:0.5;" width="3" x="75.5" y="194.0901"/><text fill="#000000" font-family="sans-serif" font-size="7" lengthAdjust="spacing" textLength="54" x="81.5" y="198.082">username: String</text><rect fill="none" height="3" style="stroke:#C82930;stroke-width:0.5;" width="3" x="75.5" y="203.6501"/><text fill="#000000" font-family="sans-serif" font-size="7" lengthAdjust="spacing" textLength="52.5" x="81.5" y="207.6421">password: String</text><rect fill="none" height="3" style="stroke:#C82930;stroke-width:0.5;" width="3" x="75.5" y="213.2102"/><text fill="#000000" font-family="sans-serif" font-size="7" lengthAdjust="spacing" textLength="72.5" x="81.5" y="217.2021">userStatus: UserStatus</text><rect fill="none" height="3" style="stroke:#C82930;stroke-width:0.5;" width="3" x="75.5" y="222.7703"/><text fill="#000000" font-family="sans-serif" font-size="7" lengthAdjust="spacing" textLength="51.5" x="81.5" y="226.7622">createDay: Date</text><rect fill="none" height="3" style="stroke:#C82930;stroke-width:0.5;" width="3" x="75.5" y="232.3303"/><text fill="#000000" font-family="sans-serif" font-size="7" lengthAdjust="spacing" textLength="45.5" x="81.5" y="236.3223">birthDay: Date</text><ellipse cx="77" cy="243.3904" fill="none" rx="1.5" ry="1.5" style="stroke:#038048;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="7" lengthAdjust="spacing" textLength="88.5" x="81.5" y="245.8823">userStatistics: UserStatistics</text><line style="stroke:#181818;stroke-width:0.25;" x1="72" x2="205.5" y1="249.4204" y2="249.4204"/><ellipse cx="77" cy="256.9504" fill="#84BE84" rx="1.5" ry="1.5" style="stroke:#038048;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="7" lengthAdjust="spacing" textLength="112" x="81.5" y="259.4424">User(String name, String password)</text><ellipse cx="77" cy="266.5105" fill="#84BE84" rx="1.5" ry="1.5" style="stroke:#038048;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="7" lengthAdjust="spacing" textLength="52.5" x="81.5" y="269.0024">getUserId(): long</text><ellipse cx="77" cy="276.0706" fill="#84BE84" rx="1.5" ry="1.5" style="stroke:#038048;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="7" lengthAdjust="spacing" textLength="69.5" x="81.5" y="278.5625">getUsername(): String</text><ellipse cx="77" cy="285.6306" fill="#84BE84" rx="1.5" ry="1.5" style="stroke:#038048;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="7" lengthAdjust="spacing" textLength="101.5" x="81.5" y="288.1226">setUsername(String name): void</text><ellipse cx="77" cy="295.1907" fill="#84BE84" rx="1.5" ry="1.5" style="stroke:#038048;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="7" lengthAdjust="spacing" textLength="68" x="81.5" y="297.6826">getPassword(): String</text><ellipse cx="77" cy="304.7507" fill="#84BE84" rx="1.5" ry="1.5" style="stroke:#038048;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="7" lengthAdjust="spacing" textLength="112.5" x="81.5" y="307.2427">setPassword(String password): void</text><ellipse cx="77" cy="314.3108" fill="#84BE84" rx="1.5" ry="1.5" style="stroke:#038048;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="7" lengthAdjust="spacing" textLength="88" x="81.5" y="316.8027">getUserStatus(): UserStatus</text><ellipse cx="77" cy="323.8708" fill="#84BE84" rx="1.5" ry="1.5" style="stroke:#038048;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="7" lengthAdjust="spacing" textLength="121.5" x="81.5" y="326.3628">setUserStatus(UserStatus status): void</text><ellipse cx="77" cy="333.4309" fill="#84BE84" rx="1.5" ry="1.5" style="stroke:#038048;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="7" lengthAdjust="spacing" textLength="82.5" x="81.5" y="335.9229">getUserCreateDay(): Date</text><ellipse cx="77" cy="342.991" fill="#84BE84" rx="1.5" ry="1.5" style="stroke:#038048;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="7" lengthAdjust="spacing" textLength="75.5" x="81.5" y="345.4829">getUserBirthDay(): Date</text><ellipse cx="77" cy="352.551" fill="#84BE84" rx="1.5" ry="1.5" style="stroke:#038048;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="7" lengthAdjust="spacing" textLength="115.5" x="81.5" y="355.043">setUserBirthDay(Date birthday): void</text></g><!--MD5=[2cb47ba637a0d19583e6199456f6ad0b]
+class Player--><g id="elem_Player"><rect codeLine="35" fill="#F1F1F1" height="119.6006" id="Player" rx="1.25" ry="1.25" style="stroke:#181818;stroke-width:0.25;" width="115" x="81.25" y="8.25"/><ellipse cx="126.625" cy="16.25" fill="#ADD1B2" rx="5.5" ry="5.5" style="stroke:#181818;stroke-width:0.5;"/><path d="M126.4688,19.25 Q125.5,19.25 124.9375,18.5391 Q124.375,17.8203 124.375,16.3438 Q124.375,15.0938 124.9688,14.25 Q125.5625,13.4063 126.5938,13.4063 Q126.8359,13.4063 127.0859,13.4609 Q127.2891,13.5313 127.4141,13.5313 Q127.5156,13.5313 127.5547,13.5234 Q127.6016,13.5078 127.8672,13.1719 L128.2344,15.2891 L127.75,15.5859 Q127.5,14.8125 127.2109,14.5313 Q126.9297,14.25 126.4766,14.25 Q125.8984,14.25 125.5547,14.8438 Q125.2188,15.4297 125.2188,16.3438 Q125.2188,17.3438 125.5078,17.875 Q125.7969,18.4063 126.4453,18.4063 Q126.9063,18.4063 127.2266,18.125 Q127.5547,17.8359 127.7266,17.1406 L128.2422,17.3984 Q128.0469,18.2734 127.5781,18.7656 Q127.1094,19.25 126.4688,19.25 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="7" lengthAdjust="spacing" textLength="20" x="136.875" y="19.4919">Player</text><line style="stroke:#181818;stroke-width:0.25;" x1="81.75" x2="195.75" y1="24.25" y2="24.25"/><rect fill="none" height="3" style="stroke:#C82930;stroke-width:0.5;" width="3" x="85.25" y="30.28"/><text fill="#000000" font-family="sans-serif" font-size="7" lengthAdjust="spacing" textLength="37" x="91.25" y="34.272">userId: long</text><rect fill="none" height="3" style="stroke:#C82930;stroke-width:0.5;" width="3" x="85.25" y="39.8401"/><text fill="#000000" font-family="sans-serif" font-size="7" lengthAdjust="spacing" textLength="60" x="91.25" y="43.832">playerName: String</text><rect fill="none" height="3" style="stroke:#C82930;stroke-width:0.5;" width="3" x="85.25" y="49.4001"/><text fill="#000000" font-family="sans-serif" font-size="7" lengthAdjust="spacing" textLength="29" x="91.25" y="53.3921">score: int</text><rect fill="none" height="3" style="stroke:#C82930;stroke-width:0.5;" width="3" x="85.25" y="58.9602"/><text fill="#000000" font-family="sans-serif" font-size="7" lengthAdjust="spacing" textLength="75" x="91.25" y="62.9521">answerList: List&lt;String&gt;</text><line style="stroke:#181818;stroke-width:0.25;" x1="81.75" x2="195.75" y1="66.4902" y2="66.4902"/><ellipse cx="86.75" cy="74.0203" fill="#84BE84" rx="1.5" ry="1.5" style="stroke:#038048;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="7" lengthAdjust="spacing" textLength="102" x="91.25" y="76.5122">Player(long userId, String name)</text><ellipse cx="86.75" cy="83.5803" fill="#84BE84" rx="1.5" ry="1.5" style="stroke:#038048;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="7" lengthAdjust="spacing" textLength="52.5" x="91.25" y="86.0723">getUserId(): long</text><ellipse cx="86.75" cy="93.1404" fill="#84BE84" rx="1.5" ry="1.5" style="stroke:#038048;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="7" lengthAdjust="spacing" textLength="75.5" x="91.25" y="95.6323">getPlayerName(): String</text><ellipse cx="86.75" cy="102.7004" fill="#84BE84" rx="1.5" ry="1.5" style="stroke:#038048;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="7" lengthAdjust="spacing" textLength="45" x="91.25" y="105.1924">getScore(): int</text><ellipse cx="86.75" cy="112.2605" fill="#84BE84" rx="1.5" ry="1.5" style="stroke:#038048;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="7" lengthAdjust="spacing" textLength="79.5" x="91.25" y="114.7524">addScore(int score): void</text><ellipse cx="86.75" cy="121.8206" fill="#84BE84" rx="1.5" ry="1.5" style="stroke:#038048;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="7" lengthAdjust="spacing" textLength="100" x="91.25" y="124.3125">addAnswer(String answer): void</text></g><!--MD5=[5a56d00b2ec6db6c7881cba88cf6014f]
+class UserStatistics--><g id="elem_UserStatistics"><rect codeLine="48" fill="#F1F1F1" height="138.7207" id="UserStatistics" rx="1.25" ry="1.25" style="stroke:#181818;stroke-width:0.25;" width="183" x="47.25" y="388.5"/><ellipse cx="115.375" cy="396.5" fill="#ADD1B2" rx="5.5" ry="5.5" style="stroke:#181818;stroke-width:0.5;"/><path d="M115.2188,399.5 Q114.25,399.5 113.6875,398.7891 Q113.125,398.0703 113.125,396.5938 Q113.125,395.3438 113.7188,394.5 Q114.3125,393.6563 115.3438,393.6563 Q115.5859,393.6563 115.8359,393.7109 Q116.0391,393.7813 116.1641,393.7813 Q116.2656,393.7813 116.3047,393.7734 Q116.3516,393.7578 116.6172,393.4219 L116.9844,395.5391 L116.5,395.8359 Q116.25,395.0625 115.9609,394.7813 Q115.6797,394.5 115.2266,394.5 Q114.6484,394.5 114.3047,395.0938 Q113.9688,395.6797 113.9688,396.5938 Q113.9688,397.5938 114.2578,398.125 Q114.5469,398.6563 115.1953,398.6563 Q115.6563,398.6563 115.9766,398.375 Q116.3047,398.0859 116.4766,397.3906 L116.9922,397.6484 Q116.7969,398.5234 116.3281,399.0156 Q115.8594,399.5 115.2188,399.5 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="7" lengthAdjust="spacing" textLength="42.5" x="125.625" y="399.7419">UserStatistics</text><line style="stroke:#181818;stroke-width:0.25;" x1="47.75" x2="229.75" y1="404.5" y2="404.5"/><rect fill="none" height="3" style="stroke:#C82930;stroke-width:0.5;" width="3" x="51.25" y="410.53"/><text fill="#000000" font-family="sans-serif" font-size="7" lengthAdjust="spacing" textLength="49.5" x="57.25" y="414.522">totalScore: long</text><rect fill="none" height="3" style="stroke:#C82930;stroke-width:0.5;" width="3" x="51.25" y="420.0901"/><text fill="#000000" font-family="sans-serif" font-size="7" lengthAdjust="spacing" textLength="64" x="57.25" y="424.082">totalGameNum: long</text><rect fill="none" height="3" style="stroke:#C82930;stroke-width:0.5;" width="3" x="51.25" y="429.6501"/><text fill="#000000" font-family="sans-serif" font-size="7" lengthAdjust="spacing" textLength="128.5" x="57.25" y="433.6421">specificScore: Map&lt;CityCategory, Long&gt;</text><rect fill="none" height="3" style="stroke:#C82930;stroke-width:0.5;" width="3" x="51.25" y="439.2102"/><text fill="#000000" font-family="sans-serif" font-size="7" lengthAdjust="spacing" textLength="122.5" x="57.25" y="443.2021">gameHistories: List&lt;UserGameHistory&gt;</text><line style="stroke:#181818;stroke-width:0.25;" x1="47.75" x2="229.75" y1="446.7402" y2="446.7402"/><ellipse cx="52.75" cy="454.2703" fill="#84BE84" rx="1.5" ry="1.5" style="stroke:#038048;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="7" lengthAdjust="spacing" textLength="47.5" x="57.25" y="456.7622">UserStatistics()</text><ellipse cx="52.75" cy="463.8303" fill="#84BE84" rx="1.5" ry="1.5" style="stroke:#038048;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="7" lengthAdjust="spacing" textLength="67" x="57.25" y="466.3223">getTotalScore(): long</text><ellipse cx="52.75" cy="473.3904" fill="#84BE84" rx="1.5" ry="1.5" style="stroke:#038048;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="7" lengthAdjust="spacing" textLength="146" x="57.25" y="475.8823">getSpecificScore(CityCategory category): long</text><ellipse cx="52.75" cy="482.9504" fill="#84BE84" rx="1.5" ry="1.5" style="stroke:#038048;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="7" lengthAdjust="spacing" textLength="170" x="57.25" y="485.4424">updateScore(long score, CityCategory category): void</text><ellipse cx="52.75" cy="492.5105" fill="#84BE84" rx="1.5" ry="1.5" style="stroke:#038048;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="7" lengthAdjust="spacing" textLength="81.5" x="57.25" y="495.0024">getTotalGameNum(): long</text><ellipse cx="52.75" cy="502.0706" fill="#84BE84" rx="1.5" ry="1.5" style="stroke:#038048;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="7" lengthAdjust="spacing" textLength="83" x="57.25" y="504.5625">addTotalGameNum(): void</text><ellipse cx="52.75" cy="511.6306" fill="#84BE84" rx="1.5" ry="1.5" style="stroke:#038048;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="7" lengthAdjust="spacing" textLength="156" x="57.25" y="514.1226">getGameHistoryList(): Iterator&lt;UserGameHistory&gt;</text><ellipse cx="52.75" cy="521.1907" fill="#84BE84" rx="1.5" ry="1.5" style="stroke:#038048;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="7" lengthAdjust="spacing" textLength="152.5" x="57.25" y="523.6826">addGameHistory(UserGameHistory history): void</text></g><!--MD5=[5f1a4ee01b044000409e218144d1ae93]
+class UserGameHistory--><g id="elem_UserGameHistory"><rect codeLine="63" fill="#F1F1F1" height="129.1606" id="UserGameHistory" rx="1.25" ry="1.25" style="stroke:#181818;stroke-width:0.25;" width="176.5" x="28" y="571.5"/><ellipse cx="86.625" cy="579.5" fill="#ADD1B2" rx="5.5" ry="5.5" style="stroke:#181818;stroke-width:0.5;"/><path d="M86.4688,582.5 Q85.5,582.5 84.9375,581.7891 Q84.375,581.0703 84.375,579.5938 Q84.375,578.3438 84.9688,577.5 Q85.5625,576.6563 86.5938,576.6563 Q86.8359,576.6563 87.0859,576.7109 Q87.2891,576.7813 87.4141,576.7813 Q87.5156,576.7813 87.5547,576.7734 Q87.6016,576.7578 87.8672,576.4219 L88.2344,578.5391 L87.75,578.8359 Q87.5,578.0625 87.2109,577.7813 Q86.9297,577.5 86.4766,577.5 Q85.8984,577.5 85.5547,578.0938 Q85.2188,578.6797 85.2188,579.5938 Q85.2188,580.5938 85.5078,581.125 Q85.7969,581.6563 86.4453,581.6563 Q86.9063,581.6563 87.2266,581.375 Q87.5547,581.0859 87.7266,580.3906 L88.2422,580.6484 Q88.0469,581.5234 87.5781,582.0156 Q87.1094,582.5 86.4688,582.5 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="7" lengthAdjust="spacing" textLength="55" x="96.875" y="582.7419">UserGameHistory</text><line style="stroke:#181818;stroke-width:0.25;" x1="28.5" x2="204" y1="587.5" y2="587.5"/><rect fill="none" height="3" style="stroke:#C82930;stroke-width:0.5;" width="3" x="32" y="593.53"/><text fill="#000000" font-family="sans-serif" font-size="7" lengthAdjust="spacing" textLength="40.5" x="38" y="597.522">gameId: long</text><rect fill="none" height="3" style="stroke:#C82930;stroke-width:0.5;" width="3" x="32" y="603.0901"/><text fill="#000000" font-family="sans-serif" font-size="7" lengthAdjust="spacing" textLength="63.5" x="38" y="607.082">gameInfo: GameInfo</text><rect fill="none" height="3" style="stroke:#C82930;stroke-width:0.5;" width="3" x="32" y="612.6501"/><text fill="#000000" font-family="sans-serif" font-size="7" lengthAdjust="spacing" textLength="47.5" x="38" y="616.6421">gameScore: int</text><rect fill="none" height="3" style="stroke:#C82930;stroke-width:0.5;" width="3" x="32" y="622.2102"/><text fill="#000000" font-family="sans-serif" font-size="7" lengthAdjust="spacing" textLength="75" x="38" y="626.2021">answerList: List&lt;String&gt;</text><line style="stroke:#181818;stroke-width:0.25;" x1="28.5" x2="204" y1="629.7402" y2="629.7402"/><ellipse cx="33.5" cy="637.2703" fill="#84BE84" rx="1.5" ry="1.5" style="stroke:#038048;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="7" lengthAdjust="spacing" textLength="163.5" x="38" y="639.7622">UserGameHistory(long gameId, GameInfo gameInfo,</text><text fill="#000000" font-family="sans-serif" font-size="7" lengthAdjust="spacing" textLength="29.5" x="38" y="649.3223">int score)</text><ellipse cx="33.5" cy="656.3904" fill="#84BE84" rx="1.5" ry="1.5" style="stroke:#038048;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="7" lengthAdjust="spacing" textLength="57" x="38" y="658.8823">getGameId(): long</text><ellipse cx="33.5" cy="665.9504" fill="#84BE84" rx="1.5" ry="1.5" style="stroke:#038048;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="7" lengthAdjust="spacing" textLength="45" x="38" y="668.4424">getScore(): int</text><ellipse cx="33.5" cy="675.5105" fill="#84BE84" rx="1.5" ry="1.5" style="stroke:#038048;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="7" lengthAdjust="spacing" textLength="80" x="38" y="678.0024">getGameInfo(): GameInfo</text><ellipse cx="33.5" cy="685.0706" fill="#84BE84" rx="1.5" ry="1.5" style="stroke:#038048;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="7" lengthAdjust="spacing" textLength="100" x="38" y="687.5625">addAnswer(String answer): void</text><ellipse cx="33.5" cy="694.6306" fill="#84BE84" rx="1.5" ry="1.5" style="stroke:#038048;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="7" lengthAdjust="spacing" textLength="102" x="38" y="697.1226">getAnswerList(): Iterator&lt;String&gt;</text></g><!--MD5=[b6dcce5e5ef3c84b0b048d11301373dd]
+class Game--><g id="elem_Game"><rect codeLine="82" fill="#F1F1F1" height="129.1606" id="Game" rx="1.25" ry="1.25" style="stroke:#181818;stroke-width:0.25;" width="201.5" x="214" y="3.5"/><ellipse cx="303.125" cy="11.5" fill="#ADD1B2" rx="5.5" ry="5.5" style="stroke:#181818;stroke-width:0.5;"/><path d="M302.9688,14.5 Q302,14.5 301.4375,13.7891 Q300.875,13.0703 300.875,11.5938 Q300.875,10.3438 301.4688,9.5 Q302.0625,8.6563 303.0938,8.6563 Q303.3359,8.6563 303.5859,8.7109 Q303.7891,8.7813 303.9141,8.7813 Q304.0156,8.7813 304.0547,8.7734 Q304.1016,8.7578 304.3672,8.4219 L304.7344,10.5391 L304.25,10.8359 Q304,10.0625 303.7109,9.7813 Q303.4297,9.5 302.9766,9.5 Q302.3984,9.5 302.0547,10.0938 Q301.7188,10.6797 301.7188,11.5938 Q301.7188,12.5938 302.0078,13.125 Q302.2969,13.6563 302.9453,13.6563 Q303.4063,13.6563 303.7266,13.375 Q304.0547,13.0859 304.2266,12.3906 L304.7422,12.6484 Q304.5469,13.5234 304.0781,14.0156 Q303.6094,14.5 302.9688,14.5 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="7" lengthAdjust="spacing" textLength="19" x="313.375" y="14.7419">Game</text><line style="stroke:#181818;stroke-width:0.25;" x1="214.5" x2="415" y1="19.5" y2="19.5"/><rect fill="none" height="3" style="stroke:#C82930;stroke-width:0.5;" width="3" x="218" y="25.53"/><text fill="#000000" font-family="sans-serif" font-size="7" lengthAdjust="spacing" textLength="73.5" x="224" y="29.522">playerList: List&lt;Player&gt;</text><rect fill="none" height="3" style="stroke:#C82930;stroke-width:0.5;" width="3" x="218" y="35.0901"/><text fill="#000000" font-family="sans-serif" font-size="7" lengthAdjust="spacing" textLength="55" x="224" y="39.082">currentRound: int</text><rect fill="none" height="3" style="stroke:#C82930;stroke-width:0.5;" width="3" x="218" y="44.6501"/><text fill="#000000" font-family="sans-serif" font-size="7" lengthAdjust="spacing" textLength="49.5" x="224" y="48.6421">totalRounds: int</text><rect fill="none" height="3" style="stroke:#C82930;stroke-width:0.5;" width="3" x="218" y="54.2102"/><text fill="#000000" font-family="sans-serif" font-size="7" lengthAdjust="spacing" textLength="61" x="224" y="58.2021">countdownTime: int</text><ellipse cx="219.5" cy="65.2703" fill="none" rx="1.5" ry="1.5" style="stroke:#038048;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="7" lengthAdjust="spacing" textLength="52" x="224" y="67.7622">cityDB: CityBase</text><line style="stroke:#181818;stroke-width:0.25;" x1="214.5" x2="415" y1="71.3003" y2="71.3003"/><ellipse cx="219.5" cy="78.8303" fill="#84BE84" rx="1.5" ry="1.5" style="stroke:#038048;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="7" lengthAdjust="spacing" textLength="188.5" x="224" y="81.3223">Game(int totalRounds, int countdownTime, CityBase cityDB)</text><ellipse cx="219.5" cy="88.3904" fill="#84BE84" rx="1.5" ry="1.5" style="stroke:#038048;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="7" lengthAdjust="spacing" textLength="112.5" x="224" y="90.8823">addPlayer(User userAsPlayer): void</text><ellipse cx="219.5" cy="97.9504" fill="#84BE84" rx="1.5" ry="1.5" style="stroke:#038048;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="7" lengthAdjust="spacing" textLength="75" x="224" y="100.4424">getCurrentRounds(): int</text><ellipse cx="219.5" cy="107.5105" fill="#84BE84" rx="1.5" ry="1.5" style="stroke:#038048;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="7" lengthAdjust="spacing" textLength="67" x="224" y="110.0024">getTotalRounds(): int</text><ellipse cx="219.5" cy="117.0706" fill="#84BE84" rx="1.5" ry="1.5" style="stroke:#038048;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="7" lengthAdjust="spacing" textLength="77.5" x="224" y="119.5625">getCountdownTime(): int</text><ellipse cx="219.5" cy="126.6306" fill="#84BE84" rx="1.5" ry="1.5" style="stroke:#038048;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="7" lengthAdjust="spacing" textLength="64" x="224" y="129.1226">showRanking(): void</text></g><!--MD5=[39892b95a268878615561ff0f8084628]
+class CityBase--><g id="elem_CityBase"><rect codeLine="96" fill="#F1F1F1" height="90.9204" id="CityBase" rx="1.25" ry="1.25" style="stroke:#181818;stroke-width:0.25;" width="116.5" x="256.5" y="215"/><ellipse cx="298.625" cy="223" fill="#ADD1B2" rx="5.5" ry="5.5" style="stroke:#181818;stroke-width:0.5;"/><path d="M298.4688,226 Q297.5,226 296.9375,225.2891 Q296.375,224.5703 296.375,223.0938 Q296.375,221.8438 296.9688,221 Q297.5625,220.1563 298.5938,220.1563 Q298.8359,220.1563 299.0859,220.2109 Q299.2891,220.2813 299.4141,220.2813 Q299.5156,220.2813 299.5547,220.2734 Q299.6016,220.2578 299.8672,219.9219 L300.2344,222.0391 L299.75,222.3359 Q299.5,221.5625 299.2109,221.2813 Q298.9297,221 298.4766,221 Q297.8984,221 297.5547,221.5938 Q297.2188,222.1797 297.2188,223.0938 Q297.2188,224.0938 297.5078,224.625 Q297.7969,225.1563 298.4453,225.1563 Q298.9063,225.1563 299.2266,224.875 Q299.5547,224.5859 299.7266,223.8906 L300.2422,224.1484 Q300.0469,225.0234 299.5781,225.5156 Q299.1094,226 298.4688,226 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="7" lengthAdjust="spacing" textLength="28" x="308.875" y="226.2419">CityBase</text><line style="stroke:#181818;stroke-width:0.25;" x1="257" x2="372.5" y1="231" y2="231"/><rect fill="none" height="3" style="stroke:#C82930;stroke-width:0.5;" width="3" x="260.5" y="237.03"/><text fill="#000000" font-family="sans-serif" font-size="7" lengthAdjust="spacing" textLength="72.5" x="266.5" y="241.022">category: CityCategory</text><rect fill="none" height="3" style="stroke:#C82930;stroke-width:0.5;" width="3" x="260.5" y="246.5901"/><text fill="#000000" font-family="sans-serif" font-size="7" lengthAdjust="spacing" textLength="56.5" x="266.5" y="250.582">cityList: List&lt;City&gt;</text><line style="stroke:#181818;stroke-width:0.25;" x1="257" x2="372.5" y1="254.1201" y2="254.1201"/><ellipse cx="262" cy="261.6501" fill="#84BE84" rx="1.5" ry="1.5" style="stroke:#038048;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="7" lengthAdjust="spacing" textLength="103.5" x="266.5" y="264.1421">CityBase(CityCategory category)</text><ellipse cx="262" cy="271.2102" fill="#84BE84" rx="1.5" ry="1.5" style="stroke:#038048;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="7" lengthAdjust="spacing" textLength="89" x="266.5" y="273.7021">getCategory(): CityCategory</text><rect fill="#F24D5C" height="3" style="stroke:#C82930;stroke-width:0.5;" width="3" x="260.5" y="279.2703"/><text fill="#000000" font-family="sans-serif" font-size="7" lengthAdjust="spacing" textLength="58.5" x="266.5" y="283.2622">loadCityList(): void</text><ellipse cx="262" cy="290.3303" fill="#84BE84" rx="1.5" ry="1.5" style="stroke:#038048;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="7" lengthAdjust="spacing" textLength="71.5" x="266.5" y="292.8223">getCityListLength(): int</text><ellipse cx="262" cy="299.8904" fill="#84BE84" rx="1.5" ry="1.5" style="stroke:#038048;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="7" lengthAdjust="spacing" textLength="72.5" x="266.5" y="302.3823">drawCities(): List&lt;City&gt;</text></g><!--MD5=[3dbdd82daa10279c055138dc8d63ad7f]
+class GameInfo--><g id="elem_GameInfo"><rect codeLine="106" fill="#F1F1F1" height="157.8408" id="GameInfo" rx="1.25" ry="1.25" style="stroke:#181818;stroke-width:0.25;" width="161" x="222.25" y="557"/><ellipse cx="285.375" cy="565" fill="#ADD1B2" rx="5.5" ry="5.5" style="stroke:#181818;stroke-width:0.5;"/><path d="M285.2188,568 Q284.25,568 283.6875,567.2891 Q283.125,566.5703 283.125,565.0938 Q283.125,563.8438 283.7188,563 Q284.3125,562.1563 285.3438,562.1563 Q285.5859,562.1563 285.8359,562.2109 Q286.0391,562.2813 286.1641,562.2813 Q286.2656,562.2813 286.3047,562.2734 Q286.3516,562.2578 286.6172,561.9219 L286.9844,564.0391 L286.5,564.3359 Q286.25,563.5625 285.9609,563.2813 Q285.6797,563 285.2266,563 Q284.6484,563 284.3047,563.5938 Q283.9688,564.1797 283.9688,565.0938 Q283.9688,566.0938 284.2578,566.625 Q284.5469,567.1563 285.1953,567.1563 Q285.6563,567.1563 285.9766,566.875 Q286.3047,566.5859 286.4766,565.8906 L286.9922,566.1484 Q286.7969,567.0234 286.3281,567.5156 Q285.8594,568 285.2188,568 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="7" lengthAdjust="spacing" textLength="30.5" x="295.625" y="568.2419">GameInfo</text><line style="stroke:#181818;stroke-width:0.25;" x1="222.75" x2="382.75" y1="573" y2="573"/><rect fill="none" height="3" style="stroke:#C82930;stroke-width:0.5;" width="3" x="226.25" y="579.03"/><text fill="#000000" font-family="sans-serif" font-size="7" lengthAdjust="spacing" textLength="40.5" x="232.25" y="583.022">gameId: long</text><rect fill="none" height="3" style="stroke:#C82930;stroke-width:0.5;" width="3" x="226.25" y="588.5901"/><text fill="#000000" font-family="sans-serif" font-size="7" lengthAdjust="spacing" textLength="91.5" x="232.25" y="592.582">gameCategory: CityCategory</text><rect fill="none" height="3" style="stroke:#C82930;stroke-width:0.5;" width="3" x="226.25" y="598.1501"/><text fill="#000000" font-family="sans-serif" font-size="7" lengthAdjust="spacing" textLength="52" x="232.25" y="602.1421">gameTime: Date</text><rect fill="none" height="3" style="stroke:#C82930;stroke-width:0.5;" width="3" x="226.25" y="607.7102"/><text fill="#000000" font-family="sans-serif" font-size="7" lengthAdjust="spacing" textLength="53.5" x="232.25" y="611.7021">gameRounds: int</text><rect fill="none" height="3" style="stroke:#C82930;stroke-width:0.5;" width="3" x="226.25" y="617.2703"/><text fill="#000000" font-family="sans-serif" font-size="7" lengthAdjust="spacing" textLength="45" x="232.25" y="621.2622">playerNum: int</text><rect fill="none" height="3" style="stroke:#C82930;stroke-width:0.5;" width="3" x="226.25" y="626.8303"/><text fill="#000000" font-family="sans-serif" font-size="7" lengthAdjust="spacing" textLength="67.5" x="232.25" y="630.8223">labelList: List&lt;String&gt;</text><line style="stroke:#181818;stroke-width:0.25;" x1="222.75" x2="382.75" y1="634.3604" y2="634.3604"/><ellipse cx="227.75" cy="641.8904" fill="#84BE84" rx="1.5" ry="1.5" style="stroke:#038048;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="7" lengthAdjust="spacing" textLength="148" x="232.25" y="644.3823">GameInfo(long gameId, CityCategory category,</text><text fill="#000000" font-family="sans-serif" font-size="7" lengthAdjust="spacing" textLength="97.5" x="232.25" y="653.9424">int gameRound, int playerNum)</text><ellipse cx="227.75" cy="661.0105" fill="#84BE84" rx="1.5" ry="1.5" style="stroke:#038048;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="7" lengthAdjust="spacing" textLength="89" x="232.25" y="663.5024">getCategory(): CityCategory</text><ellipse cx="227.75" cy="670.5706" fill="#84BE84" rx="1.5" ry="1.5" style="stroke:#038048;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="7" lengthAdjust="spacing" textLength="68.5" x="232.25" y="673.0625">getGameTime(): Date</text><ellipse cx="227.75" cy="680.1306" fill="#84BE84" rx="1.5" ry="1.5" style="stroke:#038048;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="7" lengthAdjust="spacing" textLength="60.5" x="232.25" y="682.6226">getPlayerNum(): int</text><ellipse cx="227.75" cy="689.6907" fill="#84BE84" rx="1.5" ry="1.5" style="stroke:#038048;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="7" lengthAdjust="spacing" textLength="66.5" x="232.25" y="692.1826">getGameRound(): int</text><ellipse cx="227.75" cy="699.2507" fill="#84BE84" rx="1.5" ry="1.5" style="stroke:#038048;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="7" lengthAdjust="spacing" textLength="87" x="232.25" y="701.7427">addLabel(String label): void</text><ellipse cx="227.75" cy="708.8108" fill="#84BE84" rx="1.5" ry="1.5" style="stroke:#038048;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="7" lengthAdjust="spacing" textLength="96.5" x="232.25" y="711.3027">getLabelList(): Iterator&lt;String&gt;</text></g><!--MD5=[9466097c40aeafc62ec36a0cc4f3c955]
+class City--><g id="elem_City"><rect codeLine="123" fill="#F1F1F1" height="100.4805" id="City" rx="1.25" ry="1.25" style="stroke:#181818;stroke-width:0.25;" width="165" x="341.25" y="407.5"/><ellipse cx="415.625" cy="415.5" fill="#ADD1B2" rx="5.5" ry="5.5" style="stroke:#181818;stroke-width:0.5;"/><path d="M415.4688,418.5 Q414.5,418.5 413.9375,417.7891 Q413.375,417.0703 413.375,415.5938 Q413.375,414.3438 413.9688,413.5 Q414.5625,412.6563 415.5938,412.6563 Q415.8359,412.6563 416.0859,412.7109 Q416.2891,412.7813 416.4141,412.7813 Q416.5156,412.7813 416.5547,412.7734 Q416.6016,412.7578 416.8672,412.4219 L417.2344,414.5391 L416.75,414.8359 Q416.5,414.0625 416.2109,413.7813 Q415.9297,413.5 415.4766,413.5 Q414.8984,413.5 414.5547,414.0938 Q414.2188,414.6797 414.2188,415.5938 Q414.2188,416.5938 414.5078,417.125 Q414.7969,417.6563 415.4453,417.6563 Q415.9063,417.6563 416.2266,417.375 Q416.5547,417.0859 416.7266,416.3906 L417.2422,416.6484 Q417.0469,417.5234 416.5781,418.0156 Q416.1094,418.5 415.4688,418.5 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="7" lengthAdjust="spacing" textLength="12" x="425.875" y="418.7419">City</text><line style="stroke:#181818;stroke-width:0.25;" x1="341.75" x2="505.75" y1="423.5" y2="423.5"/><rect fill="none" height="3" style="stroke:#C82930;stroke-width:0.5;" width="3" x="345.25" y="429.53"/><text fill="#000000" font-family="sans-serif" font-size="7" lengthAdjust="spacing" textLength="40" x="351.25" y="433.522">name: String</text><rect fill="none" height="3" style="stroke:#C82930;stroke-width:0.5;" width="3" x="345.25" y="439.0901"/><text fill="#000000" font-family="sans-serif" font-size="7" lengthAdjust="spacing" textLength="46" x="351.25" y="443.082">country: String</text><rect fill="none" height="3" style="stroke:#C82930;stroke-width:0.5;" width="3" x="345.25" y="448.6501"/><text fill="#000000" font-family="sans-serif" font-size="7" lengthAdjust="spacing" textLength="47" x="351.25" y="452.6421">location: String</text><line style="stroke:#181818;stroke-width:0.25;" x1="341.75" x2="505.75" y1="456.1802" y2="456.1802"/><ellipse cx="346.75" cy="463.7102" fill="#84BE84" rx="1.5" ry="1.5" style="stroke:#038048;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="7" lengthAdjust="spacing" textLength="152" x="351.25" y="466.2021">City(String name, String country, String location)</text><ellipse cx="346.75" cy="473.2703" fill="#84BE84" rx="1.5" ry="1.5" style="stroke:#038048;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="7" lengthAdjust="spacing" textLength="55.5" x="351.25" y="475.7622">getName(): String</text><ellipse cx="346.75" cy="482.8303" fill="#84BE84" rx="1.5" ry="1.5" style="stroke:#038048;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="7" lengthAdjust="spacing" textLength="62.5" x="351.25" y="485.3223">getCountry(): String</text><ellipse cx="346.75" cy="492.3904" fill="#84BE84" rx="1.5" ry="1.5" style="stroke:#038048;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="7" lengthAdjust="spacing" textLength="64.5" x="351.25" y="494.8823">getLocation(): String</text><ellipse cx="346.75" cy="501.9504" fill="#84BE84" rx="1.5" ry="1.5" style="stroke:#038048;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="7" lengthAdjust="spacing" textLength="81.5" x="351.25" y="504.4424">generatePicture(): Picture</text></g><!--MD5=[3582fbb016336012346c31a00cd27035]
+reverse link User to UserStatistics--><g id="link_User_UserStatistics"><path codeLine="77" d="M138.75,361.155 C138.75,370.385 138.75,379.59 138.75,388.45 " fill="none" id="User-backto-UserStatistics" style="stroke:#181818;stroke-width:0.5;"/><polygon fill="#181818" points="138.75,358.55,136.75,363.05,138.75,361.05,140.75,363.05,138.75,358.55" style="stroke:#181818;stroke-width:0.5;"/></g><!--MD5=[7d7d0ec89e91dd56969b0a958369924c]
+link UserStatus to User--><g id="link_UserStatus_User"><path codeLine="78" d="M54.1,260.5 C59.03,260.5 63.955,260.5 68.885,260.5 " fill="none" id="UserStatus-to-User" style="stroke:#181818;stroke-width:0.5;"/><polygon fill="#181818" points="71.46,260.5,66.96,258.5,68.96,260.5,66.96,262.5,71.46,260.5" style="stroke:#181818;stroke-width:0.5;"/></g><!--MD5=[9f32dde08f7e135be0a2feddc44688eb]
+reverse link UserStatistics to UserGameHistory--><g id="link_UserStatistics_UserGameHistory"><path codeLine="79" d="M129.19,533.58 C127.59,546.165 125.945,559.125 124.385,571.4 " fill="none" id="UserStatistics-backto-UserGameHistory" style="stroke:#181818;stroke-width:0.5;"/><polygon fill="#181818" points="130.02,527.035,127.6566,529.758,129.2612,532.9868,131.6245,530.2639,130.02,527.035" style="stroke:#181818;stroke-width:0.5;"/></g><!--MD5=[02f36e01e966f9911ab616b886036f2b]
+reverse link Player to User--><g id="link_Player_User"><path codeLine="142" d="M138.75,130.38 C138.75,140.665 138.75,151.545 138.75,162.455 " fill="none" id="Player-backto-User" style="stroke:#181818;stroke-width:0.5;"/><polygon fill="#181818" points="138.75,127.78,136.75,132.28,138.75,130.28,140.75,132.28,138.75,127.78" style="stroke:#181818;stroke-width:0.5;"/></g><!--MD5=[86fb2dafc5e601216a471b22a40ae449]
+link Player to Game--><g id="link_Player_Game"><path codeLine="143" d="M196.33,68 C199.99,68 203.65,68 207.315,68 " fill="none" id="Player-to-Game" style="stroke:#181818;stroke-width:0.5;"/><polygon fill="none" points="213.905,68,210.905,66,207.905,68,210.905,70,213.905,68" style="stroke:#181818;stroke-width:0.5;"/></g><!--MD5=[b6a977dcd2595d3fec0e2626d75e8ed6]
+reverse link Game to CityBase--><g id="link_Game_CityBase"><path codeLine="145" d="M314.75,135.075 C314.75,161.475 314.75,191.14 314.75,214.935 " fill="none" id="Game-backto-CityBase" style="stroke:#181818;stroke-width:0.5;"/><polygon fill="#181818" points="314.75,132.535,312.75,137.035,314.75,135.035,316.75,137.035,314.75,132.535" style="stroke:#181818;stroke-width:0.5;"/></g><!--MD5=[b4802b5ea9f85cff78f4588aa4cbc0e6]
+reverse link CityBase to City--><g id="link_CityBase_City"><path codeLine="146" d="M342.97,311.81 C359.32,341.25 379.825,378.165 396.085,407.44 " fill="none" id="CityBase-backto-City" style="stroke:#181818;stroke-width:0.5;"/><polygon fill="none" points="339.755,306.025,339.4648,309.6189,342.6705,311.269,342.9608,307.6752,339.755,306.025" style="stroke:#181818;stroke-width:0.5;"/></g><!--MD5=[8ef282c0ee94a235963e0c4c34a3faa4]
+reverse link CityBase to CityCategory--><g id="link_CityBase_CityCategory"><path codeLine="147" d="M309.055,308.545 C304.43,347.18 298.08,400.2 294.345,431.385 " fill="none" id="CityBase-backto-CityCategory" style="stroke:#181818;stroke-width:0.5;"/><polygon fill="#181818" points="309.36,306.025,306.8338,310.2521,309.0596,308.5069,310.8048,310.7327,309.36,306.025" style="stroke:#181818;stroke-width:0.5;"/></g><!--MD5=[c0c62b7cd827967004c209f35c7a74d3]
+reverse link UserStatistics to CityCategory--><g id="link_UserStatistics_CityCategory"><path codeLine="148" d="M233.015,457.75 C241.64,457.75 250.265,457.75 258.89,457.75 " fill="none" id="UserStatistics-backto-CityCategory" style="stroke:#181818;stroke-width:0.5;"/><polygon fill="#181818" points="230.34,457.75,234.84,459.75,232.84,457.75,234.84,455.75,230.34,457.75" style="stroke:#181818;stroke-width:0.5;"/></g><!--MD5=[0472abc6a8877fa66f9f6ada59b4f0de]
+link CityCategory to GameInfo--><g id="link_CityCategory_GameInfo"><path codeLine="149" d="M292.92,484.025 C294.13,502.635 295.83,528.865 297.48,554.28 " fill="none" id="CityCategory-to-GameInfo" style="stroke:#181818;stroke-width:0.5;"/><polygon fill="#181818" points="297.65,556.895,299.3629,552.2781,297.4927,554.4,295.3709,552.5297,297.65,556.895" style="stroke:#181818;stroke-width:0.5;"/></g><!--MD5=[4b9b3e43e5105fe18061dd0b996dfa6f]
+reverse link UserGameHistory to GameInfo--><g id="link_UserGameHistory_GameInfo"><path codeLine="150" d="M207.2,636 C212.21,636 217.215,636 222.22,636 " fill="none" id="UserGameHistory-backto-GameInfo" style="stroke:#181818;stroke-width:0.5;"/><polygon fill="#181818" points="204.585,636,209.085,638,207.085,636,209.085,634,204.585,636" style="stroke:#181818;stroke-width:0.5;"/></g><!--MD5=[07c62f6d38e039dcc1b52b62288557fa]
 @startuml
 'https://plantuml.com/class-diagram
 
 enum UserStatus {
     ONLINE
     OFFLINE
+}
+
+enum CityCategory {
+    EUROPE
+    ASIA
+    NORTH_AMERICA
 }
 
 class User {
@@ -46,7 +46,8 @@ class User {
     + getUserId(): long
     + getUsername(): String
     + setUsername(String name): void
-    + changePassword(String oldPwd, String newPwd): boolean
+    + getPassword(): String
+    + setPassword(String password): void
     + getUserStatus(): UserStatus
     + setUserStatus(UserStatus status): void
     + getUserCreateDay(): Date
@@ -54,156 +55,127 @@ class User {
     + setUserBirthDay(Date birthday): void
 }
 
+class Player {
+    - userId: long
+    - playerName: String
+    - score: int
+    - answerList: List<String>
+    + Player(long userId, String name)
+    + getUserId(): long
+    + getPlayerName(): String
+    + getScore(): int
+    + addScore(int score): void
+    + addAnswer(String answer): void
+}
+
 class UserStatistics {
     - totalScore: long
     - totalGameNum: long
-    - gameHistories: List<GameHistory>
+    - specificScore: Map<CityCategory, Long>
+    - gameHistories: List<UserGameHistory>
     + UserStatistics()
     + getTotalScore(): long
-    + addScore(long score): void
+    + getSpecificScore(CityCategory category): long
+    + updateScore(long score, CityCategory category): void
     + getTotalGameNum(): long
-    + addGameNum(): long
-    + showGameHistory(): void
-    + addGameHistory(GameHistory history): void
+    + addTotalGameNum(): void
+    + getGameHistoryList(): Iterator<UserGameHistory>
+    + addGameHistory(UserGameHistory history): void
 }
 
-class GameHistory {
+class UserGameHistory {
     - gameId: long
     - gameInfo: GameInfo
+    - gameScore: int
     - answerList: List<String>
-    + GameHistory(long gameId, GameInfo gameInfo)
+    + UserGameHistory(long gameId, GameInfo gameInfo,
+      int score)
+    + getGameId(): long
+    + getScore(): int
     + getGameInfo(): GameInfo
-    + getAnswer(): List<String>
+    + addAnswer(String answer): void
+    + getAnswerList(): Iterator<String>
+}
+
+User <- - UserStatistics
+UserStatus -> User
+UserStatistics *- - UserGameHistory
+
+
+class Game {
+    - playerList: List<Player>
+    - currentRound: int
+    - totalRounds: int
+    - countdownTime: int
+    + cityDB: CityBase
+    + Game(int totalRounds, int countdownTime, CityBase cityDB)
+    + addPlayer(User userAsPlayer): void
+    + getCurrentRounds(): int
+    + getTotalRounds(): int
+    + getCountdownTime(): int
+    + showRanking(): void
+}
+
+class CityBase {
+    - category: CityCategory
+    - cityList: List<City>
+    + CityBase(CityCategory category)
+    + getCategory(): CityCategory
+    - loadCityList(): void
+    + getCityListLength(): int
+    + drawCities(): List<City>
 }
 
 class GameInfo {
     - gameId: long
-    - gameCategory: String
+    - gameCategory: CityCategory
     - gameTime: Date
-    - gameRound: int
+    - gameRounds: int
     - playerNum: int
     - labelList: List<String>
-    + GameInfo(long gameId, String category,
+    + GameInfo(long gameId, CityCategory category,
       int gameRound, int playerNum)
-    + getCategoryName(): String
+    + getCategory(): CityCategory
     + getGameTime(): Date
     + getPlayerNum(): int
     + getGameRound(): int
     + addLabel(String label): void
-    + getLabel(): List<String>
-}
-
-User <- - UserStatistics
-User <- - UserStatus
-UserStatistics *- - GameHistory
-GameHistory o- - GameInfo
-
-'CityCategory - -> GameHistory
-
-class Game {
-    - playerList: List<Player>
-    - cityCategory: CityCategory
-    + Game(CityCategory category)
-    + getCategoryName(): String
-    + addPlayer(User player): void
-    + showPlayers(): void
-    + showRanking(): void
-    + drawCity(): City
-    + generateOptions(): List<String>
-}
-
-class Player {
-    - userId: long
-    - username: String
-    - score: int
-    - answerList: List<String>
-    + Player(long userId, String username)
-    + getUserId(): long
-    + getUsername(): String
-    + getScore(): int
-    + addAnswer(String answer): void
-}
-
-abstract CityCategory {
-    - categoryName: String
-    - cityList: List<City>
-    + {abstract}getCategoryName(): String
-    + {abstract}getCityNum(): int
-    + {abstract}drawCity(): City
-    + {abstract}randomDrawCityName(): List<String>
+    + getLabelList(): Iterator<String>
 }
 
 class City {
-    - cityName: String
-    - countryName: String
+    - name: String
+    - country: String
     - location: String
-    - pictureBase: List<Picture>
-    + City(String name, String country, String location,
-      List<Picture> picBase)
-    + getCityName(): String
-    + getCountryName(): String
+    + City(String name, String country, String location)
+    + getName(): String
+    + getCountry(): String
     + getLocation(): String
-    + drawPicture(): Picture
-    + flushPictureList(): void
+    + generatePicture(): Picture
 }
 
-class Picture {
-    - pictureId: long
-    - picturePath: String
-    + Picture(long pictureId, String path)
-    + getPictureId(): long
-    + getPicturePath(): String
-}
+'class Picture {
+'    - pictureId: long
+'    - picturePath: String
+'    + Picture(long pictureId, String path)
+'    + getPictureId(): long
+'    + getPicturePath(): String
+'}
 
-
-Game <- - CityCategory
 Player <- - User
 Player -o Game
-CityCategory o- City
 
-City o- - Picture
+Game <- - CityBase
+CityBase o- - City
+CityBase <- - CityCategory
+UserStatistics <- CityCategory
+CityCategory - -> GameInfo
+UserGameHistory <- GameInfo
 
-class EuroCity {
-    - categoryName: String
-    - cityList: List<City>
-    + EuroCity(String name, List<City> cities)
-    + getCategoryName(): String
-    + getCityNum(): int
-    + drawCity(): City
-    + randomDrawCityName(): List<String>
-}
-class AsiaCity {
-    - categoryName: String
-    - cityList: List<City>
-    + AsiaCity(String name, List<City> cities)
-    + getCategoryName(): String
-    + getCityNum(): int
-    + drawCity(): City
-    + randomDrawCityName(): List<String>
-}
-class NorthAmericaCity {
-    - categoryName: String
-    - cityList: List<City>
-    + NorthAmericaCity(String name, List<City> cities)
-    + getCategoryName(): String
-    + getCityNum(): int
-    + drawCity(): City
-    + randomDrawCityName(): List<String>
-}
-class WorldCity {
-    - categoryName: String
-    - cityList: List<City>
-    + WorldCity(String name, List<City> cities)
-    + getCategoryName(): String
-    + getCityNum(): int
-    + drawCity(): City
-    + randomDrawCityName(): List<String>
-}
-
-CityCategory <|- - EuroCity
-CityCategory <|- - - AsiaCity
-CityCategory <|- - - NorthAmericaCity
-CityCategory <|- - - - WorldCity
+'CityCategory <|- - EuroCity
+'CityCategory <|- - - AsiaCity
+'CityCategory <|- - - NorthAmericaCity
+'CityCategory <|- - - - WorldCity
 
 @enduml
 
@@ -214,6 +186,12 @@ enum UserStatus {
     OFFLINE
 }
 
+enum CityCategory {
+    EUROPE
+    ASIA
+    NORTH_AMERICA
+}
+
 class User {
     - userId: long
     - username: String
@@ -226,7 +204,8 @@ class User {
     + getUserId(): long
     + getUsername(): String
     + setUsername(String name): void
-    + changePassword(String oldPwd, String newPwd): boolean
+    + getPassword(): String
+    + setPassword(String password): void
     + getUserStatus(): UserStatus
     + setUserStatus(UserStatus status): void
     + getUserCreateDay(): Date
@@ -234,155 +213,116 @@ class User {
     + setUserBirthDay(Date birthday): void
 }
 
+class Player {
+    - userId: long
+    - playerName: String
+    - score: int
+    - answerList: List<String>
+    + Player(long userId, String name)
+    + getUserId(): long
+    + getPlayerName(): String
+    + getScore(): int
+    + addScore(int score): void
+    + addAnswer(String answer): void
+}
+
 class UserStatistics {
     - totalScore: long
     - totalGameNum: long
-    - gameHistories: List<GameHistory>
+    - specificScore: Map<CityCategory, Long>
+    - gameHistories: List<UserGameHistory>
     + UserStatistics()
     + getTotalScore(): long
-    + addScore(long score): void
+    + getSpecificScore(CityCategory category): long
+    + updateScore(long score, CityCategory category): void
     + getTotalGameNum(): long
-    + addGameNum(): long
-    + showGameHistory(): void
-    + addGameHistory(GameHistory history): void
+    + addTotalGameNum(): void
+    + getGameHistoryList(): Iterator<UserGameHistory>
+    + addGameHistory(UserGameHistory history): void
 }
 
-class GameHistory {
+class UserGameHistory {
     - gameId: long
     - gameInfo: GameInfo
+    - gameScore: int
     - answerList: List<String>
-    + GameHistory(long gameId, GameInfo gameInfo)
+    + UserGameHistory(long gameId, GameInfo gameInfo,
+      int score)
+    + getGameId(): long
+    + getScore(): int
     + getGameInfo(): GameInfo
-    + getAnswer(): List<String>
-}
-
-class GameInfo {
-    - gameId: long
-    - gameCategory: String
-    - gameTime: Date
-    - gameRound: int
-    - playerNum: int
-    - labelList: List<String>
-    + GameInfo(long gameId, String category,
-      int gameRound, int playerNum)
-    + getCategoryName(): String
-    + getGameTime(): Date
-    + getPlayerNum(): int
-    + getGameRound(): int
-    + addLabel(String label): void
-    + getLabel(): List<String>
+    + addAnswer(String answer): void
+    + getAnswerList(): Iterator<String>
 }
 
 User <- - UserStatistics
-User <- - UserStatus
-UserStatistics *- - GameHistory
-GameHistory o- - GameInfo
+UserStatus -> User
+UserStatistics *- - UserGameHistory
 
 
 class Game {
     - playerList: List<Player>
-    - cityCategory: CityCategory
-    + Game(CityCategory category)
-    + getCategoryName(): String
-    + addPlayer(User player): void
-    + showPlayers(): void
+    - currentRound: int
+    - totalRounds: int
+    - countdownTime: int
+    + cityDB: CityBase
+    + Game(int totalRounds, int countdownTime, CityBase cityDB)
+    + addPlayer(User userAsPlayer): void
+    + getCurrentRounds(): int
+    + getTotalRounds(): int
+    + getCountdownTime(): int
     + showRanking(): void
-    + drawCity(): City
-    + generateOptions(): List<String>
 }
 
-class Player {
-    - userId: long
-    - username: String
-    - score: int
-    - answerList: List<String>
-    + Player(long userId, String username)
-    + getUserId(): long
-    + getUsername(): String
-    + getScore(): int
-    + addAnswer(String answer): void
-}
-
-abstract CityCategory {
-    - categoryName: String
+class CityBase {
+    - category: CityCategory
     - cityList: List<City>
-    + {abstract}getCategoryName(): String
-    + {abstract}getCityNum(): int
-    + {abstract}drawCity(): City
-    + {abstract}randomDrawCityName(): List<String>
+    + CityBase(CityCategory category)
+    + getCategory(): CityCategory
+    - loadCityList(): void
+    + getCityListLength(): int
+    + drawCities(): List<City>
+}
+
+class GameInfo {
+    - gameId: long
+    - gameCategory: CityCategory
+    - gameTime: Date
+    - gameRounds: int
+    - playerNum: int
+    - labelList: List<String>
+    + GameInfo(long gameId, CityCategory category,
+      int gameRound, int playerNum)
+    + getCategory(): CityCategory
+    + getGameTime(): Date
+    + getPlayerNum(): int
+    + getGameRound(): int
+    + addLabel(String label): void
+    + getLabelList(): Iterator<String>
 }
 
 class City {
-    - cityName: String
-    - countryName: String
+    - name: String
+    - country: String
     - location: String
-    - pictureBase: List<Picture>
-    + City(String name, String country, String location,
-      List<Picture> picBase)
-    + getCityName(): String
-    + getCountryName(): String
+    + City(String name, String country, String location)
+    + getName(): String
+    + getCountry(): String
     + getLocation(): String
-    + drawPicture(): Picture
-    + flushPictureList(): void
-}
-
-class Picture {
-    - pictureId: long
-    - picturePath: String
-    + Picture(long pictureId, String path)
-    + getPictureId(): long
-    + getPicturePath(): String
+    + generatePicture(): Picture
 }
 
 
-Game <- - CityCategory
 Player <- - User
 Player -o Game
-CityCategory o- City
 
-City o- - Picture
+Game <- - CityBase
+CityBase o- - City
+CityBase <- - CityCategory
+UserStatistics <- CityCategory
+CityCategory - -> GameInfo
+UserGameHistory <- GameInfo
 
-class EuroCity {
-    - categoryName: String
-    - cityList: List<City>
-    + EuroCity(String name, List<City> cities)
-    + getCategoryName(): String
-    + getCityNum(): int
-    + drawCity(): City
-    + randomDrawCityName(): List<String>
-}
-class AsiaCity {
-    - categoryName: String
-    - cityList: List<City>
-    + AsiaCity(String name, List<City> cities)
-    + getCategoryName(): String
-    + getCityNum(): int
-    + drawCity(): City
-    + randomDrawCityName(): List<String>
-}
-class NorthAmericaCity {
-    - categoryName: String
-    - cityList: List<City>
-    + NorthAmericaCity(String name, List<City> cities)
-    + getCategoryName(): String
-    + getCityNum(): int
-    + drawCity(): City
-    + randomDrawCityName(): List<String>
-}
-class WorldCity {
-    - categoryName: String
-    - cityList: List<City>
-    + WorldCity(String name, List<City> cities)
-    + getCategoryName(): String
-    + getCityNum(): int
-    + drawCity(): City
-    + randomDrawCityName(): List<String>
-}
-
-CityCategory <|- - EuroCity
-CityCategory <|- - - AsiaCity
-CityCategory <|- - - NorthAmericaCity
-CityCategory <|- - - - WorldCity
 
 @enduml
 

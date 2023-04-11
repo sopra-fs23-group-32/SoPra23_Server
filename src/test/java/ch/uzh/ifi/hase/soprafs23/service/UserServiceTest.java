@@ -14,25 +14,22 @@ import org.springframework.web.server.ResponseStatusException;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class UserServiceTest {
-
   @Mock
   private UserRepository userRepository;
-
   @InjectMocks
   private UserService userService;
-
   private User testUser;
 
   @BeforeEach
   public void setup() {
     MockitoAnnotations.openMocks(this);
-
     // given
     testUser = new User();
     testUser.setUserId(1L);
     testUser.setUsername("testUsername");
     testUser.setPassword("testPassword1");
 
+    testUser.setPassword("SoPraHS23");
     // when -> any object is being save in the userRepository -> return the dummy
     Mockito.when(userRepository.save(Mockito.any())).thenReturn(testUser);
   }
@@ -45,11 +42,11 @@ public class UserServiceTest {
     // then
     Mockito.verify(userRepository, Mockito.times(1)).save(Mockito.any());
 
-      assertEquals(testUser.getUserId(), createdUser.getUserId());
-      assertEquals(testUser.getUsername(), createdUser.getUsername());
-      assertEquals(testUser.getPassword(), createdUser.getPassword());
-      assertEquals(UserStatus.OFFLINE, createdUser.getStatus());
-      assertNotNull(createdUser.getCreateDay());
+    assertEquals(testUser.getUserId(), createdUser.getUserId());
+    assertEquals(testUser.getUsername(), createdUser.getUsername());
+    assertEquals(testUser.getPassword(), createdUser.getPassword());
+    assertEquals(UserStatus.OFFLINE, createdUser.getStatus());
+    assertNotNull(createdUser.getCreateDay());
   }
 
   @Test

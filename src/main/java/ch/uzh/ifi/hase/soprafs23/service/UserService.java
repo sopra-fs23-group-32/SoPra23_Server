@@ -61,7 +61,6 @@ public class UserService {
 
         for (int i = 0; i < password.length(); i++) {
             char ch = password.charAt(i);
-
             if (Character.isUpperCase(ch)) {
                 hasUppercase = true;
             }
@@ -74,7 +73,8 @@ public class UserService {
         }
         if (!hasUppercase || !hasLowercase || !hasDigit) {
             throw new ResponseStatusException(HttpStatus.CONFLICT,
-                    "Invalid password format. Please make sure your password contains at least one uppercase letter, one lowercase letter, and one number.");
+            "Invalid password format. " +
+            "Please make sure your password contains at least one uppercase letter, one lowercase letter, and one number.");
         }
     }
 
@@ -108,6 +108,7 @@ public class UserService {
         }
         if(user.getPassword() != null) {
 //            checkIfPasswordValid(user.getPassword());
+            checkPasswordCondition(user.getPassword());
             updateUser.setPassword(user.getPassword());
         }
 
@@ -124,7 +125,7 @@ public class UserService {
      * Check the uniqueness criteria of the username defined in the User entity.
      * The method will do nothing if the input is unique and throw an error otherwise.
      *
-     * @throws org.springframework.web.server.ResponseStatusException
+     * @throws org.springframework.web.server.ResponseStatusException ResponseStatusException
      * @see User
      */
     private void checkIfUsernameExist(String username) throws ResponseStatusException{
@@ -160,4 +161,3 @@ public class UserService {
     }
 
 }
-
