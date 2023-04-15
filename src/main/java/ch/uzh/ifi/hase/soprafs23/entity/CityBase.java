@@ -63,4 +63,12 @@ public class CityBase {
         }
         return drawnCities;
     }
+
+    public City getCity(int index) {
+        return cityList.get(index);
+    }
+
+    public CityCategory getCategory() {
+        return category;
+    }
 }
