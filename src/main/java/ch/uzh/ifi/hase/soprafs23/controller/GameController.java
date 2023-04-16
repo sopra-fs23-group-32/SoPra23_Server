@@ -1,8 +1,11 @@
 package ch.uzh.ifi.hase.soprafs23.controller;
 
 import ch.uzh.ifi.hase.soprafs23.entity.Answer;
+<<<<<<< HEAD
 import ch.uzh.ifi.hase.soprafs23.entity.Game;
 import ch.uzh.ifi.hase.soprafs23.entity.CityBase;
+=======
+>>>>>>> said
 import ch.uzh.ifi.hase.soprafs23.service.GameService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -31,8 +34,13 @@ public class GameController {
      */
     @PostMapping("/game/start")
     @ResponseStatus(HttpStatus.NO_CONTENT)
+<<<<<<< HEAD
     public void startGame(@RequestParam int rounds, @RequestParam int countdownTime, @RequestBody CityBase cityDB) {
         gameService.startNewGame(rounds, countdownTime, cityDB);
+=======
+    public void startGame(@RequestParam int rounds, @RequestBody int countdownTime, @RequestParam String category,@RequestBody int populationThreshold) {
+        gameService.startNewGame(rounds,countdownTime, category,populationThreshold );
+>>>>>>> said
     }
 
     /**

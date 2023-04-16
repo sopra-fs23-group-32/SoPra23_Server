@@ -2,7 +2,10 @@ package ch.uzh.ifi.hase.soprafs23.rest.dto;
 
 import ch.uzh.ifi.hase.soprafs23.constant.UserStatus;
 
+<<<<<<< HEAD
 import javax.persistence.Column;
+=======
+>>>>>>> said
 import java.util.Date;
 
 public class UserGetDTO {

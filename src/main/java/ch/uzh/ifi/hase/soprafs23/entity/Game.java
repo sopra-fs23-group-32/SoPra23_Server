@@ -1,6 +1,10 @@
 package ch.uzh.ifi.hase.soprafs23.entity;
 
+<<<<<<< HEAD
 import ch.uzh.ifi.hase.soprafs23.constant.CityCategory;
+=======
+import org.springframework.beans.factory.annotation.Autowired;
+>>>>>>> said
 import org.springframework.http.HttpStatus;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -13,11 +17,16 @@ public class Game {
     private int currentRound;
     private final int totalRounds;
     private final int countdownTime;
+<<<<<<< HEAD
     public CityBase cityDB;
+=======
+    public City city;
+>>>>>>> said
     private final List<Player> playerList;
     private boolean gameEnded;
     private Map<Player, Integer> playerScores;
     private List<Round> rounds;
+<<<<<<< HEAD
 
     public Game(int rounds, int countdown, CityBase cityDB) {
         this.totalRounds = rounds;
@@ -30,12 +39,43 @@ public class Game {
         generateNextRound();
     }
 
+=======
+    private ArrayList<String> cityoptions;
+    private String imageUrl;
+
+    /**
+     * Constructor for the Game class.
+     *
+     * @param rounds     The total number of rounds in the game.
+     * @param countdown  The time limit for each round in seconds.
+     * @param city       The right city for the game.
+     * @param cityoptions       The 5 city options including the right city.
+     *
+     */
+    public Game(int rounds, int countdown, City city) {
+        this.totalRounds = rounds;
+        this.currentRound = 0;
+        this.countdownTime = countdown;
+        this.playerList = new ArrayList<>();
+        this.rounds = new ArrayList<>();
+        this.gameEnded = false;
+        this.cityoptions=city.getCityoptions();
+        this.imageUrl = city.getImageUrl();
+    }
+
+    @Autowired
+
+>>>>>>> said
     public void generateNextRound() {
         currentRound = rounds.size() + 1;
         if (currentRound > totalRounds) {
             return;
         }
+<<<<<<< HEAD
         Round round = new Round(this, currentRound, cityDB, countdownTime);
+=======
+        Round round = new Round(this, currentRound, city, countdownTime);
+>>>>>>> said
         rounds.add(round);
     }
 

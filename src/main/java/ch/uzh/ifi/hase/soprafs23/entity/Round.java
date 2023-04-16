@@ -1,28 +1,46 @@
 package ch.uzh.ifi.hase.soprafs23.entity;
 
+<<<<<<< HEAD
 import ch.uzh.ifi.hase.soprafs23.constant.CityCategory;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
+=======
+
+import java.util.HashMap;
+import java.util.Map;
+
+>>>>>>> said
 
 public class Round {
     private Game game;
     private int roundNumber;
     private City city;
+<<<<<<< HEAD
     private CityBase cityDB;
+=======
+>>>>>>> said
     private String imageUrl;
     private int countdownTime;
     private Map<Player, Integer> playerScores;
 
+<<<<<<< HEAD
     public Round(Game game, int roundNumber, CityBase cityDB, int countdownTime) {
         this.game = game;
         this.roundNumber = roundNumber;
         this.cityDB = cityDB;
+=======
+    public Round(Game game, int roundNumber, City city, int countdownTime) {
+        this.game = game;
+        this.roundNumber = roundNumber;
+        this.city = city;
+>>>>>>> said
         this.countdownTime = countdownTime;
         this.playerScores = new HashMap<>();
     }
 
+<<<<<<< HEAD
     public String getImageUrl() {
         City city = getRandomCity();
         String cityName = city.name;
@@ -40,6 +58,13 @@ public class Round {
         this.city = city;
         return city;
     }
+=======
+
+    public String getCorrectAnswer() {
+        return city.getName();
+    }
+
+>>>>>>> said
 
     public void submitAnswer(Answer answer) {
         Player player = game.getPlayerById(answer.getPlayerId());
