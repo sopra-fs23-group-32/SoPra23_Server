@@ -1,5 +1,5 @@
 package ch.uzh.ifi.hase.soprafs23.entity;
-
+//tes
 public class Answer {
     private Long playerId;
     private String answer;
