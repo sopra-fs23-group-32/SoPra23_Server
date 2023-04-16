@@ -1,26 +1,5 @@
 package ch.uzh.ifi.hase.soprafs23.service;
 
-<<<<<<< HEAD
-import ch.uzh.ifi.hase.soprafs23.constant.UserStatus;
-import ch.uzh.ifi.hase.soprafs23.entity.User;
-import ch.uzh.ifi.hase.soprafs23.entity.Game;
-import ch.uzh.ifi.hase.soprafs23.entity.Answer;
-import ch.uzh.ifi.hase.soprafs23.entity.CityBase;
-import ch.uzh.ifi.hase.soprafs23.entity.Round;
-import ch.uzh.ifi.hase.soprafs23.repository.UserRepository;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.http.HttpStatus;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.server.ResponseStatusException;
-
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
-=======
 import ch.uzh.ifi.hase.soprafs23.entity.*;
 import ch.uzh.ifi.hase.soprafs23.repository.UserRepository;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -40,7 +19,6 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.List;
 import java.util.Optional;
->>>>>>> said
 
 /**
  * Game Service - The "worker", responsible for all functionality related to the game
@@ -51,18 +29,9 @@ import java.util.Optional;
 @Transactional
 public class GameService {
 
-<<<<<<< HEAD
-    private final Logger log = LoggerFactory.getLogger(GameService.class);
-    private final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss");
     private final UserRepository userRepository;
     private Game game;
 
-    @Autowired
-=======
-    private final UserRepository userRepository;
-    private Game game;
-
->>>>>>> said
     public GameService(@Qualifier("userRepository") UserRepository userRepository) {
         this.userRepository = userRepository;
     }
@@ -71,10 +40,6 @@ public class GameService {
         return this.userRepository.findAll();
     }
 
-<<<<<<< HEAD
-    public Game startNewGame(int rounds, int countdownTime, CityBase cityDB) {
-        return new Game(rounds, countdownTime, cityDB);
-=======
 
 
     public Game startNewGame(int rounds, int countdownTime, String category, int populationThreshold) {
@@ -83,14 +48,11 @@ public class GameService {
         this.game=new Game(rounds,countdownTime,city);
 
         return this.game;
->>>>>>> said
     }
 
     public void submitAnswers(List<Answer> answers) {
         game.submitAnswers(answers);
     }
-<<<<<<< HEAD
-=======
     public static Optional<String> saveCityImage(String cityName) {
         java.util.logging.Logger LOGGER = java.util.logging.Logger.getLogger(GameService.class.getName());
         String ACCESS_KEY = "gy4-5Dl_v3J8NNPI_nYd8UL_0TIRB3XaCh4Ad1oqZW4";
@@ -140,7 +102,6 @@ public class GameService {
         }
     }
 
->>>>>>> said
 
     public void addPlayers(List<Long> userIdList) {
         for (Long userId : userIdList) {
@@ -150,9 +111,6 @@ public class GameService {
     }
 
 
-<<<<<<< HEAD
-}
-=======
     public static void main(String[] args) {
         String cityName = "Zagreb";
         Optional<String> filename = saveCityImage(cityName);
@@ -164,4 +122,3 @@ public class GameService {
         }
     }
 }
->>>>>>> said

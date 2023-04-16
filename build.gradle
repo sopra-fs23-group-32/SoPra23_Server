@@ -33,11 +33,6 @@ springBoot {
 
 dependencies {
     implementation 'org.mapstruct:mapstruct:1.3.1.Final'
-<<<<<<< HEAD
-    annotationProcessor 'org.mapstruct:mapstruct-processor:1.3.1.Final'
-    testAnnotationProcessor 'org.mapstruct:mapstruct-processor:1.3.1.Final'
-
-=======
     implementation 'org.geonames:geonames:1.0'
     implementation 'org.geonames:geonames:1.0'
     implementation 'org.geonames:geonames:1.0'
@@ -55,19 +50,12 @@ dependencies {
 
 
 
->>>>>>> said
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-web'
 
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
     runtimeOnly 'com.h2database:h2'
 
-<<<<<<< HEAD
-    implementation 'org.json:json:20230227'
-    implementation 'org.apache.httpcomponents:httpclient:4.5.13'
-
-=======
->>>>>>> said
     testImplementation('org.springframework.boot:spring-boot-starter-test') {
         exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
     }
@@ -75,11 +63,8 @@ dependencies {
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.5.2'
 }
 
-<<<<<<< HEAD
-=======
 
 
->>>>>>> said
 bootJar {
     archiveFileName = "${archiveBaseName.get()}.${archiveExtension.get()}"
 }

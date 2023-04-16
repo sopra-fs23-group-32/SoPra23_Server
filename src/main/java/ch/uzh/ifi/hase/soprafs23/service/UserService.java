@@ -2,24 +2,12 @@ package ch.uzh.ifi.hase.soprafs23.service;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-<<<<<<< HEAD
-import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Date;
-import java.util.Objects;
-import java.util.UUID;
-=======
-import java.util.List;
-import java.util.Date;
->>>>>>> said
 
 import ch.uzh.ifi.hase.soprafs23.constant.UserStatus;
 import ch.uzh.ifi.hase.soprafs23.entity.User;
 import ch.uzh.ifi.hase.soprafs23.repository.UserRepository;
-<<<<<<< HEAD
-import org.springframework.beans.factory.annotation.Autowired;
-=======
->>>>>>> said
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -36,15 +24,8 @@ import org.springframework.web.server.ResponseStatusException;
 public class UserService {
 
     private final Logger log = LoggerFactory.getLogger(UserService.class);
-<<<<<<< HEAD
-    private final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss");
     private final UserRepository userRepository;
 
-    @Autowired
-=======
-    private final UserRepository userRepository;
-
->>>>>>> said
     public UserService(@Qualifier("userRepository") UserRepository userRepository) {
         this.userRepository = userRepository;
     }

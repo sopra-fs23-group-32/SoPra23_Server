@@ -29,8 +29,4 @@ Additionally, refining of tasks on Github, adding more necessary tasks, accordin
 
 Leyi Xu, https://github.com/sopra-fs23-group-32/SoPra23_Client/issues/24 \
 Leyi Xu, https://github.com/sopra-fs23-group-32/SoPra23_Server/issues/68 \
-<<<<<<< HEAD
-Leyi Xu, https://github.com/sopra-fs23-group-32/SoPra23_Server/issues/112 \
-=======
->>>>>>> said
 Leyi Xu, update component diagram according to the feedback for M2.
