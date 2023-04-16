@@ -1,5 +1,5 @@
 package ch.uzh.ifi.hase.soprafs23.entity;
-
+//useless comment
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
