@@ -46,6 +46,7 @@ public class City {
     public String getImageUrl() {
         return this.imageUrl;
     }
+    
     }
 
 

@@ -1,8 +1,5 @@
 package ch.uzh.ifi.hase.soprafs23.service;
-import ch.uzh.ifi.hase.soprafs23.entity.Game;
-import ch.uzh.ifi.hase.soprafs23.repository.UserRepository;
 import org.junit.jupiter.api.Assertions;
-import ch.uzh.ifi.hase.soprafs23.service.GameService;
 
 import java.io.File;
 import java.util.Optional;

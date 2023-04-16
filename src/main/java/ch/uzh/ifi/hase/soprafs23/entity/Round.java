@@ -1,10 +1,9 @@
 package ch.uzh.ifi.hase.soprafs23.entity;
 
-import ch.uzh.ifi.hase.soprafs23.constant.CityCategory;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Random;
+
 
 public class Round {
     private Game game;

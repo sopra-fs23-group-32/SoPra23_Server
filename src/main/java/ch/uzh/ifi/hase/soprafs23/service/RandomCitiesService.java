@@ -8,7 +8,6 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.ArrayList;
-import java.util.List;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -17,7 +16,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class RandomCitiesService {
     private final String BASE_URL = "https://wft-geo-db.p.rapidapi.com/v1/geo/adminDivisions?countryIds=%s&minPopulation=%d";
     private final String countryCode_Europe="AT,BE,BG,HR,CY,CZ,DK,EE,FI,FR,DE,GR,HU,IS,IE,IT,LV,LI,LT,LU,MT,MD,MC,NL,NO,PL,PT,RO,RU,SM,RS,SK,SI,ES,SE,CH,UA,GB";
-    private City city;
     public City getRandomCities(String category, int populationThreshold) {
         String countryCode = "";
         switch (category) {

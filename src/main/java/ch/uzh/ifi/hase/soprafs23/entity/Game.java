@@ -1,6 +1,5 @@
 package ch.uzh.ifi.hase.soprafs23.entity;
 
-import ch.uzh.ifi.hase.soprafs23.repository.GameRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.server.ResponseStatusException;
@@ -40,15 +39,10 @@ public class Game {
         this.gameEnded = false;
         this.cityoptions=city.getCityoptions();
         this.imageUrl = city.getImageUrl();
-        saveToDatabase();
     }
 
     @Autowired
-    private GameRepository gameRepository;
 
-    public void saveToDatabase() {
-        gameRepository.save(this);
-    }
     public void generateNextRound() {
         currentRound = rounds.size() + 1;
         if (currentRound > totalRounds) {
