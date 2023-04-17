@@ -36,7 +36,9 @@ Leyi Xu, https://github.com/sopra-fs23-group-32/SoPra23_Server/issues/68 \
 Leyi Xu, https://github.com/sopra-fs23-group-32/SoPra23_Server/issues/112 \
 Leyi Xu, update component diagram according to the feedback for M2.
 
-
+Jano Vukadinovic, https://github.com/sopra-fs23-group-32/SoPra23_Client/issues/19
+Jano Vukadinovic, https://github.com/sopra-fs23-group-32/SoPra23_Client/issues/22
+Jano Vukadinovic, the pop up window for generating an invitation link and creating the html for in game ranking.
 
 Said H.A, https://github.com/sopra-fs23-group-32/SoPra23_Server/issues/56 \
 Said H.A, https://github.com/sopra-fs23-group-32/SoPra23_Server/issues/103 \
