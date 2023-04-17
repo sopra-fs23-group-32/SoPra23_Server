@@ -30,14 +30,22 @@ public class Game {
      * @param cityoptions       The 5 city options including the right city.
      *
      */
+<<<<<<< HEAD
     public Game(int rounds, int countdown, City city) {
+=======
+    public Game(int rounds, int countdown, List<String> city_names) {
+>>>>>>> master
         this.totalRounds = rounds;
         this.currentRound = 0;
         this.countdownTime = countdown;
         this.playerList = new ArrayList<>();
         this.rounds = new ArrayList<>();
         this.gameEnded = false;
+<<<<<<< HEAD
         this.cityoptions=city.getCityoptions();
+=======
+        this.cityoptions = new ArrayList<String>();
+>>>>>>> master
         this.imageUrl = city.getImageUrl();
     }
 

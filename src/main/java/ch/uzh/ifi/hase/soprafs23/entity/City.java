@@ -5,6 +5,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.util.ArrayList;
+<<<<<<< HEAD
+=======
+import java.util.List;
+>>>>>>> master
 
 @Entity
 public class City {
@@ -17,9 +21,15 @@ public class City {
     private String imageUrl;
 
 
+<<<<<<< HEAD
     public City(String CityName, ArrayList<String> cityoptions, String imageUrl) {
         this.name = CityName;
         this.cityoptions=cityoptions;
+=======
+    public City(String CityName, ArrayList<String> city_optionen, String imageUrl) {
+        this.name = CityName;
+        this.cityoptions=city_optionen;
+>>>>>>> master
         this.imageUrl=imageUrl;
     }
 
