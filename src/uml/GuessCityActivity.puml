@@ -1,0 +1,82 @@
+@startuml
+'https://plantuml.com/activity-diagram-beta
+
+start
+switch (CLick in login page)
+case (Login)
+    :Enter username and password;
+    :Check password;
+case (Register)
+    :Choose username & Set password;
+    :new User;
+    :Create user profile;
+endswitch
+'========= success login =========
+
+repeat :show homepage;
+switch (Click in homepage)
+case (My Profile)
+    :load user profile;
+    repeat :show user profile;
+    if (change profile?) then(yes)
+        :update user profile;
+        :save user profile;
+    endif
+    repeat while(return home?) is(no)
+
+case (Start Game)
+    :new CityBase(category);
+    :CityBase.loadCityList();
+    :new Game(CityBase);
+    if (Multiplayer Mode?) then(yes)
+'        :generate shared link;
+        while(Click startGame?) is(no)
+            :Game.addPlayer();
+        endwhile (yes)
+    else (no)
+        :Game.addPlayer();
+    endif
+
+    repeat :Game.CityBase.drawCities();
+        :City.generatePicture();
+'        :show options and Picture;
+        if (give up game?) then(yes)
+            stop
+        endif
+        if (Select correct option?) then(yes)
+            :player.addScore();
+        endif
+        :show correct answer;
+        :Game.showRanking();
+    repeat while(end game (final round)?) is(no)
+
+'    if (record score?) then (yes)
+'        :UserStatistic.addScore();
+'    endif
+    :new GameInfo;
+    :new GameHistory;
+
+case (Ranking)
+    :load all users' profile;
+    repeat :show overall ranking;
+    switch (Click)
+    case (user)
+        :load user profile;
+        :show user profile;
+    case (category)
+        :change ranking type;
+    endswitch
+    repeat while(return home?) is(no)
+
+case (History)
+    :load user statistics;
+    repeat :show user's game history;
+    repeat while(return home?) is(no)
+endswitch
+
+:Update user data;
+repeat while(Click logout?) is(no)
+:logout;
+stop
+
+@enduml
