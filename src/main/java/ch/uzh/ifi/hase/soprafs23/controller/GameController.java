@@ -1,32 +1,13 @@
 package ch.uzh.ifi.hase.soprafs23.controller;
 
 import ch.uzh.ifi.hase.soprafs23.entity.Answer;
-<<<<<<< HEAD
-import ch.uzh.ifi.hase.soprafs23.service.GameService;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
-=======
 import ch.uzh.ifi.hase.soprafs23.entity.Game;
-import ch.uzh.ifi.hase.soprafs23.entity.Player;
-import ch.uzh.ifi.hase.soprafs23.entity.SingleModeGame;
+import ch.uzh.ifi.hase.soprafs23.entity.CityBase;
 import ch.uzh.ifi.hase.soprafs23.service.GameService;
-
-import org.springframework.core.io.Resource;
-import org.springframework.core.io.UrlResource;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Map;
->>>>>>> master
 
 /**
  * User Controller - Responsible for handling all REST request that are related to the user.
@@ -38,10 +19,6 @@ public class GameController {
 
     private final GameService gameService;
 
-<<<<<<< HEAD
-=======
-
->>>>>>> master
     GameController(GameService gameService) {
         this.gameService = gameService;
     }
@@ -52,58 +29,12 @@ public class GameController {
      * @param countdownTime The countdown time of each round
      * @param cityDB The city database
      */
-<<<<<<< HEAD
     @PostMapping("/game/start")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void startGame(@RequestParam int rounds, @RequestBody int countdownTime, @RequestParam String category,@RequestBody int populationThreshold) {
-        gameService.startNewGame(rounds,countdownTime, category,populationThreshold );
+    public void startGame(@RequestParam int rounds, @RequestParam int countdownTime, @RequestBody CityBase cityDB) {
+        gameService.startNewGame(rounds, countdownTime, cityDB);
     }
 
-=======
-
-
-    //get 5 city options with the right cityname=first index val
-     @GetMapping("/random-cities")
-     public List<String> getRandomCities(@RequestParam String category, @RequestParam int populationThreshold) {
-        System.out.println("wird erreicht"); 
-        System.out.println("POPULATION: "+populationThreshold);
-        try{
-            List<String> city_names= gameService.getRandomCityNames(category, populationThreshold);
-            return city_names;
-        }
-        catch(Exception e){
-            List<String> city_names=null;
-            return city_names;
-        }
-        
-        
-     }
-     @PostMapping("/city-image")
-     public String saveCityImage(@RequestBody Map<String, String> request) {
-         String cityName = request.get("cityName");
-         String imageUrl = gameService.saveCityImage(cityName);
-         return imageUrl;
-     }
-     
-     @PostMapping("/singlemode/start")
-    public SingleModeGame startSingleModeGame(@RequestParam Player player,
-                                        @RequestParam int rounds,
-                                        @RequestParam int countdownTime,
-                                        @RequestParam String category,
-                                        @RequestParam int populationThreshold) {
-        return startSingleModeGame(player,rounds, countdownTime, category, populationThreshold);
-    }
-
-
-    @GetMapping("/singlemode/{gameId}")
-    public SingleModeGame getSingleModegame(@RequestParam int gameId) {
-        return gameService.getSingleModeGame(gameId);
-    }
-
-
-
-
->>>>>>> master
     /**
      * Submit the answers of players
      * @param answers The list of answers, including the timeTaken and answer of each player
