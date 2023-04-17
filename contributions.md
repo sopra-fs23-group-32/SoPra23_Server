@@ -33,6 +33,13 @@ Leyi Xu, https://github.com/sopra-fs23-group-32/SoPra23_Server/issues/112 \
 Leyi Xu, update component diagram according to the feedback for M2.
 
 
+
+
 Said H.A., https://github.com/sopra-fs23-group-32/SoPra23_Client/issues/1 \
 Said H.A., https://github.com/sopra-fs23-group-32/SoPra23_Client/issues/3 \
+Said H.A., https://github.com/sopra-fs23-group-32/SoPra23_Server/issues/114 \
+
+Said H.A, https://github.com/sopra-fs23-group-32/SoPra23_Server/issues/56 \
+Said H.A, https://github.com/sopra-fs23-group-32/SoPra23_Server/issues/103 \
+Said H.A., https://github.com/sopra-fs23-group-32/SoPra23_Client/issues/30 \
 Said H.A., https://github.com/sopra-fs23-group-32/SoPra23_Server/issues/114 \
