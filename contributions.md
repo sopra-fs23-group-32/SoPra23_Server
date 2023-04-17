@@ -19,12 +19,16 @@ Leyi Xu, https://github.com/sopra-fs23-group-32/SoPra23_Client/issues/8
 
 Week 03.04.2023-16.04.2023
 
-Zilong Deng, update class diagram, activity diagram and user stories according to the feedback for M2.
+Zilong Deng, https://github.com/sopra-fs23-group-32/SoPra23_Server/issues/52 \
+Zilong Deng, https://github.com/sopra-fs23-group-32/SoPra23_Server/issues/16 \
+update class diagram, activity diagram and user stories according to the feedback for M2, \
+implement the entities and their methods, \
+update game service and game controller.
 
-Dominic Vogel, https://github.com/sopra-fs23-group-32/SoPra23_Server/issues/7
-Dominic Vogel, https://github.com/sopra-fs23-group-32/SoPra23_Server/issues/83
-Dominic Vogel, https://github.com/sopra-fs23-group-32/SoPra23_Server/issues/58
-Lobby Creation UI Page, refined to look more according to prototype
+Dominic Vogel, https://github.com/sopra-fs23-group-32/SoPra23_Server/issues/7 \
+Dominic Vogel, https://github.com/sopra-fs23-group-32/SoPra23_Server/issues/83 \
+Dominic Vogel, https://github.com/sopra-fs23-group-32/SoPra23_Server/issues/58 \
+Lobby Creation UI Page, refined to look more according to prototype \
 Additionally, refining of tasks on Github, adding more necessary tasks, according to our own experience and feedback from M2S
 
 Leyi Xu, https://github.com/sopra-fs23-group-32/SoPra23_Client/issues/24 \
