@@ -22,13 +22,12 @@ import org.springframework.web.server.ResponseStatusException;
  * User Service - The "worker", responsible for all functionality related to the user
  * (creates, modifies, deletes, finds). The result will be passed back to the caller.
  */
-
 @Service
 @Transactional
 public class UserService {
 
     private final Logger log = LoggerFactory.getLogger(UserService.class);
-    private final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss");
+//    private final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss");
     private final UserRepository userRepository;
 
     @Autowired
