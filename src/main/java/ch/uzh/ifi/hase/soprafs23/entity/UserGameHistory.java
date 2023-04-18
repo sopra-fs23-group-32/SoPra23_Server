@@ -1,6 +1,9 @@
 package ch.uzh.ifi.hase.soprafs23.entity;
 
+import ch.uzh.ifi.hase.soprafs23.constant.CityCategory;
+
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
@@ -8,29 +11,21 @@ import java.util.List;
  * @author Zilong Deng
  */
 public class UserGameHistory{
-    private final long gameId;
-    private final int gameScore;
-    private final GameInfo gameInfo;
+    private long gameId;
+    private int gameScore;
     private final List<String> answerList = new ArrayList<>();
 
-    public UserGameHistory(long gameId, int score, GameInfo gameInfo) {
+    public UserGameHistory(long gameId, int score) {
         this.gameId = gameId;
         this.gameScore = score;
-        this.gameInfo = gameInfo;
     }
 
     public long getGameId() {return gameId;}
+    public void setGameId(long gameId) {this.gameId = gameId;}
 
     public int getGameScore() {return gameScore;}
+    public void setGameScore(int gameScore) {this.gameScore = gameScore;}
 
-    public GameInfo getGameInfo() {
-        return gameInfo;
-    }
-
-    public void addLabel(String answer) {
-        answerList.add(answer);
-    }
-    public Iterator<String> getAnswerList() {
-        return answerList.iterator();
-    }
+    public Iterator<String> getAnswerList() {return answerList.iterator();}
+    public void addAnswer(String answer) {answerList.add(answer);}
 }

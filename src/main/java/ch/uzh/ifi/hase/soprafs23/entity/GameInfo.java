@@ -22,10 +22,11 @@ public class GameInfo implements Serializable {
     @Id
     @GeneratedValue
     private Long gameId;
+
     @Column(nullable = false)
     private CityCategory category;
     @Column(nullable = false)
-    private Date gameTime;
+    private Date gameDate;
     @Column(nullable = false)
     private int gameRounds;
     @Column(nullable = false)
@@ -35,19 +36,20 @@ public class GameInfo implements Serializable {
     private List<String> labelList = new ArrayList<>();
 
     public Long getGameId() {return gameId;}
+    public void setGameId(Long gameId) {this.gameId = gameId;}
 
     public CityCategory getCategory() {return category;}
+    public void setCategory(CityCategory category) {this.category = category;}
 
-    public Date getGameTime() {return gameTime;}
+    public Date getGameDate() {return gameDate;}
+    public void setGameDate(Date gameDate) {this.gameDate = gameDate;}
 
     public int getGameRounds() {return gameRounds;}
+    public void setGameRounds(int gameRounds) {this.gameRounds = gameRounds;}
 
     public int getPlayerNum() {return playerNum;}
+    public void setPlayerNum(int playerNum) {this.playerNum = playerNum;}
 
-    public void addLabel(String label) {
-        labelList.add(label);
-    }
-    public Iterator<String> getLabelList() {
-        return labelList.iterator();
-    }
+    public void addLabel(String label) {labelList.add(label);}
+    public Iterator<String> getLabelList() {return labelList.iterator();}
 }

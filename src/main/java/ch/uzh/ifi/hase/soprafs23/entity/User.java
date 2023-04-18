@@ -42,6 +42,9 @@ public class User implements Serializable {
     @Column()
     private Date birthDay;
 
+    @Transient
+    public UserStatistics userStatistics;
+
     public Long getUserId() {return userId;}
     public void setUserId(Long userId) {this.userId = userId;}
 

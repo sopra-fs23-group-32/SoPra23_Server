@@ -15,9 +15,6 @@ public class Game {
     private final int countdownTime;
     public CityBase cityDB;
     private final List<Player> playerList;
-    private boolean gameEnded;
-    private Map<Player, Integer> playerScores;
-    private List<Round> rounds;
 
     public Game(int rounds, int countdown, CityBase cityDB) {
         this.totalRounds = rounds;
@@ -25,32 +22,22 @@ public class Game {
         this.countdownTime = countdown;
         this.cityDB = cityDB;
         this.playerList = new ArrayList<>();
-        this.rounds = new ArrayList<>();
-        this.gameEnded = false;
-        generateNextRound();
-    }
-
-    public void generateNextRound() {
-        currentRound = rounds.size() + 1;
-        if (currentRound > totalRounds) {
-            return;
-        }
-        Round round = new Round(this, currentRound, cityDB, countdownTime);
-        rounds.add(round);
     }
 
     public int getCurrentRound() {return currentRound;}
     public int getTotalRounds() {return totalRounds;}
+    public void addCurrentRound() {currentRound ++;}
+    public boolean isGameEnded() {return currentRound > totalRounds;}
 
     public int getCountdownTime() {return countdownTime;}
-    public boolean isGameEnded() {return gameEnded;}
-    public void setGameEnded(boolean gameEnded) {this.gameEnded = gameEnded;}
 
     public void addPlayer(User userAsPlayer) {
         playerList.add(new Player(
             userAsPlayer.getUserId(), userAsPlayer.getUsername()
         ));
     }
+
+    public Iterator<Player> getPlayerList() { return playerList.iterator();}
 
     public void showRanking() {
 //        playerList.sort((o1, o2) -> o1.getScore() - o2.getScore());
@@ -61,21 +48,4 @@ public class Game {
         }
     }
 
-    public Player getPlayerById(Long playerId) {
-        for (Player player: playerList) {
-            if (player.getUserId() == playerId) {
-                return player;
-            }
-        }
-        throw new ResponseStatusException(HttpStatus.NOT_FOUND,
-                String.format("User with ID %d was not found!\n", playerId));
-    }
-
-    public void submitAnswers(List<Answer> answers) {
-        int currentRound = getCurrentRound();
-        Round currentRoundObj = rounds.get(currentRound - 1);
-        for (Answer answer : answers) {
-            currentRoundObj.submitAnswer(answer);
-        }
-    }
 }
