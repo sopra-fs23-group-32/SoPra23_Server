@@ -1,9 +1,7 @@
 package ch.uzh.ifi.hase.soprafs23.rest.mapper;
 
-import ch.uzh.ifi.hase.soprafs23.entity.User;
-import ch.uzh.ifi.hase.soprafs23.rest.dto.UserGetDTO;
-import ch.uzh.ifi.hase.soprafs23.rest.dto.UserPostDTO;
-import ch.uzh.ifi.hase.soprafs23.rest.dto.UserPutDTO;
+import ch.uzh.ifi.hase.soprafs23.entity.*;
+import ch.uzh.ifi.hase.soprafs23.rest.dto.*;
 import org.mapstruct.*;
 import org.mapstruct.factory.Mappers;
 
@@ -34,4 +32,27 @@ public interface DTOMapper {
     @Mapping(source = "createDay", target = "createDay")
     @Mapping(source = "birthDay", target = "birthDay")
     UserGetDTO convertEntityToUserGetDTO(User user);
+
+    @Mapping(source = "option1", target = "option1")
+    @Mapping(source = "option2", target = "option2")
+    @Mapping(source = "option3", target = "option3")
+    @Mapping(source = "option4", target = "option4")
+    @Mapping(source = "pictureUrl", target = "pictureUrl")
+    QuestionGetDTO convertEntityToQuestionGetDTO(Question question);
+
+    @Mapping(source = "answer", target = "answer")
+    @Mapping(source = "timeTaken", target = "timeTaken")
+    Answer convertAnswerPostDTOtoEntity(AnswerPostDTO answerPostDTO);
+
+    @Mapping(source = "gameId", target = "gameId")
+    @Mapping(source = "category", target = "category")
+    @Mapping(source = "gameDate", target = "gameDate")
+    @Mapping(source = "gameRounds", target = "gameRounds")
+    @Mapping(source = "playerNum", target = "playerNum")
+    GameInfoGetDTO convertEntityToGameInfoGetDTO(GameInfo gameInfo);
+
+    @Mapping(source = "gameScore", target = "gameScore")
+    GameHistoryGetDTO convertEntityToGameHistoryGetDTO(UserGameHistory gameHistory);
+
+
 }
