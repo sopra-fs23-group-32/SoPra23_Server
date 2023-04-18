@@ -21,7 +21,7 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * Game Service - The "worker", responsible for all functionality related to the game
+ * Game Serviice - The "worker", responsible for all functionality related to the game
  * (creates, modifies, deletes, finds). The result will be passed back to the caller.
  */
 
