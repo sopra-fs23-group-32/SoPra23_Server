@@ -37,14 +37,14 @@ public class UserServiceIntegrationTest {
     @Test
     public void createUser_validInputs_success() {
         // given
-        assertNull(userRepository.findByUsername("testUsername"));
+        assertNull(userRepository.findByUsername("testUsername9"));
 
         User testUser = new User();
-        testUser.setUsername("testUsername");
-        testUser.setPassword("testPassword1");
+        testUser.setUsername("testUsername9");
         testUser.setPassword("SoPraHS23");
         // when
         User createdUser = userService.createUser(testUser);
+
 
         assertEquals(testUser.getUserId(), createdUser.getUserId());
         assertEquals(testUser.getUsername(), createdUser.getUsername());
