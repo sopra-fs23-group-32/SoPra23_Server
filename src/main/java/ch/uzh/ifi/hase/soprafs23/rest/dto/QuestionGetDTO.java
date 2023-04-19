@@ -5,6 +5,7 @@ public class QuestionGetDTO {
     String option2;
     String option3;
     String option4;
+    String correctOption;
     String pictureUrl;
 
     public String getOption1() {return option1;}
@@ -18,6 +19,9 @@ public class QuestionGetDTO {
 
     public String getOption4() {return option4;}
     public void setOption4(String option) {this.option4 = option;}
+
+    public String getCorrectOption() {return correctOption;}
+    public void setCorrectOption(String correctOption) {this.correctOption = correctOption;}
 
     public String getPictureUrl() {return pictureUrl;}
     public void setPictureUrl(String pictureUrl) {this.pictureUrl = pictureUrl;}
