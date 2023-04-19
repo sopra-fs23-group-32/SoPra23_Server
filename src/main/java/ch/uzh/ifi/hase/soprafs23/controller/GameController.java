@@ -1,5 +1,6 @@
 package ch.uzh.ifi.hase.soprafs23.controller;
 
+import ch.uzh.ifi.hase.soprafs23.constant.CityCategory;
 import ch.uzh.ifi.hase.soprafs23.entity.Answer;
 import ch.uzh.ifi.hase.soprafs23.service.GameService;
 import org.springframework.http.HttpStatus;
@@ -29,8 +30,8 @@ public class GameController {
      */
     @PostMapping("/game/start")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void startGame(@RequestParam int rounds, @RequestBody int countdownTime, @RequestParam String category,@RequestBody int populationThreshold) {
-        gameService.startNewGame(rounds,countdownTime, category,populationThreshold );
+    public void startGame(@RequestParam int rounds, @RequestBody int countdownTime, @RequestParam CityCategory category,@RequestBody int populationThreshold) {
+        gameService.createGame(category,rounds, countdownTime);
     }
 
     /**
@@ -40,7 +41,7 @@ public class GameController {
     @PostMapping("/game/answers")
     @ResponseStatus(HttpStatus.OK)
     public void submitAnswers(@RequestBody List<Answer> answers) {
-        gameService.submitAnswers(answers);
+        gameService.submitAnswer(answers);
     }
 
 }

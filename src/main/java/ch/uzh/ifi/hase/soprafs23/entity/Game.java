@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.server.ResponseStatusException;
 
+import ch.uzh.ifi.hase.soprafs23.constant.CityCategory;
+
 import java.util.*;
 
 /**
@@ -14,6 +16,7 @@ public class Game {
     private final int totalRounds;
     private final int countdownTime;
     public City city;
+    public CityCategory category;
     private final List<Player> playerList;
     private boolean gameEnded;
     private Map<Player, Integer> playerScores;
@@ -30,14 +33,15 @@ public class Game {
      * @param cityoptions       The 5 city options including the right city.
      *
      */
-    public Game(int rounds, int countdown, City city) {
+    public Game(CityCategory category, int rounds, int countdown) {
+        this.category=category;
         this.totalRounds = rounds;
         this.currentRound = 0;
         this.countdownTime = countdown;
         this.playerList = new ArrayList<>();
         this.rounds = new ArrayList<>();
         this.gameEnded = false;
-        this.cityoptions=city.getCityoptions();
+        this.cityoptions=new ArrayList<String>();;
         this.imageUrl = city.getImageUrl();
     }
 
@@ -52,8 +56,12 @@ public class Game {
         rounds.add(round);
     }
 
+    public CityCategory getCategory() {return this.category;}
+    public List<String> setCityoptions(List<String>cityoptions){this.cityoptions=cityoptions;}
+    public List<String>getCityoptions(){return this.cityoptions;}
     public int getCurrentRound() {return currentRound;}
     public int getTotalRounds() {return totalRounds;}
+    public void addCurrentRound() {currentRound ++;}
 
     public int getCountdownTime() {return countdownTime;}
     public boolean isGameEnded() {return gameEnded;}
@@ -90,5 +98,9 @@ public class Game {
         for (Answer answer : answers) {
             currentRoundObj.submitAnswer(answer);
         }
+    }
+
+    public Iterator<Player> getPlayerList() {
+        return null;
     }
 }

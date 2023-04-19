@@ -14,6 +14,7 @@ public class UserStatistics {
     private final List<UserGameHistory> gameHistories = new ArrayList<>();
 
     public UserStatistics() {
+        // Initialize the HashMap
         specificScore = new HashMap<>() {{
             put(CityCategory.EUROPE, (long)0);
             put(CityCategory.ASIA, (long)0);
@@ -22,9 +23,11 @@ public class UserStatistics {
     }
 
     public long getTotalScore() {return totalScore;}
+
     public long getSpecificScore(CityCategory category) {
         return specificScore.get(category);
     }
+
     public void updateScore(long score, CityCategory category) {
         totalScore += score;
         long tempScore = specificScore.get(category);

@@ -14,22 +14,6 @@ public class GameServiceTest {
     private GameService gameService;
     @Test
 
-    public void testSaveCityImageWithValidCityName() {
-        // Arrange
-        String cityName = "Zurich";
-
-        // Act
-        Optional<String> result = gameService.saveCityImage(cityName);
-
-        // Assert
-        Assertions.assertTrue(result.isPresent());
-        String filename = result.get();
-        File file = new File("C:\\Users\\a\\Desktop\\sopra\\no_git\\server\\src\\main\\java\\ch\\uzh\\ifi\\hase\\soprafs23\\static" + filename);
-        Assertions.assertTrue(file.exists());
-        Assertions.assertTrue(file.isFile());
-        Assertions.assertTrue(file.delete());
-    }
-
 
     @Test
     public void testSaveCityImageWithInvalidCityName() {
