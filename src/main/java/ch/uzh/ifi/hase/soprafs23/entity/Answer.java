@@ -10,6 +10,8 @@ public class Answer {
     private String answer;
     @Column(nullable = false)
     private int timeTaken;
+    @Column(nullable = false)
+    private Long playerId;
 
     public Long getId() {return id;}
     public void setId(Long id) {this.id = id;}
@@ -19,4 +21,7 @@ public class Answer {
 
     public int getTimeTaken() {return timeTaken;}
     public void setTimeTaken(int timeTaken) {this.timeTaken = timeTaken;}
+    public Long getPlayerId() {
+        return this.playerId;
+    }
 }

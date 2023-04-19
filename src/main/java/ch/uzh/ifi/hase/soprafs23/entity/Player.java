@@ -1,8 +1,5 @@
 package ch.uzh.ifi.hase.soprafs23.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Transient;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
