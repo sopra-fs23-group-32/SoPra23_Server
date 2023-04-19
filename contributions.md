@@ -1,5 +1,4 @@
-Week 27.03.2023-03.04.2023
-
+## Week 27.03.2023-03.04.2023
 Said H.A., https://github.com/sopra-fs23-group-32/SoPra23_Client/issues/1 \
 Said H.A., https://github.com/sopra-fs23-group-32/SoPra23_Client/issues/3
 
@@ -17,13 +16,13 @@ Jano Vukadinovic, https://github.com/sopra-fs23-group-32/SoPra23_Client/issues/2
 Leyi Xu, https://github.com/sopra-fs23-group-32/SoPra23_Client/issues/7 \
 Leyi Xu, https://github.com/sopra-fs23-group-32/SoPra23_Client/issues/8
 
-Week 03.04.2023-16.04.2023
-
+## Week 03.04.2023-16.04.2023
 Zilong Deng, https://github.com/sopra-fs23-group-32/SoPra23_Server/issues/52 \
 Zilong Deng, https://github.com/sopra-fs23-group-32/SoPra23_Server/issues/16 \
-update class diagram, activity diagram and user stories according to the feedback for M2, \
-implement the entities and their methods, \
-update game service and game controller.
+Zilong Deng, https://github.com/sopra-fs23-group-32/SoPra23_Server/issues/18
+* update class diagram, activity diagram and user stories according to the feedback for M2
+* implement the entities and their methods
+* update gameHistory service and gameHistory controller
 
 Dominic Vogel, https://github.com/sopra-fs23-group-32/SoPra23_Server/issues/7 \
 Dominic Vogel, https://github.com/sopra-fs23-group-32/SoPra23_Server/issues/83 \
@@ -37,8 +36,8 @@ Leyi Xu, https://github.com/sopra-fs23-group-32/SoPra23_Server/issues/112 \
 Leyi Xu, update the game ranking UI, update the score calculation, integrate Flickr API (but now Unsplash API is used).\
 Leyi Xu, update component diagram according to the feedback for M2.
 
-Jano Vukadinovic, https://github.com/sopra-fs23-group-32/SoPra23_Client/issues/19
-Jano Vukadinovic, https://github.com/sopra-fs23-group-32/SoPra23_Client/issues/22
+Jano Vukadinovic, https://github.com/sopra-fs23-group-32/SoPra23_Client/issues/19 \
+Jano Vukadinovic, https://github.com/sopra-fs23-group-32/SoPra23_Client/issues/22 \
 Jano Vukadinovic, the pop up window for generating an invitation link and creating the html for in game ranking.
 
 Said H.A, https://github.com/sopra-fs23-group-32/SoPra23_Server/issues/56 \
@@ -46,11 +45,8 @@ Said H.A, https://github.com/sopra-fs23-group-32/SoPra23_Server/issues/103 \
 Said H.A., https://github.com/sopra-fs23-group-32/SoPra23_Client/issues/30 \
 Said H.A., https://github.com/sopra-fs23-group-32/SoPra23_Server/issues/114 \
 
-
-
-
-Week 17.04.2023-23.04.2023
-
-Zilong Deng, https://github.com/sopra-fs23-group-32/SoPra23_Server/issues/18 \
+## Week 17.04.2023-23.04.2023
 Zilong Deng, https://github.com/sopra-fs23-group-32/SoPra23_Server/issues/51 \
-implement REST request and corresponding services for Game, GameHistory, Question and Answer
+Zilong Deng, https://github.com/sopra-fs23-group-32/SoPra23_Server/issues/54 \
+Zilong Deng, https://github.com/sopra-fs23-group-32/SoPra23_Server/issues/55
+* implement REST request and corresponding services for Game, GameHistory, Question and Answer
