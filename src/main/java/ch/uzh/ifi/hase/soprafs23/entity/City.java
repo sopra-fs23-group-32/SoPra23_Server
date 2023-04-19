@@ -13,6 +13,7 @@ public class City {
     public String country;
     public String location;
     private List<String> attractions;
+    private String imageUrl;
 
     public City(String name, String country, String location, List<String> attractions) {
         this.name = name;
@@ -27,6 +28,8 @@ public class City {
 
     public String getLocation() {return location;}
     public List<String> getAttractions() {return attractions;}
+    public String getImageUrl(){return this.imageUrl;}
+    public String setImageUrl(String imageUrl){return this.imageUrl;}
 
     /**
      * Use flicker API to get the city image url
