@@ -3,8 +3,6 @@ package ch.uzh.ifi.hase.soprafs23.entity;
 import ch.uzh.ifi.hase.soprafs23.constant.CityCategory;
 
 import javax.persistence.*;
-import java.io.Serial;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
@@ -15,12 +13,8 @@ import java.util.List;
  */
 @Entity
 @Table(name = "GAMEINFO")
-public class GameInfo implements Serializable {
-    @Serial
-    private static final long serialVersionUID = 1L;
-
+public class GameInfo{
     @Id
-    @GeneratedValue
     private Long gameId;
 
     @Column(nullable = false)

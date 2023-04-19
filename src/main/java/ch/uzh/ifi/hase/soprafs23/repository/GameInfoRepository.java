@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 @Repository("gameInfoRepository")
 public interface GameInfoRepository extends JpaRepository<GameInfo, Long> {
     /**
-     * @param gameId id of the game (multiplayer mode)
+     * @param gameId id of the game
      */
     GameInfo findByGameId(Long gameId);
 }
