@@ -2,6 +2,10 @@ package ch.uzh.ifi.hase.soprafs23.service;
 
 import ch.uzh.ifi.hase.soprafs23.constant.CityCategory;
 import ch.uzh.ifi.hase.soprafs23.entity.*;
+import ch.uzh.ifi.hase.soprafs23.repository.GameRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -31,37 +35,114 @@ import java.util.*;
 @Transactional
 public class GameService {
 
-    private Game game;
-    private String CurrentLabel;
+    private final GameRepository gameRepository;
+    private final Logger log = LoggerFactory.getLogger(GameService.class);
 
-    public void createGame(CityCategory category, int rounds, int countdownTime) {
-        int min_population=getRandomPopulationNumber();
-        this.game = new Game(category, rounds, countdownTime);
-
-        try{
-            List<String> cityNames =  getRandomCityNames(category, min_population);
-            game.setCityOptions(cityNames);
-        }catch (Exception e){}
-        this.game = new Game(category, rounds, countdownTime);
+    public GameService(@Qualifier("gameRepository") GameRepository gameRepository) {
+        this.gameRepository = gameRepository;
     }
 
-   
-    public static int getRandomPopulationNumber(){
+    public Game createGame(Game newGame) {
+        newGame.initGame();
+        newGame = gameRepository.saveAndFlush(newGame);
+        log.debug("Created Information for Game: {}", newGame);
+        return newGame;
+    }
+
+    public void addPlayer(Long gameId, User user) {
+        Game game = gameRepository.findByGameId(gameId);
+        game.addPlayer(user);
+    }
+
+    public Question goNextRound(Long gameId) {
+        Game game = gameRepository.findByGameId(gameId);
+        game.addCurrentRound();
+        if(!game.isGameEnded()){
+            try{
+                List<String> cityNames = getRandomCityNames(game.getCategory(), getRandomPopulationNumber());
+                Random random = new Random();
+                int randInt = random.nextInt(3);
+                String correctOption = cityNames.get(randInt);
+                game.setCurrentAnswer(correctOption);
+                String pictureUrl = getCityImage(correctOption);
+                return new Question(
+                        cityNames.get(0), cityNames.get(1), cityNames.get(2),
+                        cityNames.get(3), correctOption, pictureUrl
+                );
+            }catch (Exception e){
+                System.out.println("Unable to generate image");
+            }
+        }
+        String option1="Geneva", option2="Basel", option3="Lausanne", option4="Bern";
+        game.setCurrentAnswer(option4);
+        String pictureUrl = getCityImage(option4);
+        return new Question(option1, option2, option3, option4, option4, pictureUrl);
+    }
+
+    // =============== all private non-service functions here =================
+    public Player searchPlayerById(Long gameId, Long playerId) {
+        Game game = gameRepository.findByGameId(gameId);
+        Iterator<Player> playerIterator = game.getPlayerList();
+        while(playerIterator.hasNext()) {
+            Player player = playerIterator.next();
+            if(Objects.equals(player.getUserId(), playerId)) {
+                return player;
+            }
+        }
+        throw new ResponseStatusException(HttpStatus.NOT_FOUND,
+                String.format("Player with ID %d was not found!\n", playerId));
+    }
+
+    private static String getContinentCode(String category) {
+        return switch (category.toLowerCase()) {
+            case "europe" -> "EU";
+            case "asia" -> "AS";
+            case "north america" -> "NA";
+            case "south america" -> "SA";
+            case "africa" -> "AF";
+            case "oceania" -> "OC";
+            case "world" -> "";
+            default -> throw new IllegalArgumentException("Invalid continent category");
+        };
+    }
+
+    private static int getRandomPopulationNumber(){
         int min=200000;
         int max=5000000;
         Random random=new Random();
         return random.nextInt(max-min+1)+min;
     }
 
-    public void addPlayer(User user) {
-        game.addPlayer(user);
+    public static List<String> getRandomCityNames(CityCategory category, int minPopulation) throws Exception {
+        String baseUrl = "http://api.geonames.org/searchJSON";
+        String username = "whowho";
+        String continent_category=category.toString();
+        String continent = getContinentCode(continent_category);
+        String queryUrl = String.format("%s?continentCode=%s&featureClass=P&maxRows=1000&orderby=random&population>%d&username=%s", baseUrl, continent, minPopulation, username);
+
+        URL url = new URL(queryUrl);
+        Scanner scanner = new Scanner(url.openStream());
+        String response = scanner.useDelimiter("\\Z").next();
+        scanner.close();
+
+        List<String> cityNames = new ArrayList<>();
+        JSONObject jsonObj = new JSONObject(response);
+        JSONArray jsonArray = jsonObj.getJSONArray("geonames");
+        for (int i = 0; i < jsonArray.length(); i++) {
+            JSONObject cityObj = jsonArray.getJSONObject(i);
+            String cityName = cityObj.getString("name");
+            cityNames.add(cityName);
+        }
+
+        Collections.shuffle(cityNames); // shuffle the city names
+
+        return cityNames.subList(0, Math.min(cityNames.size(), 4)); // return the first 4 city names
     }
 
-    public   String saveCityImage(String cityName) {
+    private String getCityImage(String cityName) {
         java.util.logging.Logger LOGGER = java.util.logging.Logger.getLogger(GameService.class.getName());
         String ACCESS_KEY = "gy4-5Dl_v3J8NNPI_nYd8UL_0TIRB3XaCh4Ad1oqZW4";
         String UNSPLASH_API_ENDPOINT = "https://api.unsplash.com/search/photos?query=%s&per_page=1&orientation=landscape";
-
         try {
             // Build the API request URL
             String url = String.format(UNSPLASH_API_ENDPOINT, cityName);
@@ -106,102 +187,18 @@ public class GameService {
         }
     }
 
-
-
-    public Question goNextRound() {
-        game.addCurrentRound();;
-        CityCategory game_city_category=game.getCategory();
-        int min_population=getRandomPopulationNumber();
-        if(game.isGameEnded()){
-            try{
-                List<String> cityNames =  getRandomCityNames(game_city_category, min_population);
-                String correctAnswer=cityNames.get(0);
-                String option1=cityNames.get(1);
-                String option2=cityNames.get(2);
-                String option3=cityNames.get(3);
-                String option4=cityNames.get(4);
-                String pictureUrl=saveCityImage(correctAnswer);
-                return new Question(option1, option2, option3, option4, pictureUrl);
-            }catch (Exception e){
-                String correctAnswer="Zurich";
-                String option1="Geneva";
-                String option2="Basel";
-                String option3="Lausanne";
-                String option4="Berne";
-                String pictureUrl=saveCityImage(correctAnswer);
-                return new Question(option1, option2, option3, option4, pictureUrl);
-            }            
-        }
-        List<String> citiesDrawn = game.getCityoptions();
-        // Draw one city to generate picture
-        CurrentLabel = citiesDrawn.get(0);
-        String pictureUrl = "what?";
-        // Others just return their name
-        return new Question(citiesDrawn.get(0), citiesDrawn.get(2),
-                citiesDrawn.get(3), citiesDrawn.get(4), pictureUrl);
-    }
-    private static String getContinentCode(String category) {
-        switch (category.toLowerCase()) {
-            case "europe":
-                return "EU";
-            case "asia":
-                return "AS";
-            case "north america":
-                return "NA";
-            case "south america":
-                return "SA";
-            case "africa":
-                return "AF";
-            case "oceania":
-                return "OC";
-            case "world":
-                return "";
-            default:
-                throw new IllegalArgumentException("Invalid continent category");
-        }
-    }
-
-
-
-    public static List<String> getRandomCityNames(CityCategory category, int minPopulation) throws Exception {
-        String baseUrl = "http://api.geonames.org/searchJSON";
-        String username = "whowho";
-        String continent_category=category.toString();
-        String continent = getContinentCode(continent_category);
-        String queryUrl = String.format("%s?continentCode=%s&featureClass=P&maxRows=1000&orderby=random&population>%d&username=%s", baseUrl, continent, minPopulation, username);
-        
-        URL url = new URL(queryUrl);
-        Scanner scanner = new Scanner(url.openStream());
-        String response = scanner.useDelimiter("\\Z").next();
-        scanner.close();
-        
-        List<String> cityNames = new ArrayList<>();
-        JSONObject jsonObj = new JSONObject(response);
-        JSONArray jsonArray = jsonObj.getJSONArray("geonames");
-        for (int i = 0; i < jsonArray.length(); i++) {
-            JSONObject cityObj = jsonArray.getJSONObject(i);
-            String cityName = cityObj.getString("name");
-            cityNames.add(cityName);
-        }
-    
-        Collections.shuffle(cityNames); // shuffle the city names
-    
-        return cityNames.subList(0, Math.min(cityNames.size(), 4)); // return the first 4 city names
-    }
-
-
     /**
      * Add the answer to the player's list and update the points
      * @param playerId player's ID
      * @param answer an Answer object
      */
-    public int submitAnswer(Long playerId, Answer answer) {
-        Player currentPlayer = searchPlayerById(playerId);
+    public int submitAnswer(Long gameId, Long playerId, Answer answer) {
+        Game game = gameRepository.findByGameId(gameId);
+        Player currentPlayer = searchPlayerById(gameId, playerId);
         currentPlayer.addAnswer(answer.getAnswer());
         // get the right answer of current round
         int score = 0;
-        String correctAnswer = CurrentLabel;
-        if (answer.getAnswer().equals(correctAnswer)) {
+        if (answer.getAnswer().equals(game.getCurrentAnswer())) {
             int remainingTime = game.getCountdownTime() - answer.getTimeTaken();
             score = calculateScore(Math.max(remainingTime, 0));
             currentPlayer.addScore(score);
@@ -212,17 +209,5 @@ public class GameService {
     private int calculateScore(int remainingTime) {
         // 50 pts for a correct answer and 10 pts for each second remains
         return 50 + (remainingTime * 10);
-    }
-
-    public Player searchPlayerById(Long playerId) {
-        Iterator<Player> playerIterator = game.getPlayerList();
-        while(playerIterator.hasNext()) {
-            Player player = playerIterator.next();
-            if(Objects.equals(player.getUserId(), playerId)) {
-                return player;
-            }
-        }
-        throw new ResponseStatusException(HttpStatus.NOT_FOUND,
-                String.format("Player with ID %d was not found!\n", playerId));
     }
 }
