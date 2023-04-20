@@ -11,5 +11,4 @@ public class AnswerPostDTO {
     public int getTimeTaken() {return timeTaken;}
     public void setTimeTaken(int timeTaken) {this.timeTaken = timeTaken;}
 
-
 }
