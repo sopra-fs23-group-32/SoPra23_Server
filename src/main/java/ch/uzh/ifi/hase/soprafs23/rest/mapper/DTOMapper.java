@@ -34,6 +34,9 @@ public interface DTOMapper {
     UserGetDTO convertEntityToUserGetDTO(User user);
 
     @Mapping(source = "gameId", target = "gameId")
+    @Mapping(source = "currentRound", target = "currentRound")
+    GameGetDTO convertEntityToGameGetDTO(Game game);
+
     @Mapping(source = "category", target = "category")
     @Mapping(source = "totalRounds", target = "totalRounds")
     @Mapping(source = "countdownTime", target = "countdownTime")
