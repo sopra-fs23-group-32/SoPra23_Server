@@ -65,4 +65,5 @@ public class User implements Serializable {
 
     public UserStatistics getUserStatistics() {return userStatistics;}
     public void setUserStatistics(UserStatistics userStatistics) {this.userStatistics = userStatistics;}
+
 }

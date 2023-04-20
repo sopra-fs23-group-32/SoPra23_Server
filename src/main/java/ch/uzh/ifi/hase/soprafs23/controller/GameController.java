@@ -2,10 +2,7 @@ package ch.uzh.ifi.hase.soprafs23.controller;
 
 import ch.uzh.ifi.hase.soprafs23.constant.CityCategory;
 import ch.uzh.ifi.hase.soprafs23.entity.*;
-import ch.uzh.ifi.hase.soprafs23.rest.dto.AnswerPostDTO;
-import ch.uzh.ifi.hase.soprafs23.rest.dto.GamePostDTO;
-import ch.uzh.ifi.hase.soprafs23.rest.dto.QuestionGetDTO;
-import ch.uzh.ifi.hase.soprafs23.rest.dto.UserPostDTO;
+import ch.uzh.ifi.hase.soprafs23.rest.dto.*;
 import ch.uzh.ifi.hase.soprafs23.rest.mapper.DTOMapper;
 import ch.uzh.ifi.hase.soprafs23.service.GameService;
 import ch.uzh.ifi.hase.soprafs23.service.UserService;
@@ -29,13 +26,14 @@ public class GameController {
 
     /**
      * Start the game
-     *
+     * @return DTO for game: gameId, current Round, Score board of player
      */
     @PostMapping("/games")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void createGame(@RequestBody GamePostDTO gamePostDTO) {
+    @ResponseStatus(HttpStatus.CREATED)
+    public GameGetDTO createGame(@RequestBody GamePostDTO gamePostDTO) {
         Game gameInput = DTOMapper.INSTANCE.convertGamePostDTOtoEntity(gamePostDTO);
-        Game game = gameService.createGame(gameInput);
+        Game newGame = gameService.createGame(gameInput);
+        return DTOMapper.INSTANCE.convertEntityToGameGetDTO(newGame);
     }
 
     /**
@@ -51,14 +49,24 @@ public class GameController {
     }
 
     /**
+     * Get game progress and score board
+     * @return DTO for game: gameId, current Round, Score board of player
+     */
+    @GetMapping("/games/{gameId}")
+    @ResponseStatus(HttpStatus.OK)
+    public GameGetDTO getGame(@PathVariable Long gameId) {
+        Game game = gameService.searchGameById(gameId);
+        return DTOMapper.INSTANCE.convertEntityToGameGetDTO(game);
+    }
+
+    /**
      * Add players to the game
      * @param gameId gameId of the game
      * @param playerId userId of the player
      */
     @PostMapping("/games/{gameId}/players/{playerId}")
-    @ResponseStatus(HttpStatus.OK)
+    @ResponseStatus(HttpStatus.CREATED)
     public void createPlayer(@PathVariable Long gameId, @PathVariable Long playerId) {
-//        Player newPlayer = DTOMapper.INSTANCE.convertPlayerPostDTOtoEntity(playerPostDTO);
         User user = userService.searchUserById(playerId);
         gameService.addPlayer(gameId, user);
     }

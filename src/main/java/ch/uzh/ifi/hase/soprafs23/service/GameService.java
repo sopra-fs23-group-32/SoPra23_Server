@@ -49,13 +49,13 @@ public class GameService {
         return newGame;
     }
 
-    public void addPlayer(Long gameId, User user) {
-        Game game = gameRepository.findByGameId(gameId);
-        game.addPlayer(user);
+    public void addPlayer(Long gameId, User userAsPlayer) {
+        Game game = searchGameById(gameId);
+        game.addPlayer(userAsPlayer);
     }
 
     public Question goNextRound(Long gameId) {
-        Game game = gameRepository.findByGameId(gameId);
+        Game game = searchGameById(gameId);
         game.addCurrentRound();
         if(!game.isGameEnded()){
             try{
@@ -80,8 +80,20 @@ public class GameService {
     }
 
     // =============== all private non-service functions here =================
-    public Player searchPlayerById(Long gameId, Long playerId) {
-        Game game = gameRepository.findByGameId(gameId);
+    public Game searchGameById(Long gameId) {
+        checkIfIdExist(gameId);
+        return gameRepository.findByGameId(gameId);
+    }
+
+    private void checkIfIdExist(Long gameId) {
+        Game gameByGameId = gameRepository.findByGameId(gameId);
+        if(gameByGameId == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,
+                    String.format("Game with ID %d was not found!\n", gameId));
+        }
+    }
+
+    public Player searchPlayerById(Game game, Long playerId) {
         Iterator<Player> playerIterator = game.getPlayerList();
         while(playerIterator.hasNext()) {
             Player player = playerIterator.next();
@@ -193,8 +205,8 @@ public class GameService {
      * @param answer an Answer object
      */
     public int submitAnswer(Long gameId, Long playerId, Answer answer) {
-        Game game = gameRepository.findByGameId(gameId);
-        Player currentPlayer = searchPlayerById(gameId, playerId);
+        Game game = searchGameById(gameId);
+        Player currentPlayer = searchPlayerById(game, playerId);
         currentPlayer.addAnswer(answer.getAnswer());
         // get the right answer of current round
         int score = 0;
