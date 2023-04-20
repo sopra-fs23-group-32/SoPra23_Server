@@ -68,14 +68,12 @@ public class DTOMapperTest {
     public void testCreateGame_fromGamePostDTO_toGame_success() {
         // create GamePostDTO
         GamePostDTO gamePostDTO = new GamePostDTO();
-        gamePostDTO.setGameId(1L);
         gamePostDTO.setCategory(CityCategory.ASIA);
         gamePostDTO.setCountdownTime(20);
         gamePostDTO.setTotalRounds(5);
         // MAP -> Game
         Game game = DTOMapper.INSTANCE.convertGamePostDTOtoEntity(gamePostDTO);
         // check content
-        assertEquals(gamePostDTO.getGameId(), game.getGameId());
         assertEquals(gamePostDTO.getCategory(), game.getCategory());
         assertEquals(gamePostDTO.getCountdownTime(), game.getCountdownTime());
         assertEquals(gamePostDTO.getTotalRounds(), game.getTotalRounds());
