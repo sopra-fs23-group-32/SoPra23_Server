@@ -64,7 +64,6 @@ public class User implements Serializable {
     public void setBirthDay(Date birthDay) {this.birthDay = birthDay;}
 
     public UserStatistics getUserStatistics() {return userStatistics;}
-    public void setUserStatistics(UserStatistics userStatistics) {
-        this.userStatistics = userStatistics;
-    }
+    public void setUserStatistics(UserStatistics userStatistics) {this.userStatistics = userStatistics;}
+
 }
