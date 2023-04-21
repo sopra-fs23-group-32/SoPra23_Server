@@ -64,5 +64,11 @@ public interface DTOMapper {
     @Mapping(source = "gameScore", target = "gameScore")
     GameHistoryGetDTO convertEntityToGameHistoryGetDTO(UserGameHistory gameHistory);
 
+    @Mapping(source = "player", target = "player")
+    @Mapping(source = "rank", target = "rank")
+    PlayerRankingGetDTO convertEntityToPlayerRankingGetDTO(PlayerRanking playerRanking);
 
+    @Mapping(source = "winnerList", target = "winnerList")
+    @Mapping(source = "playerRankingList", target = "playerRankingList")
+    GameResultGetDTO convertEntityToGameResultGetDTO(GameResult gameResult);
 }
