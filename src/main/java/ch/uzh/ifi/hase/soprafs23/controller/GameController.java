@@ -9,6 +9,9 @@ import ch.uzh.ifi.hase.soprafs23.service.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * User Controller - Responsible for handling all REST request that are related to the user.
  * The controller will receive the request and delegate the execution
@@ -76,14 +79,44 @@ public class GameController {
      * @param gameId gameId of the game
      * @param playerId userId of the player
      * @param answerPostDTO the answerDTO submitted by the player
-     * will return the score, not implement yet
+     * will return the score
      */
     @PostMapping("/games/{gameId}/players/{playerId}/answers")
     @ResponseStatus(HttpStatus.OK)
-    public void submitAnswer(@RequestBody AnswerPostDTO answerPostDTO,
+    public int submitAnswer(@RequestBody AnswerPostDTO answerPostDTO,
                             @PathVariable Long gameId,
                             @PathVariable Long playerId) {
         Answer newAnswer = DTOMapper.INSTANCE.convertAnswerPostDTOtoEntity(answerPostDTO);
         int addedScore = gameService.submitAnswer(gameId, playerId, newAnswer);
+        return addedScore;
+    }
+
+    /**
+     * Show the player rankings
+     * @param gameId gameId of the game
+     * will return the list of PlayerRanking
+     */
+    @PostMapping("/games/{gameId}/ranking")
+    @ResponseStatus(HttpStatus.OK)
+    public List<PlayerRankingGetDTO> getRanking(@PathVariable Long gameId) {
+        List<PlayerRanking> playerRankingList = gameService.getRanking(gameId);
+        List<PlayerRankingGetDTO> playerRankingGetDTOList = new ArrayList<>();
+        for (PlayerRanking playerRanking : playerRankingList) {
+            PlayerRankingGetDTO playerRankingGetDTO= DTOMapper.INSTANCE.convertEntityToPlayerRankingGetDTO(playerRanking);
+            playerRankingGetDTOList.add(playerRankingGetDTO);
+        }
+        return playerRankingGetDTOList;
+    }
+
+    /**
+     * End the game
+     * @param gameId gameId of the game
+     * will return GameResultGetDTO, including a list of winners and a list of PlayerRanking
+     */
+    @PostMapping("/games/{gameId}/results")
+    @ResponseStatus(HttpStatus.OK)
+    public GameResultGetDTO endGame(@PathVariable Long gameId) {
+        GameResult gameResult = gameService.endGame(gameId);
+        return DTOMapper.INSTANCE.convertEntityToGameResultGetDTO(gameResult);
     }
 }

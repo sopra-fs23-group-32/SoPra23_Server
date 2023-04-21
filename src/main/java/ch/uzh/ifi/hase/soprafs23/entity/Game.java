@@ -8,6 +8,7 @@ import javax.persistence.*;
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * @author Zilong Deng
@@ -66,13 +67,35 @@ public class Game implements Serializable {
     public String getCurrentAnswer() {return currentAnswer;}
     public void setCurrentAnswer(String currentAnswer) {this.currentAnswer = currentAnswer;}
 
-    public void showRanking() {
-//        playerList.sort((o1, o2) -> o1.getScore() - o2.getScore());
-        playerList.sort(Comparator.comparingInt(Player::getScore));
-        // temp implementation
-        for(Player player:playerList) {
-            System.out.println(player.getPlayerName() + player.getScore());
+    public List<PlayerRanking> getRanking() {
+        // Sort player scores in descending order
+        List<Player> sortedPlayerList = playerList.stream()
+                .sorted(Comparator.comparingInt(Player::getScore).reversed())
+                .collect(Collectors.toList());
+
+        List<PlayerRanking> playerRankingList = new ArrayList<>();
+        int currentRank = 1;
+        int currentScore = Integer.MAX_VALUE;
+        for (Player player: sortedPlayerList) {
+            int playerScore = player.getScore();
+            if (playerScore < currentScore) {
+                currentRank ++;
+                currentScore = playerScore;
+            }
+            playerRankingList.add(new PlayerRanking(player, currentRank));
         }
+        return playerRankingList;
     }
 
+    public List<Player> getWinners() {
+        List<PlayerRanking> playerRankingList = getRanking();
+
+        List<Player> winnerList = new ArrayList<>();
+        for (PlayerRanking playerRanking : playerRankingList) {
+            if (playerRanking.getRank() == 1) {
+                winnerList.add(playerRanking.getPlayer());
+            }
+        }
+        return winnerList;
+    }
 }

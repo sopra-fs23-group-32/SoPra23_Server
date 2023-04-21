@@ -79,6 +79,25 @@ public class GameService {
         return new Question(option1, option2, option3, option4, option4, pictureUrl);
     }
 
+    public List<PlayerRanking> getRanking(Long gameId) {
+        Game game = searchGameById(gameId);
+        return game.getRanking();
+    }
+
+    public GameResult endGame(Long gameId) {
+        Game game = searchGameById(gameId);
+        if (!game.isGameEnded()) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
+                    String.format("Game has not finished yet!\n", gameId));
+        }
+
+        List<Player> winnerList = game.getWinners();
+        List<PlayerRanking> playerRankingList = getRanking(gameId);
+
+        GameResult gameResult = new GameResult(winnerList, playerRankingList);
+        return gameResult;
+    }
+
     // =============== all private non-service functions here =================
     public Game searchGameById(Long gameId) {
         checkIfIdExist(gameId);

@@ -1,6 +1,9 @@
 package ch.uzh.ifi.hase.soprafs23.rest.mapper;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 import ch.uzh.ifi.hase.soprafs23.constant.CityCategory;
 import ch.uzh.ifi.hase.soprafs23.constant.UserStatus;
@@ -62,6 +65,17 @@ public class DTOMapperTest {
         assertEquals(userPutDTO.getUsername(), user.getUsername());
         assertEquals(userPutDTO.getPassword(), user.getPassword());
         assertEquals(userPutDTO.getBirthDay(), user.getBirthDay());
+    }
+
+    @Test
+    public void testGetGame_fromGame_toGameGetDTO_success() {
+        // create Game
+        Game game = new Game();
+        game.setGameId(1L);
+        // MAP -> Create GameGetDTO
+        GameGetDTO gameGetDTO = DTOMapper.INSTANCE.convertEntityToGameGetDTO(game);
+        // check content
+        assertEquals(game.getGameId(), gameGetDTO.getGameId());
     }
 
     @Test
@@ -134,5 +148,30 @@ public class DTOMapperTest {
         GameHistoryGetDTO gameHistoryGetDTO = DTOMapper.INSTANCE.convertEntityToGameHistoryGetDTO(gameHistory);
         // check content
         assertEquals(gameHistory.getGameScore(), gameHistoryGetDTO.getGameScore());
+    }
+
+    @Test
+    public void testGetPlayerRanking_fromPlayerRanking_toPlayerRankingGetDTO_success() {
+        // create PlayerRanking
+        PlayerRanking playerRanking = new PlayerRanking(new Player(1L, "a"), 2);
+        // MAP -> Create PlayerRankingGetDTO
+        PlayerRankingGetDTO playerRankingGetDTO = DTOMapper.INSTANCE.convertEntityToPlayerRankingGetDTO(playerRanking);
+        // check content
+        assertEquals(playerRanking.getPlayer(), playerRankingGetDTO.getPlayer());
+        assertEquals(playerRanking.getRank(), playerRankingGetDTO.getRank());
+    }
+
+    @Test
+    public void testGetGameResult_fromGameResult_toGameResultGetDTO_success() {
+        // create GameResult
+        Player player = new Player(1L, "a");
+        List<Player> winnerList = new ArrayList<>(Arrays.asList(player));
+        List<PlayerRanking> playerRankingList = new ArrayList<>(Arrays.asList(new PlayerRanking(player, 1)));
+        GameResult gameResult = new GameResult(winnerList, playerRankingList);
+        // MAP -> Create GameResultGetDTO
+        GameResultGetDTO gameResultGetDTO = DTOMapper.INSTANCE.convertEntityToGameResultGetDTO(gameResult);
+        // check content
+        assertEquals(gameResult.getWinnerList(), gameResultGetDTO.getWinnerList());
+        assertEquals(gameResult.getPlayerRankingList(), gameResultGetDTO.getPlayerRankingList());
     }
 }
