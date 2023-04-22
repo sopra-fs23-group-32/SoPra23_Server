@@ -45,9 +45,31 @@ public class GameController {
      * @return QuestionDTO Return a DTO including - 4 options of String, the url of the picture
      */
     @PutMapping("/games/{gameId}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @ResponseStatus(HttpStatus.CREATED)
     public QuestionGetDTO goNextRound(@PathVariable Long gameId) {
+        System.out.println("Erreicht");
         Question question = gameService.goNextRound(gameId);
+        System.out.println("-----------------");
+        System.out.println("Option1: ");
+        System.out.println(question.getOption1());
+
+        System.out.println("Option2: ");
+        System.out.println(question.getOption2());
+
+        System.out.println("Option3: ");
+        System.out.println(question.getOption3());
+
+        System.out.println("Option4: ");
+        System.out.println(question.getOption4());
+
+        System.out.println("CorrectOption: ");
+        System.out.println(question.getCorrectOption());
+
+        System.out.println("PictureUrl: ");
+        System.out.println(question.getPictureUrl());
+
+
+        System.out.println("-----------------");
         return DTOMapper.INSTANCE.convertEntityToQuestionGetDTO(question);
     }
 
