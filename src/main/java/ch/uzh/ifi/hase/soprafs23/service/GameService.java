@@ -66,11 +66,15 @@ public class GameService {
                 int randInt = random.nextInt(3);
                 String correctOption = cityNames.get(randInt);
                 game.setCurrentAnswer(correctOption);
+                System.out.println("++++++");
+                System.out.println(question.getOption1());
+                System.out.println("Corerct Option: ");
+                System.out.println(correctOption);
+                System.out.println("++++++");
                 String pictureUrl = getCityImage(correctOption);
                 
                 question= new Question(cityNames.get(0), cityNames.get(1), cityNames.get(2),cityNames.get(3), correctOption, pictureUrl);
                 System.out.println("gameService question otpion1: ");
-                System.out.println(question.getOption1());
                 return question;
 
             }catch (Exception e){
@@ -144,10 +148,12 @@ public class GameService {
     }
 
     private static int getRandomPopulationNumber(){
-        int min=200000;
-        int max=5000000;
-        Random random=new Random();
-        return random.nextInt(max-min+1)+min;
+        int min = 800000;
+        int max = 8000000;
+        int range = max - min;
+        Random random = new Random();
+        int randomNumber = random.nextInt(range/500000) * 500000 + min;
+        return randomNumber;
     }
 
     public static List<String> getRandomCityNames(CityCategory category, int minPopulation) throws Exception {
@@ -158,7 +164,7 @@ public class GameService {
         String queryUrl = String.format("%s?continentCode=%s&featureClass=P&maxRows=1000&orderby=random&population>%d&username=%s", baseUrl, continent, minPopulation, username);
 
         URL url = new URL(queryUrl);
-        Scanner scanner = new Scanner(url.openStream());
+        Scanner scanner = new Scanner(url.openStream(), "UTF-8");
         String response = scanner.useDelimiter("\\Z").next();
         scanner.close();
 
@@ -178,7 +184,7 @@ public class GameService {
 
     private String getCityImage(String cityName) {
         java.util.logging.Logger LOGGER = java.util.logging.Logger.getLogger(GameService.class.getName());
-        String ACCESS_KEY = "gy4-5Dl_v3J8NNPI_nYd8UL_0TIRB3XaCh4Ad1oqZW4";
+        String ACCESS_KEY = "A1MN_Hj0S-MYeCZo4x2U4bfTYtyjYT9Am-WINbwGFCc";
         String UNSPLASH_API_ENDPOINT = "https://api.unsplash.com/search/photos?query=%s&per_page=1&orientation=landscape";
         try {
             // Build the API request URL
@@ -248,3 +254,4 @@ public class GameService {
         return 50 + (remainingTime * 10);
     }
 }
+
