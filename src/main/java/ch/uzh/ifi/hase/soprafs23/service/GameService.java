@@ -154,7 +154,6 @@ public class GameService {
         Random random = new Random();
         int randomNumber = random.nextInt(range/500000) * 500000 + min;
         return randomNumber;
-
     }
 
     public static List<String> getRandomCityNames(CityCategory category, int minPopulation) throws Exception {
