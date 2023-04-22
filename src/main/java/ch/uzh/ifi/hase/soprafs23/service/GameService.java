@@ -55,8 +55,10 @@ public class GameService {
     }
 
     public Question goNextRound(Long gameId) {
+        System.out.println("Game Service Round reached");
         Game game = searchGameById(gameId);
         game.addCurrentRound();
+        Question question=new Question("","","","","","");
         if(!game.isGameEnded()){
             try{
                 List<String> cityNames = getRandomCityNames(game.getCategory(), getRandomPopulationNumber());
@@ -65,18 +67,22 @@ public class GameService {
                 String correctOption = cityNames.get(randInt);
                 game.setCurrentAnswer(correctOption);
                 String pictureUrl = getCityImage(correctOption);
-                return new Question(
-                        cityNames.get(0), cityNames.get(1), cityNames.get(2),
-                        cityNames.get(3), correctOption, pictureUrl
-                );
+                
+                question= new Question(cityNames.get(0), cityNames.get(1), cityNames.get(2),cityNames.get(3), correctOption, pictureUrl);
+                System.out.println("gameService question otpion1: ");
+                System.out.println(question.getOption1());
+                return question;
+
             }catch (Exception e){
                 System.out.println("Unable to generate image");
+                String option1="Geneva", option2="Basel", option3="Lausanne", option4="Bern";
+                game.setCurrentAnswer(option4);
+                String pictureUrl = getCityImage(option4);
+                question= new Question(option1, option2, option3, option4, option4, pictureUrl);
+                return question;
             }
         }
-        String option1="Geneva", option2="Basel", option3="Lausanne", option4="Bern";
-        game.setCurrentAnswer(option4);
-        String pictureUrl = getCityImage(option4);
-        return new Question(option1, option2, option3, option4, option4, pictureUrl);
+        return question;
     }
 
     public List<PlayerRanking> getRanking(Long gameId) {
