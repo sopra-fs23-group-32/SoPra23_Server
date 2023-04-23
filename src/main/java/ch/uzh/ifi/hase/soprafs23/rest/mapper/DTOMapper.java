@@ -54,6 +54,13 @@ public interface DTOMapper {
     @Mapping(source = "timeTaken", target = "timeTaken")
     Answer convertAnswerPostDTOtoEntity(AnswerPostDTO answerPostDTO);
 
+    @Mapping(source = "player", target = "player")
+    @Mapping(source = "rank", target = "rank")
+    PlayerRankingGetDTO convertEntityToPlayerRankingGetDTO(PlayerRanking playerRanking);
+
+    @Mapping(source = "winnerList", target = "winnerList")
+    GameResultGetDTO convertEntityToGameResultGetDTO(GameResult gameResult);
+
     @Mapping(source = "gameId", target = "gameId")
     @Mapping(source = "category", target = "category")
     @Mapping(source = "gameDate", target = "gameDate")
@@ -61,14 +68,7 @@ public interface DTOMapper {
     @Mapping(source = "playerNum", target = "playerNum")
     GameInfoGetDTO convertEntityToGameInfoGetDTO(GameInfo gameInfo);
 
-    @Mapping(source = "gameScore", target = "gameScore")
-    GameHistoryGetDTO convertEntityToGameHistoryGetDTO(UserGameHistory gameHistory);
-
-    @Mapping(source = "player", target = "player")
-    @Mapping(source = "rank", target = "rank")
-    PlayerRankingGetDTO convertEntityToPlayerRankingGetDTO(PlayerRanking playerRanking);
-
-    @Mapping(source = "winnerList", target = "winnerList")
-    @Mapping(source = "playerRankingList", target = "playerRankingList")
-    GameResultGetDTO convertEntityToGameResultGetDTO(GameResult gameResult);
+    @Mapping(source = "answer", target = "answer")
+    @Mapping(source = "correctAnswer", target = "correctAnswer")
+    GameHistoryAnswerGetDTO convertEntityToGameHistoryAnswerGetDTO(GameHistoryAnswer gameHistoryAnswer);
 }
