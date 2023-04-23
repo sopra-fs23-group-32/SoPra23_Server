@@ -1,3 +1,338 @@
+# REST requests Table
+
+<style>
+    td{text-align: center;}
+</style>
+<table>
+<thead>
+  <tr>
+    <th>HTTP-Method </th>
+    <th>Mapping </th>
+    <th>Parameter  </th>
+    <th>Param. Type </th>
+    <th>Status Code </th>
+    <th>Response </th>
+    <th>Description </th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td rowspan="2">POST </td>
+    <td rowspan="2">/users </td>
+    <td rowspan="2">
+        username&lt;String&gt;
+        password&lt;String&gt; 
+    </td>
+    <td rowspan="2">Body </td>
+    <td>201 </td>
+    <td>User </td>
+    <td>add User </td>
+  </tr>
+  <tr>
+    <td>409 </td>
+    <td>Error&lt;String&gt; </td>
+    <td>Username existed </td>
+  </tr>
+  <tr>
+    <td rowspan="3">PUT </td>
+    <td rowspan="3">/users/login </td>
+    <td rowspan="3">
+        username&lt;String&gt;
+        password &lt;String&gt;
+    </td>
+    <td rowspan="3">Body </td>
+    <td>200 </td>
+    <td>User </td>
+    <td>Login user </td>
+  </tr>
+  <tr>
+    <td>404 </td>
+    <td>Error&lt;String&gt; </td>
+    <td>can't find username </td>
+  </tr>
+  <tr>
+    <td>409 </td>
+    <td>Error&lt;String&gt; </td>
+    <td>password incorrect </td>
+  </tr>
+  <tr>
+    <td rowspan="2">PUT </td>
+    <td rowspan="2">/users/logout </td>
+    <td rowspan="2">
+        username&lt;String&gt;<br>
+        password&lt;String&gt; 
+    </td>
+    <td rowspan="2">Body </td>
+    <td>200 </td>
+    <td>User </td>
+    <td>Log out user </td>
+  </tr>
+  <tr>
+    <td>404 </td>
+    <td>Error&lt;String&gt; </td>
+    <td>user already logged out </td>
+  </tr>
+  <tr>
+    <td rowspan="2">PUT </td>
+    <td rowspan="2">/users/{userId} </td>
+    <td rowspan="2">
+        userId&lt;long&gt;<br>
+        username&lt;String&gt;<br>
+        password&lt;String&gt;<br>
+        birthDay&lt;String&gt;
+    </td>
+    <td rowspan="2">Query &amp; Body </td>
+    <td>200 </td>
+    <td>User </td>
+    <td>update user profile </td>
+  </tr>
+  <tr>
+    <td>404 </td>
+    <td>Error&lt;String&gt; </td>
+    <td>user was not found </td>
+  </tr>
+  <tr>
+    <td rowspan="2">GET </td>
+    <td rowspan="2">/users </td>
+    <td rowspan="2">- </td>
+    <td rowspan="2">- </td>
+    <td>200 </td>
+    <td>List&lt;User&gt; </td>
+    <td>Get all users </td>
+  </tr>
+  <tr>
+    <td>404 </td>
+    <td>Error&lt;String&gt; </td>
+    <td> </td>
+  </tr>
+  <tr>
+    <td rowspan="2">GET </td>
+    <td rowspan="2">/users/{userId} </td>
+    <td rowspan="2">userId&lt;long&gt; </td>
+    <td rowspan="2">Query </td>
+    <td>200 </td>
+    <td>User </td>
+    <td>Get a user </td>
+  </tr>
+  <tr>
+    <td>404 </td>
+    <td>Error&lt;String&gt; </td>
+    <td>userId was not found </td>
+  </tr>
+  <tr>
+    <td rowspan="2">POST </td>
+    <td rowspan="2">/games </td>
+    <td rowspan="2">
+        category&lt;String&gt;<br>
+        totalRounds&lt;int&gt;<br>
+        countdownTime&lt;int&gt;
+    </td>
+    <td rowspan="2">Body </td>
+    <td>201 </td>
+    <td>Game </td>
+    <td>create a lobby </td>
+  </tr>
+  <tr>
+    <td><406 </td>
+    <td>Error&lt;String&gt;  </td>
+    <td>Lobby type could not be created </td>
+  </tr>
+  <tr>
+    <td rowspan="2">POST </td>
+    <td rowspan="2">/games/{gameId}/players/{playerId} </td>
+    <td rowspan="2">
+        gameId&lt;long&gt;<br>
+        playerId&lt;long&gt;
+    </td>
+    <td rowspan="2">Query </td>
+    <td>200 </td>
+    <td>- </td>
+    <td>Add a player to a lobby by its userId </td>
+  </tr>
+  <tr>
+    <td>404 </td>
+    <td>Error&lt;String&gt; </td>
+    <td>gameId / playerId not found </td>
+  </tr>
+  <tr>
+    <td rowspan="2">POST </td>
+    <td rowspan="2">/games/{gameId}/players/{playerId}/answer </td>
+    <td rowspan="2">
+        gameId&lt;long&gt;<br>
+        playerId&lt;long&gt;<br>
+        answer&lt;String&gt;<br>
+        timeTaken&lt;int&gt;
+    </td>
+    <td rowspan="2">Query &amp; Body </td>
+    <td>200 </td>
+    <td>- </td>
+    <td>Submit player’s answer and update score </td>
+  </tr>
+  <tr>
+    <td>401 </td>
+    <td>Error&lt;String&gt; </td>
+    <td>gameId / playerId not found </td>
+  </tr>
+  <tr>
+    <td rowspan="2">PUT </td>
+    <td rowspan="2">/games/{gameId} </td>
+    <td rowspan="2">gameId&lt;long&gt; </td>
+    <td rowspan="2">Query </td>
+    <td>200 </td>
+    <td>Question </td>
+    <td>Return question for next round and go head </td>
+  </tr>
+  <tr>
+    <td>404 </td>
+    <td>Error&lt;String&gt; </td>
+    <td>Game ended / gameId not found </td>
+  </tr>
+  <tr>
+    <td rowspan="2">GET </td>
+    <td rowspan="2">/games/{gameId} </td>
+    <td rowspan="2">gameId&lt;long&gt; </td>
+    <td rowspan="2">Query </td>
+    <td>200 </td>
+    <td> currentRound&lt;String&gt; </td>
+    <td>Get details of this lobby </td>
+  </tr>
+  <tr>
+    <td>404 </td>
+    <td>Error&lt;String&gt; </td>
+    <td>lobby not found </td>
+  </tr>
+  <tr>
+    <td rowspan="2">GET </td>
+    <td rowspan="2">/games/{gameId}/ranking </td>
+    <td rowspan="2">gameId&lt;long&gt; </td>
+    <td rowspan="2">Query </td>
+    <td>200 </td>
+    <td>PlayerRanking </td>
+    <td>Get player's ranking for current round in lobby </td>
+  </tr>
+  <tr>
+    <td>404 </td>
+    <td>Error&lt;String&gt; </td>
+    <td>no ranking found </td>
+  </tr>
+  <tr>
+    <td rowspan="3">GET </td>
+    <td rowspan="3">/games/{gameId}/results </td>
+    <td rowspan="3">gameId&lt;long&gt; </td>
+    <td rowspan="3">Query </td>
+    <td>201 </td>
+    <td>List&lt;PlayerRanking&gt; </td>
+    <td>Get the game result </td>
+  </tr>
+  <tr>
+    <td>404 </td>
+    <td>Error&lt;String&gt; </td>
+    <td>gameId not found </td>
+  </tr>
+  <tr>
+    <td>409 </td>
+    <td>Error&lt;String&gt; </td>
+    <td>Lobby doesn't end / gameId not found </td>
+  </tr>
+  <tr>
+    <td rowspan="2">DELETE </td>
+    <td rowspan="2">/games/{gameId} </td>
+    <td rowspan="2">gameId&lt;long&gt; </td>
+    <td rowspan="2">Query </td>
+    <td>200 </td>
+    <td>- </td>
+    <td>lobby was ended (host only) </td>
+  </tr>
+  <tr>
+    <td>401 </td>
+    <td>Error&lt;String&gt; </td>
+    <td>lobby wasn't deleted / <br>gameId not found </td>
+  </tr>
+  <tr>
+    <td rowspan="2">DELETE </td>
+    <td rowspan="2">/games/{gameId}/players/{playerId}/logout </td>
+    <td rowspan="2">
+        gameId&lt;long&gt;<br>
+        playerId&lt;long&gt;
+    </td>
+    <td rowspan="2">Query </td>
+    <td>200 </td>
+    <td>- </td>
+    <td>Player left the lobby </td>
+  </tr>
+  <tr>
+    <td>401 </td>
+    <td>Error&lt;String&gt; </td>
+    <td>can't leave lobby / <br>gameId not found / <br>playerId not found </td>
+  </tr>
+  <tr>
+    <td rowspan="2">GET </td>
+    <td rowspan="2">/users/{userId}/gameInfos </td>
+    <td rowspan="2">userId&lt;long&gt; </td>
+    <td rowspan="2">Query </td>
+    <td>200 </td>
+    <td>List&lt;GameInfo&gt; </td>
+    <td>- </td>
+  </tr>
+  <tr>
+    <td>401 </td>
+    <td>Error&lt;String&gt; </td>
+    <td>userId not found </td>
+  </tr>
+  <tr>
+    <td rowspan="2">GET </td>
+    <td rowspan="2">/users/{userId}/gameInfos/{gameId}/details </td>
+    <td rowspan="2">
+        userId&lt;long&gt;<br>
+        gameId&lt;long&gt;
+    </td>
+    <td rowspan="2">Query </td>
+    <td>200 </td>
+    <td>GameInfo </td>
+    <td>Get information of a game </td>
+  </tr>
+  <tr>
+    <td>401 </td>
+    <td>Error&lt;String&gt; </td>
+    <td>gameId not found / <br>userId not found </td>
+  </tr>
+  <tr>
+    <td rowspan="2">GET </td>
+    <td rowspan="2">/users/{userId}/gameInfos/{gameId}/score </td>
+    <td rowspan="2">
+        userId&lt;long&gt;<br>
+        gameId&lt;long&gt;
+    </td>
+    <td rowspan="2">Query </td>
+    <td>200 </td>
+    <td>GameDetails </td>
+    <td>Get user's score in a game </td>
+  </tr>
+  <tr>
+    <td>401 </td>
+    <td>Error&lt;String&gt; </td>
+    <td>gameId not found / <br>userId not found </td>
+  </tr>
+  <tr>
+    <td rowspan="2">GET </td>
+    <td rowspan="2">/users/{userId}/gameInfos/{gameId}/answer </td>
+    <td rowspan="2">
+        userId&lt;long&gt;<br>
+        gameId&lt;long&gt;
+    </td>
+    <td rowspan="2">Query </td>
+    <td>200 </td>
+    <td>List&lt;GameHistoryAnswer&gt; </td>
+    <td>Get user's answers and correct answers of game </td>
+  </tr>
+  <tr>
+    <td>401 </td>
+    <td>Error&lt;String&gt; </td>
+    <td>gameId not found / <br>userId not found </td>
+  </tr>
+</tbody>
+</table>
+
 # SoPra RESTful Service Template FS23
 
 ## Getting started with Spring Boot
@@ -5,15 +340,10 @@
 -   Guides: http://spring.io/guides
     -   Building a RESTful Web Service: http://spring.io/guides/gs/rest-service/
     -   Building REST services with Spring: https://spring.io/guides/tutorials/rest/
-
-## Setup this Template with your IDE of choice
-Download your IDE of choice (e.g., [IntelliJ](https://www.jetbrains.com/idea/download/), [Visual Studio Code](https://code.visualstudio.com/), or [Eclipse](http://www.eclipse.org/downloads/)). Make sure Java 17 is installed on your system (for Windows, please make sure your `JAVA_HOME` environment variable is set to the correct version of Java).
-
 ### IntelliJ
 1. File -> Open... -> SoPra server template
 2. Accept to import the project as a `gradle project`
 3. To build right click the `build.gradle` file and choose `Run Build`
-
 ### VS Code
 The following extensions can help you get started more easily:
 -   `vmware.vscode-spring-boot`
@@ -32,25 +362,17 @@ You can use the local Gradle Wrapper to build the application.
 More Information about [Gradle Wrapper](https://docs.gradle.org/current/userguide/gradle_wrapper.html) and [Gradle](https://gradle.org/docs/).
 
 ### Build
-
 ```bash
 ./gradlew build
 ```
-
 ### Run
-
 ```bash
     ./gradlew bootRun
 ```
-
-You can verify that the server is running by visiting `localhost:8080` in your browser.
-
 ### Test
-
 ```bash
 ./gradlew test
 ```
-
 ### Development Mode
 You can start the backend in development mode, this will automatically trigger a new build and reload the application
 once the content of a file has been changed.
