@@ -10,6 +10,10 @@ enum CityCategory {
     EUROPE
     ASIA
     NORTH_AMERICA
+    SOUTH_AMERICA
+    AFRICA
+    OCEANIA
+    WORLD
 }
 
 class User {
@@ -31,19 +35,6 @@ class User {
     + getUserCreateDay(): Date
     + getUserBirthDay(): Date
     + setUserBirthDay(Date birthday): void
-}
-
-class Player {
-    - userId: long
-    - playerName: String
-    - score: int
-    - answerList: List<String>
-    + Player(long userId, String name)
-    + getUserId(): long
-    + getPlayerName(): String
-    + getScore(): int
-    + addScore(int score): void
-    + addAnswer(String answer): void
 }
 
 class UserStatistics {
@@ -76,33 +67,47 @@ class UserGameHistory {
 }
 
 User <-- UserStatistics
-UserStatus -> User
+User <- UserStatus
 UserStatistics *-- UserGameHistory
-
+UserStatistics <-- CityCategory
 
 class Game {
-    - playerList: List<Player>
-    - currentRound: int
+    - gameId: long
+    - category: CityCategory
     - totalRounds: int
     - countdownTime: int
-    + cityDB: CityBase
-    + Game(int totalRounds, int countdownTime, CityBase cityDB)
+    - playerList: List<Player>
+    - currentRound: int
+
+    + Game(CityCategory category, int totalRounds, int countdownTime)
     + addPlayer(User userAsPlayer): void
     + getCurrentRounds(): int
     + getTotalRounds(): int
     + getCountdownTime(): int
-    + showRanking(): void
+    + getPlayerRanking(): List<PlayerRanking>
 }
 
-class CityBase {
-    - category: CityCategory
-    - cityList: List<City>
-    + CityBase(CityCategory category)
-    + getCategory(): CityCategory
-    - loadCityList(): void
-    + getCityListLength(): int
-    + drawCities(): List<City>
+class Player {
+    - userId: long
+    - playerName: String
+    - score: int
+    - answerList: List<String>
+    + Player(long userId, String name)
+    + getUserId(): long
+    + getPlayerName(): String
+    + getScore(): int
+    + addScore(int score): void
+    + addAnswer(String answer): void
+    + getAnswerList(): Iterator<String>
 }
+
+'class PlayerRanking {
+'    - playerName: String
+'    - rank: int
+'    + PlayerRanking(String name, int rank)
+'    + getPlayerName(): String
+'    + getRank(): int
+'}
 
 class GameInfo {
     - gameId: long
@@ -121,34 +126,14 @@ class GameInfo {
     + getLabelList(): Iterator<String>
 }
 
-class City {
-    - name: String
-    - country: String
-    - location: String
-    + City(String name, String country, String location)
-    + getName(): String
-    + getCountry(): String
-    + getLocation(): String
-    + generatePicture(): Picture
-}
+User "1"..>"1" Player
+Game o- Player
 
-'class Picture {
-'    - pictureId: long
-'    - picturePath: String
-'    + Picture(long pictureId, String path)
-'    + getPictureId(): long
-'    + getPicturePath(): String
-'}
+Game <--- CityCategory
+Game "1"..>"1" GameInfo
+CityCategory -> GameInfo
 
-Player <-- User
-Player -o Game
 
-Game <-- CityBase
-CityBase o-- City
-CityBase <-- CityCategory
-UserStatistics <- CityCategory
-CityCategory --> GameInfo
-UserGameHistory <- GameInfo
 
 'CityCategory <|-- EuroCity
 'CityCategory <|--- AsiaCity
