@@ -38,7 +38,7 @@ public class GameHistoryService {
         return gameInfoList;
     }
 
-    public GameInfo searchGameInfoById(UserStatistics userStatistics, Long gameId) {
+    public GameInfo searchGameInfoById(Long gameId) {
         checkIfIdExist(gameId);
         return gameInfoRepository.findByGameId(gameId);
     }

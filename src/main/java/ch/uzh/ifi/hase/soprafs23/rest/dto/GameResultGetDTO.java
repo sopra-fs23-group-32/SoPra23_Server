@@ -6,12 +6,8 @@ import ch.uzh.ifi.hase.soprafs23.entity.PlayerRanking;
 import java.util.List;
 
 public class GameResultGetDTO {
-    private List<Player> winnerList;
-    private List<PlayerRanking> playerRankingList;
+    private List<String> winnerList;
 
-    public List<Player> getWinnerList() {return winnerList;}
-    public void setWinnerList(List<Player> winnerList) {this.winnerList = winnerList;}
-
-    public List<PlayerRanking> getPlayerRankingList() {return playerRankingList;}
-    public void setPlayerRankingList(List<PlayerRanking> playerRankingList) {this.playerRankingList = playerRankingList;}
+    public List<String> getWinnerList() {return winnerList;}
+    public void setWinnerList(List<String> winnerList) {this.winnerList = winnerList;}
 }

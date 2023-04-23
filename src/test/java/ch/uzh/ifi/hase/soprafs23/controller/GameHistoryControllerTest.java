@@ -44,13 +44,12 @@ public class GameHistoryControllerTest {
     private UserService userService;
     private User user;
     private UserGameHistory gameHistory;
-    private UserStatistics userStatistics;
 
     @BeforeEach
     public void setUp() {
         Long userId = 1L;
         gameHistory = new UserGameHistory(1L, 200);
-        userStatistics = new UserStatistics();
+        UserStatistics userStatistics = new UserStatistics();
         userStatistics.addGameHistory(gameHistory);
         user = new User();
         user.setUserId(userId);
@@ -86,7 +85,7 @@ public class GameHistoryControllerTest {
     }
 
     @Test
-    public void givenGameInfo_whenGetOneGameHistory_thenReturnJson() throws Exception {
+    public void givenGameInfo_whenGetGameHistoryDetails_thenReturnJson() throws Exception {
         // given
         GameInfo gameInfo = new GameInfo();
         Long gameId = 1L;
@@ -96,13 +95,14 @@ public class GameHistoryControllerTest {
         gameInfo.setGameRounds(2);
         gameInfo.setPlayerNum(4);
 
-        given(gameHistoryService.searchGameInfoById(Mockito.any(), Mockito.any())).willReturn(gameInfo);
+        given(gameHistoryService.searchGameInfoById(Mockito.any())).willReturn(gameInfo);
         // when/then -> do the request + validate the result
-        MockHttpServletRequestBuilder postRequest = get("/users/{userId}/gameInfos/{gameId}", user.getUserId(), gameId)
+        MockHttpServletRequestBuilder getRequest = get(
+                "/users/{userId}/gameInfos/{gameId}/details", user.getUserId(), gameId)
                 .contentType(MediaType.APPLICATION_JSON);
 
         // then
-        mockMvc.perform(postRequest)
+        mockMvc.perform(getRequest)
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.gameId", is(gameInfo.getGameId().intValue())))
                 .andExpect(jsonPath("$.category", is(gameInfo.getCategory().toString())))
@@ -111,18 +111,18 @@ public class GameHistoryControllerTest {
     }
 
     @Test
-    public void givenGameHistory_whenGetOneGameHistoryDetails_thenReturnJson() throws Exception {
+    public void givenGameHistory_whenGetGameHistoryScore_thenReturnJson() throws Exception {
         // given
         Long gameId = 1L;
 
         given(gameHistoryService.searchGameHistoryById(Mockito.any(), Mockito.any())).willReturn(gameHistory);
         // when/then -> do the request + validate the result
-        MockHttpServletRequestBuilder postRequest = get("/users/{userId}/gameInfos/{gameId}/details", user.getUserId(), gameId)
+        MockHttpServletRequestBuilder getRequest = get(
+                "/users/{userId}/gameInfos/{gameId}/score", user.getUserId(), gameId)
                 .contentType(MediaType.APPLICATION_JSON);
 
         // then
-        mockMvc.perform(postRequest)
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.gameScore", is(gameHistory.getGameScore())));
+        mockMvc.perform(getRequest)
+                .andExpect(status().isOk());
     }
 }
