@@ -50,3 +50,7 @@ Zilong Deng, https://github.com/sopra-fs23-group-32/SoPra23_Server/issues/51 \
 Zilong Deng, https://github.com/sopra-fs23-group-32/SoPra23_Server/issues/54 \
 Zilong Deng, https://github.com/sopra-fs23-group-32/SoPra23_Server/issues/55
 * implement REST request and corresponding services for Game, GameHistory, Question and Answer
+
+
+Dominic Vogel, https://github.com/sopra-fs23-group-32/SoPra23_Client/issues/43 \
+Dominic Vogel, https://github.com/sopra-fs23-group-32/SoPra23_Client/issues/42 \
