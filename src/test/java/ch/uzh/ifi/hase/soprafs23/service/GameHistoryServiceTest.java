@@ -74,7 +74,7 @@ public class GameHistoryServiceTest {
       Long gameId = 1L;
 
       // when
-      GameInfo gameInfo = gameHistoryService.searchGameInfoById(testUserStatistics, gameId);
+      GameInfo gameInfo = gameHistoryService.searchGameInfoById(gameId);
 
       // then
       Mockito.verify(gameInfoRepository, Mockito.times(2)).findByGameId(gameId);
@@ -91,10 +91,10 @@ public class GameHistoryServiceTest {
         Long gameId = 999L;
 
         // verify a ResponseStatusException with status code NOT_FOUND is thrown
-        ResponseStatusException exception = assertThrows(ResponseStatusException.class, () -> {
-            gameHistoryService.searchGameInfoById(testUserStatistics, gameId);
-        });
-
+        ResponseStatusException exception = assertThrows(
+                ResponseStatusException.class,
+                () -> gameHistoryService.searchGameInfoById(gameId)
+        );
         assertEquals(HttpStatus.NOT_FOUND, exception.getStatus());
     }
 
@@ -123,10 +123,10 @@ public class GameHistoryServiceTest {
       Long gameId = 999L;
 
       // verify a ResponseStatusException with status code NOT_FOUND is thrown
-      ResponseStatusException exception = assertThrows(ResponseStatusException.class, () -> {
-          gameHistoryService.searchGameHistoryById(testUserStatistics, gameId);
-      });
-
+      ResponseStatusException exception = assertThrows(
+              ResponseStatusException.class,
+              () -> gameHistoryService.searchGameHistoryById(testUserStatistics, gameId)
+      );
       assertEquals(HttpStatus.NOT_FOUND, exception.getStatus());
     }
 
@@ -138,10 +138,10 @@ public class GameHistoryServiceTest {
       testGameHistory.setGameId(2L);
 
       // verify a ResponseStatusException with status code NOT_FOUND is thrown
-      ResponseStatusException exception = assertThrows(ResponseStatusException.class, () -> {
-          gameHistoryService.searchGameHistoryById(testUserStatistics, gameId);
-      });
-
+      ResponseStatusException exception = assertThrows(
+              ResponseStatusException.class,
+              () -> gameHistoryService.searchGameHistoryById(testUserStatistics, gameId)
+      );
       assertEquals(HttpStatus.NOT_FOUND, exception.getStatus());
     }
 }
