@@ -143,11 +143,11 @@ public class DTOMapperTest {
     @Test
     public void testGetPlayerRanking_fromPlayerRanking_toPlayerRankingGetDTO_success() {
         // create PlayerRanking
-        PlayerRanking playerRanking = new PlayerRanking(new Player(1L, "a"), 2);
+        PlayerRanking playerRanking = new PlayerRanking("testPlayer", 2);
         // MAP -> Create PlayerRankingGetDTO
         PlayerRankingGetDTO playerRankingGetDTO = DTOMapper.INSTANCE.convertEntityToPlayerRankingGetDTO(playerRanking);
         // check content
-        assertEquals(playerRanking.getPlayer(), playerRankingGetDTO.getPlayer());
+        assertEquals(playerRanking.getPlayerName(), playerRankingGetDTO.getPlayerName());
         assertEquals(playerRanking.getRank(), playerRankingGetDTO.getRank());
     }
 

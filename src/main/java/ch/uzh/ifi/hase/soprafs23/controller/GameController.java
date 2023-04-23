@@ -117,14 +117,15 @@ public class GameController {
      * @param gameId gameId of the game
      * will return the list of PlayerRanking
      */
-    @GetMapping("/games/{gameId}/rankings")
+    @GetMapping("/games/{gameId}/ranking")
     @ResponseStatus(HttpStatus.OK)
     public List<PlayerRankingGetDTO> getRanking(@PathVariable Long gameId) {
         List<PlayerRanking> playerRankingList = gameService.getRanking(gameId);
         List<PlayerRankingGetDTO> playerRankingGetDTOList = new ArrayList<>();
         for (PlayerRanking playerRanking : playerRankingList) {
-            PlayerRankingGetDTO playerRankingGetDTO= DTOMapper.INSTANCE.convertEntityToPlayerRankingGetDTO(playerRanking);
-            playerRankingGetDTOList.add(playerRankingGetDTO);
+            playerRankingGetDTOList.add(
+                DTOMapper.INSTANCE.convertEntityToPlayerRankingGetDTO(playerRanking)
+            );
         }
         return playerRankingGetDTOList;
     }

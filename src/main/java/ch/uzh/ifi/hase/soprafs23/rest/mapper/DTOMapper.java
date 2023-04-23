@@ -61,7 +61,7 @@ public interface DTOMapper {
     @Mapping(source = "timeTaken", target = "timeTaken")
     Answer convertAnswerPostDTOtoEntity(AnswerPostDTO answerPostDTO);
 
-    @Mapping(source = "player", target = "player")
+    @Mapping(source = "playerName", target = "playerName")
     @Mapping(source = "rank", target = "rank")
     PlayerRankingGetDTO convertEntityToPlayerRankingGetDTO(PlayerRanking playerRanking);
 
