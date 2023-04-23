@@ -55,35 +55,27 @@ public class GameService {
     }
 
     public Question goNextRound(Long gameId) {
-        System.out.println("Game Service Round reached");
+        System.out.println("Game Service - Round reached.");
         Game game = searchGameById(gameId);
         game.addCurrentRound();
-        Question question=new Question("","","","","","");
+
+        String option1="Geneva", option2="Basel", option3="Lausanne", option4="Bern";
+        String pictureUrl = getCityImage(option4);
+        Question question = new Question(option1, option2, option3, option4, option4, pictureUrl);
         if(!game.isGameEnded()){
             try{
                 List<String> cityNames = getRandomCityNames(game.getCategory(), getRandomPopulationNumber());
                 Random random = new Random();
-                int randInt = random.nextInt(3);
-                String correctOption = cityNames.get(randInt);
+                String correctOption = cityNames.get(random.nextInt(3));
                 game.setCurrentAnswer(correctOption);
-                System.out.println("++++++");
-                System.out.println(question.getOption1());
-                System.out.println("Corerct Option: ");
-                System.out.println(correctOption);
-                System.out.println("++++++");
-                String pictureUrl = getCityImage(correctOption);
-                
-                question= new Question(cityNames.get(0), cityNames.get(1), cityNames.get(2),cityNames.get(3), correctOption, pictureUrl);
-                System.out.println("gameService question otpion1: ");
-                return question;
-
+                System.out.println("++++++\nCorrect Option: " + correctOption + "\n++++++");
+                pictureUrl = getCityImage(correctOption);
+                question= new Question(cityNames.get(0), cityNames.get(1),
+                        cityNames.get(2),cityNames.get(3), correctOption, pictureUrl);
+                System.out.println("Game Service - Question generated.");
             }catch (Exception e){
-                System.out.println("Unable to generate image");
-                String option1="Geneva", option2="Basel", option3="Lausanne", option4="Bern";
+                System.out.println("Game Service - Unable to generate image");
                 game.setCurrentAnswer(option4);
-                String pictureUrl = getCityImage(option4);
-                question= new Question(option1, option2, option3, option4, option4, pictureUrl);
-                return question;
             }
         }
         return question;
@@ -94,27 +86,22 @@ public class GameService {
         return game.getRanking();
     }
 
-    public GameResult endGame(Long gameId) {
+    public GameResult getGameResult(Long gameId) {
         Game game = searchGameById(gameId);
         if (!game.isGameEnded()) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
-                    String.format("Game has not finished yet!\n", gameId));
+                    String.format("Game with ID %d has not finished yet!\n", gameId));
         }
-
-        List<Player> winnerList = game.getWinners();
-        List<PlayerRanking> playerRankingList = getRanking(gameId);
-
-        GameResult gameResult = new GameResult(winnerList, playerRankingList);
-        return gameResult;
+        return new GameResult(game.getWinners());
     }
 
     // =============== all private non-service functions here =================
     public Game searchGameById(Long gameId) {
-        checkIfIdExist(gameId);
+        checkIfGameIdExist(gameId);
         return gameRepository.findByGameId(gameId);
     }
 
-    private void checkIfIdExist(Long gameId) {
+    private void checkIfGameIdExist(Long gameId) {
         Game gameByGameId = gameRepository.findByGameId(gameId);
         if(gameByGameId == null) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND,
@@ -132,6 +119,30 @@ public class GameService {
         }
         throw new ResponseStatusException(HttpStatus.NOT_FOUND,
                 String.format("Player with ID %d was not found!\n", playerId));
+    }
+
+    /**
+     * Add the answer to the player's list and update the points
+     * @param playerId player's ID
+     * @param answer an Answer object
+     */
+    public int submitAnswer(Long gameId, Long playerId, Answer answer) {
+        Game game = searchGameById(gameId);
+        Player currentPlayer = searchPlayerById(game, playerId);
+        currentPlayer.addAnswer(answer.getAnswer());
+        // get the right answer of current round
+        int score = 0;
+        if (answer.getAnswer().equals(game.getCurrentAnswer())) {
+            int remainingTime = game.getCountdownTime() - answer.getTimeTaken();
+            score = calculateScore(Math.max(remainingTime, 0));
+            currentPlayer.addScore(score);
+        }
+        return score;
+    }
+
+    private int calculateScore(int remainingTime) {
+        // 50 pts for a correct answer and 10 pts for each second remains
+        return 50 + (remainingTime * 10);
     }
 
     private static String getContinentCode(String category) {
@@ -152,8 +163,7 @@ public class GameService {
         int max = 8000000;
         int range = max - min;
         Random random = new Random();
-        int randomNumber = random.nextInt(range/500000) * 500000 + min;
-        return randomNumber;
+        return random.nextInt(range/500000) * 500000 + min;
     }
 
     public static List<String> getRandomCityNames(CityCategory category, int minPopulation) throws Exception {
@@ -228,30 +238,6 @@ public class GameService {
             LOGGER.severe("Error fetching or saving image for " + cityName + ": " + e.getMessage());
             return "";
         }
-    }
-
-    /**
-     * Add the answer to the player's list and update the points
-     * @param playerId player's ID
-     * @param answer an Answer object
-     */
-    public int submitAnswer(Long gameId, Long playerId, Answer answer) {
-        Game game = searchGameById(gameId);
-        Player currentPlayer = searchPlayerById(game, playerId);
-        currentPlayer.addAnswer(answer.getAnswer());
-        // get the right answer of current round
-        int score = 0;
-        if (answer.getAnswer().equals(game.getCurrentAnswer())) {
-            int remainingTime = game.getCountdownTime() - answer.getTimeTaken();
-            score = calculateScore(Math.max(remainingTime, 0));
-            currentPlayer.addScore(score);
-        }
-        return score;
-    }
-
-    private int calculateScore(int remainingTime) {
-        // 50 pts for a correct answer and 10 pts for each second remains
-        return 50 + (remainingTime * 10);
     }
 }
 

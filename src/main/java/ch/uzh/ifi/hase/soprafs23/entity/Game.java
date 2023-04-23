@@ -70,8 +70,7 @@ public class Game implements Serializable {
     public List<PlayerRanking> getRanking() {
         // Sort player scores in descending order
         List<Player> sortedPlayerList = playerList.stream()
-                .sorted(Comparator.comparingInt(Player::getScore).reversed())
-                .collect(Collectors.toList());
+                .sorted(Comparator.comparingInt(Player::getScore).reversed()).toList();
 
         List<PlayerRanking> playerRankingList = new ArrayList<>();
         int currentRank = 1;
@@ -87,13 +86,13 @@ public class Game implements Serializable {
         return playerRankingList;
     }
 
-    public List<Player> getWinners() {
+    public List<String> getWinners() {
         List<PlayerRanking> playerRankingList = getRanking();
 
-        List<Player> winnerList = new ArrayList<>();
+        List<String> winnerList = new ArrayList<>();
         for (PlayerRanking playerRanking : playerRankingList) {
             if (playerRanking.getRank() == 1) {
-                winnerList.add(playerRanking.getPlayer());
+                winnerList.add(playerRanking.getPlayer().getPlayerName());
             }
         }
         return winnerList;

@@ -109,8 +109,7 @@ public class GameController {
                             @PathVariable Long gameId,
                             @PathVariable Long playerId) {
         Answer newAnswer = DTOMapper.INSTANCE.convertAnswerPostDTOtoEntity(answerPostDTO);
-        int addedScore = gameService.submitAnswer(gameId, playerId, newAnswer);
-        return addedScore;
+        return gameService.submitAnswer(gameId, playerId, newAnswer);
     }
 
     /**
@@ -118,7 +117,7 @@ public class GameController {
      * @param gameId gameId of the game
      * will return the list of PlayerRanking
      */
-    @PostMapping("/games/{gameId}/ranking")
+    @GetMapping("/games/{gameId}/rankings")
     @ResponseStatus(HttpStatus.OK)
     public List<PlayerRankingGetDTO> getRanking(@PathVariable Long gameId) {
         List<PlayerRanking> playerRankingList = gameService.getRanking(gameId);
@@ -131,14 +130,14 @@ public class GameController {
     }
 
     /**
-     * End the game
+     * End the game of MultiPLayer Mode
      * @param gameId gameId of the game
      * will return GameResultGetDTO, including a list of winners and a list of PlayerRanking
      */
-    @PostMapping("/games/{gameId}/results")
+    @GetMapping("/games/{gameId}/results")
     @ResponseStatus(HttpStatus.OK)
     public GameResultGetDTO endGame(@PathVariable Long gameId) {
-        GameResult gameResult = gameService.endGame(gameId);
+        GameResult gameResult = gameService.getGameResult(gameId);
         return DTOMapper.INSTANCE.convertEntityToGameResultGetDTO(gameResult);
     }
 }

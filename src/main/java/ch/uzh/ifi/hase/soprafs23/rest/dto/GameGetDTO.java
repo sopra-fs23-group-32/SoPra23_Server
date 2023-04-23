@@ -4,8 +4,6 @@ public class GameGetDTO {
 
     private Long gameId;
     private int currentRound;
-    // need a scoreboard
-    // private Map<String, int> currentScore;
 
     public Long getGameId() {return gameId;}
     public void setGameId(Long gameId) {this.gameId = gameId;}

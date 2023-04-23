@@ -3,17 +3,13 @@ package ch.uzh.ifi.hase.soprafs23.entity;
 import java.util.List;
 
 public class GameResult {
-    private List<Player> winnerList;
-    private List<PlayerRanking> playerRankingList;
+    private List<String> winnerList;
 
-    public GameResult(List<Player> winnerList, List<PlayerRanking> playerRankingList) {
+    public GameResult(List<String> winnerList) {
         this.winnerList = winnerList;
-        this.playerRankingList = playerRankingList;
     }
 
-    public List<Player> getWinnerList() {return winnerList;}
-    public void setWinnerList(List<Player> winnerList) {this.winnerList = winnerList;}
+    public List<String> getWinnerList() {return winnerList;}
+    public void setWinnerList(List<String> winnerList) {this.winnerList = winnerList;}
 
-    public List<PlayerRanking> getPlayerRankingList() {return playerRankingList;}
-    public void setPlayerRankingList(List<PlayerRanking> playerRankingList) {this.playerRankingList = playerRankingList;}
 }
