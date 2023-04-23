@@ -1,8 +1,5 @@
 # REST requests Table
 
-<style>
-    td{text-align: center;}
-</style>
 <table>
 <thead>
   <tr>
@@ -120,6 +117,20 @@
     <td>userId was not found </td>
   </tr>
   <tr>
+    <td rowspan="2">GET </td>
+    <td rowspan="2">/users/ranking </td>
+    <td rowspan="2">- </td>
+    <td rowspan="2">- </td>
+    <td>200 </td>
+    <td>List&lt;UserRanking&gt; </td>
+    <td>Get ranking of users </td>
+  </tr>
+  <tr>
+    <td>404 </td>
+    <td>Error&lt;String&gt; </td>
+    <td>no user </td>
+  </tr>
+  <tr>
     <td rowspan="2">POST </td>
     <td rowspan="2">/games </td>
     <td rowspan="2">
@@ -139,7 +150,7 @@
   </tr>
   <tr>
     <td rowspan="2">POST </td>
-    <td rowspan="2">/games/{gameId}<br>/players/{playerId} </td>
+    <td rowspan="2">/games/{gameId}/players/<br>{playerId} </td>
     <td rowspan="2">
         gameId&lt;long&gt;<br>
         playerId&lt;long&gt;
@@ -156,7 +167,7 @@
   </tr>
   <tr>
     <td rowspan="2">POST </td>
-    <td rowspan="2">/games/{gameId}<br>/players/{playerId}/answer </td>
+    <td rowspan="2">/games/{gameId}/players/<br>{playerId}/answer </td>
     <td rowspan="2">
         gameId&lt;long&gt;<br>
         playerId&lt;long&gt;<br>
@@ -250,7 +261,7 @@
   </tr>
   <tr>
     <td rowspan="2">DELETE </td>
-    <td rowspan="2">/games/{gameId}<br>/players/{playerId}/logout </td>
+    <td rowspan="2">/games/{gameId}/players/<br>{playerId}/logout </td>
     <td rowspan="2">
         gameId&lt;long&gt;<br>
         playerId&lt;long&gt;
@@ -281,7 +292,7 @@
   </tr>
   <tr>
     <td rowspan="2">GET </td>
-    <td rowspan="2">/users/{userId}<br>/gameInfo/{gameId}/details </td>
+    <td rowspan="2">/users/{userId}/gameInfo/<br>{gameId}/details </td>
     <td rowspan="2">
         userId&lt;long&gt;<br>
         gameId&lt;long&gt;
@@ -298,7 +309,7 @@
   </tr>
   <tr>
     <td rowspan="2">GET </td>
-    <td rowspan="2">/users/{userId}<br>/gameInfo/{gameId}/score </td>
+    <td rowspan="2">/users/{userId}/gameInfo/<br>{gameId}/score </td>
     <td rowspan="2">
         userId&lt;long&gt;<br>
         gameId&lt;long&gt;
@@ -315,7 +326,7 @@
   </tr>
   <tr>
     <td rowspan="2">GET </td>
-    <td rowspan="2">/users/{userId}<br>/gameInfo/{gameId}/answer </td>
+    <td rowspan="2">/users/{userId}/gameInfo/<br>{gameId}/answer </td>
     <td rowspan="2">
         userId&lt;long&gt;<br>
         gameId&lt;long&gt;
