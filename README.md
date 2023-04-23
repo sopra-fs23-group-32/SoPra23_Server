@@ -139,7 +139,7 @@
   </tr>
   <tr>
     <td rowspan="2">POST </td>
-    <td rowspan="2">/games/{gameId}/players/{playerId} </td>
+    <td rowspan="2">/games/{gameId}<br>/players/{playerId} </td>
     <td rowspan="2">
         gameId&lt;long&gt;<br>
         playerId&lt;long&gt;
@@ -156,7 +156,7 @@
   </tr>
   <tr>
     <td rowspan="2">POST </td>
-    <td rowspan="2">/games/{gameId}/players/{playerId}/answer </td>
+    <td rowspan="2">/games/{gameId}<br>/players/{playerId}/answer </td>
     <td rowspan="2">
         gameId&lt;long&gt;<br>
         playerId&lt;long&gt;<br>
@@ -250,7 +250,7 @@
   </tr>
   <tr>
     <td rowspan="2">DELETE </td>
-    <td rowspan="2">/games/{gameId}/players/{playerId}/logout </td>
+    <td rowspan="2">/games/{gameId}<br>/players/{playerId}/logout </td>
     <td rowspan="2">
         gameId&lt;long&gt;<br>
         playerId&lt;long&gt;
@@ -267,7 +267,7 @@
   </tr>
   <tr>
     <td rowspan="2">GET </td>
-    <td rowspan="2">/users/{userId}/gameInfos </td>
+    <td rowspan="2">/users/{userId}/gameInfo </td>
     <td rowspan="2">userId&lt;long&gt; </td>
     <td rowspan="2">Query </td>
     <td>200 </td>
@@ -281,7 +281,7 @@
   </tr>
   <tr>
     <td rowspan="2">GET </td>
-    <td rowspan="2">/users/{userId}/gameInfos/{gameId}/details </td>
+    <td rowspan="2">/users/{userId}<br>/gameInfo/{gameId}/details </td>
     <td rowspan="2">
         userId&lt;long&gt;<br>
         gameId&lt;long&gt;
@@ -298,7 +298,7 @@
   </tr>
   <tr>
     <td rowspan="2">GET </td>
-    <td rowspan="2">/users/{userId}/gameInfos/{gameId}/score </td>
+    <td rowspan="2">/users/{userId}<br>/gameInfo/{gameId}/score </td>
     <td rowspan="2">
         userId&lt;long&gt;<br>
         gameId&lt;long&gt;
@@ -315,7 +315,7 @@
   </tr>
   <tr>
     <td rowspan="2">GET </td>
-    <td rowspan="2">/users/{userId}/gameInfos/{gameId}/answer </td>
+    <td rowspan="2">/users/{userId}<br>/gameInfo/{gameId}/answer </td>
     <td rowspan="2">
         userId&lt;long&gt;<br>
         gameId&lt;long&gt;
