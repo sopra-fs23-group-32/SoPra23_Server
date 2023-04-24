@@ -102,12 +102,27 @@ public class GameService {
         Game game = searchGameById(gameId);
         if (!game.isGameEnded()) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
-                    String.format("Game with ID %d has not finished yet!\n", gameId));
+                String.format("Game with ID %d has not finished yet!\n", gameId));
         }
         return new GameResult(game.getWinners());
     }
 
+    public void closeGame(Long gameId) {
+        Game game = searchGameById(gameId);
+        if(!game.isGameEnded()) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
+                String.format("Game with ID %d has not finished yet!\n", gameId));
+        }
+        gameRepository.delete(game);
+    }
+
+    public void leaveGame(Long gameId, Long playerId) {
+        Game game = searchGameById(gameId);
+        game.deletePlayer(playerId);
+    }
+
     // =============== all private non-service functions here =================
+
     public Game searchGameById(Long gameId) {
         checkIfGameIdExist(gameId);
         return gameRepository.findByGameId(gameId);
@@ -117,7 +132,7 @@ public class GameService {
         Game gameByGameId = gameRepository.findByGameId(gameId);
         if(gameByGameId == null) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND,
-                    String.format("Game with ID %d was not found!\n", gameId));
+                String.format("Game with ID %d was not found!\n", gameId));
         }
     }
 
@@ -130,7 +145,7 @@ public class GameService {
             }
         }
         throw new ResponseStatusException(HttpStatus.NOT_FOUND,
-                String.format("Player with ID %d was not found!\n", playerId));
+            String.format("Player with ID %d was not found!\n", playerId));
     }
 
     /**
@@ -154,7 +169,7 @@ public class GameService {
 
     private int calculateScore(int remainingTime) {
         // 50 pts for a correct answer and 10 pts for each second remains
-        return 50 + (remainingTime * 10);
+        return 20 + (remainingTime * 4);
     }
 
     private static String getContinentCode(String category) {
@@ -181,8 +196,7 @@ public class GameService {
     public static List<String> getRandomCityNames(CityCategory category, int minPopulation) throws Exception {
         String baseUrl = "http://api.geonames.org/searchJSON";
         String username = "whowho";
-        String continent_category=category.toString();
-        String continent = getContinentCode(continent_category);
+        String continent = getContinentCode(category.toString());
         String queryUrl = String.format(
                 "%s?continentCode=%s&featureClass=P&maxRows=1000&orderby=random&population>%d&username=%s",
                 baseUrl, continent, minPopulation, username);
@@ -200,10 +214,10 @@ public class GameService {
             String cityName = cityObj.getString("name");
             cityNames.add(cityName);
         }
-
-        Collections.shuffle(cityNames); // shuffle the city names
-
-        return cityNames.subList(0, Math.min(cityNames.size(), 4)); // return the first 4 city names
+        // shuffle the city names
+        Collections.shuffle(cityNames);
+        // return the first 4 city names
+        return cityNames.subList(0, Math.min(cityNames.size(), 4));
     }
 
     private String getCityImage(String cityName) {
@@ -212,7 +226,7 @@ public class GameService {
         String UNSPLASH_API_ENDPOINT = "https://api.unsplash.com/search/photos?query=%s&per_page=1&orientation=landscape";
         try {
             // Build the API request URL
-            String url = String.format(UNSPLASH_API_ENDPOINT, cityName);
+            String url = String.format(UNSPLASH_API_ENDPOINT, cityName);// ;
             // Create HTTP client and request
             HttpClient client = HttpClient.newHttpClient();
             HttpRequest request = HttpRequest.newBuilder()
@@ -244,7 +258,7 @@ public class GameService {
                     outputStream.write(buffer, 0, length);
                 }
             }
-            LOGGER.info("Saved image for " + cityName + " in static folder");
+            LOGGER.info("Saved image for " + cityName + " in local folder");
             System.out.println(photoUrl);
             return photoUrl;
         }

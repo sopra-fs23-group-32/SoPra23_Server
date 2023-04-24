@@ -70,6 +70,13 @@ public class GameController {
         return DTOMapper.INSTANCE.convertEntityToGameGetDTO(game);
     }
 
+    @DeleteMapping("/games/{gameId}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void closeGame(@PathVariable Long gameId) {
+        gameService.closeGame(gameId);
+        System.out.println("Game deleted!");
+    }
+
     /**
      * Get list of players in a game
      * @return List of user DTO
@@ -100,6 +107,12 @@ public class GameController {
         User user = userService.searchUserById(playerId);
         gameService.addPlayer(gameId, user);
         return DTOMapper.INSTANCE.convertEntityToUserGetDTO(user);
+    }
+
+    @DeleteMapping("/games/{gameId}/players/{playerId}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void closeGame(@PathVariable Long gameId, @PathVariable Long playerId) {
+        gameService.leaveGame(gameId, playerId);
     }
 
     /**

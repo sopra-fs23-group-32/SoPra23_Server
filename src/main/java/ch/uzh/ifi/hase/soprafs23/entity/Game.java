@@ -51,6 +51,13 @@ public class Game implements Serializable {
     public int getCountdownTime() {return countdownTime;}
     public void setCountdownTime(int countdownTime) {this.countdownTime = countdownTime;}
 
+    public int getCurrentRound() {return currentRound;}
+    public void addCurrentRound() {currentRound ++;}
+    public boolean isGameEnded() {return currentRound >= totalRounds;}
+
+    public String getCurrentAnswer() {return currentAnswer;}
+    public void setCurrentAnswer(String currentAnswer) {this.currentAnswer = currentAnswer;}
+
     public void addPlayer(User userAsPlayer) {
         Player newPlayer = new Player();
         newPlayer.setUserId(userAsPlayer.getUserId());
@@ -61,12 +68,9 @@ public class Game implements Serializable {
     }
     public Iterator<Player> getPlayerList() { return playerList.iterator();}
 
-    public int getCurrentRound() {return currentRound;}
-    public void addCurrentRound() {currentRound ++;}
-    public boolean isGameEnded() {return currentRound > totalRounds;}
-
-    public String getCurrentAnswer() {return currentAnswer;}
-    public void setCurrentAnswer(String currentAnswer) {this.currentAnswer = currentAnswer;}
+    public void deletePlayer(Long playerId) {
+        playerList.removeIf(player -> Objects.equals(player.getUserId(), playerId));
+    }
 
     public List<PlayerRanking> getRanking() {
         // Sort player scores in descending order
@@ -74,7 +78,7 @@ public class Game implements Serializable {
                 .sorted(Comparator.comparingInt(Player::getScore).reversed()).toList();
 
         List<PlayerRanking> playerRankingList = new ArrayList<>();
-        int currentRank = 1;
+        int currentRank = 0;
         int currentScore = Integer.MAX_VALUE;
         for (Player player: sortedPlayerList) {
             int playerScore = player.getScore();
