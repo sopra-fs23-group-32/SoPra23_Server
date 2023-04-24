@@ -54,3 +54,13 @@ Zilong Deng, https://github.com/sopra-fs23-group-32/SoPra23_Server/issues/55
 
 Dominic Vogel, https://github.com/sopra-fs23-group-32/SoPra23_Client/issues/43 \
 Dominic Vogel, https://github.com/sopra-fs23-group-32/SoPra23_Client/issues/42 \
+
+
+Leyi Xu, https://github.com/sopra-fs23-group-32/SoPra23_Server/issues/71 \
+Leyi Xu, https://github.com/sopra-fs23-group-32/SoPra23_Server/issues/75 \
+Update the player ranking during the game \
+Give game results and announce winners after the game \
+
+Jano Vukadinovic, https://github.com/sopra-fs23-group-32/SoPra23_Client/issues/51
+Jano Vukadinovic, https://github.com/sopra-fs23-group-32/SoPra23_Client/issues/52
+Semi-Runnable singleplayer mode.
