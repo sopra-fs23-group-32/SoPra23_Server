@@ -1,7 +1,5 @@
 package ch.uzh.ifi.hase.soprafs23.entity;
 
-
-
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -25,7 +23,8 @@ public class Player {
     @JoinColumn(name = "game_gameId")
     private Game game;
 
-//    private final List<String> answerList = new ArrayList<>();
+    @ElementCollection
+    private final List<String> answerList = new ArrayList<>();
 
     public Long getUserId() {return userId;}
     public void setUserId(Long userId) {this.userId = userId;}
