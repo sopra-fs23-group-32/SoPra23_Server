@@ -24,6 +24,8 @@ import java.io.OutputStream;
 import java.net.http.HttpClient;
 import java.net.URL;
 import com.fasterxml.jackson.databind.JsonNode;
+
+import java.nio.charset.StandardCharsets;
 import java.util.*;
 
 /**
@@ -52,6 +54,16 @@ public class GameService {
     public void addPlayer(Long gameId, User userAsPlayer) {
         Game game = searchGameById(gameId);
         game.addPlayer(userAsPlayer);
+    }
+
+    public List<Long> getAllPlayers(Long gameId) {
+        Game gameByGameId = gameRepository.findByGameId(gameId);
+        List<Long> userIdList = new ArrayList<>();
+        Iterator<Player> playerIterator = gameByGameId.getPlayerList();
+        while(playerIterator.hasNext()) {
+            userIdList.add(playerIterator.next().getUserId());
+        }
+        return userIdList;
     }
 
     public Question goNextRound(Long gameId) {
@@ -121,15 +133,6 @@ public class GameService {
                 String.format("Player with ID %d was not found!\n", playerId));
     }
 
-    public List<Long> getAllPlayers(Game game) {
-        List<Long> userIdList = new ArrayList<>();
-        Iterator<Player> playerIterator = game.getPlayerList();
-        while(playerIterator.hasNext()) {
-            userIdList.add(playerIterator.next().getUserId());
-        }
-        return userIdList;
-    }
-
     /**
      * Add the answer to the player's list and update the points
      * @param playerId player's ID
@@ -138,7 +141,7 @@ public class GameService {
     public int submitAnswer(Long gameId, Long playerId, Answer answer) {
         Game game = searchGameById(gameId);
         Player currentPlayer = searchPlayerById(game, playerId);
-        currentPlayer.addAnswer(answer.getAnswer());
+//        currentPlayer.addAnswer(answer.getAnswer());
         // get the right answer of current round
         int score = 0;
         if (answer.getAnswer().equals(game.getCurrentAnswer())) {
@@ -180,10 +183,12 @@ public class GameService {
         String username = "whowho";
         String continent_category=category.toString();
         String continent = getContinentCode(continent_category);
-        String queryUrl = String.format("%s?continentCode=%s&featureClass=P&maxRows=1000&orderby=random&population>%d&username=%s", baseUrl, continent, minPopulation, username);
+        String queryUrl = String.format(
+                "%s?continentCode=%s&featureClass=P&maxRows=1000&orderby=random&population>%d&username=%s",
+                baseUrl, continent, minPopulation, username);
 
         URL url = new URL(queryUrl);
-        Scanner scanner = new Scanner(url.openStream(), "UTF-8");
+        Scanner scanner = new Scanner(url.openStream(), StandardCharsets.UTF_8);
         String response = scanner.useDelimiter("\\Z").next();
         scanner.close();
 
@@ -229,7 +234,7 @@ public class GameService {
             JsonNode photo = photos.get(0);
             String photoUrl = photo.get("urls").get("regular").asText();
             String filename = cityName + ".jpg";
-            String filePath = "C:\\Users\\a\\Desktop\\sopra_1604\\server\\src\\main\\java\\ch\\uzh\\ifi\\hase\\soprafs23\\static\\" + filename;
+            String filePath = "../picture" + filename;
             URL urlObj = new URL(photoUrl);
             try (InputStream inputStream = urlObj.openStream();
                  OutputStream outputStream = new FileOutputStream(filePath)) {

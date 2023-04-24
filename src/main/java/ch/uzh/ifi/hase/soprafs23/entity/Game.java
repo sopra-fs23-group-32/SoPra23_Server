@@ -1,8 +1,6 @@
 package ch.uzh.ifi.hase.soprafs23.entity;
 
 import ch.uzh.ifi.hase.soprafs23.constant.CityCategory;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.server.ResponseStatusException;
 
 import javax.persistence.*;
 import java.io.Serial;
@@ -17,7 +15,7 @@ import java.util.stream.Collectors;
 @Table(name = "GAME")
 public class Game implements Serializable {
     @Serial
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 2L;
 
     @Id
     @GeneratedValue
@@ -26,15 +24,15 @@ public class Game implements Serializable {
     private CityCategory category;
     @Column(nullable = false)
     private int totalRounds;
+    @Column()
+    private int currentRound;
     @Column(nullable = false)
     private int countdownTime;
-
-    @Transient
-    private List<Player> playerList = new ArrayList<>();
-    @Transient
-    private int currentRound;
-    @Transient
+    @Column()
     private String currentAnswer;
+
+    @OneToMany(mappedBy = "game", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Player> playerList = new ArrayList<>();
 
     public void initGame() {
         currentRound = 0;
@@ -54,9 +52,12 @@ public class Game implements Serializable {
     public void setCountdownTime(int countdownTime) {this.countdownTime = countdownTime;}
 
     public void addPlayer(User userAsPlayer) {
-        playerList.add(new Player(
-                userAsPlayer.getUserId(), userAsPlayer.getUsername()
-        ));
+        Player newPlayer = new Player();
+        newPlayer.setUserId(userAsPlayer.getUserId());
+        newPlayer.setPlayerName(userAsPlayer.getUsername());
+        newPlayer.setGame(this);
+        playerList.add(newPlayer);
+        System.out.println("Player added: " + userAsPlayer.getUsername());
     }
     public Iterator<Player> getPlayerList() { return playerList.iterator();}
 

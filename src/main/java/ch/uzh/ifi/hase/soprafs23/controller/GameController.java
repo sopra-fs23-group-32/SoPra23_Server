@@ -47,29 +47,15 @@ public class GameController {
     @PutMapping("/games/{gameId}")
     @ResponseStatus(HttpStatus.CREATED)
     public QuestionGetDTO goNextRound(@PathVariable Long gameId) {
-        System.out.println("Erreicht");
         Question question = gameService.goNextRound(gameId);
         System.out.println("-----------------");
-        System.out.println("Option1: ");
-        System.out.println(question.getOption1());
+        System.out.println("Option1: " + question.getOption1());
+        System.out.println("Option2: " + question.getOption2());
+        System.out.println("Option3: " + question.getOption3());
+        System.out.println("Option4: " + question.getOption4());
 
-        System.out.println("Option2: ");
-        System.out.println(question.getOption2());
-
-        System.out.println("Option3: ");
-        System.out.println(question.getOption3());
-
-        System.out.println("Option4: ");
-        System.out.println(question.getOption4());
-
-        System.out.println("CorrectOption: ");
-        System.out.println(question.getCorrectOption());
-
-        System.out.println("PictureUrl: ");
-        System.out.println(question.getPictureUrl());
-
-
-        System.out.println("-----------------");
+        System.out.println("CorrectOption: " + question.getCorrectOption());
+        System.out.println("PictureUrl: " + question.getPictureUrl());
         return DTOMapper.INSTANCE.convertEntityToQuestionGetDTO(question);
     }
 
@@ -91,9 +77,8 @@ public class GameController {
     @GetMapping("/games/{gameId}/players")
     @ResponseStatus(HttpStatus.OK)
     public List<UserGetDTO> getPlayers(@PathVariable Long gameId) {
-        Game game = gameService.searchGameById(gameId);
+        List<Long> userIdList = gameService.getAllPlayers(gameId);
         List<UserGetDTO> userGetDTOList = new ArrayList<>();
-        List<Long> userIdList = gameService.getAllPlayers(game);
         for(long userId: userIdList) {
             userGetDTOList.add(
                 DTOMapper.INSTANCE.convertEntityToUserGetDTO(
@@ -111,9 +96,10 @@ public class GameController {
      */
     @PostMapping("/games/{gameId}/players/{playerId}")
     @ResponseStatus(HttpStatus.CREATED)
-    public void createPlayer(@PathVariable Long gameId, @PathVariable Long playerId) {
+    public UserGetDTO createPlayer(@PathVariable Long gameId, @PathVariable Long playerId) {
         User user = userService.searchUserById(playerId);
         gameService.addPlayer(gameId, user);
+        return DTOMapper.INSTANCE.convertEntityToUserGetDTO(user);
     }
 
     /**

@@ -154,7 +154,9 @@ public class DTOMapperTest {
     @Test
     public void testGetGameResult_fromGameResult_toGameResultGetDTO_success() {
         // create GameResult
-        Player player = new Player(1L, "a");
+        Player player = new Player();
+        player.setUserId(1L);
+        player.setPlayerName("TestPlayer");
         List<String> winnerList = new ArrayList<>(List.of(player.getPlayerName()));
         GameResult gameResult = new GameResult(winnerList);
         // MAP -> Create GameResultGetDTO
