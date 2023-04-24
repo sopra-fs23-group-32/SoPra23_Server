@@ -71,11 +71,18 @@ public class DTOMapperTest {
     public void testGetGame_fromGame_toGameGetDTO_success() {
         // create Game
         Game game = new Game();
+        game.initGame();
         game.setGameId(1L);
+        game.setTotalRounds(5);
+        game.setCountdownTime(30);
         // MAP -> Create GameGetDTO
         GameGetDTO gameGetDTO = DTOMapper.INSTANCE.convertEntityToGameGetDTO(game);
         // check content
         assertEquals(game.getGameId(), gameGetDTO.getGameId());
+        assertEquals(game.getCurrentRound(), gameGetDTO.getCurrentRound());
+        assertEquals(game.getTotalRounds(), gameGetDTO.getTotalRounds());
+        assertEquals(game.getCountdownTime(), gameGetDTO.getCountdownTime());
+        assertEquals(game.getCurrentAnswer(), gameGetDTO.getCurrentAnswer());
     }
 
     @Test
