@@ -43,7 +43,6 @@ public class UserService {
         // saves the given entity but data is only persisted in the database once flush() is called
         newUser = userRepository.save(newUser);
         userRepository.flush();
-
         log.debug("Created Information for User: {}", newUser);
         return newUser;
     }
@@ -71,7 +70,6 @@ public class UserService {
             "Please make sure your password contains at least one uppercase letter, one lowercase letter, and one number.");
         }
     }
-
 
 
     public User loginUser(User user) {

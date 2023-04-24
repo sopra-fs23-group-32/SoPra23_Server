@@ -1,18 +1,17 @@
 package ch.uzh.ifi.hase.soprafs23.controller;
 
 import ch.uzh.ifi.hase.soprafs23.entity.User;
-import ch.uzh.ifi.hase.soprafs23.entity.UserRanking;
+import ch.uzh.ifi.hase.soprafs23.entity.UserStatistics;
 import ch.uzh.ifi.hase.soprafs23.rest.dto.UserGetDTO;
 import ch.uzh.ifi.hase.soprafs23.rest.dto.UserPostDTO;
 import ch.uzh.ifi.hase.soprafs23.rest.dto.UserPutDTO;
-import ch.uzh.ifi.hase.soprafs23.rest.dto.UserRankingGetDTO;
 import ch.uzh.ifi.hase.soprafs23.rest.mapper.DTOMapper;
 import ch.uzh.ifi.hase.soprafs23.service.UserService;
+import ch.uzh.ifi.hase.soprafs23.service.UserStatisticsService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -24,9 +23,11 @@ import java.util.List;
 public class UserController {
 
     private final UserService userService;
+    private final UserStatisticsService userStatisticsService;
 
-    UserController(UserService userService) {
+    UserController(UserService userService, UserStatisticsService userStatisticsService) {
         this.userService = userService;
+        this.userStatisticsService = userStatisticsService;
     }
 
     /**
@@ -61,32 +62,6 @@ public class UserController {
     }
 
     /**
-     * Get all users' ranking
-     * @return List of sorted User w.r.t their total score
-     */
-    @GetMapping("/users/ranking")
-    @ResponseStatus(HttpStatus.OK)
-    @ResponseBody
-    public List<UserRankingGetDTO> getUserRanking() {
-        List<User> userList = userService.getUsers();
-        List<User> sortedUserList = userList.stream()
-                .sorted(Comparator.comparingLong(User::getUserTotalScore).reversed()).toList();
-
-        List<UserRankingGetDTO> userGetDTOList = new ArrayList<>();
-        for(User user:sortedUserList) {
-            userGetDTOList.add(
-                DTOMapper.INSTANCE.convertEntityToUserRankingGetDTO(
-                    new UserRanking(user.getUserId(), user.getUsername(), user.getCreateDay(),
-                            user.userStatistics.getTotalScore(), user.userStatistics.getTotalGameNum()
-                            )
-                )
-            );
-        }
-        return userGetDTOList;
-    }
-
-
-    /**
      * Create user
      * @param userPostDTO DTO for create user
      * @return DTO of created user
@@ -99,6 +74,8 @@ public class UserController {
         User userInput = DTOMapper.INSTANCE.convertUserPostDTOtoEntity(userPostDTO);
         // create user
         User createdUser = userService.createUser(userInput);
+        // create a user statistics
+        UserStatistics userStatistics = userStatisticsService.createUserService(createdUser.getUserId());
         // convert internal representation of user back to API
         return DTOMapper.INSTANCE.convertEntityToUserGetDTO(createdUser);
     }

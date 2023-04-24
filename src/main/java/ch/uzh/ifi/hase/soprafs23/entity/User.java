@@ -42,9 +42,6 @@ public class User implements Serializable {
     @Column()
     private Date birthDay;
 
-    @Transient
-    public UserStatistics userStatistics;
-
     public Long getUserId() {return userId;}
     public void setUserId(Long userId) {this.userId = userId;}
 
@@ -62,9 +59,4 @@ public class User implements Serializable {
 
     public Date getBirthDay() {return birthDay;}
     public void setBirthDay(Date birthDay) {this.birthDay = birthDay;}
-
-    public UserStatistics getUserStatistics() {return userStatistics;}
-    public void setUserStatistics(UserStatistics userStatistics) {this.userStatistics = userStatistics;}
-
-    public long getUserTotalScore() {return userStatistics.getTotalScore();}
 }

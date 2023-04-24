@@ -46,7 +46,8 @@ public class GameService {
 
     public Game createGame(Game newGame) {
         newGame.initGame();
-        newGame = gameRepository.saveAndFlush(newGame);
+        newGame = gameRepository.save(newGame);
+        gameRepository.flush();
         log.debug("Created Information for Game: {}", newGame);
         return newGame;
     }

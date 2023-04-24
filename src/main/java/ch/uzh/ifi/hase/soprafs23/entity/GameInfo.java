@@ -17,16 +17,11 @@ public class GameInfo{
     @Id
     private Long gameId;
 
-    @Column(nullable = false)
     private CityCategory category;
-    @Column(nullable = false)
     private Date gameDate;
-    @Column(nullable = false)
     private int gameRounds;
-    @Column(nullable = false)
     private int playerNum;
-
-    @Transient
+    @ElementCollection
     private List<String> labelList = new ArrayList<>();
 
     public Long getGameId() {return gameId;}
