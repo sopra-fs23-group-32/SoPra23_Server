@@ -4,6 +4,8 @@ public class GameGetDTO {
 
     private Long gameId;
     private int currentRound;
+    private int totalRounds;
+    private int countdownTime;
     private String currentAnswer;
 
     public Long getGameId() {return gameId;}
@@ -12,6 +14,12 @@ public class GameGetDTO {
     public int getCurrentRound() {return currentRound;}
     public void setCurrentRound(int currentRound) {this.currentRound = currentRound;}
 
+    public int getTotalRounds() {return totalRounds;}
+    public void setTotalRounds(int totalRounds) {this.totalRounds = totalRounds;}
+
     public String getCurrentAnswer() {return currentAnswer;}
     public void setCurrentAnswer(String currentAnswer) {this.currentAnswer = currentAnswer;}
+
+    public int getCountdownTime() {return countdownTime;}
+    public void setCountdownTime(int countdownTime) {this.countdownTime = countdownTime;}
 }

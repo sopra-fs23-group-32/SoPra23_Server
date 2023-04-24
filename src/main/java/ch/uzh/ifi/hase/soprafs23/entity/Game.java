@@ -86,7 +86,9 @@ public class Game implements Serializable {
                 currentRank ++;
                 currentScore = playerScore;
             }
-            playerRankingList.add(new PlayerRanking(player.getPlayerName(), currentRank));
+            playerRankingList.add(new PlayerRanking(
+                    player.getPlayerName(), player.getScore(), currentRank
+            ));
         }
         return playerRankingList;
     }
