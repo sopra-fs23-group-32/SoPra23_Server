@@ -49,11 +49,13 @@ Said H.A., https://github.com/sopra-fs23-group-32/SoPra23_Server/issues/114 \
 Zilong Deng, https://github.com/sopra-fs23-group-32/SoPra23_Server/issues/51 \
 Zilong Deng, https://github.com/sopra-fs23-group-32/SoPra23_Server/issues/54 \
 Zilong Deng, https://github.com/sopra-fs23-group-32/SoPra23_Server/issues/55 \
+Zilong Deng, https://github.com/sopra-fs23-group-32/SoPra23_Server/issues/100 \
 * implement REST request and corresponding services for Game, GameHistory, Question and Answer
 
 
 Dominic Vogel, https://github.com/sopra-fs23-group-32/SoPra23_Client/issues/43 \
-Dominic Vogel, https://github.com/sopra-fs23-group-32/SoPra23_Client/issues/42 
+Dominic Vogel, https://github.com/sopra-fs23-group-32/SoPra23_Client/issues/42 \
+Dominc Vogel, https://github.com/sopra-fs23-group-32/SoPra23_Server/issues/94
 
 Leyi Xu, https://github.com/sopra-fs23-group-32/SoPra23_Server/issues/71 \
 Leyi Xu, https://github.com/sopra-fs23-group-32/SoPra23_Server/issues/75 \
@@ -62,8 +64,12 @@ Give game results and announce winners after the game
 
 Jano Vukadinovic, https://github.com/sopra-fs23-group-32/SoPra23_Client/issues/51 \
 Jano Vukadinovic, https://github.com/sopra-fs23-group-32/SoPra23_Client/issues/52 \
+Jano Vukadinovic, https://github.com/sopra-fs23-group-32/SoPra23_Client/issues/29 \
+Jano Vukadinovic, https://github.com/sopra-fs23-group-32/SoPra23_Server/issues/97
 Semi-Runnable singleplayer mode.
 
 
 Said H.A., https://github.com/sopra-fs23-group-32/SoPra23_Client/issues/55 \
-Said H.A., https://github.com/sopra-fs23-group-32/SoPra23_Client/issues/54
+Said H.A., https://github.com/sopra-fs23-group-32/SoPra23_Client/issues/54 \
+Said H.A., https://github.com/sopra-fs23-group-32/SoPra23_Client/issues/29 \
+Said H.A., https://github.com/sopra-fs23-group-32/SoPra23_Server/issues/100
