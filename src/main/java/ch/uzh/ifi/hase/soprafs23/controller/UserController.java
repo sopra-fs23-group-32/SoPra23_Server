@@ -1,15 +1,18 @@
 package ch.uzh.ifi.hase.soprafs23.controller;
 
 import ch.uzh.ifi.hase.soprafs23.entity.User;
+import ch.uzh.ifi.hase.soprafs23.entity.UserRanking;
 import ch.uzh.ifi.hase.soprafs23.rest.dto.UserGetDTO;
 import ch.uzh.ifi.hase.soprafs23.rest.dto.UserPostDTO;
 import ch.uzh.ifi.hase.soprafs23.rest.dto.UserPutDTO;
+import ch.uzh.ifi.hase.soprafs23.rest.dto.UserRankingGetDTO;
 import ch.uzh.ifi.hase.soprafs23.rest.mapper.DTOMapper;
 import ch.uzh.ifi.hase.soprafs23.service.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -56,6 +59,32 @@ public class UserController {
         User user = userService.searchUserById(userId);
         return DTOMapper.INSTANCE.convertEntityToUserGetDTO(user);
     }
+
+    /**
+     * Get all users' ranking
+     * @return List of sorted User w.r.t their total score
+     */
+    @GetMapping("/users/ranking")
+    @ResponseStatus(HttpStatus.OK)
+    @ResponseBody
+    public List<UserRankingGetDTO> getUserRanking() {
+        List<User> userList = userService.getUsers();
+        List<User> sortedUserList = userList.stream()
+                .sorted(Comparator.comparingLong(User::getUserTotalScore).reversed()).toList();
+
+        List<UserRankingGetDTO> userGetDTOList = new ArrayList<>();
+        for(User user:sortedUserList) {
+            userGetDTOList.add(
+                DTOMapper.INSTANCE.convertEntityToUserRankingGetDTO(
+                    new UserRanking(user.getUserId(), user.getUsername(), user.getCreateDay(),
+                            user.userStatistics.getTotalScore(), user.userStatistics.getTotalGameNum()
+                            )
+                )
+            );
+        }
+        return userGetDTOList;
+    }
+
 
     /**
      * Create user

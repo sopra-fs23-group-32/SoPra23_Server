@@ -1,16 +1,16 @@
 package ch.uzh.ifi.hase.soprafs23.entity;
 
 public class PlayerRanking {
-    private Player player;
+    private String playerName;
     private int rank;
 
-    public PlayerRanking(Player player, int rank) {
-        this.player = player;
+    public PlayerRanking(String playerName, int rank) {
+        this.playerName = playerName;
         this.rank = rank;
     }
 
-    public Player getPlayer() {return player;}
-    public void setPlayer(Player player) {this.player = player;}
+    public String getPlayerName() {return playerName;}
+    public void setPlayerName(String playerName) {this.playerName = playerName;}
 
     public int getRank() {return rank;}
     public void setRank(int rank) {this.rank = rank;}

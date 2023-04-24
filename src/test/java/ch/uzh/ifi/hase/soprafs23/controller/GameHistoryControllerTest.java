@@ -71,7 +71,8 @@ public class GameHistoryControllerTest {
         // return when getUserGameInfos() is called
         given(gameHistoryService.getUserGameInfos(Mockito.any())).willReturn(allGameInfos);
         // when
-        MockHttpServletRequestBuilder getRequest = get("/users/{userId}/gameInfos", user.getUserId())
+        MockHttpServletRequestBuilder getRequest = get(
+                "/users/{userId}/gameInfo", user.getUserId())
                 .contentType(MediaType.APPLICATION_JSON);
 
         // then
@@ -98,7 +99,7 @@ public class GameHistoryControllerTest {
         given(gameHistoryService.searchGameInfoById(Mockito.any())).willReturn(gameInfo);
         // when/then -> do the request + validate the result
         MockHttpServletRequestBuilder getRequest = get(
-                "/users/{userId}/gameInfos/{gameId}/details", user.getUserId(), gameId)
+                "/users/{userId}/gameInfo/{gameId}/details", user.getUserId(), gameId)
                 .contentType(MediaType.APPLICATION_JSON);
 
         // then
@@ -118,7 +119,7 @@ public class GameHistoryControllerTest {
         given(gameHistoryService.searchGameHistoryById(Mockito.any(), Mockito.any())).willReturn(gameHistory);
         // when/then -> do the request + validate the result
         MockHttpServletRequestBuilder getRequest = get(
-                "/users/{userId}/gameInfos/{gameId}/score", user.getUserId(), gameId)
+                "/users/{userId}/gameInfo/{gameId}/score", user.getUserId(), gameId)
                 .contentType(MediaType.APPLICATION_JSON);
 
         // then

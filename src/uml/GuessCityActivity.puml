@@ -8,7 +8,6 @@ case (Login)
     :Check password;
 case (Register)
     :Choose username & Set password;
-    :new User;
     :Create user profile;
 endswitch
 '========= success login =========
@@ -25,52 +24,52 @@ case (My Profile)
     repeat while(return home?) is(no)
 
 case (Start Game)
-    :new CityBase(category);
-    :CityBase.loadCityList();
-    :new Game(CityBase);
+    :Create a game with category, rounds and countdownTime;
     if (Multiplayer Mode?) then(yes)
 '        :generate shared link;
-        while(Click startGame?) is(no)
-            :Game.addPlayer();
+        while(Click startGame? && Player > 2?) is(no)
+            :Add Player;
         endwhile (yes)
     else (no)
-        :Game.addPlayer();
+        :Add Player;
     endif
 
-    repeat :Game.CityBase.drawCities();
-        :City.generatePicture();
+    repeat :Generate four cities and one city's picture;
 '        :show options and Picture;
         if (give up game?) then(yes)
             stop
         endif
         if (Select correct option?) then(yes)
-            :player.addScore();
+            :Add player's score;
         endif
-        :show correct answer;
-        :Game.showRanking();
+        :Show correct answer;
+        :Show Player Ranking;
     repeat while(end game (final round)?) is(no)
 
 '    if (record score?) then (yes)
 '        :UserStatistic.addScore();
 '    endif
-    :new GameInfo;
-    :new GameHistory;
+    :create GameInfo and GameHistory;
 
 case (Ranking)
     :load all users' profile;
     repeat :show overall ranking;
     switch (Click)
+    case (category)
+        :change ranking type;
     case (user)
         :load user profile;
         :show user profile;
-    case (category)
-        :change ranking type;
     endswitch
     repeat while(return home?) is(no)
 
 case (History)
     :load user statistics;
-    repeat :show user's game history;
+    repeat :show user's gameHistory;
+    if (Click) then(details)
+        :show score & correctRate;
+        :show answers & labels;
+    endif
     repeat while(return home?) is(no)
 endswitch
 

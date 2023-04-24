@@ -36,7 +36,7 @@ public class GameHistoryController {
      * @param userId unique ID for user
      * @return List of GameHistory DTOs w.r.t. userId
      */
-    @GetMapping("/users/{userId}/gameInfos")
+    @GetMapping("/users/{userId}/gameInfo")
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
     public List<GameInfoGetDTO> getAllGameHistories(@PathVariable Long userId) {
@@ -55,7 +55,7 @@ public class GameHistoryController {
      * @param gameId unique ID for game history of the user
      * @return GameHistory DTO w.r.t. userId & gameId
      */
-    @GetMapping("/users/{userId}/gameInfos/{gameId}/details")
+    @GetMapping("/users/{userId}/gameInfo/{gameId}/details")
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
     public GameInfoGetDTO getGameHistoryDetails(@PathVariable Long userId, @PathVariable Long gameId) {
@@ -70,7 +70,7 @@ public class GameHistoryController {
      * @param gameId unique ID for game history of the user
      * @return GameHistory DTO w.r.t. userId & gameId
      */
-    @GetMapping("/users/{userId}/gameInfos/{gameId}/score")
+    @GetMapping("/users/{userId}/gameInfo/{gameId}/score")
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
     public int getGameHistoryScore(@PathVariable Long userId, @PathVariable Long gameId) {
@@ -86,7 +86,7 @@ public class GameHistoryController {
      * @param gameId unique ID for game history of the user
      * @return GameHistoryAnswer DTO w.r.t. userId & gameId
      */
-    @GetMapping("/users/{userId}/gameInfos/{gameId}/answer")
+    @GetMapping("/users/{userId}/gameInfo/{gameId}/answer")
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
     public List<GameHistoryAnswerGetDTO> getGameHistoryAnswer(@PathVariable Long userId, @PathVariable Long gameId) {

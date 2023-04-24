@@ -81,7 +81,7 @@ public class Game implements Serializable {
                 currentRank ++;
                 currentScore = playerScore;
             }
-            playerRankingList.add(new PlayerRanking(player, currentRank));
+            playerRankingList.add(new PlayerRanking(player.getPlayerName(), currentRank));
         }
         return playerRankingList;
     }
@@ -92,7 +92,7 @@ public class Game implements Serializable {
         List<String> winnerList = new ArrayList<>();
         for (PlayerRanking playerRanking : playerRankingList) {
             if (playerRanking.getRank() == 1) {
-                winnerList.add(playerRanking.getPlayer().getPlayerName());
+                winnerList.add(playerRanking.getPlayerName());
             }
         }
         return winnerList;
