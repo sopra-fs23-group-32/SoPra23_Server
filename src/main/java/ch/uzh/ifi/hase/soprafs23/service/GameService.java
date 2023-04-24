@@ -121,6 +121,15 @@ public class GameService {
                 String.format("Player with ID %d was not found!\n", playerId));
     }
 
+    public List<Long> getAllPlayers(Game game) {
+        List<Long> userIdList = new ArrayList<>();
+        Iterator<Player> playerIterator = game.getPlayerList();
+        while(playerIterator.hasNext()) {
+            userIdList.add(playerIterator.next().getUserId());
+        }
+        return userIdList;
+    }
+
     /**
      * Add the answer to the player's list and update the points
      * @param playerId player's ID

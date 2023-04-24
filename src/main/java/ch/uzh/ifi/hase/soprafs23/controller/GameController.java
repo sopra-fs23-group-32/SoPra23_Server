@@ -85,6 +85,26 @@ public class GameController {
     }
 
     /**
+     * Get list of players in a game
+     * @return List of user DTO
+     */
+    @GetMapping("/games/{gameId}/players")
+    @ResponseStatus(HttpStatus.OK)
+    public List<UserGetDTO> getPlayers(@PathVariable Long gameId) {
+        Game game = gameService.searchGameById(gameId);
+        List<UserGetDTO> userGetDTOList = new ArrayList<>();
+        List<Long> userIdList = gameService.getAllPlayers(game);
+        for(long userId: userIdList) {
+            userGetDTOList.add(
+                DTOMapper.INSTANCE.convertEntityToUserGetDTO(
+                    userService.searchUserById(userId)
+                )
+            );
+        }
+        return userGetDTOList;
+    }
+
+    /**
      * Add players to the game
      * @param gameId gameId of the game
      * @param playerId userId of the player
