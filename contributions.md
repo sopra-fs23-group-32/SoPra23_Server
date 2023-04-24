@@ -53,7 +53,7 @@ Zilong Deng, https://github.com/sopra-fs23-group-32/SoPra23_Server/issues/55
 
 
 Dominic Vogel, https://github.com/sopra-fs23-group-32/SoPra23_Client/issues/43 \
-Dominic Vogel, https://github.com/sopra-fs23-group-32/SoPra23_Client/issues/42 \
+Dominic Vogel, https://github.com/sopra-fs23-group-32/SoPra23_Client/issues/42 
 
 
 Leyi Xu, https://github.com/sopra-fs23-group-32/SoPra23_Server/issues/71 \
