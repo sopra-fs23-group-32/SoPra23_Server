@@ -266,12 +266,17 @@
     <td rowspan="2">Query </td>
     <td>200 </td>
     <td>- </td>
-    <td>lobby was ended (host only) </td>
+    <td>leave and delete game </td>
+  </tr>
+  <tr>
+    <td>400 </td>
+    <td>Error&lt;String&gt; </td>
+    <td>game not finished yet </td>
   </tr>
   <tr>
     <td>401 </td>
     <td>Error&lt;String&gt; </td>
-    <td>lobby wasn't deleted / <br>gameId not found </td>
+    <td>gameId not found </td>
   </tr>
   <tr>
     <td rowspan="2">DELETE </td>
@@ -288,7 +293,7 @@
   <tr>
     <td>401 </td>
     <td>Error&lt;String&gt; </td>
-    <td>can't leave lobby / <br>gameId not found / <br>playerId not found </td>
+    <td>gameId not found / <br>playerId not found </td>
   </tr>
   <tr>
     <td rowspan="2">GET </td>
