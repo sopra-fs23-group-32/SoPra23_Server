@@ -158,7 +158,7 @@
     <td rowspan="2">Query </td>
     <td>200 </td>
     <td>- </td>
-    <td>Add a player to a lobby by its userId </td>
+    <td>Add a player to a lobby </td>
   </tr>
   <tr>
     <td>404 </td>
@@ -204,8 +204,22 @@
     <td rowspan="2">gameId&lt;long&gt; </td>
     <td rowspan="2">Query </td>
     <td>200 </td>
-    <td> currentRound&lt;String&gt; </td>
+    <td>Game </td>
     <td>Get details of this lobby </td>
+  </tr>
+  <tr>
+    <td>404 </td>
+    <td>Error&lt;String&gt; </td>
+    <td>lobby not found </td>
+  </tr>
+  <tr>
+    <td rowspan="2">GET </td>
+    <td rowspan="2">/games/{gameId}/players </td>
+    <td rowspan="2">gameId&lt;long&gt; </td>
+    <td rowspan="2">Query </td>
+    <td>200 </td>
+    <td> List&lt;User&gt; </td>
+    <td>Get player's list of this lobby </td>
   </tr>
   <tr>
     <td>404 </td>
