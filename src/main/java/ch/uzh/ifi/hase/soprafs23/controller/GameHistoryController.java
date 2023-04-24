@@ -1,18 +1,13 @@
 package ch.uzh.ifi.hase.soprafs23.controller;
 
-
-import ch.uzh.ifi.hase.soprafs23.service.UserService;
-import ch.uzh.ifi.hase.soprafs23.service.GameHistoryService;
-
-import ch.uzh.ifi.hase.soprafs23.entity.User;
 import ch.uzh.ifi.hase.soprafs23.entity.UserGameHistory;
 import ch.uzh.ifi.hase.soprafs23.entity.GameHistoryAnswer;
 import ch.uzh.ifi.hase.soprafs23.entity.GameInfo;
-
 import ch.uzh.ifi.hase.soprafs23.rest.mapper.DTOMapper;
 import ch.uzh.ifi.hase.soprafs23.rest.dto.GameInfoGetDTO;
 import ch.uzh.ifi.hase.soprafs23.rest.dto.GameHistoryAnswerGetDTO;
-
+import ch.uzh.ifi.hase.soprafs23.service.GameHistoryService;
+import ch.uzh.ifi.hase.soprafs23.service.UserStatisticsService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,12 +18,12 @@ import java.util.List;
 @RestController
 public class GameHistoryController {
 
-    private final UserService userService;
     private final GameHistoryService gameHistoryService;
+    private final UserStatisticsService userStatisticsService;
 
-    GameHistoryController(UserService userService, GameHistoryService gameHistoryService) {
-        this.userService = userService;
+    GameHistoryController(GameHistoryService gameHistoryService, UserStatisticsService userStatisticsService) {
         this.gameHistoryService = gameHistoryService;
+        this.userStatisticsService = userStatisticsService;
     }
 
     /**
@@ -40,10 +35,10 @@ public class GameHistoryController {
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
     public List<GameInfoGetDTO> getAllGameHistories(@PathVariable Long userId) {
-        User user = userService.searchUserById(userId);
-        List<GameInfo> gameInfos = gameHistoryService.getUserGameInfos(user.userStatistics);
+        List<Long> gameIdList = userStatisticsService.getUserGameHistoryIds(userId);
         List<GameInfoGetDTO> gameInfoGetDTOS = new ArrayList<>();
-        for(GameInfo gameInfo : gameInfos){
+        for(Long gameId : gameIdList){
+            GameInfo gameInfo = gameHistoryService.searchGameInfoById(gameId);
             gameInfoGetDTOS.add(DTOMapper.INSTANCE.convertEntityToGameInfoGetDTO(gameInfo));
         }
         return gameInfoGetDTOS;
@@ -59,8 +54,10 @@ public class GameHistoryController {
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
     public GameInfoGetDTO getGameHistoryDetails(@PathVariable Long userId, @PathVariable Long gameId) {
-        User user = userService.searchUserById(userId);
         GameInfo gameInfo = gameHistoryService.searchGameInfoById(gameId);
+        // and check if this id in userStatistics
+        UserGameHistory userGameHistory =
+                userStatisticsService.searchUserGameHistoryById(userId, gameId);
         return DTOMapper.INSTANCE.convertEntityToGameInfoGetDTO(gameInfo);
     }
 
@@ -74,10 +71,11 @@ public class GameHistoryController {
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
     public int getGameHistoryScore(@PathVariable Long userId, @PathVariable Long gameId) {
-        User user = userService.searchUserById(userId);
-        UserGameHistory gameHistory =
-                gameHistoryService.searchGameHistoryById(user.userStatistics, gameId);
-        return gameHistory.getGameScore();
+        // check if this gameId exist
+        gameHistoryService.checkIfIdExist(gameId);
+        UserGameHistory userGameHistory =
+                userStatisticsService.searchUserGameHistoryById(userId, gameId);
+        return userGameHistory.getGameScore();
     }
 
     /**
@@ -89,14 +87,16 @@ public class GameHistoryController {
     @GetMapping("/users/{userId}/gameInfo/{gameId}/answer")
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
-    public List<GameHistoryAnswerGetDTO> getGameHistoryAnswer(@PathVariable Long userId, @PathVariable Long gameId) {
-        User user = userService.searchUserById(userId);
-        UserGameHistory gameHistory =
-                gameHistoryService.searchGameHistoryById(user.userStatistics, gameId);
+    public List<GameHistoryAnswerGetDTO> getGameHistoryAnswer(
+            @PathVariable Long userId, @PathVariable Long gameId) {
+        // check if this gameId exist
         GameInfo gameInfo = gameHistoryService.searchGameInfoById(gameId);
+        // and check if this id in userStatistics
+        UserGameHistory userGameHistory =
+                userStatisticsService.searchUserGameHistoryById(userId, gameId);
 
         List<GameHistoryAnswerGetDTO> gameHistoryAnswerGetDTOList = new ArrayList<>();
-        Iterator<String> answerIterator = gameHistory.getAnswerList();
+        Iterator<String> answerIterator = userGameHistory.getAnswerList();
         Iterator<String> labelIterator = gameInfo.getLabelList();
         while(answerIterator.hasNext()) {
             gameHistoryAnswerGetDTOList.add(

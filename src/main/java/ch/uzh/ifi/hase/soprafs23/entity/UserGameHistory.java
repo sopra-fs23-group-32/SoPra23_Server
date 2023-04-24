@@ -1,6 +1,7 @@
 package ch.uzh.ifi.hase.soprafs23.entity;
 
 
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -8,15 +9,18 @@ import java.util.List;
 /**
  * @author Zilong Deng
  */
+@Entity
 public class UserGameHistory{
+    @Id
     private long gameId;
     private int gameScore;
+
+    @ElementCollection
     private final List<String> answerList = new ArrayList<>();
 
-    public UserGameHistory(long gameId, int score) {
-        this.gameId = gameId;
-        this.gameScore = score;
-    }
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "userStatistics_userId")
+    private UserStatistics userStatistics;
 
     public long getGameId() {return gameId;}
     public void setGameId(long gameId) {this.gameId = gameId;}
@@ -26,4 +30,8 @@ public class UserGameHistory{
 
     public Iterator<String> getAnswerList() {return answerList.iterator();}
     public void addAnswer(String answer) {answerList.add(answer);}
+
+    public void setUserStatistics(UserStatistics userStatistics) {
+        this.userStatistics = userStatistics;
+    }
 }
