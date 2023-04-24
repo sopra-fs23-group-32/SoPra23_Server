@@ -64,3 +64,7 @@ Give game results and announce winners after the game \
 Jano Vukadinovic, https://github.com/sopra-fs23-group-32/SoPra23_Client/issues/51
 Jano Vukadinovic, https://github.com/sopra-fs23-group-32/SoPra23_Client/issues/52
 Semi-Runnable singleplayer mode.
+
+
+Said H.A., https://github.com/sopra-fs23-group-32/SoPra23_Client/issues/55
+Said H.A., https://github.com/sopra-fs23-group-32/SoPra23_Client/issues/54
