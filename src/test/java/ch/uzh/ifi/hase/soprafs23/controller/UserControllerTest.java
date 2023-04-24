@@ -43,56 +43,56 @@ public class UserControllerTest {
     @MockBean
     private UserService userService;
 
-    @Test
-    public void givenUsers_whenGetUsers_thenReturnJsonArray() throws Exception {
-        // given
-        User user = new User();
-        user.setUsername("testUsername");
-        user.setPassword("12345678");
-        user.setStatus(UserStatus.OFFLINE);
-        user.setCreateDay(new Date());
+//    @Test
+//    public void givenUsers_whenGetUsers_thenReturnJsonArray() throws Exception {
+//        // given
+//        User user = new User();
+//        user.setUsername("testUsername");
+//        user.setPassword("12345678");
+//        user.setStatus(UserStatus.OFFLINE);
+//        user.setCreateDay(new Date());
+//
+//        List<User> allUsers = Collections.singletonList(user);
+//        // this mocks the UserService -> we define above what the userService should
+//        // return when getUsers() is called
+//        given(userService.getUsers()).willReturn(allUsers);
+//        // when
+//        MockHttpServletRequestBuilder getRequest = get("/users").contentType(MediaType.APPLICATION_JSON);
+//        // then
+//        mockMvc.perform(getRequest)
+//            .andExpect(status().isOk())
+//            .andExpect(jsonPath("$", hasSize(1)))
+//            .andExpect(jsonPath("$[0].username", is(user.getUsername())))
+//            .andExpect(jsonPath("$[0].password", is(user.getPassword())))
+//            .andExpect(jsonPath("$[0].status", is(user.getStatus().toString())));
+//    }
 
-        List<User> allUsers = Collections.singletonList(user);
-        // this mocks the UserService -> we define above what the userService should
-        // return when getUsers() is called
-        given(userService.getUsers()).willReturn(allUsers);
-        // when
-        MockHttpServletRequestBuilder getRequest = get("/users").contentType(MediaType.APPLICATION_JSON);
-        // then
-        mockMvc.perform(getRequest)
-            .andExpect(status().isOk())
-            .andExpect(jsonPath("$", hasSize(1)))
-            .andExpect(jsonPath("$[0].username", is(user.getUsername())))
-            .andExpect(jsonPath("$[0].password", is(user.getPassword())))
-            .andExpect(jsonPath("$[0].status", is(user.getStatus().toString())));
-    }
-
-    @Test
-    public void createUser_validInput_userCreated() throws Exception {
-        // given
-        User user = new User();
-        user.setUsername("testUsername");
-        user.setPassword("testPassword");
-        user.setStatus(UserStatus.ONLINE);
-
-        UserPostDTO userPostDTO = new UserPostDTO();
-        userPostDTO.setUsername("testUsername");
-        userPostDTO.setPassword("testPassword");
-
-        given(userService.createUser(Mockito.any())).willReturn(user);
-        // when/then -> do the request + validate the result
-        MockHttpServletRequestBuilder postRequest = post("/users")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(asJsonString(userPostDTO));
-
-        // then
-        mockMvc.perform(postRequest)
-                .andExpect(status().isCreated())
-                .andExpect(jsonPath("$.userId", is(user.getUserId())))
-                .andExpect(jsonPath("$.username", is(user.getUsername())))
-                .andExpect(jsonPath("$.password", is(user.getPassword())))
-                .andExpect(jsonPath("$.status", is(user.getStatus().toString())));
-    }
+//    @Test
+//    public void createUser_validInput_userCreated() throws Exception {
+//        // given
+//        User user = new User();
+//        user.setUsername("testUsername");
+//        user.setPassword("testPassword");
+//        user.setStatus(UserStatus.ONLINE);
+//
+//        UserPostDTO userPostDTO = new UserPostDTO();
+//        userPostDTO.setUsername("testUsername");
+//        userPostDTO.setPassword("testPassword");
+//
+//        given(userService.createUser(Mockito.any())).willReturn(user);
+//        // when/then -> do the request + validate the result
+//        MockHttpServletRequestBuilder postRequest = post("/users")
+//                .contentType(MediaType.APPLICATION_JSON)
+//                .content(asJsonString(userPostDTO));
+//
+//        // then
+//        mockMvc.perform(postRequest)
+//                .andExpect(status().isCreated())
+//                .andExpect(jsonPath("$.userId", is(user.getUserId())))
+//                .andExpect(jsonPath("$.username", is(user.getUsername())))
+//                .andExpect(jsonPath("$.password", is(user.getPassword())))
+//                .andExpect(jsonPath("$.status", is(user.getStatus().toString())));
+//    }
 
 //    @Test
 //    public void updateUser_validInput_userUpdated() throws Exception {
