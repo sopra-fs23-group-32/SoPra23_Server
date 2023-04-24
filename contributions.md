@@ -66,5 +66,5 @@ Jano Vukadinovic, https://github.com/sopra-fs23-group-32/SoPra23_Client/issues/5
 Semi-Runnable singleplayer mode.
 
 
-Said H.A., https://github.com/sopra-fs23-group-32/SoPra23_Client/issues/55
+Said H.A., https://github.com/sopra-fs23-group-32/SoPra23_Client/issues/55 \
 Said H.A., https://github.com/sopra-fs23-group-32/SoPra23_Client/issues/54
