@@ -3,6 +3,7 @@ package ch.uzh.ifi.hase.soprafs23.controller;
 import ch.uzh.ifi.hase.soprafs23.entity.UserGameHistory;
 import ch.uzh.ifi.hase.soprafs23.entity.GameHistoryAnswer;
 import ch.uzh.ifi.hase.soprafs23.entity.GameInfo;
+import ch.uzh.ifi.hase.soprafs23.rest.dto.GameHistoryGetDTO;
 import ch.uzh.ifi.hase.soprafs23.rest.mapper.DTOMapper;
 import ch.uzh.ifi.hase.soprafs23.rest.dto.GameInfoGetDTO;
 import ch.uzh.ifi.hase.soprafs23.rest.dto.GameHistoryAnswerGetDTO;
@@ -40,15 +41,16 @@ public class GameHistoryController {
         return DTOMapper.INSTANCE.convertEntityToGameInfoGetDTO(newGameInfo);
     }
 
-    @PostMapping("/users/{userId}/gameInfo/{gameId}")
+    @PostMapping("/users/{userId}/gameHistories/{gameId}")
     @ResponseStatus(HttpStatus.CREATED)
     @ResponseBody
-    public void createUserGameHistory(@PathVariable Long userId, @PathVariable Long gameId) {
+    public int createUserGameHistory(@PathVariable Long userId, @PathVariable Long gameId) {
         GameInfo newGameInfo = gameService.getGameInfo(gameId);
         UserGameHistory newGameHistory = gameService.getUserGameHistory(gameId, userId);
         userStatisticsService.addUserGameHistory(userId, newGameHistory);
         userStatisticsService.updateUserStatistics(
-                userId, newGameHistory.getGameScore(), newGameInfo.getCategory());
+            userId, newGameHistory.getGameScore(), newGameInfo.getCategory());
+        return newGameHistory.getGameScore();
     }
 
     /**
@@ -70,12 +72,33 @@ public class GameHistoryController {
     }
 
     /**
+     * Get all game histories of a given user
+     * @param userId unique ID for user
+     * @return List of GameHistory DTOs w.r.t. userId
+     */
+    @GetMapping("/users/{userId}/gameHistories")
+    @ResponseStatus(HttpStatus.OK)
+    @ResponseBody
+    public List<GameHistoryGetDTO> getAllGameHistories(@PathVariable Long userId) {
+        Iterator<UserGameHistory> userGameHistoryIterator = userStatisticsService.getAllUserGameHistory(userId);
+        List<GameHistoryGetDTO> gameHistoryGetDTOList = new ArrayList<>();
+        while(userGameHistoryIterator.hasNext()){
+            UserGameHistory gameHistory = userGameHistoryIterator.next();
+            gameHistoryGetDTOList.add(DTOMapper.INSTANCE.convertEntityToGameHistoryGetDTO(gameHistory));
+        }
+        return gameHistoryGetDTOList;
+    }
+
+
+
+
+    /**
      * Get game info. of one game history of a given user
      * @param userId unique ID for user
      * @param gameId unique ID for game history of the user
      * @return GameHistory DTO w.r.t. userId & gameId
      */
-    @GetMapping("/users/{userId}/gameInfo/{gameId}/details")
+    @GetMapping("/users/{userId}/gameInfo/{gameId}")
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
     public GameInfoGetDTO getOneGameInfo(@PathVariable Long userId, @PathVariable Long gameId) {
@@ -92,7 +115,7 @@ public class GameHistoryController {
      * @param gameId unique ID for game history of the user
      * @return GameHistory DTO w.r.t. userId & gameId
      */
-    @GetMapping("/users/{userId}/gameInfo/{gameId}/score")
+    @GetMapping("/users/{userId}/gameHistories/{gameId}/score")
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
     public int getGameHistoryScore(@PathVariable Long userId, @PathVariable Long gameId) {
@@ -109,7 +132,7 @@ public class GameHistoryController {
      * @param gameId unique ID for game history of the user
      * @return GameHistoryAnswer DTO w.r.t. userId & gameId
      */
-    @GetMapping("/users/{userId}/gameInfo/{gameId}/answer")
+    @GetMapping("/users/{userId}/gameHistories/{gameId}/answer")
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
     public List<GameHistoryAnswerGetDTO> getGameHistoryAnswers(

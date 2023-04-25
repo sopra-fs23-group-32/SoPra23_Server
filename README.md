@@ -331,7 +331,7 @@
     <td rowspan="2"> POST </td>
     <td rowspan="2">
         /users/{userId}/<br>
-        gameInfo/{gameId}
+        gameHistories/{gameId}
     </td>
     <td rowspan="2">
         userId&lt;long&gt;<br>
@@ -364,8 +364,25 @@
   <tr>
     <td rowspan="2">GET </td>
     <td rowspan="2">
-        /users/{userId}/gameInfo/<br>
-        {gameId}/details
+        /users/{userId}/<br>
+        gameHistories
+    </td>
+    <td rowspan="2">userId&lt;long&gt; </td>
+    <td rowspan="2">Query </td>
+    <td>200 </td>
+    <td>List&lt;GameHistory&gt; </td>
+    <td>- </td>
+  </tr>
+  <tr>
+    <td>401 </td>
+    <td>Error&lt;String&gt; </td>
+    <td>userId not found </td>
+  </tr>
+  <tr>
+    <td rowspan="2">GET </td>
+    <td rowspan="2">
+        /users/{userId}/<br>
+        gameInfo/{gameId}
     </td>
     <td rowspan="2">
         userId&lt;long&gt;<br>
@@ -384,7 +401,7 @@
   <tr>
     <td rowspan="2">GET </td>
     <td rowspan="2">
-        /users/{userId}/gameInfo/<br>
+        /users/{userId}/gameHistories/<br>
         {gameId}/score
     </td>
     <td rowspan="2">
@@ -404,7 +421,7 @@
   <tr>
     <td rowspan="2">GET </td>
     <td rowspan="2">
-        /users/{userId}/gameInfo/<br>
+        /users/{userId}/gameHistories/<br>
         {gameId}/answer
     </td>
     <td rowspan="2">

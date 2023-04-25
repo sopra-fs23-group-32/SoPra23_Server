@@ -38,6 +38,7 @@ public interface DTOMapper {
     @Mapping(source = "createDay", target = "createDay")
     @Mapping(source = "score", target = "score")
     @Mapping(source = "gameNum", target = "gameNum")
+    @Mapping(source = "rank", target = "rank")
     UserRankingGetDTO convertEntityToUserRankingGetDTO(UserRanking userRanking);
 
     @Mapping(source = "gameId", target = "gameId")
@@ -78,6 +79,10 @@ public interface DTOMapper {
     @Mapping(source = "gameRounds", target = "gameRounds")
     @Mapping(source = "playerNum", target = "playerNum")
     GameInfoGetDTO convertEntityToGameInfoGetDTO(GameInfo gameInfo);
+
+    @Mapping(source = "gameId", target = "gameId")
+    @Mapping(source = "gameScore", target = "gameScore")
+    GameHistoryGetDTO convertEntityToGameHistoryGetDTO(UserGameHistory userGameHistory);
 
     @Mapping(source = "answer", target = "answer")
     @Mapping(source = "correctAnswer", target = "correctAnswer")
