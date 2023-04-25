@@ -8,13 +8,15 @@ public class UserRanking {
     private Date createDay;
     private long score;
     private long gameNum;
+    private int rank;
 
-    public UserRanking(Long id, String username, Date createDay, long score, long gameNum) {
+    public UserRanking(Long id, String username, Date createDay, long score, long gameNum, int rank) {
         this.userId = id;
         this.username = username;
         this.createDay = createDay;
         this.score = score;
         this.gameNum = gameNum;
+        this.rank = rank;
     }
 
     public Long getUserId() {return userId;}
@@ -31,4 +33,7 @@ public class UserRanking {
 
     public long getGameNum() {return gameNum;}
     public void setGameNum(long gameNum) {this.gameNum = gameNum;}
+
+    public int getRank() {return rank;}
+    public void setRank(int rank) {this.rank = rank;}
 }

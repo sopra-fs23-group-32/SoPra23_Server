@@ -35,6 +35,7 @@ public class ScoreBoardController {
     @ResponseBody
     public List<UserRankingGetDTO> getUserRanking(
             @RequestParam(name = "category", required = false) CityCategory category) {
+        System.out.println("Acquire for ranking in" + category);
         List<User> userList = userService.getUsers();
         List<Long> userIdList = new ArrayList<>();
         for(User user:userList) {
@@ -46,25 +47,31 @@ public class ScoreBoardController {
         if(category != null) {
             sortedUserIdList = userIdList.stream().sorted(
                 Comparator.comparing(
-                    userId -> userStatisticsService.getUserSpecificScore(userId, category))
+                    userId -> userStatisticsService.getUserSpecificScore((Long) userId, category)).reversed()
                 ).toList();
         }
 
         List<UserRankingGetDTO> userGetDTOList = new ArrayList<>();
+        int currentRank = 0;
+        long currentScore = Long.MAX_VALUE;
         for(Long userId:sortedUserIdList) {
             User user = userService.searchUserById(userId);
+            long userScore = userStatisticsService.getUserTotalScore(userId);
+            long userGameNum = userStatisticsService.getUserTotalGameNum(userId);
+            if(category != null) {
+                userScore = userStatisticsService.getUserSpecificScore(userId, category);
+                userGameNum = userStatisticsService.getUserSpecificGameNum(userId, category);
+            }
+
+            if (userScore < currentScore) {
+                currentRank ++;
+                currentScore = userScore;
+            }
+
             UserRanking userRanking = new UserRanking(
                 user.getUserId(), user.getUsername(), user.getCreateDay(),
-                userStatisticsService.getUserTotalScore(userId),
-                userStatisticsService.getUserTotalGameNum(userId)
+                userScore, userGameNum, currentRank
             );
-            if(category != null) {
-                userRanking = new UserRanking(
-                    user.getUserId(), user.getUsername(), user.getCreateDay(),
-                    userStatisticsService.getUserSpecificScore(userId, category),
-                    userStatisticsService.getUserSpecificGameNum(userId, category)
-                );
-            }
             userGetDTOList.add(DTOMapper.INSTANCE.convertEntityToUserRankingGetDTO(userRanking));
         }
         return userGetDTOList;

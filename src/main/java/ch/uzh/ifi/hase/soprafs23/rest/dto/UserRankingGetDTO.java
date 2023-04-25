@@ -8,6 +8,7 @@ public class UserRankingGetDTO {
     private Date createDay;
     private long score;
     private long gameNum;
+    private int rank;
 
     public Long getUserId() {return userId;}
     public void setUserId(Long userId) {this.userId = userId;}
@@ -23,4 +24,7 @@ public class UserRankingGetDTO {
 
     public long getGameNum() {return gameNum;}
     public void setGameNum(long gameNum) {this.gameNum = gameNum;}
+
+    public int getRank() {return rank;}
+    public void setRank(int rank) {this.rank = rank;}
 }
