@@ -60,7 +60,11 @@ public class GameService {
 
     public void addPlayer(Long gameId, User userAsPlayer) {
         Game game = searchGameById(gameId);
-        game.addPlayer(userAsPlayer);
+        Player newPlayer = new Player();
+        newPlayer.setUserId(userAsPlayer.getUserId());
+        newPlayer.setPlayerName(userAsPlayer.getUsername());
+        newPlayer.setGame(game);
+        game.addPlayer(newPlayer);
     }
 
     public List<Long> getAllPlayers(Long gameId) {
@@ -73,34 +77,35 @@ public class GameService {
         return userIdList;
     }
 
-    public  Question  goNextRound(Long gameId) {
+    public Question goNextRound(Long gameId) {
         System.out.println("Game Service - Round reached.");
         Game game = searchGameById(gameId);
-        game.addCurrentRound();
-
-        String option1="Geneva", option2="Basel", option3="Lausanne", option4="Bern";
-        String pictureUrl="";
-        Question question = new Question(option1, option2, option3, option4, option4, pictureUrl);
-        if(!game.isGameEnded()){
-            try{
-                List<String> cityNames = getRandomCities(game.getCategory().toString());
-                int currentRound = game.getCurrentRound();
-                int startIndex = (currentRound - 1) * 5;
-                int endIndex = currentRound * 5;
-                List<String> citiesForRound = cityNames.subList(startIndex, endIndex);
-                Random random = new Random();
-                String correctOption = citiesForRound.get(random.nextInt(4));
-                game.updateCurrentAnswer(correctOption);
-
-                System.out.println("++++++\nCorrect Option: " + correctOption + "\n++++++");
-                pictureUrl = getCityImage(correctOption);
-                question= new Question(citiesForRound.get(0), citiesForRound.get(1),citiesForRound.get(2), citiesForRound.get(3), correctOption, pictureUrl);
-                System.out.println("Game Service - Question generated.");
-            }catch (Exception e){
-                System.out.println("Game Service - Unable to generate image");
-                game.updateCurrentAnswer(option4);
-            }
+        if(game.isGameEnded()) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
+                    String.format("Game with ID %d has ended!\n", gameId));
         }
+        String option1="Geneva", option2="Basel", option3="Lausanne", option4="Bern";
+        String pictureUrl = "";
+        Question question = new Question(option1, option2, option3, option4, option4, pictureUrl);
+        try{
+            List<String> cityNames = getRandomCities(game.getCategory().toString());
+//            int currentRound = game.getCurrentRound();
+//            int startIndex = currentRound * 4, endIndex = currentRound * 4 + 4;
+//            List<String> citiesForRound = cityNames.subList(startIndex, endIndex);
+            Random random = new Random();
+            String correctOption = cityNames.get(random.nextInt(3));
+            game.updateCurrentAnswer(correctOption);
+            pictureUrl = getCityImage(correctOption);
+
+            question= new Question(cityNames.get(0), cityNames.get(1),
+                    cityNames.get(2),cityNames.get(3), correctOption, pictureUrl);
+            System.out.println("Game Service - Question generated.");
+        }catch (Exception e){
+            System.out.println("Game Service - Unable to generate image");
+            game.updateCurrentAnswer(option4);
+        }
+
+        game.addCurrentRound();
         return question;
     }
 
@@ -156,14 +161,16 @@ public class GameService {
         Game game = searchGameById(gameId);
         if(!game.isGameEnded()) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
-                    String.format("Game with ID %d has not finished yet!\n", gameId));
+                String.format("Game with ID %d has not finished yet!\n", gameId));
         }
         gameInfo.setGameId(gameId);
         gameInfo.setCategory(game.getCategory());
         gameInfo.setGameRounds(game.getTotalRounds());
         gameInfo.setPlayerNum(game.getPlayerNum());
-        while (game.getLabelList().hasNext()) {
-            gameInfo.addLabel(game.getLabelList().next());
+        Iterator<String> labelList = game.getLabelList();
+        while (labelList.hasNext()) {
+            String label = labelList.next();
+            gameInfo.addLabel(label);
         }
         return gameInfo;
     }
@@ -173,13 +180,14 @@ public class GameService {
         Game game = searchGameById(gameId);
         if(!game.isGameEnded()) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
-                    String.format("Game with ID %d has not finished yet!\n", gameId));
+                String.format("Game with ID %d has not finished yet!\n", gameId));
         }
         Player player = searchPlayerById(game, userId);
         userGameHistory.setGameId(gameId);
         userGameHistory.setGameScore(player.getScore());
-        while (player.getAnswerList().hasNext()) {
-            userGameHistory.addAnswer(player.getAnswerList().next());
+        Iterator<String> answerList = player.getAnswerList();
+        while (answerList.hasNext()) {
+            userGameHistory.addAnswer(answerList.next());
         }
         return userGameHistory;
     }
@@ -310,7 +318,9 @@ public class GameService {
 
   public static String getCityImage(String cityName) throws Exception {
     String searchUrl = "https://commons.wikimedia.org/w/api.php";
-    String searchParams = String.format("action=query&format=json&list=search&srsearch=%s%%20skyline&srnamespace=6&srwhat=text&srlimit=1",URLEncoder.encode(cityName, StandardCharsets.UTF_8.toString()));
+    String searchParams = String.format(
+            "action=query&format=json&list=search&srsearch=%s%%20skyline&srnamespace=6&srwhat=text&srlimit=1",
+            URLEncoder.encode(cityName, StandardCharsets.UTF_8.toString()));
 
     URL url = new URL(searchUrl + "?" + searchParams);
     HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -318,7 +328,7 @@ public class GameService {
 
     BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
     String inputLine;
-    StringBuffer content = new StringBuffer();
+    StringBuilder content = new StringBuilder();
     while ((inputLine = in.readLine()) != null) {
         content.append(inputLine);
     }
@@ -333,9 +343,9 @@ public class GameService {
     if (search.length() > 0) {
         JSONObject result = search.getJSONObject(0);
         String fileTitle = result.getString("title");
-        String imageUrl = "https://commons.wikimedia.org/wiki/Special:FilePath/" + fileTitle.substring(5);
-        return imageUrl;
-    } else {
+        return "https://commons.wikimedia.org/wiki/Special:FilePath/" + fileTitle.substring(5);
+    }
+    else {
         return "";
     }
 }
