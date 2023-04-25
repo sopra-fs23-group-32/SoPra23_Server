@@ -118,11 +118,16 @@
   </tr>
   <tr>
     <td rowspan="2">GET </td>
-    <td rowspan="2">/users/ranking </td>
-    <td rowspan="2">- </td>
-    <td rowspan="2">- </td>
+    <td rowspan="2">/users/ranking?category</td>
+    <td rowspan="2">category&lt;String&gt;<br>(optional) </td>
+    <td rowspan="2">Query </td>
     <td>200 </td>
-    <td>List&lt;UserRanking&gt; </td>
+    <td>List of userId&lt;long&gt;<br>
+        username&lt;String&gt;<br>
+        createDay&lt;Date&gt;<br>
+        score&lt;long&gt;<br>
+        gameNum&lt;long&gt;<br>
+    </td>
     <td>Get ranking of users </td>
   </tr>
   <tr>
@@ -232,7 +237,11 @@
     <td rowspan="2">gameId&lt;long&gt; </td>
     <td rowspan="2">Query </td>
     <td>200 </td>
-    <td>PlayerRanking </td>
+    <td>List of 
+        userId&lt;long&gt;<br>
+        score&lt;int&gt;<br>
+        rank&lt;int&gt;
+    </td>
     <td>Get player's ranking for current round in lobby </td>
   </tr>
   <tr>
@@ -246,7 +255,7 @@
     <td rowspan="3">gameId&lt;long&gt; </td>
     <td rowspan="3">Query </td>
     <td>201 </td>
-    <td>List&lt;PlayerRanking&gt; </td>
+    <td>winnerList - List&lt;String&gt;</td>
     <td>Get the game result </td>
   </tr>
   <tr>
@@ -260,10 +269,10 @@
     <td>Lobby doesn't end / gameId not found </td>
   </tr>
   <tr>
-    <td rowspan="2">DELETE </td>
-    <td rowspan="2">/games/{gameId} </td>
-    <td rowspan="2">gameId&lt;long&gt; </td>
-    <td rowspan="2">Query </td>
+    <td rowspan="3">DELETE </td>
+    <td rowspan="3">/games/{gameId} </td>
+    <td rowspan="3">gameId&lt;long&gt; </td>
+    <td rowspan="3">Query </td>
     <td>200 </td>
     <td>- </td>
     <td>leave and delete game </td>
@@ -335,7 +344,7 @@
     </td>
     <td rowspan="2">Query </td>
     <td>200 </td>
-    <td>GameDetails </td>
+    <td>score&lt;int&gt; </td>
     <td>Get user's score in a game </td>
   </tr>
   <tr>
@@ -352,7 +361,10 @@
     </td>
     <td rowspan="2">Query </td>
     <td>200 </td>
-    <td>List&lt;GameHistoryAnswer&gt; </td>
+    <td>List of 
+        answer&lt;String&gt;<br>
+        label&lt;String&gt;
+    </td>
     <td>Get user's answers and correct answers of game </td>
   </tr>
   <tr>
