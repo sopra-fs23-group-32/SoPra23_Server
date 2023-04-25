@@ -35,17 +35,15 @@ public class UserStatisticsService {
         return userStatistics;
     }
 
-    public UserStatistics addUserGameHistory(Long userId, UserGameHistory userGameHistory) {
+    public void addUserGameHistory(Long userId, UserGameHistory userGameHistory) {
         UserStatistics userStatistics = searchUserStatisticsById(userId);
         userStatistics.addGameHistory(userGameHistory);
-        return userStatistics;
     }
 
-    public UserStatistics updateUserStatistics(Long userId, int score, CityCategory category) {
+    public void updateUserStatistics(Long userId, int score, CityCategory category) {
         UserStatistics userStatistics = searchUserStatisticsById(userId);
         userStatistics.updateScore(score, category);
         userStatistics.updateGameNum(category);
-        return userStatistics;
     }
 
     public long getUserTotalScore(Long userId) {

@@ -34,6 +34,9 @@ public class Game implements Serializable {
     @OneToMany(mappedBy = "game", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Player> playerList = new ArrayList<>();
 
+    @ElementCollection
+    private List<String> labelList = new ArrayList<>();
+
     public void initGame() {
         currentRound = 0;
         currentAnswer = null;
@@ -56,7 +59,12 @@ public class Game implements Serializable {
     public boolean isGameEnded() {return currentRound >= totalRounds;}
 
     public String getCurrentAnswer() {return currentAnswer;}
-    public void setCurrentAnswer(String currentAnswer) {this.currentAnswer = currentAnswer;}
+    public void updateCurrentAnswer(String currentAnswer) {
+        this.currentAnswer = currentAnswer;
+        labelList.add(currentAnswer);
+    }
+
+    public Iterator<String> getLabelList() {return labelList.iterator();}
 
     public void addPlayer(User userAsPlayer) {
         Player newPlayer = new Player();
@@ -67,6 +75,7 @@ public class Game implements Serializable {
         System.out.println("Player added: " + userAsPlayer.getUsername());
     }
     public Iterator<Player> getPlayerList() { return playerList.iterator();}
+    public int getPlayerNum() {return playerList.size();}
 
     public void deletePlayer(Long playerId) {
         playerList.removeIf(player -> Objects.equals(player.getUserId(), playerId));

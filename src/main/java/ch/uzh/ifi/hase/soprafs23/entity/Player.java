@@ -37,6 +37,6 @@ public class Player {
 
     public void setGame(Game game) {this.game = game;}
 
-    //    public void addAnswer(String newAnswer) {answerList.add(newAnswer);}
-//    public Iterator<String> getAnswerList() {return answerList.iterator();}
+    public void addAnswer(String newAnswer) {answerList.add(newAnswer);}
+    public Iterator<String> getAnswerList() {return answerList.iterator();}
 }
