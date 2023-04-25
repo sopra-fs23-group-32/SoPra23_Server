@@ -37,6 +37,8 @@ public class UserStatisticsService {
 
     public void addUserGameHistory(Long userId, UserGameHistory userGameHistory) {
         UserStatistics userStatistics = searchUserStatisticsById(userId);
+        userGameHistory.setUserId(userId);
+        userGameHistory.setUserStatistics(userStatistics);
         userStatistics.addGameHistory(userGameHistory);
     }
 
@@ -64,6 +66,11 @@ public class UserStatisticsService {
 
     // ======================== Supporting functions ===========================
 
+    public Iterator<UserGameHistory> getAllUserGameHistory(Long userId) {
+        UserStatistics userStatistics = searchUserStatisticsById(userId);
+        return userStatistics.getGameHistoryList();
+    }
+
     public List<Long> getUserGameHistoryIds(Long userId) {
         UserStatistics userStatistics = searchUserStatisticsById(userId);
         List<Long> gameIdList = new ArrayList<>();
@@ -79,14 +86,14 @@ public class UserStatisticsService {
         UserGameHistory gameHistoryById = null;
         Iterator<UserGameHistory> userGameHistoryIterator = userStatistics.getGameHistoryList();
         while(userGameHistoryIterator.hasNext()) {
-            UserGameHistory nextGameHistory = userGameHistoryIterator.next();
-            if(nextGameHistory.getGameId() == gameId) {
-                gameHistoryById = nextGameHistory;
+            UserGameHistory gameHistory = userGameHistoryIterator.next();
+            if(gameHistory.getGameId() == gameId) {
+                gameHistoryById = gameHistory;
             }
         }
         if(gameHistoryById == null) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND,
-                    String.format("GameHistory with ID %d was not found!\n", gameId));
+                String.format("GameHistory with ID %d was not found!\n", gameId));
         }
         return gameHistoryById;
     }

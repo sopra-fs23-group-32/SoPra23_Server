@@ -44,13 +44,13 @@ public class GameHistoryController {
     @PostMapping("/users/{userId}/gameHistories/{gameId}")
     @ResponseStatus(HttpStatus.CREATED)
     @ResponseBody
-    public int createUserGameHistory(@PathVariable Long userId, @PathVariable Long gameId) {
+    public GameHistoryGetDTO createUserGameHistory(@PathVariable Long userId, @PathVariable Long gameId) {
         GameInfo newGameInfo = gameService.getGameInfo(gameId);
         UserGameHistory newGameHistory = gameService.getUserGameHistory(gameId, userId);
         userStatisticsService.addUserGameHistory(userId, newGameHistory);
         userStatisticsService.updateUserStatistics(
             userId, newGameHistory.getGameScore(), newGameInfo.getCategory());
-        return newGameHistory.getGameScore();
+        return DTOMapper.INSTANCE.convertEntityToGameHistoryGetDTO(newGameHistory);
     }
 
     /**

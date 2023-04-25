@@ -9,6 +9,7 @@ import java.util.*;
  * @author Zilong Deng
  */
 @Entity
+@Table(name = "STATISTICS")
 public class UserStatistics {
     @Id
     private Long userId;
