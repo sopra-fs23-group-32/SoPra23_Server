@@ -2,13 +2,20 @@ package ch.uzh.ifi.hase.soprafs23.service;
 
 import ch.uzh.ifi.hase.soprafs23.constant.CityCategory;
 import ch.uzh.ifi.hase.soprafs23.entity.*;
+import ch.uzh.ifi.hase.soprafs23.repository.GameRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.net.HttpURLConnection;
 import java.net.URI;
 import org.json.JSONArray;
+
+import java.io.BufferedReader;
 import java.io.FileOutputStream;
 import org.json.JSONObject;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -16,10 +23,15 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.http.HttpClient;
 import java.net.URL;
+import java.net.URLEncoder;
+
 import com.fasterxml.jackson.databind.JsonNode;
+
+import java.nio.charset.StandardCharsets;
 import java.util.*;
 
 /**
@@ -30,76 +42,80 @@ import java.util.*;
 @Service
 @Transactional
 public class GameService {
-    private Game game;
-    private String CurrentLabel;
 
-    public void createGame(CityCategory category, int rounds, int countdownTime) {
-        int min_population=getRandomPopulationNumber();
-        this.game = new Game(category, rounds, countdownTime);
+    private final GameRepository gameRepository;
+    private final Logger log = LoggerFactory.getLogger(GameService.class);
 
-        try{
-            List<String> cityNames =  getRandomCityNames(category, min_population);
-        }catch (Exception e){}
-        this.game = new Game(category, rounds, countdownTime);
+    public GameService(@Qualifier("gameRepository") GameRepository gameRepository) {
+        this.gameRepository = gameRepository;
     }
 
-    public void addPlayer(User user) {
-        game.addPlayer(user);
+    public Game createGame(Game newGame) {
+        newGame.initGame();
+        newGame = gameRepository.save(newGame);
+        gameRepository.flush();
+        log.debug("Created Information for Game: {}", newGame);
+        return newGame;
     }
 
-    public static int getRandomPopulationNumber(){
-        int min=200000;
-        int max=5000000;
-        Random random=new Random();
-        return random.nextInt(max-min+1)+min;
+    public void addPlayer(Long gameId, User userAsPlayer) {
+        Game game = searchGameById(gameId);
+        game.addPlayer(userAsPlayer);
     }
-    public Question goNextRound() {
-        game.addCurrentRound();;
-        CityCategory game_city_category=game.getCategory();
-        int min_population=getRandomPopulationNumber();
-        if(game.isGameEnded()){
-            try{
-                List<String> cityNames =  getRandomCityNames(game_city_category, min_population);
-                String correctAnswer=cityNames.get(0);
-                String option1=cityNames.get(1);
-                String option2=cityNames.get(2);
-                String option3=cityNames.get(3);
-                String option4=cityNames.get(4);
-                String pictureUrl=saveCityImage(correctAnswer);
-                return new Question(option1, option2, option3, option4, pictureUrl);
-            }catch (Exception e){
-                List<String> cityNames=new ArrayList<String>();
-                String correctAnswer="Zurich";
-                String option1="Geneva";
-                String option2="Basel";
-                String option3="Lausanne";
-                String option4="Berne";
-                String pictureUrl=saveCityImage(correctAnswer);
-                return new Question(option1, option2, option3, option4, pictureUrl);
-            }            
+
+    public List<Long> getAllPlayers(Long gameId) {
+        Game gameByGameId = gameRepository.findByGameId(gameId);
+        List<Long> userIdList = new ArrayList<>();
+        Iterator<Player> playerIterator = gameByGameId.getPlayerList();
+        while(playerIterator.hasNext()) {
+            userIdList.add(playerIterator.next().getUserId());
         }
-        List<String> citiesDrawn = game.getCityoptions();
-        Random random = new Random();
-        int intRand = random.nextInt(3);
-        // Draw one city to generate picture
-        CurrentLabel = citiesDrawn.get(0);
-        String pictureUrl = "what?";
-        // Others just return their name
-        return new Question(citiesDrawn.get(0), citiesDrawn.get(2),
-                citiesDrawn.get(3), citiesDrawn.get(4), pictureUrl);
+        return userIdList;
     }
+
+    public  Question  goNextRound(Long gameId) {
+        System.out.println("Game Service - Round reached.");
+        Game game = searchGameById(gameId);
+        game.addCurrentRound();
+
+        String option1="Geneva", option2="Basel", option3="Lausanne", option4="Bern";
+        String pictureUrl="";
+        Question question = new Question(option1, option2, option3, option4, option4, pictureUrl);
+        if(!game.isGameEnded()){
+            try{
+                List<String> cityNames = getRandomCities(game.getCategory().toString());
+                int currentRound = game.getCurrentRound();
+                int startIndex = (currentRound - 1) * 5;
+                int endIndex = currentRound * 5;
+                List<String> citiesForRound = cityNames.subList(startIndex, endIndex);
+                Random random = new Random();
+                String correctOption = citiesForRound.get(random.nextInt(4));
+                game.updateCurrentAnswer(correctOption);
+
+                System.out.println("++++++\nCorrect Option: " + correctOption + "\n++++++");
+                pictureUrl = getCityImage(correctOption);
+                question= new Question(citiesForRound.get(0), citiesForRound.get(1),citiesForRound.get(2), citiesForRound.get(3), correctOption, pictureUrl);
+                System.out.println("Game Service - Question generated.");
+            }catch (Exception e){
+                System.out.println("Game Service - Unable to generate image");
+                game.updateCurrentAnswer(option4);
+            }
+        }
+        return question;
+    }
+
     /**
      * Add the answer to the player's list and update the points
      * @param playerId player's ID
      * @param answer an Answer object
      */
-    public int submitAnswer(Long playerId, Answer answer) {
-        Player currentPlayer = searchPlayerById(playerId);
+    public int submitAnswer(Long gameId, Long playerId, Answer answer) {
+        Game game = searchGameById(gameId);
+        Player currentPlayer = searchPlayerById(game, playerId);
         currentPlayer.addAnswer(answer.getAnswer());
         // get the right answer of current round
         int score = 0;
-        String correctAnswer = CurrentLabel;
-        if (answer.getAnswer().equals(correctAnswer)) {
+        if (answer.getAnswer().equals(game.getCurrentAnswer())) {
             int remainingTime = game.getCountdownTime() - answer.getTimeTaken();
             score = calculateScore(Math.max(remainingTime, 0));
             currentPlayer.addScore(score);
@@ -107,12 +123,83 @@ public class GameService {
         return score;
     }
 
-    private int calculateScore(int remainingTime) {
-        // 50 pts for a correct answer and 10 pts for each second remains
-        return 50 + (remainingTime * 10);
+    public List<PlayerRanking> getRanking(Long gameId) {
+        Game game = searchGameById(gameId);
+        return game.getRanking();
     }
 
-    public Player searchPlayerById(Long playerId) {
+    public GameResult getGameResult(Long gameId) {
+        Game game = searchGameById(gameId);
+        if (!game.isGameEnded()) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
+                String.format("Game with ID %d has not finished yet!\n", gameId));
+        }
+        return new GameResult(game.getWinners());
+    }
+
+    public void closeGame(Long gameId) {
+        Game game = searchGameById(gameId);
+        if(!game.isGameEnded()) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
+                String.format("Game with ID %d has not finished yet!\n", gameId));
+        }
+        gameRepository.delete(game);
+    }
+
+    public void leaveGame(Long gameId, Long playerId) {
+        Game game = searchGameById(gameId);
+        game.deletePlayer(playerId);
+    }
+    // ======== Only invoke after ending the game and before deleting the game =========
+    public GameInfo getGameInfo(Long gameId) {
+        GameInfo gameInfo = new GameInfo();
+        Game game = searchGameById(gameId);
+        if(!game.isGameEnded()) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
+                    String.format("Game with ID %d has not finished yet!\n", gameId));
+        }
+        gameInfo.setGameId(gameId);
+        gameInfo.setCategory(game.getCategory());
+        gameInfo.setGameRounds(game.getTotalRounds());
+        gameInfo.setPlayerNum(game.getPlayerNum());
+        while (game.getLabelList().hasNext()) {
+            gameInfo.addLabel(game.getLabelList().next());
+        }
+        return gameInfo;
+    }
+
+    public UserGameHistory getUserGameHistory(Long gameId, Long userId) {
+        UserGameHistory userGameHistory = new UserGameHistory();
+        Game game = searchGameById(gameId);
+        if(!game.isGameEnded()) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
+                    String.format("Game with ID %d has not finished yet!\n", gameId));
+        }
+        Player player = searchPlayerById(game, userId);
+        userGameHistory.setGameId(gameId);
+        userGameHistory.setGameScore(player.getScore());
+        while (player.getAnswerList().hasNext()) {
+            userGameHistory.addAnswer(player.getAnswerList().next());
+        }
+        return userGameHistory;
+    }
+
+    // =============== all private non-service functions here =================
+
+    public Game searchGameById(Long gameId) {
+        checkIfGameIdExist(gameId);
+        return gameRepository.findByGameId(gameId);
+    }
+
+    public void checkIfGameIdExist(Long gameId) {
+        Game gameByGameId = gameRepository.findByGameId(gameId);
+        if(gameByGameId == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,
+                String.format("Game with ID %d was not found!\n", gameId));
+        }
+    }
+
+    public Player searchPlayerById(Game game, Long playerId) {
         Iterator<Player> playerIterator = game.getPlayerList();
         while(playerIterator.hasNext()) {
             Player player = playerIterator.next();
@@ -121,120 +208,135 @@ public class GameService {
             }
         }
         throw new ResponseStatusException(HttpStatus.NOT_FOUND,
-                String.format("Player with ID %d was not found!\n", playerId));
+            String.format("Player with ID %d was not found in Game with ID %d!\n",
+                    playerId, game.getGameId()));
     }
 
-    public   String saveCityImage(String cityName) {
-        java.util.logging.Logger LOGGER = java.util.logging.Logger.getLogger(GameService.class.getName());
-        String ACCESS_KEY = "gy4-5Dl_v3J8NNPI_nYd8UL_0TIRB3XaCh4Ad1oqZW4";
-        String UNSPLASH_API_ENDPOINT = "https://api.unsplash.com/search/photos?query=%s&per_page=1&orientation=landscape";
+    public int calculateScore(int remainingTime) {
+        // 50 pts for a correct answer and 10 pts for each second remains
+        return 20 + (remainingTime * 4);
+    }
 
-        try {
-            // Build the API request URL
-            String url = String.format(UNSPLASH_API_ENDPOINT, cityName);
-            // Create HTTP client and request
-            HttpClient client = HttpClient.newHttpClient();
-            HttpRequest request = HttpRequest.newBuilder()
-                    .uri(URI.create(url))
-                    .header("Authorization", "Client-ID " + ACCESS_KEY)
-                    .build();
-            // Send the request and parse the response
-            HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-            String responseBody = response.body();
-            ObjectMapper mapper = new ObjectMapper();
-            JsonNode responseJson = mapper.readTree(responseBody);
-            JsonNode photos = responseJson.get("results");
-            // Check if any photos were found
-            if (photos.isEmpty()) {
-                LOGGER.warning("No photos found for " + cityName);
-                return "";
+   
+    private static final int NUM_CITIES = 5;
+    private static final int MIN_POPULATION = 1000000;
+
+    public static List<String> getCountries(String continentCode) throws Exception {
+        String apiUrl = "https://restcountries.com/v3.1/region/" + continentCode;
+        URL countriesUrl = new URL(apiUrl);
+        HttpURLConnection connection = (HttpURLConnection) countriesUrl.openConnection();
+        connection.setRequestMethod("GET");
+        int responseCode = connection.getResponseCode();
+        if (responseCode != 200) {
+        throw new Exception("Failed to fetch countries: " + responseCode);}
+
+        BufferedReader reader =new BufferedReader(new InputStreamReader(connection.getInputStream(), StandardCharsets.UTF_8));
+        StringBuilder response = new StringBuilder();
+        String line;
+
+        while ((line = reader.readLine()) != null) {
+        response.append(line);}
+        reader.close();
+
+        JSONArray countries = new JSONArray(response.toString());
+        List<String> countryNames = new ArrayList<>();
+        for (int i = 0; i < countries.length(); i++) {
+        JSONObject country = countries.getJSONObject(i);
+        if (country.get("name") instanceof JSONObject) {
+            countryNames.add(country.getJSONObject("name").getString("common"));
+        } else if (country.get("name") instanceof String) {
+            countryNames.add(country.getString("name"));}}
+
+        Collections.shuffle(countryNames);
+        return countryNames;
+    }
+
+    public static List<String> getCities(String country) throws Exception {
+        String url =
+        "https://public.opendatasoft.com/api/records/1.0/search/?dataset=geonames-all-cities-with-a-population-1000&q=population%3E"
+        + MIN_POPULATION
+        + "&sort=population&facet=feature_code&facet=cou_name_en&facet=timezone&refine.cou_name_en="
+        + URLEncoder.encode(country, StandardCharsets.UTF_8.toString())
+        + "&rows=" + NUM_CITIES;
+    
+        URL citiesUrl = new URL(url);
+        BufferedReader reader = new BufferedReader(new InputStreamReader(citiesUrl.openStream(), StandardCharsets.UTF_8));
+        StringBuilder response = new StringBuilder();
+        String line;
+        while ((line = reader.readLine()) != null) {
+            response.append(line);
+        }
+        reader.close();
+    
+        JSONObject responseJson = new JSONObject(response.toString());
+        JSONArray records = responseJson.getJSONArray("records");
+        List<String> cities = new ArrayList<>();
+        for (int i = 0; i < records.length() && cities.size() < NUM_CITIES; i++) {
+            JSONObject record = records.getJSONObject(i);
+            if (record.getJSONObject("fields").getString("cou_name_en").equals(country)) {
+                cities.add(record.getJSONObject("fields").getString("name"));
             }
-            // Get the URL for the first photo and save it to disk
-            JsonNode photo = photos.get(0);
-            String photoUrl = photo.get("urls").get("regular").asText();
-            String filename = cityName + ".jpg";
-            String filePath = "C:\\Users\\a\\Desktop\\sopra_1604\\server\\src\\main\\java\\ch\\uzh\\ifi\\hase\\soprafs23\\static\\" + filename;
-            URL urlObj = new URL(photoUrl);
-            try (InputStream inputStream = urlObj.openStream();
-                 OutputStream outputStream = new FileOutputStream(filePath)) {
-                byte[] buffer = new byte[2048];
-                int length;
-                while ((length = inputStream.read(buffer)) != -1) {
-                    outputStream.write(buffer, 0, length);
+        }
+        Collections.shuffle(cities);
+        return cities;
+    }
+    
+
+
+    public static List<String> getRandomCities(String continentCode) throws Exception {
+        List<String> allCities = Collections.synchronizedList(new ArrayList<>());
+        List<String> countries = getCountries(continentCode);
+        countries.remove("Bosnia and Herzegovina");
+    
+        countries.parallelStream().forEach(country -> {
+            try {
+                List<String> cities = getCities(country);
+                synchronized (allCities) {
+                    if (allCities.size() + cities.size() <= NUM_CITIES) {
+                        allCities.addAll(cities);
+                    } else {
+                        allCities.addAll(cities.subList(0, NUM_CITIES - allCities.size()));
+                    }
                 }
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-            LOGGER.info("Saved image for " + cityName + " in static folder");
-            System.out.println(photoUrl);
-            return photoUrl;
-        }
-        catch (IOException | InterruptedException e) {
-            LOGGER.severe("Error fetching or saving image for " + cityName + ": " + e.getMessage());
-            return "";
-        }
-    }
-
-
-    private static String getContinentCode(String category) {
-        switch (category.toLowerCase()) {
-            case "europe":
-                return "EU";
-            case "asia":
-                return "AS";
-            case "north america":
-                return "NA";
-            case "south america":
-                return "SA";
-            case "africa":
-                return "AF";
-            case "oceania":
-                return "OC";
-            case "world":
-                return "";
-            default:
-                throw new IllegalArgumentException("Invalid continent category");
-        }
-    }
-
-
-
-    public static List<String> getRandomCityNames(CityCategory category, int minPopulation) throws Exception {
-        String baseUrl = "http://api.geonames.org/searchJSON";
-        String username = "whowho";
-        String continent_category=category.toString();
-        String continent = getContinentCode(continent_category);
-        String queryUrl = String.format("%s?continentCode=%s&featureClass=P&maxRows=1000&orderby=random&population>%d&username=%s", baseUrl, continent, minPopulation, username);
-        
-        URL url = new URL(queryUrl);
-        Scanner scanner = new Scanner(url.openStream());
-        String response = scanner.useDelimiter("\\Z").next();
-        scanner.close();
-        
-        List<String> cityNames = new ArrayList<>();
-        JSONObject jsonObj = new JSONObject(response);
-        JSONArray jsonArray = jsonObj.getJSONArray("geonames");
-        for (int i = 0; i < jsonArray.length(); i++) {
-            JSONObject cityObj = jsonArray.getJSONObject(i);
-            String cityName = cityObj.getString("name");
-            cityNames.add(cityName);
-        }
+        });
     
-        Collections.shuffle(cityNames); // shuffle the city names
-    
-        return cityNames.subList(0, Math.min(cityNames.size(), 4)); // return the first 4 city names
+        Collections.shuffle(allCities);
+        return allCities.subList(0, NUM_CITIES);
+    }
+      
+
+  public static String getCityImage(String cityName) throws Exception {
+    String searchUrl = "https://commons.wikimedia.org/w/api.php";
+    String searchParams = String.format("action=query&format=json&list=search&srsearch=%s%%20skyline&srnamespace=6&srwhat=text&srlimit=1",URLEncoder.encode(cityName, StandardCharsets.UTF_8.toString()));
+
+    URL url = new URL(searchUrl + "?" + searchParams);
+    HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+    connection.setRequestMethod("GET");
+
+    BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+    String inputLine;
+    StringBuffer content = new StringBuffer();
+    while ((inputLine = in.readLine()) != null) {
+        content.append(inputLine);
     }
 
+    in.close();
+    connection.disconnect();
 
-    //testing
-    public static void main(String[] args){
-        try{
-            List<String> cityNames =  getRandomCityNames(CityCategory.EUROPE,2000000);
-            System.out.println("Random city names: ");
-            for (String cityName: cityNames){
-                System.out.println(cityName);
-            }
-        }catch (Exception e){
-            
-            }
-        }
+    JSONObject json = new JSONObject(content.toString());
+    JSONObject query = json.getJSONObject("query");
+    JSONArray search = query.getJSONArray("search");
+
+    if (search.length() > 0) {
+        JSONObject result = search.getJSONObject(0);
+        String fileTitle = result.getString("title");
+        String imageUrl = "https://commons.wikimedia.org/wiki/Special:FilePath/" + fileTitle.substring(5);
+        return imageUrl;
+    } else {
+        return "";
     }
-
+}
+}
