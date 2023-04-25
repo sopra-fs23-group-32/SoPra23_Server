@@ -66,9 +66,13 @@ public class Game implements Serializable {
 
     public Iterator<String> getLabelList() {return labelList.iterator();}
 
-    public void addPlayer(Player newPlayer) {
+    public void addPlayer(User userAsPlayer) {
+        Player newPlayer = new Player();
+        newPlayer.setUserId(userAsPlayer.getUserId());
+        newPlayer.setPlayerName(userAsPlayer.getUsername());
+        newPlayer.setGame(this);
         playerList.add(newPlayer);
-        System.out.println("Player added: " + newPlayer.getPlayerName());
+        System.out.println("Player added: " + userAsPlayer.getUsername());
     }
     public Iterator<Player> getPlayerList() { return playerList.iterator();}
     public int getPlayerNum() {return playerList.size();}
