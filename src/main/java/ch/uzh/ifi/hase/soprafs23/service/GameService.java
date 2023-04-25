@@ -80,7 +80,7 @@ public class GameService {
                 List<String> cityNames = getRandomCityNames(game.getCategory(), getRandomPopulationNumber());
                 Random random = new Random();
                 String correctOption = cityNames.get(random.nextInt(3));
-                game.setCurrentAnswer(correctOption);
+                game.updateCurrentAnswer(correctOption);
                 System.out.println("++++++\nCorrect Option: " + correctOption + "\n++++++");
                 pictureUrl = getCityImage(correctOption);
                 question= new Question(cityNames.get(0), cityNames.get(1),
@@ -88,10 +88,29 @@ public class GameService {
                 System.out.println("Game Service - Question generated.");
             }catch (Exception e){
                 System.out.println("Game Service - Unable to generate image");
-                game.setCurrentAnswer(option4);
+                game.updateCurrentAnswer(option4);
             }
         }
         return question;
+    }
+
+    /**
+     * Add the answer to the player's list and update the points
+     * @param playerId player's ID
+     * @param answer an Answer object
+     */
+    public int submitAnswer(Long gameId, Long playerId, Answer answer) {
+        Game game = searchGameById(gameId);
+        Player currentPlayer = searchPlayerById(game, playerId);
+        currentPlayer.addAnswer(answer.getAnswer());
+        // get the right answer of current round
+        int score = 0;
+        if (answer.getAnswer().equals(game.getCurrentAnswer())) {
+            int remainingTime = game.getCountdownTime() - answer.getTimeTaken();
+            score = calculateScore(Math.max(remainingTime, 0));
+            currentPlayer.addScore(score);
+        }
+        return score;
     }
 
     public List<PlayerRanking> getRanking(Long gameId) {
@@ -121,6 +140,39 @@ public class GameService {
         Game game = searchGameById(gameId);
         game.deletePlayer(playerId);
     }
+    // ======== Only invoke after ending the game and before deleting the game =========
+    public GameInfo getGameInfo(Long gameId) {
+        GameInfo gameInfo = new GameInfo();
+        Game game = searchGameById(gameId);
+        if(!game.isGameEnded()) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
+                    String.format("Game with ID %d has not finished yet!\n", gameId));
+        }
+        gameInfo.setGameId(gameId);
+        gameInfo.setCategory(game.getCategory());
+        gameInfo.setGameRounds(game.getTotalRounds());
+        gameInfo.setPlayerNum(game.getPlayerNum());
+        while (game.getLabelList().hasNext()) {
+            gameInfo.addLabel(game.getLabelList().next());
+        }
+        return gameInfo;
+    }
+
+    public UserGameHistory getUserGameHistory(Long gameId, Long userId) {
+        UserGameHistory userGameHistory = new UserGameHistory();
+        Game game = searchGameById(gameId);
+        if(!game.isGameEnded()) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
+                    String.format("Game with ID %d has not finished yet!\n", gameId));
+        }
+        Player player = searchPlayerById(game, userId);
+        userGameHistory.setGameId(gameId);
+        userGameHistory.setGameScore(player.getScore());
+        while (player.getAnswerList().hasNext()) {
+            userGameHistory.addAnswer(player.getAnswerList().next());
+        }
+        return userGameHistory;
+    }
 
     // =============== all private non-service functions here =================
 
@@ -129,7 +181,7 @@ public class GameService {
         return gameRepository.findByGameId(gameId);
     }
 
-    private void checkIfGameIdExist(Long gameId) {
+    public void checkIfGameIdExist(Long gameId) {
         Game gameByGameId = gameRepository.findByGameId(gameId);
         if(gameByGameId == null) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND,
@@ -146,29 +198,11 @@ public class GameService {
             }
         }
         throw new ResponseStatusException(HttpStatus.NOT_FOUND,
-            String.format("Player with ID %d was not found!\n", playerId));
+            String.format("Player with ID %d was not found in Game with ID %d!\n",
+                    playerId, game.getGameId()));
     }
 
-    /**
-     * Add the answer to the player's list and update the points
-     * @param playerId player's ID
-     * @param answer an Answer object
-     */
-    public int submitAnswer(Long gameId, Long playerId, Answer answer) {
-        Game game = searchGameById(gameId);
-        Player currentPlayer = searchPlayerById(game, playerId);
-//        currentPlayer.addAnswer(answer.getAnswer());
-        // get the right answer of current round
-        int score = 0;
-        if (answer.getAnswer().equals(game.getCurrentAnswer())) {
-            int remainingTime = game.getCountdownTime() - answer.getTimeTaken();
-            score = calculateScore(Math.max(remainingTime, 0));
-            currentPlayer.addScore(score);
-        }
-        return score;
-    }
-
-    private int calculateScore(int remainingTime) {
+    public int calculateScore(int remainingTime) {
         // 50 pts for a correct answer and 10 pts for each second remains
         return 20 + (remainingTime * 4);
     }
@@ -221,7 +255,7 @@ public class GameService {
         return cityNames.subList(0, Math.min(cityNames.size(), 4));
     }
 
-    private String getCityImage(String cityName) {
+    public String getCityImage(String cityName) {
         java.util.logging.Logger LOGGER = java.util.logging.Logger.getLogger(GameService.class.getName());
         String ACCESS_KEY = "A1MN_Hj0S-MYeCZo4x2U4bfTYtyjYT9Am-WINbwGFCc";
         String UNSPLASH_API_ENDPOINT = "https://api.unsplash.com/search/photos?query=%s&per_page=1&orientation=landscape";
