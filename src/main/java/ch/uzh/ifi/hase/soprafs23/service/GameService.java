@@ -54,7 +54,11 @@ public class GameService {
 
     public void addPlayer(Long gameId, User userAsPlayer) {
         Game game = searchGameById(gameId);
-        game.addPlayer(userAsPlayer);
+        Player newPlayer = new Player();
+        newPlayer.setUserId(userAsPlayer.getUserId());
+        newPlayer.setPlayerName(userAsPlayer.getUsername());
+        newPlayer.setGame(game);
+        game.addPlayer(newPlayer);
     }
 
     public List<Long> getAllPlayers(Long gameId) {
@@ -70,27 +74,29 @@ public class GameService {
     public Question goNextRound(Long gameId) {
         System.out.println("Game Service - Round reached.");
         Game game = searchGameById(gameId);
-        game.addCurrentRound();
-
+        if(game.isGameEnded()) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
+                String.format("Game with ID %d has ended!\n", gameId));
+        }
         String option1="Geneva", option2="Basel", option3="Lausanne", option4="Bern";
         String pictureUrl = getCityImage(option4);
         Question question = new Question(option1, option2, option3, option4, option4, pictureUrl);
-        if(!game.isGameEnded()){
-            try{
-                List<String> cityNames = getRandomCityNames(game.getCategory(), getRandomPopulationNumber());
-                Random random = new Random();
-                String correctOption = cityNames.get(random.nextInt(3));
-                game.updateCurrentAnswer(correctOption);
-                System.out.println("++++++\nCorrect Option: " + correctOption + "\n++++++");
-                pictureUrl = getCityImage(correctOption);
-                question= new Question(cityNames.get(0), cityNames.get(1),
-                        cityNames.get(2),cityNames.get(3), correctOption, pictureUrl);
-                System.out.println("Game Service - Question generated.");
-            }catch (Exception e){
-                System.out.println("Game Service - Unable to generate image");
-                game.updateCurrentAnswer(option4);
-            }
+        try{
+            List<String> cityNames = getRandomCityNames(game.getCategory(), getRandomPopulationNumber());
+            Random random = new Random();
+            String correctOption = cityNames.get(random.nextInt(3));
+            game.updateCurrentAnswer(correctOption);
+            pictureUrl = getCityImage(correctOption);
+            question= new Question(cityNames.get(0), cityNames.get(1),
+                    cityNames.get(2),cityNames.get(3), correctOption, pictureUrl);
+            System.out.println("Game Service - Question generated.");
+        }catch (Exception e){
+            System.out.println("Game Service - Unable to generate image");
+            game.updateCurrentAnswer(option4);
         }
+
+        game.addCurrentRound();
+
         return question;
     }
 
@@ -146,14 +152,16 @@ public class GameService {
         Game game = searchGameById(gameId);
         if(!game.isGameEnded()) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
-                    String.format("Game with ID %d has not finished yet!\n", gameId));
+                String.format("Game with ID %d has not finished yet!\n", gameId));
         }
         gameInfo.setGameId(gameId);
         gameInfo.setCategory(game.getCategory());
         gameInfo.setGameRounds(game.getTotalRounds());
         gameInfo.setPlayerNum(game.getPlayerNum());
-        while (game.getLabelList().hasNext()) {
-            gameInfo.addLabel(game.getLabelList().next());
+        Iterator<String> labelList = game.getLabelList();
+        while (labelList.hasNext()) {
+            String label = labelList.next();
+            gameInfo.addLabel(label);
         }
         return gameInfo;
     }
@@ -163,13 +171,14 @@ public class GameService {
         Game game = searchGameById(gameId);
         if(!game.isGameEnded()) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
-                    String.format("Game with ID %d has not finished yet!\n", gameId));
+                String.format("Game with ID %d has not finished yet!\n", gameId));
         }
         Player player = searchPlayerById(game, userId);
         userGameHistory.setGameId(gameId);
         userGameHistory.setGameScore(player.getScore());
-        while (player.getAnswerList().hasNext()) {
-            userGameHistory.addAnswer(player.getAnswerList().next());
+        Iterator<String> answerList = player.getAnswerList();
+        while (answerList.hasNext()) {
+            userGameHistory.addAnswer(answerList.next());
         }
         return userGameHistory;
     }
