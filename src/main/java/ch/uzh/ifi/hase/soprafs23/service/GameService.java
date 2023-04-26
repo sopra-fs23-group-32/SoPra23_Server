@@ -1,6 +1,10 @@
 package ch.uzh.ifi.hase.soprafs23.service;
 
 import ch.uzh.ifi.hase.soprafs23.constant.CityCategory;
+import ch.uzh.ifi.hase.soprafs23.constant.WebSocketType;
+
+import ch.uzh.ifi.hase.soprafs23.entity.WebSocket;
+
 import ch.uzh.ifi.hase.soprafs23.entity.*;
 import ch.uzh.ifi.hase.soprafs23.repository.GameRepository;
 import org.slf4j.Logger;
@@ -10,6 +14,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
+
 
 import java.net.HttpURLConnection;
 import java.net.URI;
@@ -29,8 +35,7 @@ import java.net.http.HttpClient;
 import java.net.URL;
 import java.net.URLEncoder;
 
-import com.fasterxml.jackson.databind.JsonNode;
-
+import com.fasterxml.jackson.databind.JsonNode; 
 import java.nio.charset.StandardCharsets;
 import java.util.*;
 
@@ -45,9 +50,13 @@ public class GameService {
 
     private final GameRepository gameRepository;
     private final Logger log = LoggerFactory.getLogger(GameService.class);
+    private final SimpMessagingTemplate messagingTemplate;
 
-    public GameService(@Qualifier("gameRepository") GameRepository gameRepository) {
+
+    public GameService(@Qualifier("gameRepository") GameRepository gameRepository,SimpMessagingTemplate messagingTemplate) {
         this.gameRepository = gameRepository;
+        this.messagingTemplate = messagingTemplate;
+
     }
 
     public Game createGame(Game newGame) {
@@ -55,23 +64,29 @@ public class GameService {
         newGame = gameRepository.save(newGame);
         gameRepository.flush();
         log.debug("Created Information for Game: {}", newGame);
+        updateGameStatus(newGame.getGameId(), WebSocketType.GAMESTATUSUPDATE, newGame.getCurrentStatus());
         return newGame;
     }
 
     public void addPlayer(Long gameId, User userAsPlayer) {
         Game game = searchGameById(gameId);
         game.addPlayer(userAsPlayer);
+        updateGameStatus(gameId, WebSocketType.PLAYERUPDATE,game.getPlayerList());
+
     }
 
     public List<Long> getAllPlayers(Long gameId) {
         Game gameByGameId = gameRepository.findByGameId(gameId);
         List<Long> userIdList = new ArrayList<>();
-        Iterator<Player> playerIterator = gameByGameId.getPlayerList();
-        while(playerIterator.hasNext()) {
-            userIdList.add(playerIterator.next().getUserId());
+        Set<Player> playerList = gameByGameId.getPlayerList();
+        for(Player player : playerList) {
+            userIdList.add(player.getUserId());
         }
         return userIdList;
     }
+    
+
+
 
     public  Question  goNextRound(Long gameId) {
         System.out.println("Game Service - Round reached.");
@@ -84,17 +99,14 @@ public class GameService {
         if(!game.isGameEnded()){
             try{
                 List<String> cityNames = getRandomCities(game.getCategory().toString());
-                int currentRound = game.getCurrentRound();
-                int startIndex = (currentRound - 1) * 5;
-                int endIndex = currentRound * 5;
-                List<String> citiesForRound = cityNames.subList(startIndex, endIndex);
                 Random random = new Random();
-                String correctOption = citiesForRound.get(random.nextInt(4));
+                String correctOption = cityNames.get(random.nextInt(3));
                 game.updateCurrentAnswer(correctOption);
 
                 System.out.println("++++++\nCorrect Option: " + correctOption + "\n++++++");
                 pictureUrl = getCityImage(correctOption);
-                question= new Question(citiesForRound.get(0), citiesForRound.get(1),citiesForRound.get(2), citiesForRound.get(3), correctOption, pictureUrl);
+                question= new Question(cityNames.get(0), cityNames.get(1),cityNames.get(2), cityNames.get(3), correctOption, pictureUrl);
+                System.out.println("Question.cityNames "+cityNames.get(0)+cityNames.get(1)+cityNames.get(2)+cityNames.get(3)+cityNames.get(4)+cityNames.get(5));
                 System.out.println("Game Service - Question generated.");
             }catch (Exception e){
                 System.out.println("Game Service - Unable to generate image");
@@ -113,6 +125,10 @@ public class GameService {
         Game game = searchGameById(gameId);
         Player currentPlayer = searchPlayerById(game, playerId);
         currentPlayer.addAnswer(answer.getAnswer());
+        System.out.println("User: "+currentPlayer.getPlayerName()+" submitted the answer: "+answer.getAnswer());
+        List<Player>playerList;
+        currentPlayer.setHasAnswered(true);
+
         // get the right answer of current round
         int score = 0;
         if (answer.getAnswer().equals(game.getCurrentAnswer())) {
@@ -120,6 +136,24 @@ public class GameService {
             score = calculateScore(Math.max(remainingTime, 0));
             currentPlayer.addScore(score);
         }
+        boolean hasAnswered=true;
+        Set<Player> playerlist=game.getPlayerList();
+        for(Player player: playerlist){
+            if(!player.getHasAnswered()){
+                hasAnswered=false;
+                break;
+            }
+            if(hasAnswered){
+                System.out.println("All users have answered");
+                if(game.getCurrentRound()==game.getTotalRounds()){
+                    game.setCurretnStatus(GameStatus.ENDED);
+                }else{
+                    game.setCurretnStatus(GameStatus.WAITINGINGAME);
+                }
+                updateGameStatus(game.getGameId(),WebSocketType.GAMESTATUSUPDATE, game.getCurrentStatus());
+            }
+        }
+    gameRepository.saveAndFlush(game);
         return score;
     }
 
@@ -183,6 +217,29 @@ public class GameService {
         }
         return userGameHistory;
     }
+
+
+
+    public void updateGameStatus(Long gameId, WebSocketType webSocketType, Object webSocketParameter){
+        try{
+            WebSocket webSocket =new WebSocket(webSocketType, webSocketParameter);
+            System.out.println("sent new gamestate to players, in game: "+gameId);
+            messagingTemplate.convertAndSend("/instance/games/" + gameId, webSocket);
+        }catch (Exception e){
+            System.out.println("Error on updating gamestate to all players, game: "+gameId);
+        }
+
+    }
+
+
+    public void updatePlayerStatus(Long playerId, long gameId, WebSocketType websocketType, Object webSocketParamaeter){
+        try{
+            WebSocket websocket=new WebSocket(websocketType, webSocketParamaeter);
+            System.out.println("Updating playerstate to player "+playerId+" on game "+gameId);
+            messagingTemplate.convertAndSend("/instance/games/" + gameId + "/" + playerId, websocketType);
+
+    }
+
 
     // =============== all private non-service functions here =================
 
@@ -282,30 +339,28 @@ public class GameService {
     }
     
 
-
     public static List<String> getRandomCities(String continentCode) throws Exception {
-        List<String> allCities = Collections.synchronizedList(new ArrayList<>());
+        List<String> allCities = new ArrayList<>();
         List<String> countries = getCountries(continentCode);
         countries.remove("Bosnia and Herzegovina");
     
-        countries.parallelStream().forEach(country -> {
+        for (String country : countries) {
             try {
                 List<String> cities = getCities(country);
-                synchronized (allCities) {
-                    if (allCities.size() + cities.size() <= NUM_CITIES) {
-                        allCities.addAll(cities);
-                    } else {
-                        allCities.addAll(cities.subList(0, NUM_CITIES - allCities.size()));
-                    }
+                if (allCities.size() + cities.size() <= NUM_CITIES) {
+                    allCities.addAll(cities);
+                } else {
+                    allCities.addAll(cities.subList(0, NUM_CITIES - allCities.size()));
                 }
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        });
+        }
     
         Collections.shuffle(allCities);
         return allCities.subList(0, NUM_CITIES);
     }
+    
       
 
   public static String getCityImage(String cityName) throws Exception {

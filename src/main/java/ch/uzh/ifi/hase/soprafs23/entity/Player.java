@@ -19,12 +19,23 @@ public class Player {
 
     private int score = 0;
 
+    private GameStatus playerGameStatus;
+    
+    private boolean hasAnswered;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "game_gameId")
     private Game game;
 
     @ElementCollection
     private final List<String> answerList = new ArrayList<>();
+
+
+    public boolean getHasAnswered(){return hasAnswered;}
+    public void setHasAnswered(boolean hasAnswered){this.hasAnswered=hasAnswered;}
+
+    public GameStatus getCurrentGameStatus(){return playerGameStatus;}
+    public void setCurrentGameStatus(GameStatus playerGameStatus){this.playerGameStatus=playerGameStatus;}
 
     public Long getUserId() {return userId;}
     public void setUserId(Long userId) {this.userId = userId;}
