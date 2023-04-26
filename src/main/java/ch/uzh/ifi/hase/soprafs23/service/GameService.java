@@ -133,13 +133,13 @@ public class GameService {
         return game.getRanking();
     }
 
-    public GameResult getGameResult(Long gameId) {
+    public List<String> getGameResult(Long gameId) {
         Game game = searchGameById(gameId);
         if (!game.isGameEnded()) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
                 String.format("Game with ID %d has not finished yet!\n", gameId));
         }
-        return new GameResult(game.getWinners());
+        return game.getWinners();
     }
 
     public void closeGame(Long gameId) {
