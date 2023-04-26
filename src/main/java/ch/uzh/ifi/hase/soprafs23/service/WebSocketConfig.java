@@ -8,7 +8,8 @@ import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerCo
 
 @Configuration
 @EnableWebSocketMessageBroker
-public class WebScoketConfig implements WebSocketMessageBrokerConfigurer{
+public class WebSocketConfig implements WebSocketMessageBrokerConfigurer{
+
     @Override
     public void configureMessageBroker(MessageBrokerRegistry config){
         config.setApplicationDestinationPrefixes("/app");
@@ -18,7 +19,9 @@ public class WebScoketConfig implements WebSocketMessageBrokerConfigurer{
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registery){
         registery.addEndpoint("socket")
-                .setAllowedOriginPatterns("http://localhost:3000","https://sopra-fs23-group-32-client.oa.r.appspot.com")
+                .setAllowedOriginPatterns(
+                        "http://localhost:3000",
+                        "https://sopra-fs23-group-32-client.oa.r.appspot.com")
                 .withSockJS();
     }
 }

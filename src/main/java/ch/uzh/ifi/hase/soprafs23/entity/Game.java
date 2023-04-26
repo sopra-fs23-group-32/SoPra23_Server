@@ -1,12 +1,12 @@
 package ch.uzh.ifi.hase.soprafs23.entity;
 
 import ch.uzh.ifi.hase.soprafs23.constant.CityCategory;
+import ch.uzh.ifi.hase.soprafs23.constant.GameStatus;
 
 import javax.persistence.*;
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.*;
-import java.util.stream.Collectors;
 
 /**
  * @author Zilong Deng
@@ -17,7 +17,6 @@ public class Game implements Serializable {
     @Serial
     private static final long serialVersionUID = 2L;
 
-
     @Id
     @GeneratedValue
     private Long gameId;
@@ -27,29 +26,26 @@ public class Game implements Serializable {
     private int totalRounds;
     @Column()
     private int currentRound;
-    @Column()
-    private GameStatus currentStatus;
     @Column(nullable = false)
     private int countdownTime;
     @Column()
     private String currentAnswer;
-
-    @OneToMany(mappedBy = "game", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<Player> playerList;
-
     @ElementCollection
     private List<String> labelList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "game", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Player> playerList = new ArrayList<>();
+
+    GameStatus gameStatus;
 
     public void initGame() {
         currentRound = 0;
         currentAnswer = null;
+        gameStatus = GameStatus.SETUP;
     }
 
     public Long getGameId() {return gameId;}
     public void setGameId(Long gameId) {this.gameId = gameId;}
-
-    public GameStatus getCurrentStatus(){return currentStatus;}
-    public void setCurretnStatus(GameStatus curreentStaus){this.currentStatus=currentStatus;}
     
     public CityCategory getCategory() {return category;}
     public void setCategory(CityCategory category) {this.category = category;}
@@ -76,13 +72,14 @@ public class Game implements Serializable {
         playerList.add(newPlayer);
         System.out.println("Player added: " + newPlayer.getPlayerName());
     }
-    public Set<Player> getPlayerList() { return playerList;}
-    
+    public Iterator<Player> getPlayerList() { return playerList.iterator();}
     public int getPlayerNum() {return playerList.size();}
-
     public void deletePlayer(Long playerId) {
         playerList.removeIf(player -> Objects.equals(player.getUserId(), playerId));
     }
+
+    public GameStatus getGameStatus(){return gameStatus;}
+    public void setGameStatus(GameStatus gameStatus){this.gameStatus = gameStatus;}
 
     public List<PlayerRanking> getRanking() {
         // Sort player scores in descending order

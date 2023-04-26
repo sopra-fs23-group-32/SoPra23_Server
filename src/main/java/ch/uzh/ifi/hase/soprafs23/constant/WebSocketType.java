@@ -1,11 +1,9 @@
 package ch.uzh.ifi.hase.soprafs23.constant;
 
 public enum WebSocketType {
-    GAMESTATUSUPDATE,
-    CATEGORYUPDATE,
-    TIMETAKENUPDATE,
-    PLAYERUPDATE,
-    POINEUPDATE,
-    ROUNDUPDATE,
-    GAMEUPDATE
+    GAME_INIT,
+    PLAYER_ADD,
+    ROUND_UPDATE,
+    ANSWER_UPDATE,
+    GAME_END
 }

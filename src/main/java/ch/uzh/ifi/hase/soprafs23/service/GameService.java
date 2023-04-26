@@ -1,6 +1,6 @@
 package ch.uzh.ifi.hase.soprafs23.service;
 
-import ch.uzh.ifi.hase.soprafs23.constant.CityCategory;
+import ch.uzh.ifi.hase.soprafs23.constant.GameStatus;
 import ch.uzh.ifi.hase.soprafs23.constant.WebSocketType;
 
 import ch.uzh.ifi.hase.soprafs23.entity.WebSocket;
@@ -26,7 +26,6 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLEncoder;
 
-import com.fasterxml.jackson.databind.JsonNode;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
 
@@ -55,7 +54,7 @@ public class GameService {
         newGame = gameRepository.save(newGame);
         gameRepository.flush();
         log.debug("Created Information for Game: {}", newGame);
-        updateGameStatus(newGame.getGameId(), WebSocketType.GAMESTATUSUPDATE, newGame.getCurrentStatus());
+        updateGameStatus(newGame.getGameId(), WebSocketType.GAME_INIT, newGame.getGameStatus());
         return newGame;
     }
 
@@ -66,7 +65,7 @@ public class GameService {
         newPlayer.setPlayerName(userAsPlayer.getUsername());
         newPlayer.setGame(game);
         game.addPlayer(newPlayer);
-        updateGameStatus(gameId, WebSocketType.PLAYERUPDATE,game.getPlayerList());
+        updateGameStatus(gameId, WebSocketType.PLAYER_ADD, game.getGameStatus());
     }
 
     public List<Long> getAllPlayers(Long gameId) {
@@ -105,6 +104,8 @@ public class GameService {
         }
 
         game.addCurrentRound();
+        game.setGameStatus(GameStatus.ANSWERING);
+        updateGameStatus(gameId, WebSocketType.ROUND_UPDATE, game.getGameStatus());
         return question;
     }
 
@@ -117,7 +118,6 @@ public class GameService {
         Game game = searchGameById(gameId);
         Player currentPlayer = searchPlayerById(game, playerId);
         currentPlayer.addAnswer(answer.getAnswer());
-        System.out.println("Player: "+currentPlayer.getPlayerName()+" submitted the answer: "+answer.getAnswer());
         currentPlayer.setHasAnswered(true);
 
         // get the right answer of current round
@@ -127,28 +127,28 @@ public class GameService {
             score = calculateScore(Math.max(remainingTime, 0));
             currentPlayer.addScore(score);
         }
+        return score;
+    }
 
-        boolean hasAnswered=true;
-        Set<Player> playerlist=game.getPlayerList();
-        for(Player player: playerlist){
-            if(!player.getHasAnswered()){
-                hasAnswered=false;
+    public boolean checkIfAllAnswered(Long gameId) {
+        boolean allAnswered = true;
+        Game game = searchGameById(gameId);
+        Iterator<Player> playerList = game.getPlayerList();
+        while(playerList.hasNext()){
+            if(!playerList.next().getHasAnswered()){
+                allAnswered = false;
                 break;
             }
-            if(hasAnswered){
-                System.out.println("All users have answered");
-                if(game.getCurrentRound()==game.getTotalRounds()){
-                    game.setCurretnStatus(GameStatus.ENDED);
-                }else{
-                    game.setCurretnStatus(GameStatus.WAITINGINGAME);
-                }
-                updateGameStatus(game.getGameId(),WebSocketType.GAMESTATUSUPDATE, game.getCurrentStatus());
+        }
+        if(allAnswered){
+            game.setGameStatus(GameStatus.WAITING);
+            playerList = game.getPlayerList();
+            while(playerList.hasNext()) {
+                playerList.next().setHasAnswered(false);
             }
         }
-        gameRepository.saveAndFlush(game);
-
-
-        return score;
+        updateGameStatus(gameId, WebSocketType.ANSWER_UPDATE, game.getGameStatus());
+        return allAnswered;
     }
 
     public List<PlayerRanking> getRanking(Long gameId) {
@@ -171,6 +171,8 @@ public class GameService {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
                 String.format("Game with ID %d has not finished yet!\n", gameId));
         }
+        game.setGameStatus(GameStatus.ENDED);
+        updateGameStatus(gameId, WebSocketType.GAME_END, game.getGameStatus());
         gameRepository.delete(game);
     }
 
@@ -178,6 +180,8 @@ public class GameService {
         Game game = searchGameById(gameId);
         game.deletePlayer(playerId);
     }
+
+
     // ======== Only invoke after ending the game and before deleting the game =========
     public GameInfo getGameInfo(Long gameId) {
         GameInfo gameInfo = new GameInfo();
@@ -214,31 +218,17 @@ public class GameService {
         return userGameHistory;
     }
 
-
-
+    // ================ functions for web socket =======================
     public void updateGameStatus(Long gameId, WebSocketType webSocketType, Object webSocketParameter){
         try{
             WebSocket webSocket =new WebSocket(webSocketType, webSocketParameter);
-            System.out.println("sent new gamestate to players, in game: "+gameId);
+            System.out.printf("Sending new state of gameID %d to players - %s\n", gameId, webSocketParameter.toString());
             messagingTemplate.convertAndSend("/instance/games/" + gameId, webSocket);
         }catch (Exception e){
-            System.out.println("Error on updating gamestate to all players, game: "+gameId);
+            System.out.printf("Error on updating state of gameID %d to all players\n", gameId);
         }
 
     }
-
-
-    public void updatePlayerStatus(Long playerId, long gameId, WebSocketType websocketType, Object webSocketParamaeter) {
-        try {
-            WebSocket websocket = new WebSocket(websocketType, webSocketParamaeter);
-            System.out.println("Updating playerstate to player " + playerId + " on game " + gameId);
-            messagingTemplate.convertAndSend("/instance/games/" + gameId + "/" + playerId, websocketType);
-
-        }catch (Exception e){
-            System.out.println("Error on updating gamestate to all players, game: "+gameId);
-        }
-    }
-
 
     // =============== all private non-service functions here =================
 

@@ -127,7 +127,14 @@ public class GameController {
                             @PathVariable Long gameId,
                             @PathVariable Long playerId) {
         Answer newAnswer = DTOMapper.INSTANCE.convertAnswerPostDTOtoEntity(answerPostDTO);
-        return gameService.submitAnswer(gameId, playerId, newAnswer);
+        int score = gameService.submitAnswer(gameId, playerId, newAnswer);
+        boolean allAnswered = gameService.checkIfAllAnswered(gameId);
+        String tag = "False";
+        if(allAnswered) {
+            tag = "True";
+        }
+        System.out.printf("From playerID %d - Submit answer. AllAnswered: %s\n", playerId, tag);
+        return score;
     }
 
     /**

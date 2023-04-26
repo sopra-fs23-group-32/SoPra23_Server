@@ -1,33 +1,29 @@
 package ch.uzh.ifi.hase.soprafs23.entity;
 
-import ch.uzh.ifi.hase.soprafs23.constant.WebScoketType;
-public class WebScoket {
-    private WebScoketType type;
+import ch.uzh.ifi.hase.soprafs23.constant.WebSocketType;
+
+public class WebSocket {
+    private WebSocketType webSocketType;
     private Object load;
 
-    public WebScoket(WebScoketType type, Object load){
-        this.type=type;
+    public WebSocket(WebSocketType type, Object load){
+        this.webSocketType = type;
+        this.load = load;
+    }
+
+    public Object getLoad(){
+        return load;
+    }
+    public void setLoad(Object load){
         this.load=load;
     }
 
-public WebScoket(){
-}
-
-public Object getLoad(){
-    return load;
-}
-
-public void setLoad(Object load){
-    this.load=load;
-}
-
-public WebScoketType getType(){
-    return this.type=type;
-}
-
-public void setType(WebScoketType type){
-    this.type=type;
-}
+    public WebSocketType getType(){
+        return webSocketType;
+    }
+    public void setType(WebSocketType type){
+        this.webSocketType = type;
+    }
 
 }
 

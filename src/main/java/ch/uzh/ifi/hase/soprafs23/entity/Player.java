@@ -16,26 +16,15 @@ public class Player {
     private Long userId;
 
     private String playerName;
-
     private int score = 0;
+    @ElementCollection
+    private final List<String> answerList = new ArrayList<>();
 
-    private GameStatus playerGameStatus;
-    
-    private boolean hasAnswered;
+    private boolean hasAnswered = false;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "game_gameId")
     private Game game;
-
-    @ElementCollection
-    private final List<String> answerList = new ArrayList<>();
-
-
-    public boolean getHasAnswered(){return hasAnswered;}
-    public void setHasAnswered(boolean hasAnswered){this.hasAnswered=hasAnswered;}
-
-    public GameStatus getCurrentGameStatus(){return playerGameStatus;}
-    public void setCurrentGameStatus(GameStatus playerGameStatus){this.playerGameStatus=playerGameStatus;}
 
     public Long getUserId() {return userId;}
     public void setUserId(Long userId) {this.userId = userId;}
@@ -50,4 +39,7 @@ public class Player {
 
     public void addAnswer(String newAnswer) {answerList.add(newAnswer);}
     public Iterator<String> getAnswerList() {return answerList.iterator();}
+
+    public boolean getHasAnswered(){return hasAnswered;}
+    public void setHasAnswered(boolean hasAnswered){this.hasAnswered = hasAnswered;}
 }
