@@ -11,6 +11,7 @@ import ch.uzh.ifi.hase.soprafs23.service.GameHistoryService;
 import ch.uzh.ifi.hase.soprafs23.service.GameService;
 import ch.uzh.ifi.hase.soprafs23.service.UserStatisticsService;
 import org.springframework.http.HttpStatus;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -135,6 +136,7 @@ public class GameHistoryController {
     @GetMapping("/users/{userId}/gameHistories/{gameId}/answer")
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
+    @Transactional
     public List<GameHistoryAnswerGetDTO> getGameHistoryAnswers(
             @PathVariable Long userId, @PathVariable Long gameId) {
         // check if this gameId exist

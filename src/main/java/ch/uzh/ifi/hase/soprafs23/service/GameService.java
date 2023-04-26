@@ -12,20 +12,11 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.net.HttpURLConnection;
-import java.net.URI;
 import org.json.JSONArray;
 
 import java.io.BufferedReader;
-import java.io.FileOutputStream;
 import org.json.JSONObject;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
-import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.net.http.HttpClient;
 import java.net.URL;
 import java.net.URLEncoder;
 
