@@ -17,6 +17,7 @@ public class Game implements Serializable {
     @Serial
     private static final long serialVersionUID = 2L;
 
+
     @Id
     @GeneratedValue
     private Long gameId;
@@ -26,13 +27,15 @@ public class Game implements Serializable {
     private int totalRounds;
     @Column()
     private int currentRound;
+    @Column()
+    private GameStatus currentStatus;
     @Column(nullable = false)
     private int countdownTime;
     @Column()
     private String currentAnswer;
 
     @OneToMany(mappedBy = "game", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Player> playerList = new ArrayList<>();
+    private Set<Player> playerList;
 
     @ElementCollection
     private List<String> labelList = new ArrayList<>();
@@ -45,6 +48,9 @@ public class Game implements Serializable {
     public Long getGameId() {return gameId;}
     public void setGameId(Long gameId) {this.gameId = gameId;}
 
+    public GameStatus getCurrentStatus(){return currentStatus;}
+    public void setCurretnStatus(GameStatus curreentStaus){this.currentStatus=currentStatus;}
+    
     public CityCategory getCategory() {return category;}
     public void setCategory(CityCategory category) {this.category = category;}
 
@@ -70,7 +76,8 @@ public class Game implements Serializable {
         playerList.add(newPlayer);
         System.out.println("Player added: " + newPlayer.getPlayerName());
     }
-    public Iterator<Player> getPlayerList() { return playerList.iterator();}
+    public Set<Player> getPlayerList() { return playerList;}
+    
     public int getPlayerNum() {return playerList.size();}
 
     public void deletePlayer(Long playerId) {
