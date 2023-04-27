@@ -10,6 +10,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 
+import ch.uzh.ifi.hase.soprafs23.constant.GameStatus;
 import ch.uzh.ifi.hase.soprafs23.entity.*;
 import ch.uzh.ifi.hase.soprafs23.rest.dto.AnswerPostDTO;
 import org.springframework.http.MediaType;
@@ -75,6 +76,26 @@ public class GameControllerTest {
     }
 
     @Test
+    public void testGetGameStatus() throws Exception {
+        // given
+        Long gameId = 1L;
+        Game game = new Game();
+        game.initGame();
+        game.setGameId(gameId);
+        game.setGameStatus(GameStatus.ANSWERING);
+
+        when(gameService.searchGameById(eq(gameId))).thenReturn(game);
+
+        MockHttpServletRequestBuilder getRequest = get("/gamestatus/{gameId}", gameId)
+                .contentType(MediaType.APPLICATION_JSON);
+
+        // Perform the GET request
+        mockMvc.perform(getRequest)
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$", is(game.getGameStatus().toString())));
+    }
+
+    @Test
     public void testGoNextRound() throws Exception {
         // given
         Long gameId = 1L;
@@ -82,18 +103,40 @@ public class GameControllerTest {
 
         when(gameService.goNextRound(eq(gameId))).thenReturn(question);
 
-        MockHttpServletRequestBuilder getRequest = get("/games/{gameId}", gameId)
+        MockHttpServletRequestBuilder putRequest = put("/games/{gameId}", gameId)
+                .contentType(MediaType.APPLICATION_JSON);
+
+        // Perform the PUT request
+        mockMvc.perform(putRequest)
+                .andExpect(status().isCreated())
+                .andExpect(jsonPath("$.option1", is(question.getOption1())))
+                .andExpect(jsonPath("$.option2", is(question.getOption2())))
+                .andExpect(jsonPath("$.option3", is(question.getOption3())))
+                .andExpect(jsonPath("$.option4", is(question.getOption4())))
+                .andExpect(jsonPath("$.correctOption", is(question.getCorrectOption())))
+                .andExpect(jsonPath("$.pictureUrl", is(question.getPictureUrl())));
+    }
+
+    @Test
+    public void testGetQuestions() throws Exception {
+        // given
+        Long gameId = 1L;
+        Question question = new Question("Zurich", "Geneva", "Basel", "Bern","Basel", "pictureUrl");
+
+        when(gameService.getQuestions(eq(gameId))).thenReturn(question);
+
+        MockHttpServletRequestBuilder getRequest = get("/games/{gameId}/questions", gameId)
                 .contentType(MediaType.APPLICATION_JSON);
 
         // Perform the GET request
         mockMvc.perform(getRequest)
-                .andExpect(status().isOk());
-//                .andExpect(jsonPath("$.option1", is(question.getOption1())))
-//                .andExpect(jsonPath("$.option2", is(question.getOption2())))
-//                .andExpect(jsonPath("$.option3", is(question.getOption3())))
-//                .andExpect(jsonPath("$.option4", is(question.getOption4())))
-//                .andExpect(jsonPath("$.correctOption", is(question.getCorrectOption())))
-//                .andExpect(jsonPath("$.pictureUrl", is(question.getPictureUrl())));
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.option1", is(question.getOption1())))
+                .andExpect(jsonPath("$.option2", is(question.getOption2())))
+                .andExpect(jsonPath("$.option3", is(question.getOption3())))
+                .andExpect(jsonPath("$.option4", is(question.getOption4())))
+                .andExpect(jsonPath("$.correctOption", is(question.getCorrectOption())))
+                .andExpect(jsonPath("$.pictureUrl", is(question.getPictureUrl())));
     }
 
     @Test
