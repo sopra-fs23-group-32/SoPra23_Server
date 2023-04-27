@@ -12,9 +12,9 @@ import java.util.List;
 @Entity
 public class UserGameHistory{
     @Id
-    private long userId;
+    private Long userId;
 
-    private long gameId;
+    private Long gameId;
     private int gameScore;
 
     @ElementCollection
@@ -24,10 +24,10 @@ public class UserGameHistory{
     @JoinColumn(name = "userStatistics_userId")
     private UserStatistics userStatistics;
 
-    public long getUserId() {return userId;}
+    public Long getUserId() {return userId;}
     public void setUserId(long userId) {this.userId = userId;}
 
-    public long getGameId() {return gameId;}
+    public Long getGameId() {return gameId;}
     public void setGameId(long gameId) {this.gameId = gameId;}
 
     public int getGameScore() {return gameScore;}
