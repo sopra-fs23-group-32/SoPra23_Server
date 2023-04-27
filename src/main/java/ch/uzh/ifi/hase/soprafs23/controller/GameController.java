@@ -51,7 +51,7 @@ public class GameController {
      public GameStatus getGameStatus(@PathVariable Long gameId) {
          Game game = gameService.searchGameById(gameId);
          GameStatus gameStatus=game.getGameStatus();
-         System.out.println("GameStauts Start: "+gameStatus+"GameStatus End");
+         System.out.println("Game Status: "+gameStatus);
          return gameStatus;
      }
 

@@ -9,13 +9,10 @@ import java.util.List;
  * @author Zilong Deng
  */
 @Entity
-@Table(name = "PLAYER", uniqueConstraints = @UniqueConstraint(columnNames = {"userId", "game_gameId"}))
+@Table(name = "PLAYER")
 public class Player {
 
     @Id
-    @GeneratedValue
-    private Long playerId;
-    
     private Long userId;
 
     private String playerName;
