@@ -92,21 +92,43 @@ public class GameService {
             List<String> cityNames = getRandomCities(game.getCategory().toString());
             Random random = new Random();
             String correctOption = cityNames.get(random.nextInt(3));
-            game.updateCurrentAnswer(correctOption);
             pictureUrl = getCityImage(correctOption);
+
+            for (int j=0; j<4; j++) {
+                game.setQuestions(j, cityNames.get(j));
+            }
+            game.updateCurrentAnswer(correctOption);
+            game.setImgUrl(pictureUrl);
 
             question= new Question(cityNames.get(0), cityNames.get(1),
                     cityNames.get(2),cityNames.get(3), correctOption, pictureUrl);
             System.out.println("Game Service - Question generated.");
         }catch (Exception e){
             System.out.println("Game Service - Unable to generate image");
+            game.setQuestions(0, option1);
+            game.setQuestions(1, option2);
+            game.setQuestions(2, option3);
+            game.setQuestions(3, option4);
             game.updateCurrentAnswer(option4);
+            game.setImgUrl("");
         }
 
         game.addCurrentRound();
         game.setGameStatus(GameStatus.ANSWERING);
         updateGameStatus(gameId, WebSocketType.ROUND_UPDATE, game.getGameStatus());
         return question;
+    }
+
+    public Question getQuestions(Long gameId) {
+        Game game = searchGameById(gameId);
+        String option1, option2, option3, option4, correctA;
+        String pictureUrl = game.getImgUrl();
+        option1 = game.getQuestions(0);
+        option2 = game.getQuestions(1);
+        option3 = game.getQuestions(2);
+        option4 = game.getQuestions(3);
+        correctA = game.getCurrentAnswer();
+        return new Question(option1, option2, option3, option4, correctA, pictureUrl);
     }
 
     /**
@@ -227,7 +249,6 @@ public class GameService {
         }catch (Exception e){
             System.out.printf("Error on updating state of gameID %d to all players\n", gameId);
         }
-
     }
 
     // =============== all private non-service functions here =================

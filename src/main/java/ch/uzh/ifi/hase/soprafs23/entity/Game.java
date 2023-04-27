@@ -28,8 +28,10 @@ public class Game implements Serializable {
     private int currentRound;
     @Column(nullable = false)
     private int countdownTime;
-    @Column()
+
     private String currentAnswer;
+    private String Q1, Q2, Q3, Q4;
+    private String ImgUrl;
     @ElementCollection
     private List<String> labelList = new ArrayList<>();
 
@@ -65,6 +67,26 @@ public class Game implements Serializable {
         this.currentAnswer = currentAnswer;
         labelList.add(currentAnswer);
     }
+
+    public void setQuestions(int i, String string) {
+        switch (i) {
+            case 0 -> Q1 = string;
+            case 1 -> Q2 = string;
+            case 2 -> Q3 = string;
+            default -> Q4 = string;
+        }
+    }
+    public String getQuestions(int i) {
+        return switch (i) {
+            case 0 -> Q1;
+            case 1 -> Q2;
+            case 2 -> Q3;
+            default -> Q4;
+        };
+    }
+
+    public String getImgUrl() {return ImgUrl;}
+    public void setImgUrl(String imgUrl) {ImgUrl = imgUrl;}
 
     public Iterator<String> getLabelList() {return labelList.iterator();}
 

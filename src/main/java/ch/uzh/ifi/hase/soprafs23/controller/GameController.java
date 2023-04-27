@@ -48,13 +48,21 @@ public class GameController {
     public QuestionGetDTO goNextRound(@PathVariable Long gameId) {
         Question question = gameService.goNextRound(gameId);
         System.out.println("-----------------");
-        System.out.println("Option1: " + question.getOption1());
-        System.out.println("Option2: " + question.getOption2());
-        System.out.println("Option3: " + question.getOption3());
-        System.out.println("Option4: " + question.getOption4());
-
+        System.out.println("Option1: "+question.getOption1() + "Option2: "+question.getOption2());
+        System.out.println("Option3: "+question.getOption3() + "Option4: "+question.getOption4());
         System.out.println("CorrectOption: " + question.getCorrectOption());
         System.out.println("PictureUrl: " + question.getPictureUrl());
+        return DTOMapper.INSTANCE.convertEntityToQuestionGetDTO(question);
+    }
+
+    /**
+     * Get questions in a game
+     * @return List of user DTO
+     */
+    @GetMapping("/games/{gameId}/questions")
+    @ResponseStatus(HttpStatus.OK)
+    public QuestionGetDTO getQuestions(@PathVariable Long gameId) {
+        Question question = gameService.getQuestions(gameId);
         return DTOMapper.INSTANCE.convertEntityToQuestionGetDTO(question);
     }
 
