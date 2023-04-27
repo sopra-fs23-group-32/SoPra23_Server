@@ -7,6 +7,7 @@ import ch.uzh.ifi.hase.soprafs23.service.GameService;
 import ch.uzh.ifi.hase.soprafs23.service.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import ch.uzh.ifi.hase.soprafs23.constant.GameStatus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,6 +44,19 @@ public class GameController {
      * @param gameId gameId of the game
      * @return QuestionDTO Return a DTO including - 4 options of String, the url of the picture
      */
+
+
+     @GetMapping("/gamestatus/{gameId}")
+     @ResponseStatus(HttpStatus.OK)
+     public GameStatus getGameStatus(@PathVariable Long gameId) {
+         Game game = gameService.searchGameById(gameId);
+         GameStatus gameStatus=game.getGameStatus();
+         System.out.println("GameStauts Start: "+gameStatus+"GameStatus End");
+         return gameStatus;
+     }
+
+     
+
     @PutMapping("/games/{gameId}")
     @ResponseStatus(HttpStatus.CREATED)
     public QuestionGetDTO goNextRound(@PathVariable Long gameId) {
@@ -76,6 +90,8 @@ public class GameController {
         Game game = gameService.searchGameById(gameId);
         return DTOMapper.INSTANCE.convertEntityToGameGetDTO(game);
     }
+
+
 
     @DeleteMapping("/games/{gameId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
@@ -142,6 +158,7 @@ public class GameController {
             tag = "True";
         }
         System.out.printf("From playerID %d - Submit answer. AllAnswered: %s\n", playerId, tag);
+        System.out.println("++++++++Score: "+score+"Score End+++++++11");
         return score;
     }
 

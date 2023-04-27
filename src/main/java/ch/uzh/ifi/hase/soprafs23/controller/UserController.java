@@ -61,6 +61,15 @@ public class UserController {
         return DTOMapper.INSTANCE.convertEntityToUserGetDTO(user);
     }
 
+
+    @GetMapping("/user/{userName}")
+    @ResponseStatus(HttpStatus.OK)
+    @ResponseBody
+    public Long getUserWithId(@PathVariable String userName) {
+        User user = userService.serachUserByUsername(userName);
+        return user.getUserId();
+    }
+
     /**
      * Create user
      * @param userPostDTO DTO for create user
