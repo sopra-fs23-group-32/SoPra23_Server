@@ -134,6 +134,7 @@ public class GameController {
             tag = "True";
         }
         System.out.printf("From playerID %d - Submit answer. AllAnswered: %s\n", playerId, tag);
+        System.out.println("++++++++Score: "+score+"Score End+++++++11");
         return score;
     }
 
