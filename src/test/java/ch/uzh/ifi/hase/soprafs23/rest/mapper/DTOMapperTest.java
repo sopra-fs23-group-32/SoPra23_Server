@@ -12,6 +12,7 @@ import ch.uzh.ifi.hase.soprafs23.rest.dto.*;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 /**
  * DTOMapperTest
@@ -129,6 +130,32 @@ public class DTOMapperTest {
     }
 
     @Test
+    public void testCreateGameHistoryAnswerGetDTO_fromGameHistoryAnswer_toGameHistoryAnswerGetDTO_success() {
+        // create GameHistoryAnswer
+        GameHistoryAnswer gameHistoryAnswer = new GameHistoryAnswer("C", "B");
+
+        // MAP -> GameHistoryAnswerGetDTO
+        GameHistoryAnswerGetDTO gameHistoryAnswerGetDTO = DTOMapper.INSTANCE.convertEntityToGameHistoryAnswerGetDTO(gameHistoryAnswer);
+        // check content
+        assertEquals(gameHistoryAnswer.getAnswer(), gameHistoryAnswerGetDTO.getAnswer());
+        assertEquals(gameHistoryAnswer.getCorrectAnswer(), gameHistoryAnswerGetDTO.getCorrectAnswer());
+    }
+
+    @Test
+    public void testCreateGameHistoryGetDTO_fromGameHistory_toGameHistoryGetDTO_success() {
+        // create GameHistory
+        UserGameHistory gameHistory = new UserGameHistory();
+        gameHistory.setGameId(1L);
+        gameHistory.setGameScore(100);
+
+        // MAP -> GameHistoryGetDTO
+        GameHistoryGetDTO gameHistoryGetDTO = DTOMapper.INSTANCE.convertEntityToGameHistoryGetDTO(gameHistory);
+
+        // check content
+        assertEquals(gameHistory.getGameId(), gameHistoryGetDTO.getGameId());
+        assertEquals(gameHistory.getGameScore(), gameHistoryGetDTO.getGameScore());
+    }
+    @Test
     public void testGetGameInfo_fromGameInfo_toGameInfoGetDTO_success() {
         // create GameInfo
         GameInfo gameInfo = new GameInfo();
@@ -160,16 +187,18 @@ public class DTOMapperTest {
     }
 
     @Test
-    public void testGetGameResult_fromGameResult_toGameResultGetDTO_success() {
-        // create GameResult
-        Player player = new Player();
-        player.setUserId(1L);
-        player.setPlayerName("TestPlayer");
-        List<String> winnerList = new ArrayList<>(List.of(player.getPlayerName()));
-        GameResult gameResult = new GameResult(winnerList);
-        // MAP -> Create GameResultGetDTO
-        GameResultGetDTO gameResultGetDTO = DTOMapper.INSTANCE.convertEntityToGameResultGetDTO(gameResult);
+    public void testGetUserRanking_fromUserRanking_toUserRankingGetDTO_success() {
+        // create UserRanking
+        UserRanking userRanking = new UserRanking(1L, "username", new Date(), 100, 2, 1);
+
+        // MAP -> Create UserRankingGetDTO
+        UserRankingGetDTO userRankingGetDTO = DTOMapper.INSTANCE.convertEntityToUserRankingGetDTO(userRanking);
         // check content
-        assertEquals(gameResult.getWinnerList(), gameResultGetDTO.getWinnerList());
+        assertEquals(userRankingGetDTO.getUserId(), userRankingGetDTO.getUserId());
+        assertEquals(userRankingGetDTO.getUsername(), userRankingGetDTO.getUsername());
+        assertNotNull(userRankingGetDTO.getCreateDay());
+        assertEquals(userRankingGetDTO.getScore(), userRankingGetDTO.getScore());
+        assertEquals(userRankingGetDTO.getGameNum(), userRankingGetDTO.getGameNum());
+        assertEquals(userRankingGetDTO.getRank(), userRankingGetDTO.getRank());
     }
 }

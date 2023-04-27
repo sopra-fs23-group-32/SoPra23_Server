@@ -166,12 +166,11 @@ public class GameController {
     /**
      * End the game of MultiPLayer Mode
      * @param gameId gameId of the game
-     * will return GameResultGetDTO, including a list of winners and a list of PlayerRanking
+     * will return a list of winners's names
      */
     @GetMapping("/games/{gameId}/results")
     @ResponseStatus(HttpStatus.OK)
-    public GameResultGetDTO endGame(@PathVariable Long gameId) {
-        GameResult gameResult = gameService.getGameResult(gameId);
-        return DTOMapper.INSTANCE.convertEntityToGameResultGetDTO(gameResult);
+    public List<String> endGame(@PathVariable Long gameId) {
+        return gameService.getGameResult(gameId);
     }
 }
