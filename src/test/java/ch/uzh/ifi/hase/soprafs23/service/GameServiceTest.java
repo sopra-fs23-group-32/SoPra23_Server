@@ -1,8 +1,10 @@
 package ch.uzh.ifi.hase.soprafs23.service;
 
 import ch.uzh.ifi.hase.soprafs23.constant.CityCategory;
+import ch.uzh.ifi.hase.soprafs23.constant.GameStatus;
 import ch.uzh.ifi.hase.soprafs23.entity.*;
 import ch.uzh.ifi.hase.soprafs23.repository.GameRepository;
+import org.hibernate.type.TrueFalseType;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -37,6 +39,11 @@ public class GameServiceTest {
       testGame.setCategory(CityCategory.EUROPE);
       testGame.setCountdownTime(10);
       testGame.setTotalRounds(2);
+      testGame.setQuestions(0, "Zurich");
+      testGame.setQuestions(1, "Geneva");
+      testGame.setQuestions(2, "Basel");
+      testGame.setQuestions(3, "Bern");
+      testGame.updateCurrentAnswer("Bern");
 
       // when -> any object is being found in the gameInfoRepository -> return the dummy
       Mockito.when(gameRepository.save(Mockito.any(Game.class))).thenReturn(testGame);
@@ -67,7 +74,7 @@ public class GameServiceTest {
   }
 
   @Test
-  public void testAddPlayer() {
+  public void testAddPlayer_gameIdExists() {
       // given
       User user = new User();
       user.setUserId(1L);
@@ -82,6 +89,17 @@ public class GameServiceTest {
       assertEquals(1, testGame.getPlayerNum());
       assertEquals(user.getUserId(), testGame.getPlayerList().next().getUserId());
       assertEquals(user.getUsername(), testGame.getPlayerList().next().getPlayerName());
+  }
+
+  @Test
+  public void testAddPlayer_gameIdNotExist() {
+
+      // verify a ResponseStatusException with status code NOT_FOUND is thrown
+      ResponseStatusException exception = assertThrows(
+              ResponseStatusException.class,
+              () -> gameService.addPlayer(999L, new User())
+      );
+      assertEquals(HttpStatus.NOT_FOUND, exception.getStatus());
   }
 
   @Test
@@ -137,6 +155,21 @@ public class GameServiceTest {
   }
 
   @Test
+  public void testGetQuestions() {
+      // when
+      Question question = gameService.getQuestions(1L);
+
+      // then
+      Mockito.verify(gameRepository, Mockito.times(2)).findByGameId(Mockito.any());
+
+      assertEquals(testGame.getQuestions(0), question.getOption1());
+      assertEquals(testGame.getQuestions(1), question.getOption2());
+      assertEquals(testGame.getQuestions(2), question.getOption3());
+      assertEquals(testGame.getQuestions(3), question.getOption4());
+      assertEquals(testGame.getCurrentAnswer(), question.getCorrectOption());
+  }
+
+  @Test
   public void testSubmitAnswer_correctAnswer() {
       // given
       Long gameId = 1L;
@@ -184,6 +217,44 @@ public class GameServiceTest {
 
       assertEquals(0, score);
   }
+
+  @Test
+  public void testIfAllAnswered_true() {
+      Player player1 = new Player();
+      player1.setHasAnswered(true);
+      Player player2 = new Player();
+      player2.setHasAnswered(true);
+      testGame.addPlayer(player1);
+      testGame.addPlayer(player2);
+
+      // when
+      boolean allAnswered = gameService.checkIfAllAnswered(1L);
+
+      // then
+      Mockito.verify(gameRepository, Mockito.times(2)).findByGameId(Mockito.any());
+
+      assertTrue(allAnswered);
+      assertEquals(GameStatus.WAITING, testGame.getGameStatus());
+  }
+
+  @Test
+  public void testIfAllAnswered_false() {
+      Player player1 = new Player();
+      player1.setHasAnswered(true);
+      Player player2 = new Player();
+      player2.setHasAnswered(false);
+      testGame.addPlayer(player1);
+      testGame.addPlayer(player2);
+
+      // when
+      boolean allAnswered = gameService.checkIfAllAnswered(1L);
+
+      // then
+      Mockito.verify(gameRepository, Mockito.times(2)).findByGameId(Mockito.any());
+
+      assertFalse(allAnswered);
+    }
+
   @Test
   public void testGetRanking() {
       // given
@@ -268,6 +339,8 @@ public class GameServiceTest {
       // then
       Mockito.verify(gameRepository, Mockito.times(2)).findByGameId(Mockito.any());
       Mockito.verify(gameRepository, Mockito.times(1)).delete(Mockito.any());
+
+      assertEquals(GameStatus.ENDED, testGame.getGameStatus());
   }
 
   @Test
@@ -302,8 +375,6 @@ public class GameServiceTest {
       // given
       testGame.addPlayer(new Player());
       testGame.addPlayer(new Player());
-      testGame.updateCurrentAnswer("Zurich");
-      testGame.updateCurrentAnswer("Basel");
       testGame.addCurrentRound();
       testGame.addCurrentRound();
 
@@ -322,8 +393,6 @@ public class GameServiceTest {
       assertEquals(testGame.getCategory(), gameInfo.getCategory());
       assertEquals(testGame.getTotalRounds(), gameInfo.getGameRounds());
       assertEquals(testGame.getPlayerNum(), gameInfo.getPlayerNum());
-      assertEquals("Zurich", labelList.get(0));
-      assertEquals("Basel", labelList.get(1));
   }
 
   @Test

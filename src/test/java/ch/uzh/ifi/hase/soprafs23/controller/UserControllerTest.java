@@ -101,6 +101,25 @@ public class UserControllerTest {
     }
 
     @Test
+    public void testGetUserWithId() throws Exception {
+        // given
+        User user = new User();
+        user.setUserId(1L);
+        user.setUsername("testUsername");
+
+
+        given(userService.serachUserByUsername(Mockito.any())).willReturn(user);
+        // when/then -> do the request + validate the result
+        MockHttpServletRequestBuilder getRequest = get("/user/{userName)", "testUsername")
+                .contentType(MediaType.APPLICATION_JSON);
+
+        // then
+        mockMvc.perform(getRequest)
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$", is(user.getUserId().intValue())));
+    }
+
+    @Test
     public void testCreateUser() throws Exception {
         // given
         User user = new User();
