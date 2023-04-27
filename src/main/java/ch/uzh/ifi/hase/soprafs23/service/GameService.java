@@ -286,7 +286,7 @@ public class GameService {
 
    
     private static final int NUM_CITIES = 5;
-    private static final int MIN_POPULATION = 1000000;
+    private static final int MIN_POPULATION = 500000;
 
     public static List<String> getCountries(String continentCode) throws Exception {
         String apiUrl = "https://restcountries.com/v3.1/region/" + continentCode;
