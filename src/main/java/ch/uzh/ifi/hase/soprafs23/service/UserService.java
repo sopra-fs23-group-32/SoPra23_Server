@@ -113,6 +113,10 @@ public class UserService {
         return this.userRepository.findByUserId(userId);
     }
 
+    public User serachUserByUsername(String userName){
+        return this.userRepository.findByUsername(userName);
+    }
+
     /**
      * Check the uniqueness criteria of the username defined in the User entity.
      * The method will do nothing if the input is unique and throw an error otherwise.
