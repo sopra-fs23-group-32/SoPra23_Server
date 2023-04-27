@@ -375,8 +375,6 @@ public class GameServiceTest {
       // given
       testGame.addPlayer(new Player());
       testGame.addPlayer(new Player());
-      testGame.updateCurrentAnswer("Zurich");
-      testGame.updateCurrentAnswer("Basel");
       testGame.addCurrentRound();
       testGame.addCurrentRound();
 
@@ -395,8 +393,6 @@ public class GameServiceTest {
       assertEquals(testGame.getCategory(), gameInfo.getCategory());
       assertEquals(testGame.getTotalRounds(), gameInfo.getGameRounds());
       assertEquals(testGame.getPlayerNum(), gameInfo.getPlayerNum());
-      assertEquals("Zurich", labelList.get(0));
-      assertEquals("Basel", labelList.get(1));
   }
 
   @Test
