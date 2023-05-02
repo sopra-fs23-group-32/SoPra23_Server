@@ -90,3 +90,5 @@ Make minor changes in showing user ranking
 Dominic Vogel, https://github.com/sopra-fs23-group-32/SoPra23_Client/issues/44 \
 Dominic Vogel, https://github.com/sopra-fs23-group-32/SoPra23_Client/issues/67 \
 Dominic Vogel, https://github.com/sopra-fs23-group-32/SoPra23_Client/issues/70
+
+Jano Vukadinovic, https://github.com/sopra-fs23-group-32/SoPra23_Client/issues/51
