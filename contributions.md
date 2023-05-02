@@ -73,3 +73,7 @@ Said H.A., https://github.com/sopra-fs23-group-32/SoPra23_Client/issues/55 \
 Said H.A., https://github.com/sopra-fs23-group-32/SoPra23_Client/issues/54 \
 Said H.A., https://github.com/sopra-fs23-group-32/SoPra23_Client/issues/29 (Jano and Said) \
 Said H.A., https://github.com/sopra-fs23-group-32/SoPra23_Server/issues/100 (mostly Zilong Deng)
+
+## Week 24.04.2023-02.05.2023
+Said H.A.,https://github.com/sopra-fs23-group-32/SoPra23_Client/issues/65\
+Said H.A.,https://github.com/sopra-fs23-group-32/SoPra23_Client/issues/66
