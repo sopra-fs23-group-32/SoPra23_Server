@@ -49,7 +49,7 @@ Said H.A., https://github.com/sopra-fs23-group-32/SoPra23_Server/issues/114 \
 Zilong Deng, https://github.com/sopra-fs23-group-32/SoPra23_Server/issues/51 \
 Zilong Deng, https://github.com/sopra-fs23-group-32/SoPra23_Server/issues/54 \
 Zilong Deng, https://github.com/sopra-fs23-group-32/SoPra23_Server/issues/55 \
-Zilong Deng, https://github.com/sopra-fs23-group-32/SoPra23_Server/issues/100 (mostly Zilong Deng) \
+Zilong Deng, https://github.com/sopra-fs23-group-32/SoPra23_Server/issues/100 \
 * implement REST request and corresponding services for Game, GameHistory, Question and Answer
 
 
@@ -77,3 +77,7 @@ Said H.A., https://github.com/sopra-fs23-group-32/SoPra23_Server/issues/100 (mos
 ## Week 24.04.2023-02.05.2023
 Said H.A.,https://github.com/sopra-fs23-group-32/SoPra23_Client/issues/65\
 Said H.A.,https://github.com/sopra-fs23-group-32/SoPra23_Client/issues/66
+
+Zilong Deng, https://github.com/sopra-fs23-group-32/SoPra23_Server/issues/78 \
+Zilong Deng, https://github.com/sopra-fs23-group-32/SoPra23_Server/issues/69 \
+Zilong Deng, https://github.com/sopra-fs23-group-32/SoPra23_Server/issues/63 
