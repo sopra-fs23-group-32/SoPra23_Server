@@ -84,5 +84,5 @@ Zilong Deng, https://github.com/sopra-fs23-group-32/SoPra23_Server/issues/63
 
 Leyi Xu, https://github.com/sopra-fs23-group-32/SoPra23_Server/issues/127 \
 Leyi Xu, https://github.com/sopra-fs23-group-32/SoPra23_Server/issues/78 (mostly Zilong Deng) \
-Write tests for controllers, repostitories, DTOMapper, and services 
+Write tests for controllers, repostitories, DTOMapper, and services \
 Make minor changes in showing user ranking
