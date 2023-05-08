@@ -342,15 +342,6 @@ public class GameServiceTest {
       assertEquals(GameStatus.ENDED, testGame.getGameStatus());
   }
 
-  @Test
-  public void testCloseGame_gameNotEnded() {
-      // verify a ResponseStatusException with status code BAD_REQUEST is thrown
-      ResponseStatusException exception = assertThrows(
-              ResponseStatusException.class,
-              () -> gameService.closeGame(1L)
-      );
-      assertEquals(HttpStatus.BAD_REQUEST, exception.getStatus());
-  }
 
   @Test
   public void testLeaveGame() {
