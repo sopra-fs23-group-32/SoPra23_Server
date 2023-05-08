@@ -39,32 +39,52 @@ public class GameController {
         return DTOMapper.INSTANCE.convertEntityToGameGetDTO(newGame);
     }
 
-    /**
-     * Go to the next round of the game
-     * @param gameId gameId of the game
-     * @return QuestionDTO Return a DTO including - 4 options of String, the url of the picture
-     */
+    @GetMapping("/games")
+    @ResponseStatus(HttpStatus.OK)
+    @ResponseBody
+    public List<GameGetDTO> getGames() {
+        List<Game> allGames = gameService.getAllGames();
+        List<GameGetDTO> gameGetDTOList = new ArrayList<>();
+        for (Game game: allGames) {
+            if (game.getGameStatus() == GameStatus.SETUP) {
+                gameGetDTOList.add(
+                    DTOMapper.INSTANCE.convertEntityToGameGetDTO(game)
+                );
+            }
+        }
+        return gameGetDTOList;
+    }
 
+    /**
+     * Get game progress
+     * @return DTO for game: gameId, current Round, Score board of player
+     */
+    @GetMapping("/games/{gameId}")
+    @ResponseStatus(HttpStatus.OK)
+    public GameGetDTO getGame(@PathVariable Long gameId) {
+        Game game = gameService.searchGameById(gameId);
+        return DTOMapper.INSTANCE.convertEntityToGameGetDTO(game);
+    }
 
      @GetMapping("/gamestatus/{gameId}")
      @ResponseStatus(HttpStatus.OK)
      public GameStatus getGameStatus(@PathVariable Long gameId) {
          Game game = gameService.searchGameById(gameId);
          GameStatus gameStatus=game.getGameStatus();
-         System.out.println("Game Status: "+gameStatus);
-         System.out.println("abcd");
+         System.out.println("GameStauts Start: "+gameStatus+"GameStatus End");
          return gameStatus;
      }
 
-     
-
+    /**
+     * Go to the next round of the game
+     * @param gameId gameId of the game
+     * @return QuestionDTO Return a DTO including - 4 options of String, the url of the picture
+     */
     @PutMapping("/games/{gameId}")
     @ResponseStatus(HttpStatus.CREATED)
     public QuestionGetDTO goNextRound(@PathVariable Long gameId) {
         Question question = gameService.goNextRound(gameId);
         System.out.println("-----------------");
-        System.out.println("Option1: "+question.getOption1() + "Option2: "+question.getOption2());
-        System.out.println("Option3: "+question.getOption3() + "Option4: "+question.getOption4());
         System.out.println("CorrectOption: " + question.getCorrectOption());
         System.out.println("PictureUrl: " + question.getPictureUrl());
         return DTOMapper.INSTANCE.convertEntityToQuestionGetDTO(question);
@@ -80,19 +100,6 @@ public class GameController {
         Question question = gameService.getQuestions(gameId);
         return DTOMapper.INSTANCE.convertEntityToQuestionGetDTO(question);
     }
-
-    /**
-     * Get game progress and score board
-     * @return DTO for game: gameId, current Round, Score board of player
-     */
-    @GetMapping("/games/{gameId}")
-    @ResponseStatus(HttpStatus.OK)
-    public GameGetDTO getGame(@PathVariable Long gameId) {
-        Game game = gameService.searchGameById(gameId);
-        return DTOMapper.INSTANCE.convertEntityToGameGetDTO(game);
-    }
-
-
 
     @DeleteMapping("/games/{gameId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
@@ -127,7 +134,7 @@ public class GameController {
      */
     @PostMapping("/games/{gameId}/players/{playerId}")
     @ResponseStatus(HttpStatus.CREATED)
-    public UserGetDTO createPlayer(@PathVariable Long gameId, @PathVariable Long playerId) {
+    public UserGetDTO addPlayer(@PathVariable Long gameId, @PathVariable Long playerId) {
         User user = userService.searchUserById(playerId);
         gameService.addPlayer(gameId, user);
         return DTOMapper.INSTANCE.convertEntityToUserGetDTO(user);

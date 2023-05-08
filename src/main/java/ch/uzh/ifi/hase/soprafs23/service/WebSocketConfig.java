@@ -12,13 +12,13 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer{
 
     @Override
     public void configureMessageBroker(MessageBrokerRegistry config){
-        config.setApplicationDestinationPrefixes("/app");
         config.enableSimpleBroker("/instance");
+		config.setApplicationDestinationPrefixes("/app");
     }
 
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registery){
-        registery.addEndpoint("socket")
+        registery.addEndpoint("/socket")
                 .setAllowedOriginPatterns(
                         "http://localhost:3000",
                         "https://sopra-fs23-group-32-client.oa.r.appspot.com")
