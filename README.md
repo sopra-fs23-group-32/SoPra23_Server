@@ -23,12 +23,12 @@
     <td rowspan="2">Body </td>
     <td>201 </td>
     <td>User </td>
-    <td>add User </td>
+    <td>add User</td>
   </tr>
   <tr>
     <td>409 </td>
     <td>Error&lt;String&gt; </td>
-    <td>Username existed </td>
+    <td>Username existed</td>
   </tr>
   <tr>
     <td rowspan="3">PUT </td>
@@ -40,17 +40,17 @@
     <td rowspan="3">Body </td>
     <td>200 </td>
     <td>User </td>
-    <td>Login user </td>
+    <td>Login user</td>
+  </tr>
+  <tr>
+    <td>401 </td>
+    <td>Error&lt;String&gt; </td>
+    <td>password incorrect</td>
   </tr>
   <tr>
     <td>404 </td>
     <td>Error&lt;String&gt; </td>
-    <td>can't find username </td>
-  </tr>
-  <tr>
-    <td>409 </td>
-    <td>Error&lt;String&gt; </td>
-    <td>password incorrect </td>
+    <td>can't find username</td>
   </tr>
   <tr>
     <td rowspan="2">PUT </td>
@@ -65,9 +65,9 @@
     <td>Log out user </td>
   </tr>
   <tr>
-    <td>404 </td>
+    <td>400 </td>
     <td>Error&lt;String&gt; </td>
-    <td>user already logged out </td>
+    <td>user already logged out</td>
   </tr>
   <tr>
     <td rowspan="2">PUT </td>
@@ -86,21 +86,16 @@
   <tr>
     <td>404 </td>
     <td>Error&lt;String&gt; </td>
-    <td>user was not found </td>
+    <td>userId not found</td>
   </tr>
   <tr>
-    <td rowspan="2">GET </td>
-    <td rowspan="2">/users </td>
-    <td rowspan="2">- </td>
-    <td rowspan="2">- </td>
+    <td>GET </td>
+    <td>/users </td>
+    <td>- </td>
+    <td>- </td>
     <td>200 </td>
     <td>List&lt;User&gt; </td>
-    <td>Get all users </td>
-  </tr>
-  <tr>
-    <td>404 </td>
-    <td>Error&lt;String&gt; </td>
-    <td> </td>
+    <td>Get all users</td>
   </tr>
   <tr>
     <td rowspan="2">GET </td>
@@ -114,7 +109,7 @@
   <tr>
     <td>404 </td>
     <td>Error&lt;String&gt; </td>
-    <td>userId was not found </td>
+    <td>userId not found</td>
   </tr>
   <tr>
     <td rowspan="2">GET </td>
@@ -128,12 +123,12 @@
         score&lt;long&gt;<br>
         gameNum&lt;long&gt;<br>
     </td>
-    <td>Get ranking of users </td>
+    <td>Get ranking of all users</td>
   </tr>
   <tr>
     <td>404 </td>
     <td>Error&lt;String&gt; </td>
-    <td>no user </td>
+    <td>no user</td>
   </tr>
   <tr>
     <td rowspan="2">POST </td>
@@ -146,11 +141,11 @@
     <td rowspan="2">Body </td>
     <td>201 </td>
     <td>Game </td>
-    <td>create a lobby </td>
+    <td>create a lobby</td>
   </tr>
   <tr>
-    <td><406 </td>
-    <td>Error&lt;String&gt;  </td>
+    <td>406 </td>
+    <td>Error&lt;String&gt; </td>
     <td>Lobby type could not be created </td>
   </tr>
   <tr>
@@ -166,12 +161,12 @@
     <td rowspan="2">Query </td>
     <td>200 </td>
     <td>- </td>
-    <td>Add a player to a lobby </td>
+    <td>Add a player to a lobby</td>
   </tr>
   <tr>
     <td>404 </td>
     <td>Error&lt;String&gt; </td>
-    <td>gameId / playerId not found </td>
+    <td>gameId / playerId not found</td>
   </tr>
   <tr>
     <td rowspan="2">POST </td>
@@ -191,15 +186,15 @@
     <td>Submit player’s answer and update score </td>
   </tr>
   <tr>
-    <td>401 </td>
+    <td>404 </td>
     <td>Error&lt;String&gt; </td>
-    <td>gameId / playerId not found </td>
+    <td>gameId / playerId not found</td>
   </tr>
   <tr>
-    <td rowspan="2">PUT </td>
-    <td rowspan="2">/games/{gameId}</td>
-    <td rowspan="2">gameId&lt;long&gt; </td>
-    <td rowspan="2">Query </td>
+    <td rowspan="3">PUT </td>
+    <td rowspan="3">/games/{gameId}</td>
+    <td rowspan="3">gameId&lt;long&gt; </td>
+    <td rowspan="3">Query </td>
     <td>200 </td>
     <td>Question </td>
     <td>Return question for next round and go head </td>
@@ -207,7 +202,21 @@
   <tr>
     <td>404 </td>
     <td>Error&lt;String&gt; </td>
-    <td>Game ended / gameId not found </td>
+    <td>gameId not found</td>
+  </tr>
+  <tr>
+    <td>409 </td>
+    <td>Error&lt;String&gt; </td>
+    <td>Game has ended</td>
+  </tr>
+  <tr>
+    <td>GET </td>
+    <td>/games</td>
+    <td>- </td>
+    <td>- </td>
+    <td>200 </td>
+    <td>List&lt;Game&gt; </td>
+    <td>Get all games in SET UP state </td>
   </tr>
   <tr>
     <td rowspan="2">GET </td>
@@ -221,7 +230,21 @@
   <tr>
     <td>404 </td>
     <td>Error&lt;String&gt; </td>
-    <td>lobby not found </td>
+    <td>gameId not found</td>
+  </tr>
+  <tr>
+    <td rowspan="2">GET </td>
+    <td rowspan="2">/games/{gameId}/status</td>
+    <td rowspan="2">gameId&lt;long&gt; </td>
+    <td rowspan="2">Query </td>
+    <td>200 </td>
+    <td>GameStatus </td>
+    <td>Get status of this lobby </td>
+  </tr>
+  <tr>
+    <td>404 </td>
+    <td>Error&lt;String&gt; </td>
+    <td>gameId not found</td>
   </tr>
   <tr>
     <td rowspan="2">GET </td>
@@ -235,7 +258,7 @@
   <tr>
     <td>404 </td>
     <td>Error&lt;String&gt; </td>
-    <td>lobby not found </td>
+    <td>gameId not found</td>
   </tr>
   <tr>
     <td rowspan="2">GET </td>
@@ -253,7 +276,7 @@
   <tr>
     <td>404 </td>
     <td>Error&lt;String&gt; </td>
-    <td>no ranking found </td>
+    <td>gameId not found / <br>no ranking found </td>
   </tr>
   <tr>
     <td rowspan="3">GET </td>
@@ -272,7 +295,7 @@
   <tr>
     <td>409 </td>
     <td>Error&lt;String&gt; </td>
-    <td>Lobby doesn't end / gameId not found </td>
+    <td>game not ended</td>
   </tr>
   <tr>
     <td rowspan="3">DELETE </td>
@@ -284,14 +307,14 @@
     <td>leave and delete game </td>
   </tr>
   <tr>
-    <td>400 </td>
-    <td>Error&lt;String&gt; </td>
-    <td>game not finished yet </td>
-  </tr>
-  <tr>
-    <td>401 </td>
+    <td>404 </td>
     <td>Error&lt;String&gt; </td>
     <td>gameId not found </td>
+  </tr>
+  <tr>
+    <td>409 </td>
+    <td>Error&lt;String&gt; </td>
+    <td>game not ended</td>
   </tr>
   <tr>
     <td rowspan="2">DELETE </td>
@@ -309,43 +332,53 @@
     <td>Player left the lobby </td>
   </tr>
   <tr>
-    <td>401 </td>
+    <td>404 </td>
     <td>Error&lt;String&gt; </td>
     <td>gameId not found / <br>playerId not found </td>
   </tr>
   <tr>
-    <td rowspan="2"> POST </td>
-    <td rowspan="2">/gameInfo/{gameId}</td>
-    <td rowspan="2">gameId&lt;long&gt;</td>
-    <td rowspan="2">Query </td>
+    <td rowspan="3"> POST </td>
+    <td rowspan="3">/gameInfo/{gameId}</td>
+    <td rowspan="3">gameId&lt;long&gt;</td>
+    <td rowspan="3">Query </td>
     <td>200 </td>
     <td>GameInfo </td>
     <td>Create a shared GameInfo </td>
   </tr>
   <tr>
-    <td>401 </td>
+    <td>404 </td>
     <td>Error&lt;String&gt; </td>
     <td>gameId not found</td>
   </tr>
   <tr>
-    <td rowspan="2"> POST </td>
-    <td rowspan="2">
+    <td>409 </td>
+    <td>Error&lt;String&gt; </td>
+    <td>game not ended</td>
+  </tr>
+  <tr>
+    <td rowspan="3"> POST </td>
+    <td rowspan="3">
         /users/{userId}/<br>
         gameHistories/{gameId}
     </td>
-    <td rowspan="2">
+    <td rowspan="3">
         userId&lt;long&gt;<br>
         gameId&lt;long&gt;
     </td>
-    <td rowspan="2">Query </td>
+    <td rowspan="3">Query </td>
     <td>200 </td>
     <td>- </td>
     <td>Create user's GameHistory </td>
   </tr>
   <tr>
-    <td>401 </td>
+    <td>404 </td>
     <td>Error&lt;String&gt; </td>
     <td>gameId not found / <br>userId not found </td>
+  </tr>
+  <tr>
+    <td>409 </td>
+    <td>Error&lt;String&gt; </td>
+    <td>game not ended</td>
   </tr>
   <tr>
     <td rowspan="2">GET </td>
@@ -357,7 +390,7 @@
     <td>- </td>
   </tr>
   <tr>
-    <td>401 </td>
+    <td>404 </td>
     <td>Error&lt;String&gt; </td>
     <td>userId not found </td>
   </tr>
@@ -374,7 +407,7 @@
     <td>- </td>
   </tr>
   <tr>
-    <td>401 </td>
+    <td>404 </td>
     <td>Error&lt;String&gt; </td>
     <td>userId not found </td>
   </tr>
@@ -394,15 +427,15 @@
     <td>Get information of a game </td>
   </tr>
   <tr>
-    <td>401 </td>
+    <td>404 </td>
     <td>Error&lt;String&gt; </td>
-    <td>gameId not found / <br>userId not found </td>
+    <td>gameId not found / <br>userId not found</td>
   </tr>
   <tr>
     <td rowspan="2">GET </td>
     <td rowspan="2">
         /users/{userId}/gameHistories/<br>
-        {gameId}/score
+        {gameId}/stats
     </td>
     <td rowspan="2">
         userId&lt;long&gt;<br>
@@ -410,13 +443,13 @@
     </td>
     <td rowspan="2">Query </td>
     <td>200 </td>
-    <td>score&lt;int&gt; </td>
-    <td>Get user's score in a game </td>
+    <td>GameHistory </td>
+    <td>Get user's history of a game </td>
   </tr>
   <tr>
-    <td>401 </td>
+    <td>404 </td>
     <td>Error&lt;String&gt; </td>
-    <td>gameId not found / <br>userId not found </td>
+    <td>gameId not found / <br>userId not found</td>
   </tr>
   <tr>
     <td rowspan="2">GET </td>
@@ -437,7 +470,7 @@
     <td>Get user's answers and correct answers of game </td>
   </tr>
   <tr>
-    <td>401 </td>
+    <td>404 </td>
     <td>Error&lt;String&gt; </td>
     <td>gameId not found / <br>userId not found </td>
   </tr>
