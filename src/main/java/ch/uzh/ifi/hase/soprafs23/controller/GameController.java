@@ -52,6 +52,7 @@ public class GameController {
          Game game = gameService.searchGameById(gameId);
          GameStatus gameStatus=game.getGameStatus();
          System.out.println("Game Status: "+gameStatus);
+         System.out.println("abcd");
          return gameStatus;
      }
 
