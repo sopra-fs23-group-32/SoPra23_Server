@@ -37,7 +37,7 @@ public class GameHistoryController {
     @ResponseStatus(HttpStatus.CREATED)
     @ResponseBody
     public GameInfoGetDTO createGameInfo(@PathVariable Long gameId) {
-        GameInfo newGameInfo = gameService.getGameInfo(gameId);
+        GameInfo newGameInfo = gameService.saveGameInfo(gameId);
         newGameInfo = gameHistoryService.createGameInfo(newGameInfo);
         return DTOMapper.INSTANCE.convertEntityToGameInfoGetDTO(newGameInfo);
     }
@@ -46,8 +46,8 @@ public class GameHistoryController {
     @ResponseStatus(HttpStatus.CREATED)
     @ResponseBody
     public GameHistoryGetDTO createUserGameHistory(@PathVariable Long userId, @PathVariable Long gameId) {
-        GameInfo newGameInfo = gameService.getGameInfo(gameId);
-        UserGameHistory newGameHistory = gameService.getUserGameHistory(gameId, userId);
+        GameInfo newGameInfo = gameService.saveGameInfo(gameId);
+        UserGameHistory newGameHistory = gameService.saveUserGameHistory(gameId, userId);
         userStatisticsService.addUserGameHistory(userId, newGameHistory);
         userStatisticsService.updateUserStatistics(
             userId, newGameHistory.getGameScore(), newGameInfo.getCategory());
@@ -116,15 +116,14 @@ public class GameHistoryController {
      * @param gameId unique ID for game history of the user
      * @return GameHistory DTO w.r.t. userId & gameId
      */
-    @GetMapping("/users/{userId}/gameHistories/{gameId}/score")
+    @GetMapping("/users/{userId}/gameHistories/{gameId}/stat")
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
-    public int getGameHistoryScore(@PathVariable Long userId, @PathVariable Long gameId) {
+    public GameHistoryGetDTO getGameHistoryScore(@PathVariable Long userId, @PathVariable Long gameId) {
         // check if this gameId exist
         gameHistoryService.checkIfIdExist(gameId);
-        UserGameHistory userGameHistory =
-                userStatisticsService.searchUserGameHistoryById(userId, gameId);
-        return userGameHistory.getGameScore();
+        UserGameHistory gameHistory = userStatisticsService.searchUserGameHistoryById(userId, gameId);
+        return DTOMapper.INSTANCE.convertEntityToGameHistoryGetDTO(gameHistory);
     }
 
     /**

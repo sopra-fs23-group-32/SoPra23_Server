@@ -4,7 +4,6 @@ import ch.uzh.ifi.hase.soprafs23.constant.CityCategory;
 import ch.uzh.ifi.hase.soprafs23.constant.GameStatus;
 import ch.uzh.ifi.hase.soprafs23.entity.*;
 import ch.uzh.ifi.hase.soprafs23.repository.GameRepository;
-import org.hibernate.type.TrueFalseType;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -379,7 +378,7 @@ public class GameServiceTest {
       testGame.addCurrentRound();
 
       // when
-      GameInfo gameInfo = gameService.getGameInfo(1L);
+      GameInfo gameInfo = gameService.saveGameInfo(1L);
 
       // then
       Mockito.verify(gameRepository, Mockito.times(2)).findByGameId(Mockito.any());
@@ -409,7 +408,7 @@ public class GameServiceTest {
       testGame.addCurrentRound();
 
       // when
-      UserGameHistory gameHistory = gameService.getUserGameHistory(1L, userId);
+      UserGameHistory gameHistory = gameService.saveUserGameHistory(1L, userId);
 
       // then
       Mockito.verify(gameRepository, Mockito.times(2)).findByGameId(Mockito.any());

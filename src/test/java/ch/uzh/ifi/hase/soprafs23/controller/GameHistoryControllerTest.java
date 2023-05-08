@@ -17,7 +17,6 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 
-import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 import java.util.*;
@@ -95,7 +94,7 @@ public class GameHistoryControllerTest {
 
         GameInfo newGameInfo = gameInfo;
 
-        given(gameService.getGameInfo(eq(gameId))).willReturn(gameInfo);
+        given(gameService.saveGameInfo(eq(gameId))).willReturn(gameInfo);
         given(gameHistoryService.createGameInfo(any(GameInfo.class))).willReturn(newGameInfo);
 
         MockHttpServletRequestBuilder postRequest = post("/gameInfo/{gameId}", gameId)
@@ -118,8 +117,8 @@ public class GameHistoryControllerTest {
         // given
         Long gameId = 1L;
         Long userId = 1L;
-        given(gameService.getGameInfo(eq(gameId))).willReturn(gameInfo);
-        given(gameService.getUserGameHistory(eq(gameId), eq(userId))).willReturn(gameHistory);
+        given(gameService.saveGameInfo(eq(gameId))).willReturn(gameInfo);
+        given(gameService.saveUserGameHistory(eq(gameId), eq(userId))).willReturn(gameHistory);
 
         // when
         MockHttpServletRequestBuilder postRequest = post("/users/{userId}/gameHistories/{gameId}", gameId, userId)

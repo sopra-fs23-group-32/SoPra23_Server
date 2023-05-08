@@ -66,12 +66,12 @@ public class GameController {
         return DTOMapper.INSTANCE.convertEntityToGameGetDTO(game);
     }
 
-     @GetMapping("/gamestatus/{gameId}")
+     @GetMapping("/games/{gameId}/status")
      @ResponseStatus(HttpStatus.OK)
      public GameStatus getGameStatus(@PathVariable Long gameId) {
          Game game = gameService.searchGameById(gameId);
          GameStatus gameStatus=game.getGameStatus();
-         System.out.println("GameStauts Start: "+gameStatus+"GameStatus End");
+         System.out.println("GameStatus Start: "+gameStatus+"GameStatus End");
          return gameStatus;
      }
 
@@ -189,7 +189,7 @@ public class GameController {
     }
 
     /**
-     * End the game of MultiPLayer Mode
+     * Get the game result of MultiPLayer Mode
      * @param gameId gameId of the game
      * will return a list of winners's names
      */

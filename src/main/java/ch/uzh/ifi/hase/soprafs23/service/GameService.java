@@ -155,6 +155,7 @@ public class GameService {
             int remainingTime = game.getCountdownTime() - answer.getTimeTaken();
             score = calculateScore(remainingTime);
             currentPlayer.addScore(score);
+            currentPlayer.addCorrectCount();
         }
         return score;
     }
@@ -213,7 +214,7 @@ public class GameService {
 
 
     // ======== Only invoke after ending the game and before deleting the game =========
-    public GameInfo getGameInfo(Long gameId) {
+    public GameInfo saveGameInfo(Long gameId) {
         GameInfo gameInfo = new GameInfo();
         Game game = searchGameById(gameId);
         if(!game.isGameEnded()) {
@@ -231,7 +232,7 @@ public class GameService {
         return gameInfo;
     }
 
-    public UserGameHistory getUserGameHistory(Long gameId, Long userId) {
+    public UserGameHistory saveUserGameHistory(Long gameId, Long userId) {
         UserGameHistory userGameHistory = new UserGameHistory();
         Game game = searchGameById(gameId);
         if(!game.isGameEnded()) {
@@ -241,6 +242,7 @@ public class GameService {
         Player player = searchPlayerById(game, userId);
         userGameHistory.setGameId(gameId);
         userGameHistory.setGameScore(player.getScore());
+        userGameHistory.setCorrectRate(player.getCorrectRate() * 100.0f);
         Iterator<String> answerList = player.getAnswerList();
         while (answerList.hasNext()) {
             userGameHistory.addAnswer(answerList.next());

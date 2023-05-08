@@ -16,6 +16,7 @@ public class UserGameHistory{
 
     private Long gameId;
     private int gameScore;
+    private float correctRate;
 
     @ElementCollection
     private final List<String> answerList = new ArrayList<>();
@@ -32,6 +33,9 @@ public class UserGameHistory{
 
     public int getGameScore() {return gameScore;}
     public void setGameScore(int gameScore) {this.gameScore = gameScore;}
+
+    public float getCorrectRate() {return correctRate;}
+    public void setCorrectRate(float rate) {this.correctRate = rate;}
 
     public Iterator<String> getAnswerList() {return answerList.iterator();}
     public void addAnswer(String answer) {answerList.add(answer);}
