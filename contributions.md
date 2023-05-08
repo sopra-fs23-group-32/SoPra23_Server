@@ -96,3 +96,6 @@ Jano Vukadinovic, https://github.com/sopra-fs23-group-32/SoPra23_Client/issues/5
 ## Week 02.05.2023-08.05.2023
 Zilong Deng, https://github.com/sopra-fs23-group-32/SoPra23_Server/issues/61 \
 Zilong Deng, https://github.com/sopra-fs23-group-32/SoPra23_Server/issues/122
+
+Jano Vukadinovic, https://github.com/sopra-fs23-group-32/SoPra23_Client/issues/76
+Jano Vukadinovic, https://github.com/sopra-fs23-group-32/SoPra23_Client/issues/77
