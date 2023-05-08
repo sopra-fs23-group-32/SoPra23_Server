@@ -214,7 +214,7 @@ public class GameService {
 
 
     // ======== Only invoke after ending the game and before deleting the game =========
-    public GameInfo saveGameInfo(Long gameId) {
+    public GameInfo getGameInfo(Long gameId) {
         GameInfo gameInfo = new GameInfo();
         Game game = searchGameById(gameId);
         if(!game.isGameEnded()) {
@@ -232,7 +232,7 @@ public class GameService {
         return gameInfo;
     }
 
-    public UserGameHistory saveUserGameHistory(Long gameId, Long userId) {
+    public UserGameHistory getUserGameHistory(Long gameId, Long userId) {
         UserGameHistory userGameHistory = new UserGameHistory();
         Game game = searchGameById(gameId);
         if(!game.isGameEnded()) {

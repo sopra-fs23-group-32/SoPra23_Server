@@ -378,7 +378,7 @@ public class GameServiceTest {
       testGame.addCurrentRound();
 
       // when
-      GameInfo gameInfo = gameService.saveGameInfo(1L);
+      GameInfo gameInfo = gameService.getGameInfo(1L);
 
       // then
       Mockito.verify(gameRepository, Mockito.times(2)).findByGameId(Mockito.any());
@@ -408,7 +408,7 @@ public class GameServiceTest {
       testGame.addCurrentRound();
 
       // when
-      UserGameHistory gameHistory = gameService.saveUserGameHistory(1L, userId);
+      UserGameHistory gameHistory = gameService.getUserGameHistory(1L, userId);
 
       // then
       Mockito.verify(gameRepository, Mockito.times(2)).findByGameId(Mockito.any());

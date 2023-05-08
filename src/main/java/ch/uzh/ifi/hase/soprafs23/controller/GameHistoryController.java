@@ -37,7 +37,7 @@ public class GameHistoryController {
     @ResponseStatus(HttpStatus.CREATED)
     @ResponseBody
     public GameInfoGetDTO createGameInfo(@PathVariable Long gameId) {
-        GameInfo newGameInfo = gameService.saveGameInfo(gameId);
+        GameInfo newGameInfo = gameService.getGameInfo(gameId);
         newGameInfo = gameHistoryService.createGameInfo(newGameInfo);
         return DTOMapper.INSTANCE.convertEntityToGameInfoGetDTO(newGameInfo);
     }
@@ -46,8 +46,8 @@ public class GameHistoryController {
     @ResponseStatus(HttpStatus.CREATED)
     @ResponseBody
     public GameHistoryGetDTO createUserGameHistory(@PathVariable Long userId, @PathVariable Long gameId) {
-        GameInfo newGameInfo = gameService.saveGameInfo(gameId);
-        UserGameHistory newGameHistory = gameService.saveUserGameHistory(gameId, userId);
+        GameInfo newGameInfo = gameService.getGameInfo(gameId);
+        UserGameHistory newGameHistory = gameService.getUserGameHistory(gameId, userId);
         userStatisticsService.addUserGameHistory(userId, newGameHistory);
         userStatisticsService.updateUserStatistics(
             userId, newGameHistory.getGameScore(), newGameInfo.getCategory());
@@ -116,7 +116,7 @@ public class GameHistoryController {
      * @param gameId unique ID for game history of the user
      * @return GameHistory DTO w.r.t. userId & gameId
      */
-    @GetMapping("/users/{userId}/gameHistories/{gameId}/stat")
+    @GetMapping("/users/{userId}/gameHistories/{gameId}/stats")
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
     public GameHistoryGetDTO getGameHistoryScore(@PathVariable Long userId, @PathVariable Long gameId) {

@@ -94,7 +94,7 @@ public class GameHistoryControllerTest {
 
         GameInfo newGameInfo = gameInfo;
 
-        given(gameService.saveGameInfo(eq(gameId))).willReturn(gameInfo);
+        given(gameService.getGameInfo(eq(gameId))).willReturn(gameInfo);
         given(gameHistoryService.createGameInfo(any(GameInfo.class))).willReturn(newGameInfo);
 
         MockHttpServletRequestBuilder postRequest = post("/gameInfo/{gameId}", gameId)
@@ -117,8 +117,8 @@ public class GameHistoryControllerTest {
         // given
         Long gameId = 1L;
         Long userId = 1L;
-        given(gameService.saveGameInfo(eq(gameId))).willReturn(gameInfo);
-        given(gameService.saveUserGameHistory(eq(gameId), eq(userId))).willReturn(gameHistory);
+        given(gameService.getGameInfo(eq(gameId))).willReturn(gameInfo);
+        given(gameService.getUserGameHistory(eq(gameId), eq(userId))).willReturn(gameHistory);
 
         // when
         MockHttpServletRequestBuilder postRequest = post("/users/{userId}/gameHistories/{gameId}", gameId, userId)
@@ -193,7 +193,7 @@ public class GameHistoryControllerTest {
         //given
         given( userStatisticsService.searchUserGameHistoryById(1L, 1L)).willReturn(gameHistory);
 
-        MockHttpServletRequestBuilder getRequest = get("/users/{userId}/gameHistories/{gameId}/stat", 1L, 1L)
+        MockHttpServletRequestBuilder getRequest = get("/users/{userId}/gameHistories/{gameId}/stats", 1L, 1L)
                 .contentType(MediaType.APPLICATION_JSON);
 
         // Perform the GET request
