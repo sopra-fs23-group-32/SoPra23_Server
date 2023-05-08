@@ -197,10 +197,10 @@ public class GameService {
 
     public void closeGame(Long gameId) {
         Game game = searchGameById(gameId);
-//        if(!game.isGameEnded()) {
-//            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
-//                String.format("Game with ID %d has not finished yet!\n", gameId));
-//        }
+        if(!game.isGameEnded()) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
+                String.format("Game with ID %d has not finished yet!\n", gameId));
+        }
         game.setGameStatus(GameStatus.ENDED);
         updateGameStatus(gameId, WebSocketType.GAME_END, game.getGameStatus());
         gameRepository.delete(game);
