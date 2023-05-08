@@ -193,13 +193,14 @@ public class GameHistoryControllerTest {
         //given
         given( userStatisticsService.searchUserGameHistoryById(1L, 1L)).willReturn(gameHistory);
 
-        MockHttpServletRequestBuilder getRequest = get("/users/{userId}/gameHistories/{gameId}/score", 1L, 1L)
+        MockHttpServletRequestBuilder getRequest = get("/users/{userId}/gameHistories/{gameId}/stat", 1L, 1L)
                 .contentType(MediaType.APPLICATION_JSON);
 
         // Perform the GET request
         mockMvc.perform(getRequest)
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$").value(equalTo(gameHistory.getGameScore()), int.class));
+                .andExpect(jsonPath("$.gameScore").value(equalTo(gameHistory.getGameScore()), int.class))
+                .andExpect(jsonPath("$.correctRate").value(equalTo(gameHistory.getCorrectRate()), float.class));
     }
 
     @Test

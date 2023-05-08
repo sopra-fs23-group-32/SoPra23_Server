@@ -86,7 +86,7 @@ public class GameControllerTest {
 
         when(gameService.searchGameById(eq(gameId))).thenReturn(game);
 
-        MockHttpServletRequestBuilder getRequest = get("/gamestatus/{gameId}", gameId)
+        MockHttpServletRequestBuilder getRequest = get("/games/{gameId}/status", gameId)
                 .contentType(MediaType.APPLICATION_JSON);
 
         // Perform the GET request
