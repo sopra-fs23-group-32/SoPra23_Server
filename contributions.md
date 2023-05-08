@@ -100,3 +100,6 @@ Zilong Deng, https://github.com/sopra-fs23-group-32/SoPra23_Server/issues/122
 
 Said H.A., https://github.com/sopra-fs23-group-32/SoPra23_Client/issues/73 \
 Said H.A., https://github.com/sopra-fs23-group-32/SoPra23_Client/issues/74
+
+Leyi Xu, https://github.com/sopra-fs23-group-32/SoPra23_Server/issues/127 \
+Leyi Xu, https://github.com/sopra-fs23-group-32/SoPra23_Client/issues/22
