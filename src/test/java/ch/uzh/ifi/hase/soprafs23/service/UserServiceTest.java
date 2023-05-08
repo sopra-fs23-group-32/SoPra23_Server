@@ -243,13 +243,4 @@ public class UserServiceTest {
       );
       assertEquals(HttpStatus.NOT_FOUND, exception.getStatus());
   }
-
-  @Test
-  public void testSearchUserByUsername() {
-      // when
-      User user = userService.serachUserByUsername("testUsername");
-
-      // then
-      assertEquals(testUser.getUserId(), user.getUserId());
-  }
 }

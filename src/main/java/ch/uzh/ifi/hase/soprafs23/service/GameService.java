@@ -6,6 +6,7 @@ import ch.uzh.ifi.hase.soprafs23.constant.WebSocketType;
 import ch.uzh.ifi.hase.soprafs23.entity.WebSocket;
 
 import ch.uzh.ifi.hase.soprafs23.entity.*;
+import ch.uzh.ifi.hase.soprafs23.repository.GameInfoRepository;
 import ch.uzh.ifi.hase.soprafs23.repository.GameRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,14 +40,15 @@ import java.util.*;
 public class GameService {
 
     private final GameRepository gameRepository;
+   private final GameInfoRepository gameInfoRepository;
     private final Logger log = LoggerFactory.getLogger(GameService.class);
     private final SimpMessagingTemplate messagingTemplate;
 
 
-    public GameService(@Qualifier("gameRepository") GameRepository gameRepository,SimpMessagingTemplate messagingTemplate) {
-        this.gameRepository = gameRepository;
+    public GameService(@Qualifier("gameRepository") GameRepository gameRepository,SimpMessagingTemplate messagingTemplate, @Qualifier("gameInfoRepository") GameInfoRepository gameInfoRepository) {
+       this.gameRepository = gameRepository;
         this.messagingTemplate = messagingTemplate;
-
+		 this.gameInfoRepository = gameInfoRepository;
     }
 
     public Game createGame(Game newGame) {
@@ -56,7 +58,18 @@ public class GameService {
         log.debug("Created Information for Game: {}", newGame);
         updateGameStatus(newGame.getGameId(), WebSocketType.GAME_INIT, newGame.getGameStatus());
         return newGame;
+		   }
+
+    public List<Game> getAllGames() {
+        List<Game> allGames = gameRepository.findAll();
+        return  allGames;
     }
+
+    public List<GameInfo> getAllGameInfos() {
+        List<GameInfo> allGameInfos = gameInfoRepository.findAll();
+        return allGameInfos;
+    }
+    
 
     public void addPlayer(Long gameId, User userAsPlayer) {
         Game game = searchGameById(gameId);
@@ -86,18 +99,21 @@ public class GameService {
                     String.format("Game with ID %d has ended!\n", gameId));
         }
         String option1="Geneva", option2="Basel", option3="Lausanne", option4="Bern";
-        String pictureUrl = "";
+        String pictureUrl = "https://images.unsplash.com/photo-1591128481965-d59b938e7db1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=Mnw0NDQwMTF8MHwxfHNlYXJjaHwxfHxLbyVDNSVBMWljZSUyNTIwYnVpbGRpbmd8ZW58MHwwfHx8MTY4MzE0NjU1NA&ixlib=rb-4.0.3&q=80&w=1080";
         Question question = new Question(option1, option2, option3, option4, option4, pictureUrl);
         try{
-            List<String> cityNames = getRandomCities(game.getCategory().toString());
+			System.out.println("game getCategory " + game.getCategory());
+		    List<String> cityNames = getRandomCities(game.getCategory().toString());
             Random random = new Random();
             String correctOption = cityNames.get(random.nextInt(3));
-            pictureUrl = getCityImage(correctOption);
-
+            String citiImage = getCityImage(correctOption);
+            if(citiImage != "")
+                pictureUrl = citiImage;
             for (int j=0; j<4; j++) {
                 game.setQuestions(j, cityNames.get(j));
             }
             game.updateCurrentAnswer(correctOption);
+			System.out.println("game pictureURL." + pictureUrl);
             game.setImgUrl(pictureUrl);
 
             question= new Question(cityNames.get(0), cityNames.get(1),
@@ -146,7 +162,7 @@ public class GameService {
         int score = 0;
         if (answer.getAnswer().equals(game.getCurrentAnswer())) {
             int remainingTime = game.getCountdownTime() - answer.getTimeTaken();
-            score = calculateScore(Math.max(remainingTime, 0));
+            score = calculateScore(remainingTime);
             currentPlayer.addScore(score);
         }
         return score;
@@ -189,18 +205,14 @@ public class GameService {
 
     public void closeGame(Long gameId) {
         Game game = searchGameById(gameId);
-        if(!game.isGameEnded()) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
-                String.format("Game with ID %d has not finished yet!\n", gameId));
-        }
         game.setGameStatus(GameStatus.ENDED);
         updateGameStatus(gameId, WebSocketType.GAME_END, game.getGameStatus());
-        gameRepository.delete(game);
     }
 
     public void leaveGame(Long gameId, Long playerId) {
         Game game = searchGameById(gameId);
         game.deletePlayer(playerId);
+		updateGameStatus(gameId, WebSocketType.PLAYRE_REMOVE, game.getGameStatus());
     }
 
 
@@ -208,10 +220,6 @@ public class GameService {
     public GameInfo getGameInfo(Long gameId) {
         GameInfo gameInfo = new GameInfo();
         Game game = searchGameById(gameId);
-        if(!game.isGameEnded()) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
-                String.format("Game with ID %d has not finished yet!\n", gameId));
-        }
         gameInfo.setGameId(gameId);
         gameInfo.setCategory(game.getCategory());
         gameInfo.setGameRounds(game.getTotalRounds());
@@ -226,10 +234,7 @@ public class GameService {
     public UserGameHistory getUserGameHistory(Long gameId, Long userId) {
         UserGameHistory userGameHistory = new UserGameHistory();
         Game game = searchGameById(gameId);
-        if(!game.isGameEnded()) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
-                String.format("Game with ID %d has not finished yet!\n", gameId));
-        }
+        
         Player player = searchPlayerById(game, userId);
         userGameHistory.setGameId(gameId);
         userGameHistory.setGameScore(player.getScore());
@@ -286,10 +291,16 @@ public class GameService {
 
    
     private static final int NUM_CITIES = 5;
-    private static final int MIN_POPULATION = 1000000;
+    private static final int MIN_POPULATION = 100000;
 
     public static List<String> getCountries(String continentCode) throws Exception {
-        String apiUrl = "https://restcountries.com/v3.1/region/" + continentCode;
+        String apiUrl = "https://restcountries.com/v3.1/";
+        String continentCode1;
+        if(continentCode == "NORTH_AMERICA" ) continentCode1 = "region/NORTH%20AMERICA";
+        else if (continentCode == "SOUTH_AMERICA") continentCode1 = "region/SOUTH%20AMERICA";
+        else if (continentCode == "WORLD") continentCode1 = "all";
+        else continentCode1 = "region/" + continentCode;
+        apiUrl += continentCode1;
         URL countriesUrl = new URL(apiUrl);
         HttpURLConnection connection = (HttpURLConnection) countriesUrl.openConnection();
         connection.setRequestMethod("GET");
@@ -315,7 +326,11 @@ public class GameService {
             countryNames.add(country.getString("name"));}}
 
         Collections.shuffle(countryNames);
-        return countryNames;
+        if(countryNames.size() < NUM_CITIES) return countryNames;
+
+        Random random = new Random();
+        int randomIndex = random.nextInt(countryNames.size() - NUM_CITIES);
+        return countryNames.subList(randomIndex, randomIndex + NUM_CITIES);
     }
 
     public static List<String> getCities(String country) throws Exception {
@@ -373,12 +388,12 @@ public class GameService {
       
 
   public static String getCityImage(String cityName) throws Exception {
-    String searchUrl = "https://commons.wikimedia.org/w/api.php";
-    String searchParams = String.format(
-            "action=query&format=json&list=search&srsearch=%s%%20skyline&srnamespace=6&srwhat=text&srlimit=1",
-            URLEncoder.encode(cityName, StandardCharsets.UTF_8.toString()));
-
-    URL url = new URL(searchUrl + "?" + searchParams);
+  	String endPoint = "https://api.unsplash.com/search/photos";
+	String accessKey = "n_44tTFqKgUUalZYtv2UTmP-3rNunH-zak0X7yBgS8o";         
+	String searchParams = String.format("query=%s&orientation=landscape&per_page=1&&client_id=%s",
+	URLEncoder.encode(cityName + "+city", StandardCharsets.UTF_8.toString()), accessKey);    
+	URL url = new URL(endPoint + "?" + searchParams);
+    System.out.println("image" + url);
     HttpURLConnection connection = (HttpURLConnection) url.openConnection();
     connection.setRequestMethod("GET");
 
@@ -392,14 +407,19 @@ public class GameService {
     in.close();
     connection.disconnect();
 
-    JSONObject json = new JSONObject(content.toString());
-    JSONObject query = json.getJSONObject("query");
-    JSONArray search = query.getJSONArray("search");
+    System.out.println(connection.toString());
 
-    if (search.length() > 0) {
-        JSONObject result = search.getJSONObject(0);
-        String fileTitle = result.getString("title");
-        return "https://commons.wikimedia.org/wiki/Special:FilePath/" + fileTitle.substring(5);
+    JSONObject json = new JSONObject(content.toString());
+
+    JSONArray results = json.getJSONArray("results");
+    System.out.println(results.length());
+    if (results.length() > 0) {
+        JSONObject result = results.getJSONObject(0);
+        JSONObject urls = result.getJSONObject("urls");
+        String fileTitle = urls.getString("regular");
+        System.out.println(fileTitle);
+        return fileTitle;
+
     }
     else {
         return "";

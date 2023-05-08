@@ -12,6 +12,8 @@ import java.util.List;
 @Entity
 public class UserGameHistory{
     @Id
+	 @GeneratedValue
+    private Long gameHistoryId;
     private Long userId;
 
     private Long gameId;
@@ -23,6 +25,8 @@ public class UserGameHistory{
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "userStatistics_userId")
     private UserStatistics userStatistics;
+	public Long getGameHistoryId() {return gameHistoryId;}
+    public void setGameHistoryId(Long gameHistoryId) {this.gameHistoryId = gameHistoryId;}
 
     public Long getUserId() {return userId;}
     public void setUserId(long userId) {this.userId = userId;}

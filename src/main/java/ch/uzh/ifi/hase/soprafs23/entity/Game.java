@@ -2,6 +2,7 @@ package ch.uzh.ifi.hase.soprafs23.entity;
 
 import ch.uzh.ifi.hase.soprafs23.constant.CityCategory;
 import ch.uzh.ifi.hase.soprafs23.constant.GameStatus;
+import ch.uzh.ifi.hase.soprafs23.constant.WebSocketType;
 
 import javax.persistence.*;
 import java.io.Serial;
@@ -60,7 +61,7 @@ public class Game implements Serializable {
 
     public int getCurrentRound() {return currentRound;}
     public void addCurrentRound() {currentRound ++;}
-    public boolean isGameEnded() {return currentRound >= totalRounds;}
+  public boolean isGameEnded() { return gameStatus == GameStatus.ENDED; }
 
     public String getCurrentAnswer() {return currentAnswer;}
     public void updateCurrentAnswer(String currentAnswer) {
