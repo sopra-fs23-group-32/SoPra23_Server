@@ -17,9 +17,9 @@ Leyi Xu, https://github.com/sopra-fs23-group-32/SoPra23_Client/issues/7 \
 Leyi Xu, https://github.com/sopra-fs23-group-32/SoPra23_Client/issues/8
 
 ## Week 03.04.2023-16.04.2023
-Zilong Deng, https://github.com/sopra-fs23-group-32/SoPra23_Server/issues/52 \
 Zilong Deng, https://github.com/sopra-fs23-group-32/SoPra23_Server/issues/16 \
-Zilong Deng, https://github.com/sopra-fs23-group-32/SoPra23_Server/issues/18
+Zilong Deng, https://github.com/sopra-fs23-group-32/SoPra23_Server/issues/18 \
+Zilong Deng, https://github.com/sopra-fs23-group-32/SoPra23_Server/issues/52
 * update class diagram, activity diagram and user stories according to the feedback for M2
 * implement the entities and their methods
 * update gameHistory service and gameHistory controller
@@ -49,7 +49,7 @@ Said H.A., https://github.com/sopra-fs23-group-32/SoPra23_Server/issues/114 \
 Zilong Deng, https://github.com/sopra-fs23-group-32/SoPra23_Server/issues/51 \
 Zilong Deng, https://github.com/sopra-fs23-group-32/SoPra23_Server/issues/54 \
 Zilong Deng, https://github.com/sopra-fs23-group-32/SoPra23_Server/issues/55 \
-Zilong Deng, https://github.com/sopra-fs23-group-32/SoPra23_Server/issues/100 \
+Zilong Deng, https://github.com/sopra-fs23-group-32/SoPra23_Server/issues/100
 * implement REST request and corresponding services for Game, GameHistory, Question and Answer
 
 
@@ -74,17 +74,17 @@ Said H.A., https://github.com/sopra-fs23-group-32/SoPra23_Client/issues/54 \
 Said H.A., https://github.com/sopra-fs23-group-32/SoPra23_Client/issues/29 (Jano and Said) \
 Said H.A., https://github.com/sopra-fs23-group-32/SoPra23_Server/issues/100 (mostly Zilong Deng)
 
-## Week 24.04.2023-02.05.2023
-Said H.A.,https://github.com/sopra-fs23-group-32/SoPra23_Client/issues/65\
+## Week 24.04.2023-01.05.2023
+Said H.A.,https://github.com/sopra-fs23-group-32/SoPra23_Client/issues/65 \
 Said H.A.,https://github.com/sopra-fs23-group-32/SoPra23_Client/issues/66
 
-Zilong Deng, https://github.com/sopra-fs23-group-32/SoPra23_Server/issues/78 \
+Zilong Deng, https://github.com/sopra-fs23-group-32/SoPra23_Server/issues/63 \
 Zilong Deng, https://github.com/sopra-fs23-group-32/SoPra23_Server/issues/69 \
-Zilong Deng, https://github.com/sopra-fs23-group-32/SoPra23_Server/issues/63 
+Zilong Deng, https://github.com/sopra-fs23-group-32/SoPra23_Server/issues/78 
 
 Leyi Xu, https://github.com/sopra-fs23-group-32/SoPra23_Server/issues/127 \
 Leyi Xu, https://github.com/sopra-fs23-group-32/SoPra23_Server/issues/78 (mostly Zilong Deng) \
-Write tests for controllers, repostitories, DTOMapper, and services \
+Write tests for controllers, repositories, DTOMapper, and services \
 Make minor changes in showing user ranking
 
 Dominic Vogel, https://github.com/sopra-fs23-group-32/SoPra23_Client/issues/44 \
@@ -92,3 +92,7 @@ Dominic Vogel, https://github.com/sopra-fs23-group-32/SoPra23_Client/issues/67 \
 Dominic Vogel, https://github.com/sopra-fs23-group-32/SoPra23_Client/issues/70
 
 Jano Vukadinovic, https://github.com/sopra-fs23-group-32/SoPra23_Client/issues/51
+
+## Week 02.05.2023-08.05.2023
+Zilong Deng, https://github.com/sopra-fs23-group-32/SoPra23_Server/issues/61 \
+Zilong Deng, https://github.com/sopra-fs23-group-32/SoPra23_Server/issues/122
