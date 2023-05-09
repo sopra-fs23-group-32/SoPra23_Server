@@ -84,7 +84,6 @@ public class GameController {
     @ResponseStatus(HttpStatus.CREATED)
     public QuestionGetDTO goNextRound(@PathVariable Long gameId) {
         Question question = gameService.goNextRound(gameId);
-        System.out.println("-----------------");
         System.out.println("CorrectOption: " + question.getCorrectOption());
         System.out.println("PictureUrl: " + question.getPictureUrl());
         return DTOMapper.INSTANCE.convertEntityToQuestionGetDTO(question);
@@ -161,12 +160,9 @@ public class GameController {
         Answer newAnswer = DTOMapper.INSTANCE.convertAnswerPostDTOtoEntity(answerPostDTO);
         int score = gameService.submitAnswer(gameId, playerId, newAnswer);
         boolean allAnswered = gameService.checkIfAllAnswered(gameId);
-        String tag = "False";
-        if(allAnswered) {
-            tag = "True";
-        }
-        System.out.printf("From playerID %d - Submit answer. AllAnswered: %s\n", playerId, tag);
-        System.out.println("++++++++Score: "+score+"Score End+++++++11");
+        System.out.printf("playerID %d submit answer, score: %d\n", playerId, score);
+        if(allAnswered) {System.out.println("All Answered!");}
+
         return score;
     }
 
