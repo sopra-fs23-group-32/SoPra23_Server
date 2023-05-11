@@ -39,6 +39,7 @@ public class GameHistoryController {
     public GameInfoGetDTO createGameInfo(@PathVariable Long gameId) {
         GameInfo newGameInfo = gameService.getGameInfo(gameId);
         newGameInfo = gameHistoryService.createGameInfo(newGameInfo);
+        System.out.printf("GameInfo for Game %d created.\n", gameId);
         return DTOMapper.INSTANCE.convertEntityToGameInfoGetDTO(newGameInfo);
     }
 
@@ -51,6 +52,7 @@ public class GameHistoryController {
         userStatisticsService.addUserGameHistory(userId, newGameHistory);
         userStatisticsService.updateUserStatistics(
             userId, newGameHistory.getGameScore(), newGameInfo.getCategory());
+        System.out.printf("GameHistory for Game %d saved by User %d.\n", gameId, userId);
         return DTOMapper.INSTANCE.convertEntityToGameHistoryGetDTO(newGameHistory);
     }
 
@@ -89,9 +91,6 @@ public class GameHistoryController {
         }
         return gameHistoryGetDTOList;
     }
-
-
-
 
     /**
      * Get game info. of one game history of a given user
