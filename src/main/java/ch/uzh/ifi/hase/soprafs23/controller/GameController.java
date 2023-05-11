@@ -84,8 +84,6 @@ public class GameController {
     @ResponseStatus(HttpStatus.CREATED)
     public QuestionGetDTO goNextRound(@PathVariable Long gameId) {
         Question question = gameService.goNextRound(gameId);
-        System.out.println("CorrectOption: " + question.getCorrectOption());
-        System.out.println("PictureUrl: " + question.getPictureUrl());
         return DTOMapper.INSTANCE.convertEntityToQuestionGetDTO(question);
     }
 
