@@ -35,6 +35,8 @@ public class Game implements Serializable {
     private String ImgUrl;
     @ElementCollection
     private List<String> labelList = new ArrayList<>();
+    @ElementCollection
+    private List<String> countryList = new ArrayList<>();
 
     @OneToMany(mappedBy = "game", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Player> playerList = new ArrayList<>();
@@ -43,7 +45,9 @@ public class Game implements Serializable {
 
     public void initGame() {
         currentRound = 0;
-        currentAnswer = null;
+        currentAnswer = "";
+        Q1="";Q2="";Q3="";Q4="";
+        ImgUrl="";
         gameStatus = GameStatus.SETUP;
     }
 
@@ -68,6 +72,7 @@ public class Game implements Serializable {
         this.currentAnswer = currentAnswer;
         labelList.add(currentAnswer);
     }
+    public Iterator<String> getLabelList() {return labelList.iterator();}
 
     public void setQuestions(int i, String string) {
         switch (i) {
@@ -89,7 +94,8 @@ public class Game implements Serializable {
     public String getImgUrl() {return ImgUrl;}
     public void setImgUrl(String imgUrl) {ImgUrl = imgUrl;}
 
-    public Iterator<String> getLabelList() {return labelList.iterator();}
+    public List<String> getCountryList() {return countryList;}
+    public void setCountryList(List<String> countryList) {this.countryList = countryList;}
 
     public void addPlayer(Player newPlayer) {
         playerList.add(newPlayer);

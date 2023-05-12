@@ -47,11 +47,18 @@ public class GameService {
         this.messagingTemplate = messagingTemplate;
     }
 
-    public Game createGame(Game newGame) {
+    public Game createGame(Game newGame){
         newGame.initGame();
         newGame = gameRepository.save(newGame);
         gameRepository.flush();
         log.debug("Created Information for Game: {}", newGame);
+        // get countries
+        try{
+            List<String> countryList = getCountries(newGame.getCategory().toString());
+            newGame.setCountryList(countryList);
+        }
+        catch (Exception e) {e.printStackTrace();}
+
         updateGameStatus(newGame.getGameId(), WebSocketType.GAME_INIT, newGame.getGameStatus());
         return newGame;
     }
@@ -81,16 +88,12 @@ public class GameService {
     }
 
     public Question goNextRound(Long gameId) {
-        System.out.println("============================");
-        System.out.println("Game Service - Round reached");
         Game game = searchGameById(gameId);
         if(game.isGameEnded()) {
             throw new ResponseStatusException(HttpStatus.CONFLICT,
                 String.format("Game with ID %d has ended!\n", gameId));
         }
-//        // generate country list and save
-////        if(game.getCurrentRound() == 0) {
-////        }
+        System.out.printf("======= Game Service - Round %d reached =======\n", game.getCurrentRound());
 
         String option1="Geneva", option2="Basel", option3="Lausanne", option4="Bern";
         String defaultPicUrl="https://images.unsplash.com/photo-1591128481965-d59b938e7db1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=Mnw0NDQwMTF8MHwxfHNlYXJjaHwxfHxLbyVDNSVBMWljZSUyNTIwYnVpbGRpbmd8ZW58MHwwfHx8MTY4MzE0NjU1NA&ixlib=rb-4.0.3&q=80&w=1080";
@@ -99,14 +102,11 @@ public class GameService {
         String pictureUrl = "";
         String correctOption = null;
         List<String> cityNames = null;
+        // get 30 cities from 20 countries
+        List<String> selectedCities = getRandomCities(game.getCountryList());
 
         try{
-            // get countries
-            List<String> countryList = getCountries(game.getCategory().toString());
-            // get 30 cities from 20 countries
-		    List<String> selectedCities = getRandomCities(countryList);
             int try_count = 0, max_try = 8;
-
             while(pictureUrl.equals("") && try_count < max_try) {
                 try_count ++;
                 // shuffle and pick 4cities
@@ -118,16 +118,13 @@ public class GameService {
                 pictureUrl = getCityImage(correctOption);
             }
 
-            for (int j=0; j<4; j++) {
-                game.setQuestions(j, cityNames.get(j));
-            }
+            for (int j=0; j<4; j++) {game.setQuestions(j, cityNames.get(j));}
             game.updateCurrentAnswer(correctOption);
             game.setImgUrl(pictureUrl);
 
             System.out.println("game pictureURL." + pictureUrl);
             question= new Question(cityNames.get(0), cityNames.get(1),
                 cityNames.get(2),cityNames.get(3), correctOption, pictureUrl);
-            System.out.println("Game Service - Question generated.");
         }
         catch (Exception e){
             System.out.println("Game Service - Unable to generate image");
@@ -138,10 +135,10 @@ public class GameService {
             game.updateCurrentAnswer(option4);
             game.setImgUrl(defaultPicUrl);
         }
-
         game.addCurrentRound();
         game.setGameStatus(GameStatus.ANSWERING);
         updateGameStatus(gameId, WebSocketType.ROUND_UPDATE, game.getGameStatus());
+        System.out.println("Game Service - Question generated.");
         return question;
     }
 
@@ -310,9 +307,9 @@ public class GameService {
     }
 
 //    private static final int NUM_COUNTRY = 5;
-    private static final int CITIES_PER_COUNTRY = 3;
-    private static final int NUM_CITIES = 20;
-    private static final int MIN_POPULATION = 100000;
+    private static final int CITIES_PER_COUNTRY = 4;
+    private static final int NUM_CITIES = 12;
+    private static final int MIN_POPULATION = 500000;
 
     public static List<String> getCountries(String continentCode) throws Exception {
         String continentCode1 = switch (continentCode) {
@@ -349,8 +346,8 @@ public class GameService {
                 countryNames.add(country.getString("name"));
             }
         }
-//        System.out.println("=========== Successfully get countries list ===========");
-//        for(String country : countryNames){System.out.print(country + ", ");}
+        for(String country : countryNames){System.out.print(country + ", ");}
+        System.out.println("\n=========== Successfully get countries list ===========");
 //        if(countryNames.size() < NUM_COUNTRY) {return countryNames;}
 //        return countryNames.subList(0, NUM_COUNTRY);
         return countryNames;
@@ -363,8 +360,8 @@ public class GameService {
             + "&facet=feature_code&facet=cou_name_en&facet=timezone"
             + "&refine.cou_name_en=" + URLEncoder.encode(country, StandardCharsets.UTF_8.toString())
             + "&rows=" + CITIES_PER_COUNTRY;
-    
         URL citiesUrl = new URL(url);
+
         BufferedReader reader = new BufferedReader(
             new InputStreamReader(citiesUrl.openStream(), StandardCharsets.UTF_8)
         );
@@ -401,15 +398,22 @@ public class GameService {
             }
             catch (Exception e) {e.printStackTrace();}
         }
-        return selectedCities.subList(0, NUM_CITIES);
+        if(selectedCities.size() >= NUM_CITIES) {
+            return selectedCities.subList(0, NUM_CITIES);
+        }
+        else {
+            return selectedCities;
+        }
     }
 
     public static String getCityImage(String cityName) throws Exception {
         String endPoint = "https://api.unsplash.com/search/photos";
         String accessKey = "n_44tTFqKgUUalZYtv2UTmP-3rNunH-zak0X7yBgS8o";
-        String searchParams = "?query=" + URLEncoder.encode(cityName+"+city", StandardCharsets.UTF_8.toString())
-            + "&orientation=landscape&per_page=1&client_id=" + accessKey;
+//        String keyword = "%20city%20landmark";
+        String searchParams = "?query="+ URLEncoder.encode(cityName, StandardCharsets.UTF_8.toString())
+            + "&per_page=1&client_id=" + accessKey;
         URL url = new URL(endPoint + searchParams);
+        System.out.println(url);
 
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setRequestMethod("GET");
@@ -427,11 +431,15 @@ public class GameService {
 
         JSONObject json = new JSONObject(response.toString());
         JSONArray results = json.getJSONArray("results");
-        System.out.println(results.length());
         if (results.length() > 0) {
             JSONObject urls = results.getJSONObject(0).getJSONObject("urls");
             return urls.getString("regular");
         }
+        System.out.println("Length of results is 0");
+        return "";
+    }
+
+    public static String getCitySatelliteImage(String cityName){
         return "";
     }
 }
