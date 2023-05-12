@@ -477,18 +477,34 @@
 </tbody>
 </table>
 
-# SoPra RESTful Service Template FS23
 
-## Getting started with Spring Boot
--   Documentation: https://docs.spring.io/spring-boot/docs/current/reference/html/index.html
--   Guides: http://spring.io/guides
-    -   Building a RESTful Web Service: http://spring.io/guides/gs/rest-service/
-    -   Building REST services with Spring: https://spring.io/guides/tutorials/rest/
-### IntelliJ
+# Guess the City - Server
+
+## Introduction
+This app is a game called “Guess the City”. Players should choose the correct city from multiple choices based on the city image provided by the game.
+The game aims to showcase the diverse landscapes of cities around the world while also fostering an increase in geography knowledge.
+
+## Technologies
+- [Gradle](https://gradle.org/) - Dependency Management
+- [React](https://react.dev/) - Front-end JavaScript Library
+- [Spring Boot](https://spring.io/) - Application Framework
+- [Google Cloud Platform](https://cloud.google.com/) - Depolyment Service
+
+## High-level Components
+- [GameController](https://github.com/sopra-fs23-group-32/SoPra23_Server/blob/main/src/main/java/ch/uzh/ifi/hase/soprafs23/controller/GameController.java) - A controller class that communicates with the client side through endpoints by handling REST requests.
+The information it sends to or receives from endpoints is processed by the class [GameService](https://github.com/sopra-fs23-group-32/SoPra23_Server/blob/main/src/main/java/ch/uzh/ifi/hase/soprafs23/service/GameService.java)
+- [GameService](https://github.com/sopra-fs23-group-32/SoPra23_Server/blob/main/src/main/java/ch/uzh/ifi/hase/soprafs23/service/GameService.java) - A service class that correlates with [GameController](https://github.com/sopra-fs23-group-32/SoPra23_Server/blob/main/src/main/java/ch/uzh/ifi/hase/soprafs23/controller/GameController.java) to manage the game data and control the game process.
+- [ScoreBoardController](https://github.com/sopra-fs23-group-32/SoPra23_Server/blob/main/src/main/java/ch/uzh/ifi/hase/soprafs23/controller/ScoreBoardController.java) - A controller class that offers the endpoints to send user rankings to the client side. It receives the ranking type (general or specific continent category) from the endpoint, and sends to [ScoreBoardService](https://github.com/sopra-fs23-group-32/SoPra23_Server/blob/main/src/main/java/ch/uzh/ifi/hase/soprafs23/service/ScoreBoardService.java), which will return the specified user ranking.
+- [ScoreBoardService](https://github.com/sopra-fs23-group-32/SoPra23_Server/blob/main/src/main/java/ch/uzh/ifi/hase/soprafs23/service/ScoreBoardService.java) - A service class that correlates with [ScoreBoardController](https://github.com/sopra-fs23-group-32/SoPra23_Server/blob/main/src/main/java/ch/uzh/ifi/hase/soprafs23/controller/ScoreBoardController.java) to return specified user ranking.
+
+
+## Launch & Deployment
+### Preparations
+#### IntelliJ
 1. File -> Open... -> SoPra server template
 2. Accept to import the project as a `gradle project`
 3. To build right click the `build.gradle` file and choose `Run Build`
-### VS Code
+#### VS Code
 The following extensions can help you get started more easily:
 -   `vmware.vscode-spring-boot`
 -   `vscjava.vscode-spring-initializr`
@@ -497,7 +513,7 @@ The following extensions can help you get started more easily:
 
 **Note:** You'll need to build the project first with Gradle, just click on the `build` command in the _Gradle Tasks_ extension. Then check the _Spring Boot Dashboard_ extension if it already shows `soprafs23` and hit the play button to start the server. If it doesn't show up, restart VS Code and check again.
 
-## Building with Gradle
+### Building with Gradle
 You can use the local Gradle Wrapper to build the application.
 -   macOS: `./gradlew`
 -   Linux: `./gradlew`
@@ -505,19 +521,19 @@ You can use the local Gradle Wrapper to build the application.
 
 More Information about [Gradle Wrapper](https://docs.gradle.org/current/userguide/gradle_wrapper.html) and [Gradle](https://gradle.org/docs/).
 
-### Build
+#### Build
 ```bash
 ./gradlew build
 ```
-### Run
+#### Run
 ```bash
-    ./gradlew bootRun
+./gradlew bootRun
 ```
-### Test
+#### Test
 ```bash
 ./gradlew test
 ```
-### Development Mode
+#### Development Mode
 You can start the backend in development mode, this will automatically trigger a new build and reload the application
 once the content of a file has been changed.
 
@@ -533,10 +549,10 @@ If you want to avoid running all tests with every change, use the following comm
 
 `./gradlew build --continuous -xtest`
 
-## API Endpoint Testing with Postman
+### API Endpoint Testing with Postman
 We recommend using [Postman](https://www.getpostman.com) to test your API Endpoints.
 
-## Debugging
+### Debugging
 If something is not working and/or you don't know what is going on. We recommend using a debugger and step-through the process step-by-step.
 
 To configure a debugger for SpringBoot's Tomcat servlet (i.e. the process you start with `./gradlew bootRun` command), do the following:
@@ -548,5 +564,29 @@ To configure a debugger for SpringBoot's Tomcat servlet (i.e. the process you st
 5. Set breakpoints in the application where you need it
 6. Step through the process one step at a time
 
-## Testing
+### Testing
 Have a look here: https://www.baeldung.com/spring-boot-testing
+
+### External Dependencies
+
+
+## Roadmap
+The top 2-3 features that new developers who want to contribute to your project
+could add.
+
+
+## Authors and Acknowledgment
+### Authors
+- Said-Haji Abukar - [awhoa](https://github.com/awhoa)
+- Zilong Deng - [Zilong Deng](https://github.com/Dzl666)
+- Jano-Sven Vukadinovic - [VukadinovicJS](https://github.com/VukadinovicJS)
+- Dominic Vogel - [dominic1712](https://github.com/dominic1712)
+- Leyi Xu - [leyixu21](https://github.com/leyixu21)
+
+See also the list of [contributors](https://github.com/sopra-fs23-group-32/SoPra23_Server/graphs/contributors) who participated in this project.
+
+### Acknowledgement
+- City images provided by [Unsplash API](https://unsplash.com/developers).
+
+## License
+This project is licensed under the Apache License 2.0 - see the [LICENSE.md](https://github.com/sopra-fs23-group-32/SoPra23_Server/blob/main/LICENSE) file for details.
