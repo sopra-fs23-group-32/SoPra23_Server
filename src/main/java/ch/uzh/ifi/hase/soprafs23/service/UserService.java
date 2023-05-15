@@ -38,7 +38,7 @@ public class UserService {
 //        newUser.setToken(UUID.randomUUID().toString());
         checkIfUsernameExist(newUser.getUsername());
         checkPasswordCondition(newUser.getPassword());
-        newUser.setStatus(UserStatus.OFFLINE);
+        newUser.setStatus(UserStatus.ONLINE);
         newUser.setCreateDay(new Date());
         // saves the given entity but data is only persisted in the database once flush() is called
         newUser = userRepository.save(newUser);
