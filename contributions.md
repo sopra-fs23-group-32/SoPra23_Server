@@ -116,5 +116,8 @@ Zilong Deng, https://github.com/sopra-fs23-group-32/SoPra23_Server/issues/131
 * improve game procedure and UI of Single Mode
 * fix some bugs in front end
 
+Jano Vukadinovic, https://github.com/sopra-fs23-group-32/SoPra23_Client/issues/96
+
+
 Leyi Xu, https://github.com/sopra-fs23-group-32/SoPra23_Client/issues/68 \
 Leyi Xu, https://github.com/sopra-fs23-group-32/SoPra23_Client/issues/94
