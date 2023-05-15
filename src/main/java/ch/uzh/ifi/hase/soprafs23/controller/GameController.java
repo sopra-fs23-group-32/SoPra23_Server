@@ -158,9 +158,11 @@ public class GameController {
         Answer newAnswer = DTOMapper.INSTANCE.convertAnswerPostDTOtoEntity(answerPostDTO);
         int score = gameService.submitAnswer(gameId, playerId, newAnswer);
         boolean allAnswered = gameService.checkIfAllAnswered(gameId);
-        System.out.printf("playerID %d submit answer, score: %d\n", playerId, score);
+        System.out.printf(
+            "playerID %d submit answer: %s, score: %d\n",
+            playerId, newAnswer.getAnswer(), score
+        );
         if(allAnswered) {System.out.println("All Answered!");}
-
         return score;
     }
 
