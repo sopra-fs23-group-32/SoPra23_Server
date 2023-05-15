@@ -9,15 +9,17 @@ import java.util.List;
  * @author Zilong Deng
  */
 @Entity
-@Table(name = "PLAYER")
+@Table(name = "PLAYER", uniqueConstraints = @UniqueConstraint(columnNames = {"userId", "game_gameId"}))
 public class Player {
 
     @Id
+    @GeneratedValue
+    private Long playerId;
+    
     private Long userId;
 
     private String playerName;
     private int score = 0;
-    private int correctCount = 0;
     @ElementCollection
     private final List<String> answerList = new ArrayList<>();
 
@@ -26,7 +28,6 @@ public class Player {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "game_gameId")
     private Game game;
-    public void setGame(Game game) {this.game = game;}
 
     public Long getUserId() {return userId;}
     public void setUserId(Long userId) {this.userId = userId;}
@@ -37,8 +38,7 @@ public class Player {
     public int getScore() {return score;}
     public void addScore(int score) {this.score += score;}
 
-    public void addCorrectCount() {this.correctCount += 1;}
-    public float getCorrectRate() {return (float)correctCount / answerList.size();}
+    public void setGame(Game game) {this.game = game;}
 
     public void addAnswer(String newAnswer) {answerList.add(newAnswer);}
     public Iterator<String> getAnswerList() {return answerList.iterator();}

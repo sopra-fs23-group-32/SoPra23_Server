@@ -10,7 +10,7 @@ import java.io.Serializable;
 import java.util.*;
 
 /**
- * @author Zilong Deng
+ * @author Zilong Deng@
  */
 @Entity
 @Table(name = "GAME")
@@ -35,8 +35,6 @@ public class Game implements Serializable {
     private String ImgUrl;
     @ElementCollection
     private List<String> labelList = new ArrayList<>();
-    @ElementCollection
-    private List<String> countryList = new ArrayList<>();
 
     @OneToMany(mappedBy = "game", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Player> playerList = new ArrayList<>();
@@ -45,9 +43,7 @@ public class Game implements Serializable {
 
     public void initGame() {
         currentRound = 0;
-        currentAnswer = "";
-        Q1="";Q2="";Q3="";Q4="";
-        ImgUrl="";
+        currentAnswer = null;
         gameStatus = GameStatus.SETUP;
     }
 
@@ -65,14 +61,13 @@ public class Game implements Serializable {
 
     public int getCurrentRound() {return currentRound;}
     public void addCurrentRound() {currentRound ++;}
-    public boolean isGameEnded() {return currentRound >= totalRounds;}
+    public boolean isGameEnded() { return gameStatus == GameStatus.ENDED; }
 
     public String getCurrentAnswer() {return currentAnswer;}
     public void updateCurrentAnswer(String currentAnswer) {
         this.currentAnswer = currentAnswer;
         labelList.add(currentAnswer);
     }
-    public Iterator<String> getLabelList() {return labelList.iterator();}
 
     public void setQuestions(int i, String string) {
         switch (i) {
@@ -94,11 +89,11 @@ public class Game implements Serializable {
     public String getImgUrl() {return ImgUrl;}
     public void setImgUrl(String imgUrl) {ImgUrl = imgUrl;}
 
-    public List<String> getCountryList() {return countryList;}
-    public void setCountryList(List<String> countryList) {this.countryList = countryList;}
+    public Iterator<String> getLabelList() {return labelList.iterator();}
 
     public void addPlayer(Player newPlayer) {
         playerList.add(newPlayer);
+
         System.out.println("Player added: " + newPlayer.getPlayerName());
     }
     public Iterator<Player> getPlayerList() { return playerList.iterator();}
