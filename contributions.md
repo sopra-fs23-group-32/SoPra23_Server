@@ -105,3 +105,7 @@ Leyi Xu, https://github.com/sopra-fs23-group-32/SoPra23_Client/issues/22
 
 Said H.A., https://github.com/sopra-fs23-group-32/SoPra23_Client/issues/73 \
 Said H.A., https://github.com/sopra-fs23-group-32/SoPra23_Client/issues/74
+
+## Week 09.05.2023-15.05.2023
+Said H.A., https://github.com/sopra-fs23-group-32/SoPra23_Client/issues/84 \
+Said H.A., https://github.com/sopra-fs23-group-32/SoPra23_Client/issues/134
