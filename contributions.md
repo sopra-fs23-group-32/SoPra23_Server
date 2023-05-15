@@ -121,3 +121,8 @@ Jano Vukadinovic, https://github.com/sopra-fs23-group-32/SoPra23_Client/issues/9
 
 Leyi Xu, https://github.com/sopra-fs23-group-32/SoPra23_Client/issues/68 \
 Leyi Xu, https://github.com/sopra-fs23-group-32/SoPra23_Client/issues/94
+
+Dominic Vogel, https://github.com/sopra-fs23-group-32/SoPra23_Client/issues/86 \
+Dominic Vogel, https://github.com/sopra-fs23-group-32/SoPra23_Client/issues/84 (creating new lobby)
+Overall UI improvements, implementing spinners when waiting time occurs
+Not DT but: Cleaning up of our Github Board
