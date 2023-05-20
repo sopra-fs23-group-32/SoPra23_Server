@@ -28,15 +28,10 @@ public class Game implements Serializable {
     @Column(nullable = false)
     private int countdownTime;
 
-    @Column()
     private int currentRound;
-    @Column()
     private String currentAnswer;
-    @Column()
     private int playerNum;
-    @Column()
     private String Q1, Q2, Q3, Q4;
-    @Column()
     private String ImgUrl;
 
     @ElementCollection

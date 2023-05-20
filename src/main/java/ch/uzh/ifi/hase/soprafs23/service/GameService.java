@@ -58,8 +58,6 @@ public class GameService {
             newGame.setCountryList(countryList);
         }
         catch (Exception e) {e.printStackTrace();}
-
-        updateGameStatus(newGame.getGameId(), WebSocketType.GAME_INIT, newGame.getGameStatus());
         return newGame;
     }
 
@@ -92,6 +90,10 @@ public class GameService {
         if(game.isGameEnded()) {
             throw new ResponseStatusException(HttpStatus.CONFLICT,
                 String.format("Game with ID %d has ended!\n", gameId));
+        }
+        // tell guests that game has started
+        if(game.getGameStatus()==GameStatus.SETUP) {
+            updateGameStatus(gameId, WebSocketType.GAME_START, game.getGameStatus());
         }
         System.out.printf("======= Game Service - Round %d reached =======\n", game.getCurrentRound());
 
@@ -193,12 +195,12 @@ public class GameService {
         }
         if(allAnswered){
             game.setGameStatus(GameStatus.WAITING);
+            updateGameStatus(gameId, WebSocketType.ANSWER_UPDATE, game.getGameStatus());
             playerList = game.getPlayerList();
             while(playerList.hasNext()) {
                 playerList.next().setHasAnswered(false);
             }
         }
-        updateGameStatus(gameId, WebSocketType.ANSWER_UPDATE, game.getGameStatus());
         return allAnswered;
     }
 
@@ -226,7 +228,7 @@ public class GameService {
     public void leaveGame(Long gameId, Long playerId) {
         Game game = searchGameById(gameId);
         game.deletePlayer(playerId);
-		updateGameStatus(gameId, WebSocketType.PLAYRE_REMOVE, game.getGameStatus());
+		updateGameStatus(gameId, WebSocketType.PLAYER_REMOVE, game.getGameStatus());
     }
 
 
@@ -247,6 +249,8 @@ public class GameService {
         while (labelList.hasNext()) {
             gameInfo.addLabel(labelList.next());
         }
+        game.setGameStatus(GameStatus.ENDED);
+        updateGameStatus(gameId, WebSocketType.GAME_END, game.getGameStatus());
         return gameInfo;
     }
 
