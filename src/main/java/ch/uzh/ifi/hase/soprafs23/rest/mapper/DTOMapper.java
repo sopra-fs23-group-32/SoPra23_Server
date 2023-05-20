@@ -79,7 +79,7 @@ public interface DTOMapper {
 
     @Mapping(source = "gameId", target = "gameId")
     @Mapping(source = "gameScore", target = "gameScore")
-    @Mapping(source = "correctRate", target = "correctRate")
+   
     GameHistoryGetDTO convertEntityToGameHistoryGetDTO(UserGameHistory userGameHistory);
 
     @Mapping(source = "answer", target = "answer")

@@ -39,41 +39,37 @@ public class GameController {
         return DTOMapper.INSTANCE.convertEntityToGameGetDTO(newGame);
     }
 
-    @GetMapping("/games")
-    @ResponseStatus(HttpStatus.OK)
-    @ResponseBody
-    public List<GameGetDTO> getGames() {
-        List<Game> allGames = gameService.getAllGames();
-        List<GameGetDTO> gameGetDTOList = new ArrayList<>();
-        for (Game game: allGames) {
-            if (game.getGameStatus() == GameStatus.SETUP) {
-                gameGetDTOList.add(
-                    DTOMapper.INSTANCE.convertEntityToGameGetDTO(game)
-                );
-            }
-        }
-        return gameGetDTOList;
-    }
-
-    /**
-     * Get game progress
-     * @return DTO for game: gameId, current Round, Score board of player
-     */
-    @GetMapping("/games/{gameId}")
-    @ResponseStatus(HttpStatus.OK)
-    public GameGetDTO getGame(@PathVariable Long gameId) {
-        Game game = gameService.searchGameById(gameId);
-        return DTOMapper.INSTANCE.convertEntityToGameGetDTO(game);
-    }
-
-     @GetMapping("/games/{gameId}/status")
+ @GetMapping("/gamestatus/{gameId}")
      @ResponseStatus(HttpStatus.OK)
      public GameStatus getGameStatus(@PathVariable Long gameId) {
          Game game = gameService.searchGameById(gameId);
          GameStatus gameStatus=game.getGameStatus();
-         System.out.println("GameStatus Start: "+gameStatus+"GameStatus End");
+         System.out.println("GameStauts Start: "+gameStatus+"GameStatus End");
          return gameStatus;
      }
+
+     @GetMapping("/games")
+     @ResponseStatus(HttpStatus.OK)
+     @ResponseBody
+     public List<GameInfoGetDTO> getGames() {
+         List<Game> games = gameService.getAllGames();
+         List<GameInfoGetDTO> gameInfoGetDTOList = new ArrayList<>();
+         for (Game game: games) {
+             boolean k = game.getGameStatus() != GameStatus.ENDED;
+             if (game.getGameStatus() == GameStatus.SETUP) {
+                 GameInfo gameInfo = gameService.getGameInfo(game.getGameId());
+                 gameInfoGetDTOList.add(DTOMapper.INSTANCE.convertEntityToGameInfoGetDTO(gameInfo));
+             }
+         }
+         return gameInfoGetDTOList;
+     }
+    /**
+     * Get game progress
+     * @return DTO for game: gameId, current Round, Score board of player
+     */
+
+
+     
 
     /**
      * Go to the next round of the game
@@ -98,6 +94,12 @@ public class GameController {
         return DTOMapper.INSTANCE.convertEntityToQuestionGetDTO(question);
     }
 
+ @GetMapping("/games/{gameId}")
+    @ResponseStatus(HttpStatus.OK)
+    public GameGetDTO getGame(@PathVariable Long gameId) {
+        Game game = gameService.searchGameById(gameId);
+        return DTOMapper.INSTANCE.convertEntityToGameGetDTO(game);
+    }
     @DeleteMapping("/games/{gameId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void closeGame(@PathVariable Long gameId) {
@@ -158,11 +160,7 @@ public class GameController {
         Answer newAnswer = DTOMapper.INSTANCE.convertAnswerPostDTOtoEntity(answerPostDTO);
         int score = gameService.submitAnswer(gameId, playerId, newAnswer);
         boolean allAnswered = gameService.checkIfAllAnswered(gameId);
-        System.out.printf(
-            "playerID %d submit answer: %s, score: %d\n",
-            playerId, newAnswer.getAnswer(), score
-        );
-        if(allAnswered) {System.out.println("All Answered!");}
+       
         return score;
     }
 
