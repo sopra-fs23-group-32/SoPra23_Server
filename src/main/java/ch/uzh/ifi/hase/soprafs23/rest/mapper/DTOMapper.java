@@ -42,10 +42,12 @@ public interface DTOMapper {
     UserRankingGetDTO convertEntityToUserRankingGetDTO(UserRanking userRanking);
 
     @Mapping(source = "gameId", target = "gameId")
-    @Mapping(source = "currentRound", target = "currentRound")
+    @Mapping(source = "category", target = "category")
     @Mapping(source = "totalRounds", target = "totalRounds")
     @Mapping(source = "countdownTime", target = "countdownTime")
+    @Mapping(source = "currentRound", target = "currentRound")
     @Mapping(source = "currentAnswer", target = "currentAnswer")
+    @Mapping(source = "playerNum", target = "playerNum")
     GameGetDTO convertEntityToGameGetDTO(Game game);
 
     @Mapping(source = "category", target = "category")
