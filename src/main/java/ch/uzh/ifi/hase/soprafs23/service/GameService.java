@@ -99,8 +99,22 @@ public class GameService {
                     String.format("Game with ID %d has ended!\n", gameId));
         }
         String option1="Geneva", option2="Basel", option3="Lausanne", option4="Bern";
-        String pictureUrl = "https://images.unsplash.com/photo-1591128481965-d59b938e7db1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=Mnw0NDQwMTF8MHwxfHNlYXJjaHwxfHxLbyVDNSVBMWljZSUyNTIwYnVpbGRpbmd8ZW58MHwwfHx8MTY4MzE0NjU1NA&ixlib=rb-4.0.3&q=80&w=1080";
-        Question question = new Question(option1, option2, option3, option4, option4, pictureUrl);
+
+        String defaultPicUrl="https://images.unsplash.com/photo-1591128481965-d59b938e7db1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=Mnw0NDQwMTF8MHwxfHNlYXJjaHwxfHxLbyVDNSVBMWljZSUyNTIwYnVpbGRpbmd8ZW58MHwwfHx8MTY4MzE0NjU1NA&ixlib=rb-4.0.3&q=80&w=1080";
+        Question question = new Question(option1, option2, option3, option4, option4, defaultPicUrl);
+        Random random = new Random();
+        String pictureUrl = "";
+        String correctOption = null;
+        List<String> cityNames = null;
+        // get 30 cities from 20 countries
+        List<String> selectedCities = getRandomCities(game.getCountryList());
+        // remove cities have shown
+        Iterator<String> shownCityList = game.getLabelList();
+        while (shownCityList.hasNext()) {
+            selectedCities.remove(shownCityList.next());
+        }
+
+>>>>>>> main
         try{
             System.out.println("game getCategory " + game.getCategory());
             List<String> cityNames = getRandomCities(game.getCategory().toString());

@@ -25,14 +25,20 @@ public class Game implements Serializable {
     private CityCategory category;
     @Column(nullable = false)
     private int totalRounds;
-    @Column()
-    private int currentRound;
     @Column(nullable = false)
     private int countdownTime;
 
+    @Column()
+    private int currentRound;
+    @Column()
     private String currentAnswer;
+    @Column()
+    private int playerNum;
+    @Column()
     private String Q1, Q2, Q3, Q4;
+    @Column()
     private String ImgUrl;
+
     @ElementCollection
     private List<String> labelList = new ArrayList<>();
 
@@ -43,7 +49,13 @@ public class Game implements Serializable {
 
     public void initGame() {
         currentRound = 0;
+
         currentAnswer = null;
+
+        Q1 = "";Q2 = "";Q3 = "";Q4 = "";
+        ImgUrl = "";
+        playerNum = 0;
+
         gameStatus = GameStatus.SETUP;
     }
 
@@ -94,13 +106,17 @@ public class Game implements Serializable {
     public void addPlayer(Player newPlayer) {
         playerList.add(newPlayer);
 
+        playerNum = playerList.size();
+
         System.out.println("Player added: " + newPlayer.getPlayerName());
     }
-    public Iterator<Player> getPlayerList() { return playerList.iterator();}
-    public int getPlayerNum() {return playerList.size();}
     public void deletePlayer(Long playerId) {
         playerList.removeIf(player -> Objects.equals(player.getUserId(), playerId));
+        playerNum = playerList.size();
     }
+    public Iterator<Player> getPlayerList() { return playerList.iterator();}
+    public int getPlayerNum() {return playerNum;}
+
 
     public GameStatus getGameStatus(){return gameStatus;}
     public void setGameStatus(GameStatus gameStatus){this.gameStatus = gameStatus;}
