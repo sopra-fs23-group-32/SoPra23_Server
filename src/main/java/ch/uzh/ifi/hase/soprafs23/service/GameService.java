@@ -104,6 +104,11 @@ public class GameService {
         List<String> cityNames = null;
         // get 30 cities from 20 countries
         List<String> selectedCities = getRandomCities(game.getCountryList());
+        // remove cities have shown
+        Iterator<String> shownCityList = game.getLabelList();
+        while (shownCityList.hasNext()) {
+            selectedCities.remove(shownCityList.next());
+        }
 
         try{
             int try_count = 0, max_try = 8;
