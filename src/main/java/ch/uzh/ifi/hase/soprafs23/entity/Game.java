@@ -55,7 +55,6 @@ public class Game implements Serializable {
         Q1 = "";Q2 = "";Q3 = "";Q4 = "";
         ImgUrl = "";
         playerNum = 0;
-
         gameStatus = GameStatus.SETUP;
     }
 
@@ -105,10 +104,7 @@ public class Game implements Serializable {
 
     public void addPlayer(Player newPlayer) {
         playerList.add(newPlayer);
-
         playerNum = playerList.size();
-
-
         System.out.println("Player added: " + newPlayer.getPlayerName());
     }
     public void deletePlayer(Long playerId) {
