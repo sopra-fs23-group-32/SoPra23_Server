@@ -11,9 +11,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 @Service
 @Transactional
@@ -87,7 +90,7 @@ public class UserStatisticsService {
         Iterator<UserGameHistory> userGameHistoryIterator = userStatistics.getGameHistoryList();
         while(userGameHistoryIterator.hasNext()) {
             UserGameHistory gameHistory = userGameHistoryIterator.next();
-            if(gameHistory.getGameId() == gameId) {
+            if(gameHistory.getGameId().equals(gameId)) {
                 gameHistoryById = gameHistory;
             }
         }
@@ -108,6 +111,45 @@ public class UserStatisticsService {
         if(userStatisticsById == null) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND,
                     String.format("UserStatistics with ID %d was not found!\n", userId));
+        }
+    }
+
+    public void saveRepoToDatabase() {
+        List<UserStatistics> userStatisticsList = userStatisticsRepository.findAll();
+        String filePath = "../database/userStatisticsRepository.csv";
+        try (FileWriter writer = new FileWriter(filePath, false)) {
+            writer.append("userId,totalScore,totalGameNum,specificScore,specificGameNum,historyNum,gameHistories");
+            writer.append(System.lineSeparator());
+            // write all records
+            for (UserStatistics userStatistics : userStatisticsList) {
+                writer.append(userStatistics.getUserId().toString()).append(",");
+                writer.append(String.valueOf(userStatistics.getTotalScore())).append(",");
+                writer.append(String.valueOf(userStatistics.getTotalGameNum())).append(",");
+                for(CityCategory category:CityCategory.values()){
+                    writer.append(String.valueOf(userStatistics.getSpecificScore(category))).append(",");
+                    writer.append(String.valueOf(userStatistics.getSpecificGameNum(category))).append(",");
+                }
+                writer.append(String.valueOf(userStatistics.getLenGameHistories())).append(",");
+                writer.append(System.lineSeparator());
+                // add all userGameHistories line by line
+                Iterator<UserGameHistory> gameHistoryList = userStatistics.getGameHistoryList();
+                while(gameHistoryList.hasNext()) {
+                    UserGameHistory userGameHistory = gameHistoryList.next();
+                    writer.append(userGameHistory.getGameId().toString()).append(",");
+                    writer.append(String.valueOf(userGameHistory.getGameScore())).append(",");
+                    writer.append(String.valueOf(userGameHistory.getCorrectRate())).append(",");
+                    writer.append("[");
+                    Iterator<String> answerList = userGameHistory.getAnswerList();
+                    while(answerList.hasNext()){
+                        writer.append(answerList.next()).append(",");
+                    }
+                    writer.append("]");
+                    writer.append(System.lineSeparator());
+                }
+            }
+            writer.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }
