@@ -72,7 +72,7 @@ public class GameService {
         newPlayer.setPlayerName(userAsPlayer.getUsername());
         newPlayer.setGame(game);
         game.addPlayer(newPlayer);
-        updateGameStatus(gameId, WebSocketType.PLAYER_ADD, game.getGameStatus());
+//        updateGameStatus(gameId, WebSocketType.PLAYER_ADD, game.getGameStatus());
     }
 
     public List<Long> getAllPlayers(Long gameId) {
@@ -93,7 +93,8 @@ public class GameService {
         }
         // tell guests that game has started
         if(game.getGameStatus()==GameStatus.SETUP) {
-            updateGameStatus(gameId, WebSocketType.GAME_START, game.getGameStatus());
+            game.setGameStatus(GameStatus.WAITING);
+//            updateGameStatus(gameId, WebSocketType.GAME_START, game.getGameStatus());
         }
         System.out.printf("======= Game Service - Round %d reached =======\n", game.getCurrentRound()+1);
 
@@ -144,7 +145,7 @@ public class GameService {
         }
         game.addCurrentRound();
         game.setGameStatus(GameStatus.ANSWERING);
-        updateGameStatus(gameId, WebSocketType.ROUND_UPDATE, game.getGameStatus());
+//        updateGameStatus(gameId, WebSocketType.ROUND_UPDATE, game.getGameStatus());
         System.out.println("Game Service - Question generated.");
         return question;
     }
@@ -195,7 +196,7 @@ public class GameService {
         }
         if(allAnswered){
             game.setGameStatus(GameStatus.WAITING);
-            updateGameStatus(gameId, WebSocketType.ANSWER_UPDATE, game.getGameStatus());
+//            updateGameStatus(gameId, WebSocketType.ANSWER_UPDATE, game.getGameStatus());
             playerList = game.getPlayerList();
             while(playerList.hasNext()) {
                 playerList.next().setHasAnswered(false);
@@ -220,15 +221,17 @@ public class GameService {
 
     public void closeGame(Long gameId) {
         Game game = searchGameById(gameId);
-        game.setGameStatus(GameStatus.ENDED);
-        updateGameStatus(gameId, WebSocketType.GAME_END, game.getGameStatus());
+        if(game.getGameStatus() != GameStatus.ENDED) {
+            game.setGameStatus(GameStatus.ENDED);
+//            updateGameStatus(gameId, WebSocketType.GAME_END, game.getGameStatus());
+        }
         gameRepository.delete(game);
     }
 
     public void leaveGame(Long gameId, Long playerId) {
         Game game = searchGameById(gameId);
         game.deletePlayer(playerId);
-		updateGameStatus(gameId, WebSocketType.PLAYER_REMOVE, game.getGameStatus());
+//		updateGameStatus(gameId, WebSocketType.PLAYER_REMOVE, game.getGameStatus());
     }
 
 
@@ -261,7 +264,7 @@ public class GameService {
         }
         if(game.getGameStatus() != GameStatus.ENDED) {
             game.setGameStatus(GameStatus.ENDED);
-            updateGameStatus(gameId, WebSocketType.GAME_END, game.getGameStatus());
+//            updateGameStatus(gameId, WebSocketType.GAME_END, game.getGameStatus());
         }
         Player player = searchPlayerById(game, userId);
         userGameHistory.setGameId(gameId);

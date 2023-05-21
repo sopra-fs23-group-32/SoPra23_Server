@@ -68,11 +68,10 @@ public class GameController {
 
      @GetMapping("/games/{gameId}/status")
      @ResponseStatus(HttpStatus.OK)
-     public GameStatus getGameStatus(@PathVariable Long gameId) {
+     public String getGameStatus(@PathVariable Long gameId) {
          Game game = gameService.searchGameById(gameId);
          GameStatus gameStatus=game.getGameStatus();
-         System.out.println("GameStatus Start: "+gameStatus+"GameStatus End");
-         return gameStatus;
+         return gameStatus.toString();
      }
 
     /**
