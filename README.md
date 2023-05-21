@@ -1,4 +1,140 @@
-# REST requests Table
+# ![logo](https://github.com/sopra-fs23-group-32/SoPra23_Client/blob/readme_branch/images/city_logo.png?raw=true) SoPra FS23 - Guess the City Server
+<p align="center">
+	<img src="https://img.shields.io/github/issues-raw/sopra-fs23-group-32/SoPra23_Server"/>
+	<img src="https://img.shields.io/github/milestones/progress/sopra-fs23-group-32/SoPra23_Server/1"/>
+	<img src="https://img.shields.io/github/milestones/progress/sopra-fs23-group-32/SoPra23_Server/2"/>
+	<img src="https://sonarcloud.io/api/project_badges/measure?project=sopra-fs23-group-32_SoPra23_Server&metric=coverage"/>
+	<img src="https://sonarcloud.io/api/project_badges/measure?project=sopra-fs23-group-32_SoPra23_Server&metric=bugs"/>
+	<img src="https://sonarcloud.io/api/project_badges/measure?project=sopra-fs23-group-32_SoPra23_Server&metric=vulnerabilities"/>
+	<img src="https://sonarcloud.io/api/project_badges/measure?project=sopra-fs23-group-32_SoPra23_Server&metric=code_smells"/>
+	<img src="https://img.shields.io/github/license/sopra-fs23-group-32/SoPra23_Server"/>
+</p>
+
+## Introduction
+This app is a game called “Guess the City”. It is a captivating game that invites players to discover the cityscapes around the world by identifying corresponding city name from multiple-choice options.
+The game not only serves as a source of entertainment but also offers an opportunity for players to enhance their geography knowledge. As players immerse themselves in the game, they embark on a virtual journey across continents, exploring the diverse landscapes and architectual marvels that cities have to offer.
+To cater to different preferences and gaming experiences, the game offers two modes: Single Player Mode and Multiplayer Mode. The Single Player Mode is for practice, enabling players to improve their accuracy in identifying cities without the pressure of competition.
+The Multiplayer Mode provides a platform for friendly competition, where players have the opportunity to challenge their friends and compete against each other.
+
+## Technologies
+- [Unsplash API](https://unsplash.com/developers) - City images API.
+- [sockjs-client](https://github.com/sockjs) -  Browser JavaScript library that provides a WebSocket-like object, communicating between the browser and the web server.
+- [stompjs](https://www.npmjs.com/package/@stomp/stompjs) - npm package that provides a STOMP over WebSocket client for Web browser and node.js applications.
+- [react-toggle](https://www.npmjs.com/package/react-toggle) - npm package for toggle component.
+- [react-toastify](https://www.npmjs.com/package/react-toastify) - npm package for notifications.
+- [react-countdown-circle-timer](https://www.npmjs.com/package/react-countdown-circle-timer) - npm package for countdown timer.
+
+## High-level Components
+### [GameController](https://github.com/sopra-fs23-group-32/SoPra23_Server/blob/main/src/main/java/ch/uzh/ifi/hase/soprafs23/controller/GameController.java)
+A controller class that communicates with the client side through endpoints by handling REST requests.
+The information it sends to or receives from endpoints is processed by the class [GameService](https://github.com/sopra-fs23-group-32/SoPra23_Server/blob/main/src/main/java/ch/uzh/ifi/hase/soprafs23/service/GameService.java)
+
+### [GameService](https://github.com/sopra-fs23-group-32/SoPra23_Server/blob/main/src/main/java/ch/uzh/ifi/hase/soprafs23/service/GameService.java)
+A service class that correlates with [GameController](https://github.com/sopra-fs23-group-32/SoPra23_Server/blob/main/src/main/java/ch/uzh/ifi/hase/soprafs23/controller/GameController.java) to manage the game data and control the game process.
+
+### [ScoreBoardController](https://github.com/sopra-fs23-group-32/SoPra23_Server/blob/main/src/main/java/ch/uzh/ifi/hase/soprafs23/controller/ScoreBoardController.java)
+A controller class that offers the endpoints to send user rankings to the client side. It receives the ranking type (general or specific continent category) from the endpoint, and sends to [ScoreBoardService](https://github.com/sopra-fs23-group-32/SoPra23_Server/blob/main/src/main/java/ch/uzh/ifi/hase/soprafs23/service/ScoreBoardService.java), which will return the specified user ranking.
+
+### [ScoreBoardService](https://github.com/sopra-fs23-group-32/SoPra23_Server/blob/main/src/main/java/ch/uzh/ifi/hase/soprafs23/service/ScoreBoardService.java)
+A service class that correlates with [ScoreBoardController](https://github.com/sopra-fs23-group-32/SoPra23_Server/blob/main/src/main/java/ch/uzh/ifi/hase/soprafs23/controller/ScoreBoardController.java) to return specified user ranking.
+
+
+## Launch & Deployment
+### Preparations
+#### IntelliJ
+1. File -> Open... -> SoPra server template
+2. Accept to import the project as a `gradle project`
+3. To build right click the `build.gradle` file and choose `Run Build`
+#### VS Code
+The following extensions can help you get started more easily:
+-   `vmware.vscode-spring-boot`
+-   `vscjava.vscode-spring-initializr`
+-   `vscjava.vscode-spring-boot-dashboard`
+-   `vscjava.vscode-java-pack`
+
+**Note:** You'll need to build the project first with Gradle, just click on the `build` command in the _Gradle Tasks_ extension. Then check the _Spring Boot Dashboard_ extension if it already shows `soprafs23` and hit the play button to start the server. If it doesn't show up, restart VS Code and check again.
+
+### Building with Gradle
+You can use the local Gradle Wrapper to build the application.
+-   macOS: `./gradlew`
+-   Linux: `./gradlew`
+-   Windows: `./gradlew.bat`
+
+More Information about [Gradle Wrapper](https://docs.gradle.org/current/userguide/gradle_wrapper.html) and [Gradle](https://gradle.org/docs/).
+
+#### Build
+```bash
+./gradlew build
+```
+#### Run
+```bash
+./gradlew bootRun
+```
+#### Test
+```bash
+./gradlew test
+```
+#### Development Mode
+You can start the backend in development mode, this will automatically trigger a new build and reload the application
+once the content of a file has been changed.
+
+Start two terminal windows and run:
+
+`./gradlew build --continuous`
+
+and in the other one:
+
+`./gradlew bootRun`
+
+If you want to avoid running all tests with every change, use the following command instead:
+
+`./gradlew build --continuous -xtest`
+
+### API Endpoint Testing with Postman
+We recommend using [Postman](https://www.getpostman.com) to test your API Endpoints.
+
+### Debugging
+If something is not working and/or you don't know what is going on. We recommend using a debugger and step-through the process step-by-step.
+
+To configure a debugger for SpringBoot's Tomcat servlet (i.e. the process you start with `./gradlew bootRun` command), do the following:
+
+1. Open Tab: **Run**/Edit Configurations
+2. Add a new Remote Configuration and name it properly
+3. Start the Server in Debug mode: `./gradlew bootRun --debug-jvm`
+4. Press `Shift + F9` or the use **Run**/Debug "Name of your task"
+5. Set breakpoints in the application where you need it
+6. Step through the process one step at a time
+
+### Testing
+Have a look here: https://www.baeldung.com/spring-boot-testing
+
+## Roadmap
+![image](https://github.com/sopra-fs23-group-32/SoPra23_Client/blob/readme_branch/images/illustrations/roadmap.png?raw=true)
+- Difficulty Level - Implement difficulty levels that offer varying levels of challenge to players. For example, there can be easy, medium, and hard modes where the hints of images are progressively more limited. This feature would require designing new image sets and adjusting scoring mechanisms.
+- Social Integration - Allow players to connect their social media accounts to the game. This feature would require new developers to integrate social media sharing APIs.
+- Unlockable Content - Add a progressive map where players can unlock new cities. This feature involves tracking player achievements, integrating the global map and providing rewards for new milestones.
+
+
+
+## Authors and Acknowledgment
+### Authors
+- Said-Haji Abukar - [awhoa](https://github.com/awhoa)
+- Zilong Deng - [Dzl666](https://github.com/Dzl666)
+- Jano-Sven Vukadinovic - [VukadinovicJS](https://github.com/VukadinovicJS)
+- Dominic Vogel - [dominic1712](https://github.com/dominic1712)
+- Leyi Xu - [leyixu21](https://github.com/leyixu21)
+
+See also the list of [contributors](https://github.com/sopra-fs23-group-32/SoPra23_Client/graphs/contributors) who participated in this project.
+
+### Acknowledgement
+- The city images of this project are provided by [Unsplash API](https://unsplash.com/developers).
+- Thanks to Luis Torrejón Machado - [luis-tm](https://github.com/luis-tm) who supports this project as a tutor.
+
+## License
+This project is licensed under the Apache License 2.0 - see the [LICENSE.md](https://github.com/sopra-fs23-group-32/SoPra23_Server/blob/main/LICENSE) file for details.
+
+
+## REST requests Table
 
 <table>
 <thead>
@@ -476,117 +612,3 @@
   </tr>
 </tbody>
 </table>
-
-
-# Guess the City - Server
-
-## Introduction
-This app is a game called “Guess the City”. Players should choose the correct city from multiple choices based on the city image provided by the game.
-The game aims to showcase the diverse landscapes of cities around the world while also fostering an increase in geography knowledge.
-
-## Technologies
-- [Gradle](https://gradle.org/) - Dependency Management
-- [React](https://react.dev/) - Front-end JavaScript Library
-- [Spring Boot](https://spring.io/) - Application Framework
-- [Google Cloud Platform](https://cloud.google.com/) - Depolyment Service
-
-## High-level Components
-- [GameController](https://github.com/sopra-fs23-group-32/SoPra23_Server/blob/main/src/main/java/ch/uzh/ifi/hase/soprafs23/controller/GameController.java) - A controller class that communicates with the client side through endpoints by handling REST requests.
-The information it sends to or receives from endpoints is processed by the class [GameService](https://github.com/sopra-fs23-group-32/SoPra23_Server/blob/main/src/main/java/ch/uzh/ifi/hase/soprafs23/service/GameService.java)
-- [GameService](https://github.com/sopra-fs23-group-32/SoPra23_Server/blob/main/src/main/java/ch/uzh/ifi/hase/soprafs23/service/GameService.java) - A service class that correlates with [GameController](https://github.com/sopra-fs23-group-32/SoPra23_Server/blob/main/src/main/java/ch/uzh/ifi/hase/soprafs23/controller/GameController.java) to manage the game data and control the game process.
-- [ScoreBoardController](https://github.com/sopra-fs23-group-32/SoPra23_Server/blob/main/src/main/java/ch/uzh/ifi/hase/soprafs23/controller/ScoreBoardController.java) - A controller class that offers the endpoints to send user rankings to the client side. It receives the ranking type (general or specific continent category) from the endpoint, and sends to [ScoreBoardService](https://github.com/sopra-fs23-group-32/SoPra23_Server/blob/main/src/main/java/ch/uzh/ifi/hase/soprafs23/service/ScoreBoardService.java), which will return the specified user ranking.
-- [ScoreBoardService](https://github.com/sopra-fs23-group-32/SoPra23_Server/blob/main/src/main/java/ch/uzh/ifi/hase/soprafs23/service/ScoreBoardService.java) - A service class that correlates with [ScoreBoardController](https://github.com/sopra-fs23-group-32/SoPra23_Server/blob/main/src/main/java/ch/uzh/ifi/hase/soprafs23/controller/ScoreBoardController.java) to return specified user ranking.
-
-
-## Launch & Deployment
-### Preparations
-#### IntelliJ
-1. File -> Open... -> SoPra server template
-2. Accept to import the project as a `gradle project`
-3. To build right click the `build.gradle` file and choose `Run Build`
-#### VS Code
-The following extensions can help you get started more easily:
--   `vmware.vscode-spring-boot`
--   `vscjava.vscode-spring-initializr`
--   `vscjava.vscode-spring-boot-dashboard`
--   `vscjava.vscode-java-pack`
-
-**Note:** You'll need to build the project first with Gradle, just click on the `build` command in the _Gradle Tasks_ extension. Then check the _Spring Boot Dashboard_ extension if it already shows `soprafs23` and hit the play button to start the server. If it doesn't show up, restart VS Code and check again.
-
-### Building with Gradle
-You can use the local Gradle Wrapper to build the application.
--   macOS: `./gradlew`
--   Linux: `./gradlew`
--   Windows: `./gradlew.bat`
-
-More Information about [Gradle Wrapper](https://docs.gradle.org/current/userguide/gradle_wrapper.html) and [Gradle](https://gradle.org/docs/).
-
-#### Build
-```bash
-./gradlew build
-```
-#### Run
-```bash
-./gradlew bootRun
-```
-#### Test
-```bash
-./gradlew test
-```
-#### Development Mode
-You can start the backend in development mode, this will automatically trigger a new build and reload the application
-once the content of a file has been changed.
-
-Start two terminal windows and run:
-
-`./gradlew build --continuous`
-
-and in the other one:
-
-`./gradlew bootRun`
-
-If you want to avoid running all tests with every change, use the following command instead:
-
-`./gradlew build --continuous -xtest`
-
-### API Endpoint Testing with Postman
-We recommend using [Postman](https://www.getpostman.com) to test your API Endpoints.
-
-### Debugging
-If something is not working and/or you don't know what is going on. We recommend using a debugger and step-through the process step-by-step.
-
-To configure a debugger for SpringBoot's Tomcat servlet (i.e. the process you start with `./gradlew bootRun` command), do the following:
-
-1. Open Tab: **Run**/Edit Configurations
-2. Add a new Remote Configuration and name it properly
-3. Start the Server in Debug mode: `./gradlew bootRun --debug-jvm`
-4. Press `Shift + F9` or the use **Run**/Debug "Name of your task"
-5. Set breakpoints in the application where you need it
-6. Step through the process one step at a time
-
-### Testing
-Have a look here: https://www.baeldung.com/spring-boot-testing
-
-### External Dependencies
-
-
-## Roadmap
-The top 2-3 features that new developers who want to contribute to your project
-could add.
-
-
-## Authors and Acknowledgment
-### Authors
-- Said-Haji Abukar - [awhoa](https://github.com/awhoa)
-- Zilong Deng - [Zilong Deng](https://github.com/Dzl666)
-- Jano-Sven Vukadinovic - [VukadinovicJS](https://github.com/VukadinovicJS)
-- Dominic Vogel - [dominic1712](https://github.com/dominic1712)
-- Leyi Xu - [leyixu21](https://github.com/leyixu21)
-
-See also the list of [contributors](https://github.com/sopra-fs23-group-32/SoPra23_Server/graphs/contributors) who participated in this project.
-
-### Acknowledgement
-- City images provided by [Unsplash API](https://unsplash.com/developers).
-
-## License
-This project is licensed under the Apache License 2.0 - see the [LICENSE.md](https://github.com/sopra-fs23-group-32/SoPra23_Server/blob/main/LICENSE) file for details.
