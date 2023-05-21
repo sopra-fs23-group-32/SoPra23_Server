@@ -82,6 +82,12 @@ public class GameController {
     @PutMapping("/games/{gameId}")
     @ResponseStatus(HttpStatus.CREATED)
     public QuestionGetDTO goNextRound(@PathVariable Long gameId) {
+        Game game = gameService.searchGameById(gameId);
+        // tell guests that game has started
+        if(game.getGameStatus() == GameStatus.SETUP) {
+            game.setGameStatus(GameStatus.WAITING);
+//            updateGameStatus(gameId, WebSocketType.GAME_START, game.getGameStatus());
+        }
         Question question = gameService.goNextRound(gameId);
         return DTOMapper.INSTANCE.convertEntityToQuestionGetDTO(question);
     }
@@ -94,7 +100,7 @@ public class GameController {
     @ResponseStatus(HttpStatus.OK)
     public QuestionGetDTO getQuestions(@PathVariable Long gameId) {
         Question question = gameService.getQuestions(gameId);
-        System.out.println("Someone fetch the question.");
+        System.out.println("--> Someone fetching the question.");
         return DTOMapper.INSTANCE.convertEntityToQuestionGetDTO(question);
     }
 
@@ -102,7 +108,7 @@ public class GameController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void closeGame(@PathVariable Long gameId) {
         gameService.closeGame(gameId);
-        System.out.println("Game deleted!");
+        System.out.printf("------> Game %d deleted!\n", gameId);
     }
 
     /**
@@ -159,10 +165,10 @@ public class GameController {
         int score = gameService.submitAnswer(gameId, playerId, newAnswer);
         boolean allAnswered = gameService.checkIfAllAnswered(gameId);
         System.out.printf(
-            "playerID %d submit answer: %s, score: %d\n",
-            playerId, newAnswer.getAnswer(), score
+            "----> Game %d - Player(ID %d) submit: %s, score: %d\n",
+            gameId, playerId, newAnswer.getAnswer(), score
         );
-        if(allAnswered) {System.out.println("All Answered!");}
+        if(allAnswered) {System.out.printf("----> Game %d - All Answered!", gameId);}
         return score;
     }
 

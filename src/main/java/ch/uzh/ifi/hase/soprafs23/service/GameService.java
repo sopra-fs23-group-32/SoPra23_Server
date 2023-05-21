@@ -91,12 +91,8 @@ public class GameService {
             throw new ResponseStatusException(HttpStatus.CONFLICT,
                 String.format("Game with ID %d has ended!\n", gameId));
         }
-        // tell guests that game has started
-        if(game.getGameStatus()==GameStatus.SETUP) {
-            game.setGameStatus(GameStatus.WAITING);
-//            updateGameStatus(gameId, WebSocketType.GAME_START, game.getGameStatus());
-        }
-        System.out.printf("======= Game Service - Round %d reached =======\n", game.getCurrentRound()+1);
+
+        System.out.printf("------> Game %d - Round %d reached.\n", gameId, game.getCurrentRound()+1);
 
         String option1="Geneva", option2="Basel", option3="Lausanne", option4="Bern";
         String defaultPicUrl="https://images.unsplash.com/photo-1591128481965-d59b938e7db1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=Mnw0NDQwMTF8MHwxfHNlYXJjaHwxfHxLbyVDNSVBMWljZSUyNTIwYnVpbGRpbmd8ZW58MHwwfHx8MTY4MzE0NjU1NA&ixlib=rb-4.0.3&q=80&w=1080";
@@ -130,12 +126,12 @@ public class GameService {
             game.updateCurrentAnswer(correctOption);
             game.setImgUrl(pictureUrl);
 
-            System.out.println("game pictureURL." + pictureUrl);
+            System.out.println(pictureUrl);
             question= new Question(cityNames.get(0), cityNames.get(1),
                 cityNames.get(2),cityNames.get(3), correctOption, pictureUrl);
         }
         catch (Exception e){
-            System.out.println("Game Service - Unable to generate image");
+            System.out.printf("--------> Game %d - Unable to generate image.", gameId);
             game.setQuestions(0, option1);
             game.setQuestions(1, option2);
             game.setQuestions(2, option3);
@@ -146,7 +142,7 @@ public class GameService {
         game.addCurrentRound();
         game.setGameStatus(GameStatus.ANSWERING);
 //        updateGameStatus(gameId, WebSocketType.ROUND_UPDATE, game.getGameStatus());
-        System.out.println("Game Service - Question generated.");
+        System.out.printf("---> Game %d - Question generated.", gameId);
         return question;
     }
 
@@ -221,10 +217,8 @@ public class GameService {
 
     public void closeGame(Long gameId) {
         Game game = searchGameById(gameId);
-        if(game.getGameStatus() != GameStatus.ENDED) {
-            game.setGameStatus(GameStatus.ENDED);
-//            updateGameStatus(gameId, WebSocketType.GAME_END, game.getGameStatus());
-        }
+        game.setGameStatus(GameStatus.DELETED);
+//        updateGameStatus(gameId, WebSocketType.GAME_END, game.getGameStatus());
         gameRepository.delete(game);
     }
 
@@ -262,6 +256,7 @@ public class GameService {
             throw new ResponseStatusException(HttpStatus.CONFLICT,
                 String.format("Game with ID %d has not finished yet!\n", gameId));
         }
+        // will first invoke by the host, to make sure the GameInfo has existed
         if(game.getGameStatus() != GameStatus.ENDED) {
             game.setGameStatus(GameStatus.ENDED);
 //            updateGameStatus(gameId, WebSocketType.GAME_END, game.getGameStatus());
@@ -361,7 +356,7 @@ public class GameService {
             }
         }
         for(String country : countryNames){System.out.print(country + ", ");}
-        System.out.println("\n=========== Successfully get countries list ===========");
+        System.out.println("\n--> Successfully get countries list.");
 //        if(countryNames.size() < NUM_COUNTRY) {return countryNames;}
 //        return countryNames.subList(0, NUM_COUNTRY);
         return countryNames;
@@ -427,7 +422,7 @@ public class GameService {
         String searchParams = "?query="+ URLEncoder.encode(cityName, StandardCharsets.UTF_8.toString())
             + "&per_page=1&client_id=" + accessKey;
         URL url = new URL(endPoint + searchParams);
-        System.out.println(url);
+//        System.out.println(url);
 
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setRequestMethod("GET");
@@ -449,7 +444,7 @@ public class GameService {
             JSONObject urls = results.getJSONObject(0).getJSONObject("urls");
             return urls.getString("regular");
         }
-        System.out.println("Length of results is 0");
+        System.out.printf("---> No results for '%s'.", cityName);
         return "";
     }
 
