@@ -11,9 +11,8 @@ import java.util.List;
  */
 @Entity
 public class UserGameHistory{
-    @Id
     private Long userId;
-
+    @Id
     private Long gameId;
     private int gameScore;
     private float correctRate;

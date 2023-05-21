@@ -108,7 +108,7 @@ public class UserControllerTest {
         user.setUsername("testUsername");
 
 
-        given(userService.serachUserByUsername(Mockito.any())).willReturn(user);
+        given(userService.searchUserByUsername(Mockito.any())).willReturn(user);
         // when/then -> do the request + validate the result
         MockHttpServletRequestBuilder getRequest = get("/user/{userName)", "testUsername")
                 .contentType(MediaType.APPLICATION_JSON);
@@ -244,7 +244,7 @@ public class UserControllerTest {
         }
         catch (JsonProcessingException e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
-                    String.format("The request body could not be created.%s", e.toString()));
+                    String.format("The request body could not be created.%s", e));
         }
     }
 }

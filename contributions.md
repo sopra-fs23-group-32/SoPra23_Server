@@ -105,3 +105,26 @@ Leyi Xu, https://github.com/sopra-fs23-group-32/SoPra23_Client/issues/22
 
 Said H.A., https://github.com/sopra-fs23-group-32/SoPra23_Client/issues/73 \
 Said H.A., https://github.com/sopra-fs23-group-32/SoPra23_Client/issues/74
+
+## Week 09.05.2023-15.05.2023
+Said H.A., https://github.com/sopra-fs23-group-32/SoPra23_Client/issues/84 \
+Said H.A., https://github.com/sopra-fs23-group-32/SoPra23_Client/issues/134 \
+Said H.A.,  https://github.com/sopra-fs23-group-32/SoPra23_Server/issues/136\
+Zilong Deng, https://github.com/sopra-fs23-group-32/SoPra23_Client/issues/23 \
+Zilong Deng, https://github.com/sopra-fs23-group-32/SoPra23_Client/issues/91 \
+Zilong Deng, https://github.com/sopra-fs23-group-32/SoPra23_Server/issues/131
+* implement UI for both final pages
+* improve game procedure and UI of Single Mode
+* fix some bugs in front end
+
+Jano Vukadinovic, https://github.com/sopra-fs23-group-32/SoPra23_Client/issues/96
+Jano Vukadinovic, https://github.com/sopra-fs23-group-32/SoPra23_Client/issues/98
+
+
+Leyi Xu, https://github.com/sopra-fs23-group-32/SoPra23_Client/issues/68 \
+Leyi Xu, https://github.com/sopra-fs23-group-32/SoPra23_Client/issues/94
+
+Dominic Vogel, https://github.com/sopra-fs23-group-32/SoPra23_Client/issues/86 \
+Dominic Vogel, https://github.com/sopra-fs23-group-32/SoPra23_Client/issues/84 (creating new lobby)
+Overall UI improvements, implementing spinners when waiting time occurs
+Not DT but: Cleaning up of our Github Board

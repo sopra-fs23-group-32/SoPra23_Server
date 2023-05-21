@@ -58,8 +58,6 @@ public class GameService {
             newGame.setCountryList(countryList);
         }
         catch (Exception e) {e.printStackTrace();}
-
-        updateGameStatus(newGame.getGameId(), WebSocketType.GAME_INIT, newGame.getGameStatus());
         return newGame;
     }
 
@@ -74,7 +72,7 @@ public class GameService {
         newPlayer.setPlayerName(userAsPlayer.getUsername());
         newPlayer.setGame(game);
         game.addPlayer(newPlayer);
-        updateGameStatus(gameId, WebSocketType.PLAYER_ADD, game.getGameStatus());
+//        updateGameStatus(gameId, WebSocketType.PLAYER_ADD, game.getGameStatus());
     }
 
     public List<Long> getAllPlayers(Long gameId) {
@@ -93,7 +91,12 @@ public class GameService {
             throw new ResponseStatusException(HttpStatus.CONFLICT,
                 String.format("Game with ID %d has ended!\n", gameId));
         }
-        System.out.printf("======= Game Service - Round %d reached =======\n", game.getCurrentRound());
+        // tell guests that game has started
+        if(game.getGameStatus()==GameStatus.SETUP) {
+            game.setGameStatus(GameStatus.WAITING);
+//            updateGameStatus(gameId, WebSocketType.GAME_START, game.getGameStatus());
+        }
+        System.out.printf("======= Game Service - Round %d reached =======\n", game.getCurrentRound()+1);
 
         String option1="Geneva", option2="Basel", option3="Lausanne", option4="Bern";
         String defaultPicUrl="https://images.unsplash.com/photo-1591128481965-d59b938e7db1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=Mnw0NDQwMTF8MHwxfHNlYXJjaHwxfHxLbyVDNSVBMWljZSUyNTIwYnVpbGRpbmd8ZW58MHwwfHx8MTY4MzE0NjU1NA&ixlib=rb-4.0.3&q=80&w=1080";
@@ -104,6 +107,11 @@ public class GameService {
         List<String> cityNames = null;
         // get 30 cities from 20 countries
         List<String> selectedCities = getRandomCities(game.getCountryList());
+        // remove cities have shown
+        Iterator<String> shownCityList = game.getLabelList();
+        while (shownCityList.hasNext()) {
+            selectedCities.remove(shownCityList.next());
+        }
 
         try{
             int try_count = 0, max_try = 8;
@@ -137,7 +145,7 @@ public class GameService {
         }
         game.addCurrentRound();
         game.setGameStatus(GameStatus.ANSWERING);
-        updateGameStatus(gameId, WebSocketType.ROUND_UPDATE, game.getGameStatus());
+//        updateGameStatus(gameId, WebSocketType.ROUND_UPDATE, game.getGameStatus());
         System.out.println("Game Service - Question generated.");
         return question;
     }
@@ -188,12 +196,12 @@ public class GameService {
         }
         if(allAnswered){
             game.setGameStatus(GameStatus.WAITING);
+//            updateGameStatus(gameId, WebSocketType.ANSWER_UPDATE, game.getGameStatus());
             playerList = game.getPlayerList();
             while(playerList.hasNext()) {
                 playerList.next().setHasAnswered(false);
             }
         }
-        updateGameStatus(gameId, WebSocketType.ANSWER_UPDATE, game.getGameStatus());
         return allAnswered;
     }
 
@@ -213,15 +221,17 @@ public class GameService {
 
     public void closeGame(Long gameId) {
         Game game = searchGameById(gameId);
-        game.setGameStatus(GameStatus.ENDED);
-        updateGameStatus(gameId, WebSocketType.GAME_END, game.getGameStatus());
+        if(game.getGameStatus() != GameStatus.ENDED) {
+            game.setGameStatus(GameStatus.ENDED);
+//            updateGameStatus(gameId, WebSocketType.GAME_END, game.getGameStatus());
+        }
         gameRepository.delete(game);
     }
 
     public void leaveGame(Long gameId, Long playerId) {
         Game game = searchGameById(gameId);
         game.deletePlayer(playerId);
-		updateGameStatus(gameId, WebSocketType.PLAYRE_REMOVE, game.getGameStatus());
+//		updateGameStatus(gameId, WebSocketType.PLAYER_REMOVE, game.getGameStatus());
     }
 
 
@@ -251,6 +261,10 @@ public class GameService {
         if(!game.isGameEnded()) {
             throw new ResponseStatusException(HttpStatus.CONFLICT,
                 String.format("Game with ID %d has not finished yet!\n", gameId));
+        }
+        if(game.getGameStatus() != GameStatus.ENDED) {
+            game.setGameStatus(GameStatus.ENDED);
+//            updateGameStatus(gameId, WebSocketType.GAME_END, game.getGameStatus());
         }
         Player player = searchPlayerById(game, userId);
         userGameHistory.setGameId(gameId);

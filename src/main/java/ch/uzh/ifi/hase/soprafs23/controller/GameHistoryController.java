@@ -50,8 +50,10 @@ public class GameHistoryController {
         GameInfo newGameInfo = gameService.getGameInfo(gameId);
         UserGameHistory newGameHistory = gameService.getUserGameHistory(gameId, userId);
         userStatisticsService.addUserGameHistory(userId, newGameHistory);
-        userStatisticsService.updateUserStatistics(
-            userId, newGameHistory.getGameScore(), newGameInfo.getCategory());
+        if(newGameInfo.getPlayerNum() > 1){
+            userStatisticsService.updateUserStatistics(
+                    userId, newGameHistory.getGameScore(), newGameInfo.getCategory());
+        }
         System.out.printf("GameHistory for Game %d saved by User %d.\n", gameId, userId);
         return DTOMapper.INSTANCE.convertEntityToGameHistoryGetDTO(newGameHistory);
     }

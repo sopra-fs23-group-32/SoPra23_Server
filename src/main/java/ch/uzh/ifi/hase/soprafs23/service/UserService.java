@@ -4,6 +4,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.util.List;
 import java.util.Date;
+import java.io.FileWriter;
+import java.io.IOException;
 
 import ch.uzh.ifi.hase.soprafs23.constant.UserStatus;
 import ch.uzh.ifi.hase.soprafs23.entity.User;
@@ -38,7 +40,7 @@ public class UserService {
 //        newUser.setToken(UUID.randomUUID().toString());
         checkIfUsernameExist(newUser.getUsername());
         checkPasswordCondition(newUser.getPassword());
-        newUser.setStatus(UserStatus.OFFLINE);
+        newUser.setStatus(UserStatus.ONLINE);
         newUser.setCreateDay(new Date());
         // saves the given entity but data is only persisted in the database once flush() is called
         newUser = userRepository.save(newUser);
@@ -113,7 +115,7 @@ public class UserService {
         return this.userRepository.findByUserId(userId);
     }
 
-    public User serachUserByUsername(String userName){
+    public User searchUserByUsername(String userName){
         return this.userRepository.findByUsername(userName);
     }
 
@@ -153,6 +155,28 @@ public class UserService {
         else if (!userByUsername.getPassword().equals(userLoggingIn.getPassword())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
                     String.format(baseErrorMessage, "password", "correct"));
+        }
+    }
+
+    public void saveRepoToDatabase() {
+        List<User> userList = userRepository.findAll();
+        String filePath = "../database/userRepository.csv";
+        try (FileWriter writer = new FileWriter(filePath, false)) {
+            writer.append("userId,username,password,status,createDay,birthDay");
+            writer.append(System.lineSeparator());
+            // write all records
+            for (User user : userList) {
+                writer.append(user.getUserId().toString()).append(",");
+                writer.append(user.getUsername()).append(",");
+                writer.append(user.getPassword()).append(",");
+                writer.append(user.getStatus().toString()).append(",");
+                writer.append(user.getCreateDay().toString()).append(",");
+                writer.append(user.getBirthDay().toString()).append(",");
+                writer.append(System.lineSeparator());
+            }
+            writer.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 

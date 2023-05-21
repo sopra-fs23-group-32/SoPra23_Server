@@ -66,7 +66,7 @@ public class UserController {
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
     public Long getUserWithId(@PathVariable String userName) {
-        User user = userService.serachUserByUsername(userName);
+        User user = userService.searchUserByUsername(userName);
         return user.getUserId();
     }
 
