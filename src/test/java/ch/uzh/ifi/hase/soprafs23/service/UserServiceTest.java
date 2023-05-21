@@ -247,7 +247,7 @@ public class UserServiceTest {
   @Test
   public void testSearchUserByUsername() {
       // when
-      User user = userService.serachUserByUsername("testUsername");
+      User user = userService.searchUserByUsername("testUsername");
 
       // then
       assertEquals(testUser.getUserId(), user.getUserId());
