@@ -147,6 +147,7 @@ public class GameController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void closeGame(@PathVariable Long gameId, @PathVariable Long playerId) {
         gameService.leaveGame(gameId, playerId);
+        System.out.printf("----> Player(ID %d) leave Game(ID %d).\n", playerId, gameId);
     }
 
     /**

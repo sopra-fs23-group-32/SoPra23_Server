@@ -223,6 +223,7 @@ public class GameService {
 
     public void leaveGame(Long gameId, Long playerId) {
         Game game = searchGameById(gameId);
+        // remove player from the player list
         game.deletePlayer(playerId);
 //		updateGameStatus(gameId, WebSocketType.PLAYER_REMOVE, game.getGameStatus());
     }
