@@ -55,9 +55,26 @@ public class GameService {
         // get countries
         try{
             List<String> countryList = getCountries(newGame.getCategory().toString());
+//            List<String> countryList =
             newGame.setCountryList(countryList);
         }
-        catch (Exception e) {e.printStackTrace();}
+        catch (Exception e) {
+            e.printStackTrace();
+            List<String> countryList = switch (newGame.getCategory()) {
+                case ASIA -> List.of(new String[]{
+                    "Japan", "India", "China", "Malaysia", "Thailand", "Iran", "Pakistan", "Philippines", "Turkey"});
+                case AFRICA -> List.of(new String[]{
+                    "Nigeria", "Ethiopia", "Egypt", "South Africa", "Tanzania", "Kenya", "Algeria"});
+                case EUROPE -> List.of("Ukraine", "United Kingdom", "France", "Switzerland", "Germany", "Italy", "Spain", "Portugal", "Russia",
+                    "Poland", "Netherlands", "Austria", "Hungary", "Sweden", "Belgium", "Greece");
+                case NORTH_AMERICA -> List.of(
+                    "United States", "Canada", "Mexico", "Cuba", "Honduras", "Guatemala", "Nicaragua");
+                case SOUTH_AMERICA -> List.of(
+                    "Colombia", "Brazil", "Argentina", "Peru", "Chile", "Paraguay", "Uruguay", "Ecuador", "Venezuela");
+                default -> List.of("Australia", "New Zealand", "Papua New Guinea");
+            };
+            newGame.setCountryList(countryList);
+        }
         return newGame;
     }
 
@@ -72,6 +89,7 @@ public class GameService {
         newPlayer.setPlayerName(userAsPlayer.getUsername());
         newPlayer.setGame(game);
         game.addPlayer(newPlayer);
+        System.out.println("--> Player added: " + newPlayer.getPlayerName());
 //        updateGameStatus(gameId, WebSocketType.PLAYER_ADD, game.getGameStatus());
     }
 
@@ -130,7 +148,7 @@ public class GameService {
                 cityNames.get(2),cityNames.get(3), correctOption, pictureUrl);
         }
         catch (Exception e){
-            System.out.printf("--------> Game %d - Unable to generate image.", gameId);
+            System.out.printf("--------> Game %d - Unable to generate image.\n", gameId);
             game.setQuestions(0, option1);
             game.setQuestions(1, option2);
             game.setQuestions(2, option3);
@@ -141,7 +159,7 @@ public class GameService {
         game.addCurrentRound();
         game.setGameStatus(GameStatus.ANSWERING);
 //        updateGameStatus(gameId, WebSocketType.ROUND_UPDATE, game.getGameStatus());
-        System.out.printf("---> Game %d - Question generated.", gameId);
+        System.out.printf("---> Game %d - Question generated.\n", gameId);
         return question;
     }
 
@@ -318,13 +336,12 @@ public class GameService {
 //    private static final int NUM_COUNTRY = 5;
     private static final int CITIES_PER_COUNTRY = 4;
     private static final int NUM_CITIES = 12;
-    private static final int MIN_POPULATION = 500000;
+    private static final int MIN_POPULATION = 1000000;
 
     public static List<String> getCountries(String continentCode) throws Exception {
         String continentCode1 = switch (continentCode) {
             case "NORTH_AMERICA" -> "region/NORTH%20AMERICA";
             case "SOUTH_AMERICA" -> "region/SOUTH%20AMERICA";
-            case "WORLD" -> "all";
             default -> "region/" + continentCode;
         };
         URL countriesUrl = new URL("https://restcountries.com/v3.1/" + continentCode1);

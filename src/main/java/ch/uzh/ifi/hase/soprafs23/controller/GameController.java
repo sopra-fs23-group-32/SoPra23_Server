@@ -169,7 +169,7 @@ public class GameController {
             "----> Game %d - Player(ID %d) submit: %s, score: %d\n",
             gameId, playerId, newAnswer.getAnswer(), score
         );
-        if(allAnswered) {System.out.printf("----> Game %d - All Answered!", gameId);}
+        if(allAnswered) {System.out.printf("----> Game %d - All Answered!\n", gameId);}
         return score;
     }
 

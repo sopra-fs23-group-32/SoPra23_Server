@@ -128,3 +128,12 @@ Dominic Vogel, https://github.com/sopra-fs23-group-32/SoPra23_Client/issues/86 \
 Dominic Vogel, https://github.com/sopra-fs23-group-32/SoPra23_Client/issues/84 (creating new lobby)
 Overall UI improvements, implementing spinners when waiting time occurs
 Not DT but: Cleaning up of our Github Board
+
+## Week 16.05.2023-22.05.2023
+Said H.A., https://github.com/sopra-fs23-group-32/SoPra23_Server/issues/137 \
+Said H.A., https://github.com/sopra-fs23-group-32/SoPra23_Server/issues/138 \
+Said H.A., https://github.com/sopra-fs23-group-32/SoPra23_Server/issues/133 \
+Said H.A., https://github.com/sopra-fs23-group-32/SoPra23_Client/issues/112 \
+
+Leyi Xu, https://github.com/sopra-fs23-group-32/SoPra23_Client/issues/68 \
+Leyi Xu, https://github.com/sopra-fs23-group-32/SoPra23_Server/issues/143 \
