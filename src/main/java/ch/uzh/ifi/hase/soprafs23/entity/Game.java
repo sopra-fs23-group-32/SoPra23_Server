@@ -110,7 +110,6 @@ public class Game implements Serializable {
     public Iterator<Player> getPlayerList() { return playerList.iterator();}
     public int getPlayerNum() {return playerNum;}
 
-
     public GameStatus getGameStatus(){return gameStatus;}
     public void setGameStatus(GameStatus gameStatus){this.gameStatus = gameStatus;}
 
