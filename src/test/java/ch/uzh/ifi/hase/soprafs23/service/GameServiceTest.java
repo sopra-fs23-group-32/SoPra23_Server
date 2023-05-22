@@ -339,7 +339,7 @@ public class GameServiceTest {
       Mockito.verify(gameRepository, Mockito.times(2)).findByGameId(Mockito.any());
       Mockito.verify(gameRepository, Mockito.times(1)).delete(Mockito.any());
 
-      assertEquals(GameStatus.ENDED, testGame.getGameStatus());
+      assertEquals(GameStatus.DELETED, testGame.getGameStatus());
   }
 
 

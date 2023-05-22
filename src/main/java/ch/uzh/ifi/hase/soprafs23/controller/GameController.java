@@ -100,7 +100,7 @@ public class GameController {
     @ResponseStatus(HttpStatus.OK)
     public QuestionGetDTO getQuestions(@PathVariable Long gameId) {
         Question question = gameService.getQuestions(gameId);
-        System.out.println("--> Someone fetching the question.");
+        System.out.println("--> Someone is fetching the question.");
         return DTOMapper.INSTANCE.convertEntityToQuestionGetDTO(question);
     }
 

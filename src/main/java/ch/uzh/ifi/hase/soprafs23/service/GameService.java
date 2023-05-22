@@ -91,7 +91,6 @@ public class GameService {
             throw new ResponseStatusException(HttpStatus.CONFLICT,
                 String.format("Game with ID %d has ended!\n", gameId));
         }
-
         System.out.printf("------> Game %d - Round %d reached.\n", gameId, game.getCurrentRound()+1);
 
         String option1="Geneva", option2="Basel", option3="Lausanne", option4="Bern";

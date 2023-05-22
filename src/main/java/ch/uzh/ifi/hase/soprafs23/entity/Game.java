@@ -28,6 +28,7 @@ public class Game implements Serializable {
     @Column(nullable = false)
     private int countdownTime;
 
+    GameStatus gameStatus;
     private int currentRound;
     private String currentAnswer;
     private int playerNum;
@@ -41,8 +42,6 @@ public class Game implements Serializable {
 
     @OneToMany(mappedBy = "game", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Player> playerList = new ArrayList<>();
-
-    GameStatus gameStatus;
 
     public void initGame() {
         currentRound = 0;
