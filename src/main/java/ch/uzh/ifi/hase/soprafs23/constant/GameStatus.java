@@ -4,5 +4,6 @@ public enum GameStatus {
     SETUP,
     ANSWERING,
     WAITING,
-    ENDED
+    ENDED,
+    DELETED
 }

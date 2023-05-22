@@ -101,7 +101,6 @@ public class Game implements Serializable {
     public void addPlayer(Player newPlayer) {
         playerList.add(newPlayer);
         playerNum = playerList.size();
-        System.out.println("Player added: " + newPlayer.getPlayerName());
     }
     public void deletePlayer(Long playerId) {
         playerList.removeIf(player -> Objects.equals(player.getUserId(), playerId));
