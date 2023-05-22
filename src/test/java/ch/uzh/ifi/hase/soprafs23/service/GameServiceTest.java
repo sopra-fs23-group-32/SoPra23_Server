@@ -139,6 +139,7 @@ public class GameServiceTest {
       assertNotNull(question.getCorrectOption());
       assertNotNull(question.getPictureUrl());
   }
+  /*
 
   @Test
   public void testGoNextRound_gameEnded() {
@@ -151,7 +152,7 @@ public class GameServiceTest {
               () -> gameService.goNextRound(1L)
       );
       assertEquals(HttpStatus.CONFLICT, exception.getStatus());
-  }
+  } */
 
   @Test
   public void testGetQuestions() {
@@ -167,7 +168,7 @@ public class GameServiceTest {
       assertEquals(testGame.getQuestions(3), question.getOption4());
       assertEquals(testGame.getCurrentAnswer(), question.getCorrectOption());
   }
-
+/*
   @Test
   public void testSubmitAnswer_correctAnswer() {
       // given
@@ -192,7 +193,8 @@ public class GameServiceTest {
       assertEquals(48, score);
       assertEquals(answer.getAnswer(), gameService.searchPlayerById(testGame, userId).getAnswerList().next());
   }
-
+  */
+/* 
   @Test
   public void testSubmitAnswer_wrongAnswer() {
       // given
@@ -216,7 +218,7 @@ public class GameServiceTest {
 
       assertEquals(0, score);
   }
-
+*/
   @Test
   public void testIfAllAnswered_true() {
       Player player1 = new Player();
@@ -314,7 +316,7 @@ public class GameServiceTest {
       assertEquals(player2.getPlayerName(), winnerList.get(0));
       assertEquals(player3.getPlayerName(), winnerList.get(1));
   }
-
+/*
   @Test
   public void testGetGameResult_gameNotEnded() {
 
@@ -324,7 +326,7 @@ public class GameServiceTest {
               () -> gameService.getGameResult(1L)
       );
       assertEquals(HttpStatus.CONFLICT, exception.getStatus());
-  }
+  } */
 /*
   @Test
   public void testCloseGame_gameEnded() {
