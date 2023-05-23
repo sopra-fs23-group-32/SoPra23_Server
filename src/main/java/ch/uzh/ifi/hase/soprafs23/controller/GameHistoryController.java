@@ -117,17 +117,15 @@ public class GameHistoryController {
      * @param gameId unique ID for game history of the user
      * @return GameHistory DTO w.r.t. userId & gameId
      */
-  @GetMapping("/users/{userId}/gameHistories/{gameId}/score")
+    @GetMapping("/users/{userId}/gameHistories/{gameId}/stats")
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
-    public int getGameHistoryScore(@PathVariable Long userId, @PathVariable Long gameId) {
+    public GameHistoryGetDTO getGameHistoryScore(@PathVariable Long userId, @PathVariable Long gameId) {
         // check if this gameId exist
         gameHistoryService.checkIfIdExist(gameId);
-        UserGameHistory userGameHistory =
-                userStatisticsService.searchUserGameHistoryById(userId, gameId);
-        return userGameHistory.getGameScore();
+        UserGameHistory gameHistory = userStatisticsService.searchUserGameHistoryById(userId, gameId);
+        return DTOMapper.INSTANCE.convertEntityToGameHistoryGetDTO(gameHistory);
     }
-
 
     /**
      * Get list of answers and labels from one game of a given user

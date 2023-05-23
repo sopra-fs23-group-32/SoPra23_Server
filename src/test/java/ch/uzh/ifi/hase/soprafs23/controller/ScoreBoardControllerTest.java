@@ -26,14 +26,13 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-//sfsf
+
 /**
  * ScoreBoardControllerTest
  * This is a WebMvcTest which allows to test the ScoreBoardController i.e. GET
  * request without actually sending them over the network.
  * This tests if the ScoreBoardController works.
  */
-/*
 @WebMvcTest(ScoreBoardController.class)
 public class ScoreBoardControllerTest {
 
@@ -74,4 +73,3 @@ public class ScoreBoardControllerTest {
     }
 
 }
- */

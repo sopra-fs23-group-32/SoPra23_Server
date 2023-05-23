@@ -73,7 +73,7 @@ public class GameControllerTest {
         mockMvc.perform(postRequest)
                 .andExpect(status().isCreated());
     }
-/*
+
     @Test
     public void testGetGameStatus() throws Exception {
         // given
@@ -93,7 +93,7 @@ public class GameControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", is(game.getGameStatus().toString())));
     }
-    */
+
 //    @Test
 //    public void testGoNextRound() throws Exception {
 //        // given
