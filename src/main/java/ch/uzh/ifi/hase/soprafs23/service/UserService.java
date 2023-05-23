@@ -114,7 +114,7 @@ public class UserService {
         return this.userRepository.findByUserId(userId);
     }
 
-    public User serachUserByUsername(String userName){
+    public User searchUserByUsername(String userName){
         return this.userRepository.findByUsername(userName);
     }
 
