@@ -1,5 +1,8 @@
 package ch.uzh.ifi.hase.soprafs23.controller;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
+
 import ch.uzh.ifi.hase.soprafs23.entity.User;
 import ch.uzh.ifi.hase.soprafs23.entity.UserStatistics;
 import ch.uzh.ifi.hase.soprafs23.rest.dto.UserGetDTO;
@@ -8,8 +11,6 @@ import ch.uzh.ifi.hase.soprafs23.rest.dto.UserPutDTO;
 import ch.uzh.ifi.hase.soprafs23.rest.mapper.DTOMapper;
 import ch.uzh.ifi.hase.soprafs23.service.UserService;
 import ch.uzh.ifi.hase.soprafs23.service.UserStatisticsService;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -66,7 +67,7 @@ public class UserController {
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
     public Long getUserWithId(@PathVariable String userName) {
-        User user = userService.searchUserByUsername(userName);
+        User user = userService.serachUserByUsername(userName);
         return user.getUserId();
     }
 

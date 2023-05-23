@@ -2,7 +2,6 @@ package ch.uzh.ifi.hase.soprafs23.entity;
 
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -11,9 +10,7 @@ import java.util.List;
  * @author Zilong Deng
  */
 @Entity
-@IdClass(UserGameHistoryId.class)
 public class UserGameHistory{
-
     @Id
     @GeneratedValue
     private Long gameHistoryId;
@@ -47,4 +44,3 @@ public class UserGameHistory{
         this.userStatistics = userStatistics;
     }
 }
-
