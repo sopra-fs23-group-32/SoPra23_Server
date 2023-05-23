@@ -1,5 +1,3 @@
-
-
 runtime: java
 env: flex
 
@@ -10,6 +8,5 @@ runtime_config:
   operating_system: "ubuntu22"
   runtime_version: "17"
 
-env_variables:
-  SPRING_PROFILES_ACTIVE: 'dev'
+
 
