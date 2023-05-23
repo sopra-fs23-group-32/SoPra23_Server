@@ -1,5 +1,6 @@
 package ch.uzh.ifi.hase.soprafs23.service;
 
+import ch.uzh.ifi.hase.soprafs23.constant.CityCategory;
 import ch.uzh.ifi.hase.soprafs23.constant.GameStatus;
 import ch.uzh.ifi.hase.soprafs23.constant.WebSocketType;
 
@@ -29,6 +30,8 @@ import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
 
+import static java.lang.Math.min;
+
 /**
  * Game Service - The "worker", responsible for all functionality related to the game
  * (creates, modifies, deletes, finds). The result will be passed back to the caller.
@@ -47,34 +50,11 @@ public class GameService {
         this.messagingTemplate = messagingTemplate;
     }
 
-    public Game createGame(Game newGame){
+    public Game createGame(Game newGame) {
         newGame.initGame();
         newGame = gameRepository.save(newGame);
         gameRepository.flush();
         log.debug("Created Information for Game: {}", newGame);
-        // get countries
-        try{
-            List<String> countryList = getCountries(newGame.getCategory().toString());
-//            List<String> countryList =
-            newGame.setCountryList(countryList);
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-            List<String> countryList = switch (newGame.getCategory()) {
-                case ASIA -> List.of(new String[]{
-                    "Japan", "India", "China", "Malaysia", "Thailand", "Iran", "Pakistan", "Philippines", "Turkey"});
-                case AFRICA -> List.of(new String[]{
-                    "Nigeria", "Ethiopia", "Egypt", "South Africa", "Tanzania", "Kenya", "Algeria"});
-                case EUROPE -> List.of("Ukraine", "United Kingdom", "France", "Switzerland", "Germany", "Italy", "Spain", "Portugal", "Russia",
-                    "Poland", "Netherlands", "Austria", "Hungary", "Sweden", "Belgium", "Greece");
-                case NORTH_AMERICA -> List.of(
-                    "United States", "Canada", "Mexico", "Cuba", "Honduras", "Guatemala", "Nicaragua");
-                case SOUTH_AMERICA -> List.of(
-                    "Colombia", "Brazil", "Argentina", "Peru", "Chile", "Paraguay", "Uruguay", "Ecuador", "Venezuela");
-                default -> List.of("Australia", "New Zealand", "Papua New Guinea");
-            };
-            newGame.setCountryList(countryList);
-        }
         return newGame;
     }
 
@@ -89,15 +69,15 @@ public class GameService {
         newPlayer.setPlayerName(userAsPlayer.getUsername());
         newPlayer.setGame(game);
         game.addPlayer(newPlayer);
+        updateGameStatus(gameId, WebSocketType.PLAYER_ADD, game.getGameStatus());
         System.out.println("--> Player added: " + newPlayer.getPlayerName());
-//        updateGameStatus(gameId, WebSocketType.PLAYER_ADD, game.getGameStatus());
     }
 
     public List<Long> getAllPlayers(Long gameId) {
         Game gameByGameId = gameRepository.findByGameId(gameId);
         List<Long> userIdList = new ArrayList<>();
         Iterator<Player> playerIterator = gameByGameId.getPlayerList();
-        while(playerIterator.hasNext()) {
+        while (playerIterator.hasNext()) {
             userIdList.add(playerIterator.next().getUserId());
         }
         return userIdList;
@@ -109,7 +89,7 @@ public class GameService {
             throw new ResponseStatusException(HttpStatus.CONFLICT,
                 String.format("Game with ID %d has ended!\n", gameId));
         }
-        System.out.printf("------> Game %d - Round %d reached.\n", gameId, game.getCurrentRound()+1);
+        System.out.printf("--------> Game %d - Round %d reached.\n", gameId, game.getCurrentRound()+1);
 
         String option1="Geneva", option2="Basel", option3="Lausanne", option4="Bern";
         String defaultPicUrl="https://images.unsplash.com/photo-1591128481965-d59b938e7db1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=Mnw0NDQwMTF8MHwxfHNlYXJjaHwxfHxLbyVDNSVBMWljZSUyNTIwYnVpbGRpbmd8ZW58MHwwfHx8MTY4MzE0NjU1NA&ixlib=rb-4.0.3&q=80&w=1080";
@@ -118,8 +98,8 @@ public class GameService {
         String pictureUrl = "";
         String correctOption = null;
         List<String> cityNames = null;
-        // get 30 cities from 20 countries
-        List<String> selectedCities = getRandomCities(game.getCountryList());
+        // get 30 cities
+        List<String> selectedCities = getRandomCities(game.getCategory());
         // remove cities have shown
         Iterator<String> shownCityList = game.getLabelList();
         while (shownCityList.hasNext()) {
@@ -127,7 +107,7 @@ public class GameService {
         }
 
         try{
-            int try_count = 0, max_try = 8;
+            int try_count = 0, max_try = 5;
             while(pictureUrl.equals("") && try_count < max_try) {
                 try_count ++;
                 // shuffle and pick 4cities
@@ -158,7 +138,7 @@ public class GameService {
         }
         game.addCurrentRound();
         game.setGameStatus(GameStatus.ANSWERING);
-//        updateGameStatus(gameId, WebSocketType.ROUND_UPDATE, game.getGameStatus());
+        updateGameStatus(gameId, WebSocketType.ROUND_UPDATE, game.getGameStatus());
         System.out.printf("---> Game %d - Question generated.\n", gameId);
         return question;
     }
@@ -174,6 +154,10 @@ public class GameService {
         correctA = game.getCurrentAnswer();
         return new Question(option1, option2, option3, option4, correctA, pictureUrl);
     }
+
+//    public void updateCurrentImage(Game game, String ImgUrl) {
+//
+//    }
 
     /**
      * Add the answer to the player's list and update the points
@@ -201,17 +185,17 @@ public class GameService {
         boolean allAnswered = true;
         Game game = searchGameById(gameId);
         Iterator<Player> playerList = game.getPlayerList();
-        while(playerList.hasNext()){
-            if(!playerList.next().getHasAnswered()){
+        while (playerList.hasNext()){
+            if (!playerList.next().getHasAnswered()){
                 allAnswered = false;
                 break;
             }
         }
-        if(allAnswered){
+        if (allAnswered){
             game.setGameStatus(GameStatus.WAITING);
-//            updateGameStatus(gameId, WebSocketType.ANSWER_UPDATE, game.getGameStatus());
+            updateGameStatus(gameId, WebSocketType.ALL_ANSWER, game.getGameStatus());
             playerList = game.getPlayerList();
-            while(playerList.hasNext()) {
+            while (playerList.hasNext()) {
                 playerList.next().setHasAnswered(false);
             }
         }
@@ -235,7 +219,7 @@ public class GameService {
     public void closeGame(Long gameId) {
         Game game = searchGameById(gameId);
         game.setGameStatus(GameStatus.DELETED);
-//        updateGameStatus(gameId, WebSocketType.GAME_END, game.getGameStatus());
+        updateGameStatus(gameId, WebSocketType.GAME_DELETED, game.getGameStatus());
         gameRepository.delete(game);
     }
 
@@ -243,7 +227,7 @@ public class GameService {
         Game game = searchGameById(gameId);
         // remove player from the player list
         game.deletePlayer(playerId);
-//		updateGameStatus(gameId, WebSocketType.PLAYER_REMOVE, game.getGameStatus());
+		updateGameStatus(gameId, WebSocketType.PLAYER_REMOVE, game.getGameStatus());
     }
 
 
@@ -274,10 +258,10 @@ public class GameService {
             throw new ResponseStatusException(HttpStatus.CONFLICT,
                 String.format("Game with ID %d has not finished yet!\n", gameId));
         }
-        // will first invoke by the host, to make sure the GameInfo has existed
-        if(game.getGameStatus() != GameStatus.ENDED) {
+        // First invoked by the host, to make sure the GameInfo has existed
+        if(game.getGameStatus() != GameStatus.ENDED && game.getGameStatus() != GameStatus.DELETED) {
             game.setGameStatus(GameStatus.ENDED);
-//            updateGameStatus(gameId, WebSocketType.GAME_END, game.getGameStatus());
+            updateGameStatus(gameId, WebSocketType.GAME_END, game.getGameStatus());
         }
         Player player = searchPlayerById(game, userId);
         userGameHistory.setGameId(gameId);
@@ -292,11 +276,12 @@ public class GameService {
 
     // ======================= functions for web socket =======================
     public void updateGameStatus(Long gameId, WebSocketType webSocketType, Object webSocketParameter){
-        try{
-            WebSocket webSocket =new WebSocket(webSocketType, webSocketParameter);
+        try {
+            WebSocket webSocket = new WebSocket(webSocketType, webSocketParameter);
+            System.out.println(webSocketType.toString());
             System.out.printf("Sending new state of gameID %d to players - %s\n", gameId, webSocketParameter.toString());
             messagingTemplate.convertAndSend("/instance/games/" + gameId, webSocket);
-        }catch (Exception e){
+        } catch (Exception e){
             System.out.printf("Error on updating state of gameID %d to all players\n", gameId);
         }
     }
@@ -333,51 +318,88 @@ public class GameService {
         return 20 + (remainingTime * 4);
     }
 
-//    private static final int NUM_COUNTRY = 5;
+    private static final int NUM_COUNTRY = 6;
     private static final int CITIES_PER_COUNTRY = 4;
     private static final int NUM_CITIES = 12;
     private static final int MIN_POPULATION = 1000000;
 
-    public static List<String> getCountries(String continentCode) throws Exception {
-        String continentCode1 = switch (continentCode) {
-            case "NORTH_AMERICA" -> "region/NORTH%20AMERICA";
-            case "SOUTH_AMERICA" -> "region/SOUTH%20AMERICA";
-            default -> "region/" + continentCode;
-        };
-        URL countriesUrl = new URL("https://restcountries.com/v3.1/" + continentCode1);
-        HttpURLConnection connection = (HttpURLConnection) countriesUrl.openConnection();
-        connection.setRequestMethod("GET");
-        int responseCode = connection.getResponseCode();
-        if (responseCode != 200) {
-            throw new Exception("Failed to fetch countries: " + responseCode);
-        }
-
-        BufferedReader reader =new BufferedReader(
-            new InputStreamReader(connection.getInputStream(), StandardCharsets.UTF_8)
-        );
-        StringBuilder response = new StringBuilder();
-        String line;
-        while ((line = reader.readLine()) != null) {response.append(line);}
-        reader.close();
-        connection.disconnect();
-
-        JSONArray countryList = new JSONArray(response.toString());
-        List<String> countryNames = new ArrayList<>();
-        for (int i = 0; i < countryList.length(); i++) {
-            JSONObject country = countryList.getJSONObject(i);
-            if (country.get("name") instanceof JSONObject) {
-                countryNames.add(country.getJSONObject("name").getString("common"));
-            }
-            else if (country.get("name") instanceof String) {
-                countryNames.add(country.getString("name"));
-            }
-        }
-        for(String country : countryNames){System.out.print(country + ", ");}
-        System.out.println("\n--> Successfully get countries list.");
-//        if(countryNames.size() < NUM_COUNTRY) {return countryNames;}
-//        return countryNames.subList(0, NUM_COUNTRY);
-        return countryNames;
+    public static final Map<CityCategory, List<String>> COUNTRIES_BY_CONTINENT = new HashMap<>();
+    // all countries' name divided by category
+    static {
+        COUNTRIES_BY_CONTINENT.put(CityCategory.OCEANIA, Arrays.asList("Australia", "Fiji", "Kiribati", "Marshall Islands", "Micronesia",
+            "Nauru", "New Zealand", "Palau", "Papua New Guinea", "Samoa", "Solomon Islands", "Tonga", "Tuvalu", "Vanuatu"));
+        COUNTRIES_BY_CONTINENT.put(CityCategory.NORTH_AMERICA, Arrays.asList("United States", "Canada", "Mexico", "Guatemala", "Haiti",
+            "Dominican Republic", "Cuba", "Honduras", " Nicaragua", "El Salvador", "Costa Rica", "Panama", "Jamaica",
+            "Trinidad and Tobago", "Bahamas", "Belize", "Barbados", "Saint Lucia", "Grenada", "Saint Vincent and the Grenadines",
+            "Antigua and Barbuda", "Dominica", "Greenland", "Saint Kitts and Nevis"));
+        COUNTRIES_BY_CONTINENT.put(CityCategory.SOUTH_AMERICA, Arrays.asList("Argentina", "Bolivia", "Brazil", "Chile", "Colombia", "Ecuador",
+            "Guyana", "Paraguay", "Peru", "Suriname", "Uruguay", "Venezuela"));
+        COUNTRIES_BY_CONTINENT.put(CityCategory.AFRICA, Arrays.asList("Algeria", "Angola", "Benin", "Botswana", "Burkina Faso", "Burundi",
+            "Cape Verde", "Cameroon", "Central African Republic", "Chad", "Comoros", "Congo (Brazzaville)", "Congo (Kinshasa)", "Djibouti",
+            "Egypt", "Equatorial Guinea", "Eritrea", "Eswatini", "Ethiopia", "Gabon", "Gambia", "Ghana", "Guinea", "Guinea-Bissau",
+            "Ivory Coast", "Kenya", "Lesotho", "Liberia", "Libya", "Madagascar", "Malawi", "Mali", "Mauritania", "Mauritius", "Morocco",
+            "Mozambique", "Namibia", "Niger", "Nigeria", "Rwanda", "Sao Tome and Principe", "Senegal", "Seychelles", "Sierra Leone",
+            "Somalia", "South Africa", "South Sudan", "Sudan", "Tanzania", "Togo", "Tunisia", "Uganda", "Zambia", "Zimbabwe"));
+        COUNTRIES_BY_CONTINENT.put(CityCategory.EUROPE, Arrays.asList("Albania", "Andorra", "Austria", "Belarus", "Belgium", "Bulgaria", "Croatia",
+            "Cyprus", "Czech Republic", "Denmark", "Estonia", "Finland", "France", "Germany", "Greece", "Hungary", "Iceland", "Ireland",
+            "Italy", "Latvia", "Liechtenstein", "Lithuania", "Luxembourg", "Malta", "Moldova", "Monaco", "Montenegro", "Netherlands",
+            "North Macedonia", "Norway", "Poland", "Portugal", "Romania", "Russia", "San Marino", "Serbia", "Slovakia", "Slovenia",
+            "Spain", "Sweden", "Switzerland", "Ukraine"));
+        COUNTRIES_BY_CONTINENT.put(CityCategory.ASIA, Arrays.asList("Afghanistan", "Armenia", "Azerbaijan", "Bahrain", "Bangladesh", "Bhutan",
+            "Brunei", "Cambodia", "China", "Cyprus", "Georgia", "India", "Indonesia", "Iran", "Iraq", "Israel", "Japan", "Jordan",
+            "Kazakhstan", "Kuwait", "Kyrgyzstan", "Laos", "Lebanon", "Malaysia", "Maldives", "Mongolia", "Myanmar", "Nepal", "North Korea",
+            "Oman", "Pakistan", "Philippines", "Qatar", "Russia", "Saudi Arabia", "Singapore", "South Korea", "Sri Lanka", "Syria",
+            "Tajikistan", "Thailand", "Timor-Leste", "Turkey", "Turkmenistan", "United Arab Emirates", "Uzbekistan", "Vietnam", "Yemen"));
+//        List<String> worldCountries = new ArrayList<>();
+//        worldCountries.addAll(COUNTRIES_BY_CONTINENT.get("AFRICA"));
+//        worldCountries.addAll(COUNTRIES_BY_CONTINENT.get("ASIA"));
+//        worldCountries.addAll(COUNTRIES_BY_CONTINENT.get("EUROPE"));
+//        worldCountries.addAll(COUNTRIES_BY_CONTINENT.get("NORTH_AMERICA"));
+//        worldCountries.addAll(COUNTRIES_BY_CONTINENT.get("OCEANIA"));
+//        worldCountries.addAll(COUNTRIES_BY_CONTINENT.get("SOUTH_AMERICA"));
+//        COUNTRIES_BY_CONTINENT.put("WORLD", worldCountries);
     }
+
+//    public static List<String> getCountries(String continentCode) throws Exception {
+//        String continentCode1 = switch (continentCode) {
+//            case "NORTH_AMERICA" -> "region/NORTH%20AMERICA";
+//            case "SOUTH_AMERICA" -> "region/SOUTH%20AMERICA";
+//            default -> "region/" + continentCode;
+//        };
+//        URL countriesUrl = new URL("https://restcountries.com/v3.1/" + continentCode1);
+//        HttpURLConnection connection = (HttpURLConnection) countriesUrl.openConnection();
+//        connection.setRequestMethod("GET");
+//        int responseCode = connection.getResponseCode();
+//        if (responseCode != 200) {
+//            throw new Exception("Failed to fetch countries: " + responseCode);
+//        }
+//
+//        BufferedReader reader =new BufferedReader(
+//            new InputStreamReader(connection.getInputStream(), StandardCharsets.UTF_8)
+//        );
+//        StringBuilder response = new StringBuilder();
+//        String line;
+//        while ((line = reader.readLine()) != null) {response.append(line);}
+//        reader.close();
+//        connection.disconnect();
+//
+//        JSONArray countryList = new JSONArray(response.toString());
+//        List<String> countryNames = new ArrayList<>();
+//        for (int i = 0; i < countryList.length(); i++) {
+//            JSONObject country = countryList.getJSONObject(i);
+//            if (country.get("name") instanceof JSONObject) {
+//                countryNames.add(country.getJSONObject("name").getString("common"));
+//            }
+//            else if (country.get("name") instanceof String) {
+//                countryNames.add(country.getString("name"));
+//            }
+//        }
+//        for(String country : countryNames){System.out.print(country + ", ");}
+//        System.out.println("\n--> Successfully get countries list.");
+////        if(countryNames.size() < NUM_COUNTRY) {return countryNames;}
+////        return countryNames.subList(0, NUM_COUNTRY);
+//        return countryNames;
+//    }
 
     public static List<String> getCities(String country) throws Exception {
         String url = "https://public.opendatasoft.com/api/records/1.0/search/"
@@ -409,9 +431,12 @@ public class GameService {
         return cities;
     }
 
-    public static List<String> getRandomCities(List<String> countryList){
-        List<String> selectedCities = new ArrayList<>();
+    public static List<String> getRandomCities(CityCategory category){
+        List<String> countryList = COUNTRIES_BY_CONTINENT.get(category);
+        countryList = countryList.subList(0, min(countryList.size(), NUM_COUNTRY));
         Collections.shuffle(countryList);
+
+        List<String> selectedCities = new ArrayList<>();
         for (String country : countryList) {
             try {
                 List<String> cities = getCities(country);
@@ -435,7 +460,6 @@ public class GameService {
     public static String getCityImage(String cityName) throws Exception {
         String endPoint = "https://api.unsplash.com/search/photos";
         String accessKey = "n_44tTFqKgUUalZYtv2UTmP-3rNunH-zak0X7yBgS8o";
-//        String keyword = "%20city%20landmark";
         String searchParams = "?query="+ URLEncoder.encode(cityName, StandardCharsets.UTF_8.toString())
             + "&per_page=1&client_id=" + accessKey;
         URL url = new URL(endPoint + searchParams);
@@ -465,7 +489,35 @@ public class GameService {
         return "";
     }
 
-    public static String getCitySatelliteImage(String cityName){
+    public static String refreshImage(String cityName) throws Exception{
+        Random random = new Random();
+        int randomPage = (random.nextInt(10));
+        String endPoint = "https://api.unsplash.com/search/photos";
+        String accessKey = "n_44tTFqKgUUalZYtv2UTmP-3rNunH-zak0X7yBgS8o";
+        // &orientation=landscape
+        String searchParams = "?query="+ URLEncoder.encode(cityName, StandardCharsets.UTF_8.toString())
+                + "&page="+randomPage + "&per_page=10&client_id="+accessKey;
+        URL url = new URL(endPoint + searchParams);
+        //System.out.println(url);
+
+        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+        connection.setRequestMethod("GET");
+
+        BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+        String line;
+        StringBuilder response = new StringBuilder();
+        while ((line = reader.readLine()) != null) {response.append(line);}
+        reader.close();
+        connection.disconnect();
+
+        JSONObject json = new JSONObject(response.toString());
+        JSONArray results = json.getJSONArray("results");
+        if (results.length() > 0) {
+            int randomImage = (random.nextInt(10));
+            JSONObject urls = results.getJSONObject(randomImage).getJSONObject("urls");
+            return urls.getString("regular");
+        }
+        System.out.printf("---> No results for '%s'.", cityName);
         return "";
     }
 }

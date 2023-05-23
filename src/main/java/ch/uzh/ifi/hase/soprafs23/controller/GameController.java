@@ -1,5 +1,6 @@
 package ch.uzh.ifi.hase.soprafs23.controller;
 
+import ch.uzh.ifi.hase.soprafs23.constant.WebSocketType;
 import ch.uzh.ifi.hase.soprafs23.entity.*;
 import ch.uzh.ifi.hase.soprafs23.rest.dto.*;
 import ch.uzh.ifi.hase.soprafs23.rest.mapper.DTOMapper;
@@ -84,12 +85,29 @@ public class GameController {
     public QuestionGetDTO goNextRound(@PathVariable Long gameId) {
         Game game = gameService.searchGameById(gameId);
         // tell guests that game has started
-        if(game.getGameStatus() == GameStatus.SETUP) {
+        if(game.getGameStatus().equals(GameStatus.SETUP)) {
             game.setGameStatus(GameStatus.WAITING);
-//            updateGameStatus(gameId, WebSocketType.GAME_START, game.getGameStatus());
+            gameService.updateGameStatus(gameId, WebSocketType.GAME_START, game.getGameStatus());
         }
         Question question = gameService.goNextRound(gameId);
         return DTOMapper.INSTANCE.convertEntityToQuestionGetDTO(question);
+    }
+
+    /**
+     *  refresh image for current answer and synchronize to the database
+     */
+    @PutMapping("/games/{gameId}/refresh")
+    @ResponseStatus(HttpStatus.OK)
+    public String refreshImage(@PathVariable Long gameId) {
+        Game game = gameService.searchGameById(gameId);
+        String ImgUrl = game.getImgUrl();
+        try {
+            ImgUrl = GameService.refreshImage(game.getCurrentAnswer());
+//            gameService.updateCurrentImage(game, ImgUrl);
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+        return ImgUrl;
     }
 
     /**
