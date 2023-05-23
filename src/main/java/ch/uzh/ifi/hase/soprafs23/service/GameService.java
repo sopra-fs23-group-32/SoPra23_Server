@@ -54,7 +54,7 @@ public class GameService {
         newGame.initGame();
         newGame = gameRepository.save(newGame);
         gameRepository.flush();
-        log.debug("Created Information for Game: {}", newGame);
+        System.out.printf("--> Created Game %d.", newGame.getGameId());
         return newGame;
     }
 
@@ -278,8 +278,8 @@ public class GameService {
     public void updateGameStatus(Long gameId, WebSocketType webSocketType, Object webSocketParameter){
         try {
             WebSocket webSocket = new WebSocket(webSocketType, webSocketParameter);
-            System.out.println(webSocketType.toString());
-            System.out.printf("Sending new state of gameID %d to players - %s\n", gameId, webSocketParameter.toString());
+            System.out.printf("----> Game(ID %d) - %s, Socket - %s\n",
+                gameId, webSocketParameter.toString(), webSocketType.toString());
             messagingTemplate.convertAndSend("/instance/games/" + gameId, webSocket);
         } catch (Exception e){
             System.out.printf("Error on updating state of gameID %d to all players\n", gameId);
@@ -318,38 +318,33 @@ public class GameService {
         return 20 + (remainingTime * 4);
     }
 
-    private static final int NUM_COUNTRY = 6;
-    private static final int CITIES_PER_COUNTRY = 4;
-    private static final int NUM_CITIES = 12;
-    private static final int MIN_POPULATION = 1000000;
+    private static final int NUM_COUNTRY = 10;
+    private static final int CITIES_PER_COUNTRY = 6;
+    private static final int NUM_CITIES = 10;
+    private static final int MIN_POPULATION = 700000;
 
     public static final Map<CityCategory, List<String>> COUNTRIES_BY_CONTINENT = new HashMap<>();
     // all countries' name divided by category
     static {
-        COUNTRIES_BY_CONTINENT.put(CityCategory.OCEANIA, Arrays.asList("Australia", "Fiji", "Kiribati", "Marshall Islands", "Micronesia",
-            "Nauru", "New Zealand", "Palau", "Papua New Guinea", "Samoa", "Solomon Islands", "Tonga", "Tuvalu", "Vanuatu"));
+        COUNTRIES_BY_CONTINENT.put(CityCategory.OCEANIA, Arrays.asList("Australia", "Fiji", "Nauru", "New Zealand", "Palau", "Papua New Guinea", "Tonga"));
         COUNTRIES_BY_CONTINENT.put(CityCategory.NORTH_AMERICA, Arrays.asList("United States", "Canada", "Mexico", "Guatemala", "Haiti",
-            "Dominican Republic", "Cuba", "Honduras", " Nicaragua", "El Salvador", "Costa Rica", "Panama", "Jamaica",
-            "Trinidad and Tobago", "Bahamas", "Belize", "Barbados", "Saint Lucia", "Grenada", "Saint Vincent and the Grenadines",
-            "Antigua and Barbuda", "Dominica", "Greenland", "Saint Kitts and Nevis"));
+            "Dominican Republic", "Cuba", "Honduras", "Nicaragua", "El Salvador", "Costa Rica", "Panama", "Jamaica",
+            "Trinidad and Tobago", "Barbados", "Dominica"));
         COUNTRIES_BY_CONTINENT.put(CityCategory.SOUTH_AMERICA, Arrays.asList("Argentina", "Bolivia", "Brazil", "Chile", "Colombia", "Ecuador",
             "Guyana", "Paraguay", "Peru", "Suriname", "Uruguay", "Venezuela"));
         COUNTRIES_BY_CONTINENT.put(CityCategory.AFRICA, Arrays.asList("Algeria", "Angola", "Benin", "Botswana", "Burkina Faso", "Burundi",
-            "Cape Verde", "Cameroon", "Central African Republic", "Chad", "Comoros", "Congo (Brazzaville)", "Congo (Kinshasa)", "Djibouti",
-            "Egypt", "Equatorial Guinea", "Eritrea", "Eswatini", "Ethiopia", "Gabon", "Gambia", "Ghana", "Guinea", "Guinea-Bissau",
-            "Ivory Coast", "Kenya", "Lesotho", "Liberia", "Libya", "Madagascar", "Malawi", "Mali", "Mauritania", "Mauritius", "Morocco",
-            "Mozambique", "Namibia", "Niger", "Nigeria", "Rwanda", "Sao Tome and Principe", "Senegal", "Seychelles", "Sierra Leone",
-            "Somalia", "South Africa", "South Sudan", "Sudan", "Tanzania", "Togo", "Tunisia", "Uganda", "Zambia", "Zimbabwe"));
-        COUNTRIES_BY_CONTINENT.put(CityCategory.EUROPE, Arrays.asList("Albania", "Andorra", "Austria", "Belarus", "Belgium", "Bulgaria", "Croatia",
-            "Cyprus", "Czech Republic", "Denmark", "Estonia", "Finland", "France", "Germany", "Greece", "Hungary", "Iceland", "Ireland",
-            "Italy", "Latvia", "Liechtenstein", "Lithuania", "Luxembourg", "Malta", "Moldova", "Monaco", "Montenegro", "Netherlands",
-            "North Macedonia", "Norway", "Poland", "Portugal", "Romania", "Russia", "San Marino", "Serbia", "Slovakia", "Slovenia",
-            "Spain", "Sweden", "Switzerland", "Ukraine"));
-        COUNTRIES_BY_CONTINENT.put(CityCategory.ASIA, Arrays.asList("Afghanistan", "Armenia", "Azerbaijan", "Bahrain", "Bangladesh", "Bhutan",
-            "Brunei", "Cambodia", "China", "Cyprus", "Georgia", "India", "Indonesia", "Iran", "Iraq", "Israel", "Japan", "Jordan",
-            "Kazakhstan", "Kuwait", "Kyrgyzstan", "Laos", "Lebanon", "Malaysia", "Maldives", "Mongolia", "Myanmar", "Nepal", "North Korea",
-            "Oman", "Pakistan", "Philippines", "Qatar", "Russia", "Saudi Arabia", "Singapore", "South Korea", "Sri Lanka", "Syria",
-            "Tajikistan", "Thailand", "Timor-Leste", "Turkey", "Turkmenistan", "United Arab Emirates", "Uzbekistan", "Vietnam", "Yemen"));
+            "Cape Verde", "Cameroon", "Central African Republic", "Chad", "Congo", "Egypt", "Equatorial Guinea", "Eritrea", "Somalia", "South Africa",
+            "Ethiopia", "Gabon", "Gambia", "Ghana", "Guinea", "Kenya", "Lesotho", "Liberia", "Libya", "Madagascar", "Malawi", "Tanzania", "Togo", "Tunisia", "Uganda",
+            "Mauritania", "Mauritius", "Morocco", "Mozambique", "Namibia", "Niger", "Nigeria", "Rwanda", "Senegal", "Sierra Leone", "Mali", "South Sudan",
+            "Sudan", "Zambia", "Zimbabwe"));
+        COUNTRIES_BY_CONTINENT.put(CityCategory.EUROPE, Arrays.asList("Albania", "Austria", "Belarus", "Belgium", "Bulgaria", "Croatia", "Ireland",
+            "Cyprus", "Czech Republic", "Denmark", "Estonia", "Finland", "France", "Germany", "Greece", "Hungary", "Iceland", "Netherlands",
+            "Italy", "Latvia", "Lithuania", "Luxembourg", "Moldova", "Montenegro", "North Macedonia", "Norway", "Poland", "Portugal", "Romania",
+            "Russia", "Serbia", "Slovakia", "Slovenia", "Spain", "Sweden", "Switzerland", "Ukraine"));
+        COUNTRIES_BY_CONTINENT.put(CityCategory.ASIA, Arrays.asList("Afghanistan", "Armenia", "Azerbaijan", "Bahrain", "Bangladesh",
+            "Cambodia", "China", "Cyprus", "Georgia", "India", "Indonesia", "Iran", "Iraq", "Israel", "Japan", "Jordan", "Kuwait",
+            "Laos", "Lebanon", "Malaysia", "Mongolia", "Nepal", "Oman", "Pakistan", "Philippines", "Qatar", "Turkey", "United Arab Emirates",
+            "Saudi Arabia", "Singapore", "South Korea", "Sri Lanka", "Syria", "Tajikistan", "Thailand", "Uzbekistan", "Vietnam", "Yemen"));
 //        List<String> worldCountries = new ArrayList<>();
 //        worldCountries.addAll(COUNTRIES_BY_CONTINENT.get("AFRICA"));
 //        worldCountries.addAll(COUNTRIES_BY_CONTINENT.get("ASIA"));
@@ -421,7 +416,7 @@ public class GameService {
         JSONObject responseJson = new JSONObject(response.toString());
         JSONArray records = responseJson.getJSONArray("records");
         List<String> cities = new ArrayList<>();
-        for (int i = 0; i < records.length() && cities.size() < CITIES_PER_COUNTRY; i++) {
+        for (int i = 0; i < records.length() && cities.size() <= CITIES_PER_COUNTRY; i++) {
             JSONObject record = records.getJSONObject(i).getJSONObject("fields");
             if (record.getString("cou_name_en").equals(country)) {
                 cities.add(record.getString("name"));
@@ -433,8 +428,9 @@ public class GameService {
 
     public static List<String> getRandomCities(CityCategory category){
         List<String> countryList = COUNTRIES_BY_CONTINENT.get(category);
-        countryList = countryList.subList(0, min(countryList.size(), NUM_COUNTRY));
         Collections.shuffle(countryList);
+        countryList = countryList.subList(0, min(countryList.size(), NUM_COUNTRY));
+
 
         List<String> selectedCities = new ArrayList<>();
         for (String country : countryList) {
@@ -449,12 +445,7 @@ public class GameService {
             }
             catch (Exception e) {e.printStackTrace();}
         }
-        if(selectedCities.size() >= NUM_CITIES) {
-            return selectedCities.subList(0, NUM_CITIES);
-        }
-        else {
-            return selectedCities;
-        }
+        return selectedCities;
     }
 
     public static String getCityImage(String cityName) throws Exception {
@@ -463,7 +454,6 @@ public class GameService {
         String searchParams = "?query="+ URLEncoder.encode(cityName, StandardCharsets.UTF_8.toString())
             + "&per_page=1&client_id=" + accessKey;
         URL url = new URL(endPoint + searchParams);
-//        System.out.println(url);
 
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setRequestMethod("GET");
@@ -513,7 +503,7 @@ public class GameService {
         JSONObject json = new JSONObject(response.toString());
         JSONArray results = json.getJSONArray("results");
         if (results.length() > 0) {
-            int randomImage = (random.nextInt(10));
+            int randomImage = (random.nextInt(results.length()));
             JSONObject urls = results.getJSONObject(randomImage).getJSONObject("urls");
             return urls.getString("regular");
         }
