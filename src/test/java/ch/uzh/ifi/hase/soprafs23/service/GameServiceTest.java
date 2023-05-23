@@ -138,8 +138,8 @@ public class GameServiceTest {
       assertNotNull(question.getOption4());
       assertNotNull(question.getCorrectOption());
       assertNotNull(question.getPictureUrl());
+      assertEquals(GameStatus.ANSWERING, testGame.getGameStatus());
   }
-  /*
 
   @Test
   public void testGoNextRound_gameEnded() {
@@ -151,8 +151,8 @@ public class GameServiceTest {
               ResponseStatusException.class,
               () -> gameService.goNextRound(1L)
       );
-      assertEquals(HttpStatus.CONFLICT, exception.getStatus());
-  } */
+      assertEquals(HttpStatus.BAD_REQUEST, exception.getStatus());
+  }
 
   @Test
   public void testGetQuestions() {
@@ -168,7 +168,7 @@ public class GameServiceTest {
       assertEquals(testGame.getQuestions(3), question.getOption4());
       assertEquals(testGame.getCurrentAnswer(), question.getCorrectOption());
   }
-/*
+
   @Test
   public void testSubmitAnswer_correctAnswer() {
       // given
@@ -188,13 +188,13 @@ public class GameServiceTest {
       int score = gameService.submitAnswer(gameId, userId, answer);
 
       // then
-      Mockito.verify(gameRepository, Mockito.times(2)).findByGameId(Mockito.any());
+      Mockito.verify(gameRepository, Mockito.times(4)).findByGameId(Mockito.any());
 
       assertEquals(48, score);
       assertEquals(answer.getAnswer(), gameService.searchPlayerById(testGame, userId).getAnswerList().next());
   }
-  */
-/* 
+
+
   @Test
   public void testSubmitAnswer_wrongAnswer() {
       // given
@@ -214,11 +214,11 @@ public class GameServiceTest {
       int score = gameService.submitAnswer(gameId, userId, answer);
 
       // then
-      Mockito.verify(gameRepository, Mockito.times(2)).findByGameId(Mockito.any());
+      Mockito.verify(gameRepository, Mockito.times(4)).findByGameId(Mockito.any());
 
       assertEquals(0, score);
   }
-*/
+
   @Test
   public void testIfAllAnswered_true() {
       Player player1 = new Player();
@@ -316,7 +316,7 @@ public class GameServiceTest {
       assertEquals(player2.getPlayerName(), winnerList.get(0));
       assertEquals(player3.getPlayerName(), winnerList.get(1));
   }
-/*
+
   @Test
   public void testGetGameResult_gameNotEnded() {
 
@@ -325,9 +325,9 @@ public class GameServiceTest {
               ResponseStatusException.class,
               () -> gameService.getGameResult(1L)
       );
-      assertEquals(HttpStatus.CONFLICT, exception.getStatus());
-  } */
-/*
+      assertEquals(HttpStatus.BAD_REQUEST, exception.getStatus());
+  }
+
   @Test
   public void testCloseGame_gameEnded() {
       // given
@@ -339,11 +339,9 @@ public class GameServiceTest {
 
       // then
       Mockito.verify(gameRepository, Mockito.times(2)).findByGameId(Mockito.any());
-      Mockito.verify(gameRepository, Mockito.times(1)).delete(Mockito.any());
-
-      assertEquals(GameStatus.DELETED, testGame.getGameStatus());
+      assertEquals(GameStatus.ENDED, testGame.getGameStatus());
   }   
-  */
+
 
 
   @Test
