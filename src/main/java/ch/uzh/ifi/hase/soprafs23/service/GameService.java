@@ -30,6 +30,8 @@ import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
 
+import static java.lang.Math.min;
+
 /**
  * Game Service - The "worker", responsible for all functionality related to the game
  * (creates, modifies, deletes, finds). The result will be passed back to the caller.
@@ -67,8 +69,8 @@ public class GameService {
         newPlayer.setPlayerName(userAsPlayer.getUsername());
         newPlayer.setGame(game);
         game.addPlayer(newPlayer);
-        System.out.println("--> Player added: " + newPlayer.getPlayerName());
         updateGameStatus(gameId, WebSocketType.PLAYER_ADD, game.getGameStatus());
+        System.out.println("--> Player added: " + newPlayer.getPlayerName());
     }
 
     public List<Long> getAllPlayers(Long gameId) {
@@ -276,6 +278,7 @@ public class GameService {
     public void updateGameStatus(Long gameId, WebSocketType webSocketType, Object webSocketParameter){
         try {
             WebSocket webSocket = new WebSocket(webSocketType, webSocketParameter);
+            System.out.println(webSocketType.toString());
             System.out.printf("Sending new state of gameID %d to players - %s\n", gameId, webSocketParameter.toString());
             messagingTemplate.convertAndSend("/instance/games/" + gameId, webSocket);
         } catch (Exception e){
@@ -315,8 +318,9 @@ public class GameService {
         return 20 + (remainingTime * 4);
     }
 
+    private static final int NUM_COUNTRY = 6;
     private static final int CITIES_PER_COUNTRY = 4;
-    private static final int NUM_CITIES = 15;
+    private static final int NUM_CITIES = 12;
     private static final int MIN_POPULATION = 1000000;
 
     public static final Map<CityCategory, List<String>> COUNTRIES_BY_CONTINENT = new HashMap<>();
@@ -429,6 +433,7 @@ public class GameService {
 
     public static List<String> getRandomCities(CityCategory category){
         List<String> countryList = COUNTRIES_BY_CONTINENT.get(category);
+        countryList = countryList.subList(0, min(countryList.size(), NUM_COUNTRY));
         Collections.shuffle(countryList);
 
         List<String> selectedCities = new ArrayList<>();

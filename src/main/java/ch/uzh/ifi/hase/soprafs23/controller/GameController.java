@@ -85,7 +85,7 @@ public class GameController {
     public QuestionGetDTO goNextRound(@PathVariable Long gameId) {
         Game game = gameService.searchGameById(gameId);
         // tell guests that game has started
-        if(game.getGameStatus() == GameStatus.SETUP) {
+        if(game.getGameStatus().equals(GameStatus.SETUP)) {
             game.setGameStatus(GameStatus.WAITING);
             gameService.updateGameStatus(gameId, WebSocketType.GAME_START, game.getGameStatus());
         }
