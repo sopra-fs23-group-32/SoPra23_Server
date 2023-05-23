@@ -13,12 +13,15 @@ import java.util.List;
 @Entity
 @IdClass(UserGameHistoryId.class)
 public class UserGameHistory{
+
     @Id
+    @GeneratedValue
+    private Long gameHistoryId;
+
     private Long userId;
-    @Id
+
     private Long gameId;
     private int gameScore;
-    private float correctRate;
 
     @ElementCollection
     private final List<String> answerList = new ArrayList<>();
@@ -26,7 +29,8 @@ public class UserGameHistory{
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "userStatistics_userId")
     private UserStatistics userStatistics;
-
+    public Long getGameHistoryId() {return gameHistoryId;}
+    public void setGameHistoryId(Long gameHistoryId) {this.gameHistoryId = gameHistoryId;}
     public Long getUserId() {return userId;}
     public void setUserId(long userId) {this.userId = userId;}
 
@@ -35,9 +39,6 @@ public class UserGameHistory{
 
     public int getGameScore() {return gameScore;}
     public void setGameScore(int gameScore) {this.gameScore = gameScore;}
-
-    public float getCorrectRate() {return correctRate;}
-    public void setCorrectRate(float rate) {this.correctRate = rate;}
 
     public Iterator<String> getAnswerList() {return answerList.iterator();}
     public void addAnswer(String answer) {answerList.add(answer);}

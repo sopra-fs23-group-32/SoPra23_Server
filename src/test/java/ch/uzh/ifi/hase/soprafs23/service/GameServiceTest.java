@@ -193,6 +193,8 @@ public class GameServiceTest {
       assertEquals(answer.getAnswer(), gameService.searchPlayerById(testGame, userId).getAnswerList().next());
   }
 
+
+
   @Test
   public void testSubmitAnswer_wrongAnswer() {
       // given

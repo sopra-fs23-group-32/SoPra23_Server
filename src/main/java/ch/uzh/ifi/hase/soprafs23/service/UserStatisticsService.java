@@ -129,7 +129,7 @@ public class UserStatisticsService {
                     writer.append(String.valueOf(userStatistics.getSpecificScore(category))).append(",");
                     writer.append(String.valueOf(userStatistics.getSpecificGameNum(category))).append(",");
                 }
-                writer.append(String.valueOf(userStatistics.getLenGameHistories())).append(",");
+                //writer.append(String.valueOf(userStatistics.getLenGameHistories())).append(",");
                 writer.append(System.lineSeparator());
                 // add all userGameHistories line by line
                 Iterator<UserGameHistory> gameHistoryList = userStatistics.getGameHistoryList();
@@ -137,7 +137,7 @@ public class UserStatisticsService {
                     UserGameHistory userGameHistory = gameHistoryList.next();
                     writer.append(userGameHistory.getGameId().toString()).append(",");
                     writer.append(String.valueOf(userGameHistory.getGameScore())).append(",");
-                    writer.append(String.valueOf(userGameHistory.getCorrectRate())).append(",");
+                    //writer.append(String.valueOf(userGameHistory.getCorrectRate())).append(",");
                     writer.append("[");
                     Iterator<String> answerList = userGameHistory.getAnswerList();
                     while(answerList.hasNext()){

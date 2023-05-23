@@ -1,9 +1,10 @@
 package ch.uzh.ifi.hase.soprafs23.rest.mapper;
 
-import ch.uzh.ifi.hase.soprafs23.entity.*;
-import ch.uzh.ifi.hase.soprafs23.rest.dto.*;
 import org.mapstruct.*;
 import org.mapstruct.factory.Mappers;
+
+import ch.uzh.ifi.hase.soprafs23.entity.*;
+import ch.uzh.ifi.hase.soprafs23.rest.dto.*;
 
 /**
  * DTOMapper
@@ -42,12 +43,10 @@ public interface DTOMapper {
     UserRankingGetDTO convertEntityToUserRankingGetDTO(UserRanking userRanking);
 
     @Mapping(source = "gameId", target = "gameId")
-    @Mapping(source = "category", target = "category")
+    @Mapping(source = "currentRound", target = "currentRound")
     @Mapping(source = "totalRounds", target = "totalRounds")
     @Mapping(source = "countdownTime", target = "countdownTime")
-    @Mapping(source = "currentRound", target = "currentRound")
     @Mapping(source = "currentAnswer", target = "currentAnswer")
-    @Mapping(source = "playerNum", target = "playerNum")
     GameGetDTO convertEntityToGameGetDTO(Game game);
 
     @Mapping(source = "category", target = "category")
@@ -81,7 +80,7 @@ public interface DTOMapper {
 
     @Mapping(source = "gameId", target = "gameId")
     @Mapping(source = "gameScore", target = "gameScore")
-    @Mapping(source = "correctRate", target = "correctRate")
+   
     GameHistoryGetDTO convertEntityToGameHistoryGetDTO(UserGameHistory userGameHistory);
 
     @Mapping(source = "answer", target = "answer")
