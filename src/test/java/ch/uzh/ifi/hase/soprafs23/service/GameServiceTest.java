@@ -168,7 +168,7 @@ public class GameServiceTest {
       assertEquals(testGame.getQuestions(3), question.getOption4());
       assertEquals(testGame.getCurrentAnswer(), question.getCorrectOption());
   }
-/*
+
   @Test
   public void testSubmitAnswer_correctAnswer() {
       // given
@@ -193,7 +193,7 @@ public class GameServiceTest {
       assertEquals(48, score);
       assertEquals(answer.getAnswer(), gameService.searchPlayerById(testGame, userId).getAnswerList().next());
   }
-  */
+
 /* 
   @Test
   public void testSubmitAnswer_wrongAnswer() {
