@@ -1,9 +1,8 @@
 package ch.uzh.ifi.hase.soprafs23.entity;
 
-import javax.persistence.*;
-
 import ch.uzh.ifi.hase.soprafs23.constant.UserStatus;
 
+import javax.persistence.*;
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.Date;
@@ -30,17 +29,11 @@ public class User implements Serializable {
 
     @Column(nullable = false, unique = true)
     private String username;
-
     @Column(nullable = false)
     private String password;
 
-    @Column(nullable = false)
     private UserStatus status;
-
-    @Column(nullable = false)
     private Date createDay;
-
-    @Column()
     private Date birthDay;
 
     public Long getUserId() {return userId;}

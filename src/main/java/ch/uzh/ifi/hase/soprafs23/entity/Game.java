@@ -1,17 +1,16 @@
 package ch.uzh.ifi.hase.soprafs23.entity;
 
-import javax.persistence.*;
-
 import ch.uzh.ifi.hase.soprafs23.constant.CityCategory;
 import ch.uzh.ifi.hase.soprafs23.constant.GameStatus;
 import ch.uzh.ifi.hase.soprafs23.constant.WebSocketType;
 
+import javax.persistence.*;
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.*;
 
 /**
- * @author Zilong Deng@
+ * @author Zilong Deng
  */
 @Entity
 @Table(name = "GAME")
@@ -29,34 +28,27 @@ public class Game implements Serializable {
     @Column(nullable = false)
     private int countdownTime;
 
-    @Column()
+    GameStatus gameStatus;
     private int currentRound;
-    @Column()
     private String currentAnswer;
-    @Column()
     private int playerNum;
-    @Column()
     private String Q1, Q2, Q3, Q4;
-    @Column()
     private String ImgUrl;
 
     @ElementCollection
     private List<String> labelList = new ArrayList<>();
+    @ElementCollection
+    private List<String> countryList = new ArrayList<>();
 
     @OneToMany(mappedBy = "game", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Player> playerList = new ArrayList<>();
 
-    GameStatus gameStatus;
-
     public void initGame() {
         currentRound = 0;
-
-        currentAnswer = null;
-
+        currentAnswer = "";
         Q1 = "";Q2 = "";Q3 = "";Q4 = "";
         ImgUrl = "";
         playerNum = 0;
-
         gameStatus = GameStatus.SETUP;
     }
 
@@ -74,13 +66,14 @@ public class Game implements Serializable {
 
     public int getCurrentRound() {return currentRound;}
     public void addCurrentRound() {currentRound ++;}
-    public boolean isGameEnded() { return gameStatus == GameStatus.ENDED; }
+    public boolean isGameEnded() {return currentRound >= totalRounds;}
 
     public String getCurrentAnswer() {return currentAnswer;}
     public void updateCurrentAnswer(String currentAnswer) {
         this.currentAnswer = currentAnswer;
         labelList.add(currentAnswer);
     }
+    public Iterator<String> getLabelList() {return labelList.iterator();}
 
     public void setQuestions(int i, String string) {
         switch (i) {
@@ -102,16 +95,12 @@ public class Game implements Serializable {
     public String getImgUrl() {return ImgUrl;}
     public void setImgUrl(String imgUrl) {ImgUrl = imgUrl;}
 
-    public Iterator<String> getLabelList() {return labelList.iterator();}
+    public List<String> getCountryList() {return countryList;}
+    public void setCountryList(List<String> countryList) {this.countryList = countryList;}
 
     public void addPlayer(Player newPlayer) {
         playerList.add(newPlayer);
-
         playerNum = playerList.size();
-
-
-        System.out.println("Player added: " + newPlayer.getPlayerName());
-
     }
     public void deletePlayer(Long playerId) {
         playerList.removeIf(player -> Objects.equals(player.getUserId(), playerId));
@@ -119,7 +108,6 @@ public class Game implements Serializable {
     }
     public Iterator<Player> getPlayerList() { return playerList.iterator();}
     public int getPlayerNum() {return playerNum;}
-
 
     public GameStatus getGameStatus(){return gameStatus;}
     public void setGameStatus(GameStatus gameStatus){this.gameStatus = gameStatus;}

@@ -1,19 +1,18 @@
 package ch.uzh.ifi.hase.soprafs23.controller;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.*;
-
+import ch.uzh.ifi.hase.soprafs23.entity.UserGameHistory;
 import ch.uzh.ifi.hase.soprafs23.entity.GameHistoryAnswer;
 import ch.uzh.ifi.hase.soprafs23.entity.GameInfo;
-import ch.uzh.ifi.hase.soprafs23.entity.UserGameHistory;
-import ch.uzh.ifi.hase.soprafs23.rest.dto.GameHistoryAnswerGetDTO;
 import ch.uzh.ifi.hase.soprafs23.rest.dto.GameHistoryGetDTO;
-import ch.uzh.ifi.hase.soprafs23.rest.dto.GameInfoGetDTO;
 import ch.uzh.ifi.hase.soprafs23.rest.mapper.DTOMapper;
+import ch.uzh.ifi.hase.soprafs23.rest.dto.GameInfoGetDTO;
+import ch.uzh.ifi.hase.soprafs23.rest.dto.GameHistoryAnswerGetDTO;
 import ch.uzh.ifi.hase.soprafs23.service.GameHistoryService;
 import ch.uzh.ifi.hase.soprafs23.service.GameService;
 import ch.uzh.ifi.hase.soprafs23.service.UserStatisticsService;
+import org.springframework.http.HttpStatus;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -118,15 +117,14 @@ public class GameHistoryController {
      * @param gameId unique ID for game history of the user
      * @return GameHistory DTO w.r.t. userId & gameId
      */
-    @GetMapping("/users/{userId}/gameHistories/{gameId}/score")
+    @GetMapping("/users/{userId}/gameHistories/{gameId}/stats")
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
-    public int getGameHistoryScore(@PathVariable Long userId, @PathVariable Long gameId) {
+    public GameHistoryGetDTO getGameHistoryScore(@PathVariable Long userId, @PathVariable Long gameId) {
         // check if this gameId exist
         gameHistoryService.checkIfIdExist(gameId);
-        UserGameHistory userGameHistory =
-                userStatisticsService.searchUserGameHistoryById(userId, gameId);
-        return userGameHistory.getGameScore();
+        UserGameHistory gameHistory = userStatisticsService.searchUserGameHistoryById(userId, gameId);
+        return DTOMapper.INSTANCE.convertEntityToGameHistoryGetDTO(gameHistory);
     }
 
     /**

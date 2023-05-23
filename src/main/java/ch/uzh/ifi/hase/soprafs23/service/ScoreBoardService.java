@@ -1,5 +1,12 @@
 package ch.uzh.ifi.hase.soprafs23.service;
 
+import ch.uzh.ifi.hase.soprafs23.constant.CityCategory;
+import ch.uzh.ifi.hase.soprafs23.constant.GameStatus;
+import ch.uzh.ifi.hase.soprafs23.constant.WebSocketType;
+import ch.uzh.ifi.hase.soprafs23.entity.*;
+import ch.uzh.ifi.hase.soprafs23.repository.GameRepository;
+import ch.uzh.ifi.hase.soprafs23.rest.dto.UserRankingGetDTO;
+import ch.uzh.ifi.hase.soprafs23.rest.mapper.DTOMapper;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.slf4j.Logger;
@@ -10,14 +17,6 @@ import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
-
-import ch.uzh.ifi.hase.soprafs23.constant.CityCategory;
-import ch.uzh.ifi.hase.soprafs23.constant.GameStatus;
-import ch.uzh.ifi.hase.soprafs23.constant.WebSocketType;
-import ch.uzh.ifi.hase.soprafs23.entity.*;
-import ch.uzh.ifi.hase.soprafs23.repository.GameRepository;
-import ch.uzh.ifi.hase.soprafs23.rest.dto.UserRankingGetDTO;
-import ch.uzh.ifi.hase.soprafs23.rest.mapper.DTOMapper;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -34,14 +33,10 @@ public class ScoreBoardService {
     private final UserService userService;
     private final UserStatisticsService userStatisticsService;
     private final Logger log = LoggerFactory.getLogger(ScoreBoardService.class);
-    private final SimpMessagingTemplate messagingTemplate;
-
 
     public ScoreBoardService(UserService userService, UserStatisticsService userStatisticsService, SimpMessagingTemplate messagingTemplate) {
         this.userService = userService;
         this.userStatisticsService = userStatisticsService;
-        this.messagingTemplate = messagingTemplate;
-
     }
 
     public List<UserRanking> getUserRanking(CityCategory category) {

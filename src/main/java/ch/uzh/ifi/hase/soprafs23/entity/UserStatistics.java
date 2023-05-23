@@ -1,9 +1,8 @@
 package ch.uzh.ifi.hase.soprafs23.entity;
 
-import javax.persistence.*;
-
 import ch.uzh.ifi.hase.soprafs23.constant.CityCategory;
 
+import javax.persistence.*;
 import java.util.*;
 
 /**
@@ -31,20 +30,14 @@ public class UserStatistics {
         totalGameNum = 0;
         // Initialize the HashMap
         specificScore = new HashMap<>() {{
-            put(CityCategory.EUROPE, (long)0);
-            put(CityCategory.ASIA, (long)0);
-            put(CityCategory.NORTH_AMERICA, (long)0);
-            put(CityCategory.SOUTH_AMERICA, (long)0);
-            put(CityCategory.AFRICA, (long)0);
-            put(CityCategory.OCEANIA, (long)0);
+            for(CityCategory category:CityCategory.values()){
+                put(category, (long)0);
+            }
         }};
         specificGameNum = new HashMap<>() {{
-            put(CityCategory.EUROPE, (long)0);
-            put(CityCategory.ASIA, (long)0);
-            put(CityCategory.NORTH_AMERICA, (long)0);
-            put(CityCategory.SOUTH_AMERICA, (long)0);
-            put(CityCategory.AFRICA, (long)0);
-            put(CityCategory.OCEANIA, (long)0);
+            for(CityCategory category:CityCategory.values()){
+                put(category, (long)0);
+            }
         }};
     }
 
@@ -75,4 +68,5 @@ public class UserStatistics {
     public Iterator<UserGameHistory> getGameHistoryList(){
         return gameHistories.iterator();
     }
+    public int getLenGameHistories() {return gameHistories.size();}
 }

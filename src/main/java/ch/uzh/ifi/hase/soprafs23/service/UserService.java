@@ -4,16 +4,17 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.util.List;
 import java.util.Date;
+import java.io.FileWriter;
+import java.io.IOException;
 
+import ch.uzh.ifi.hase.soprafs23.constant.UserStatus;
+import ch.uzh.ifi.hase.soprafs23.entity.User;
+import ch.uzh.ifi.hase.soprafs23.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
-
-import ch.uzh.ifi.hase.soprafs23.constant.UserStatus;
-import ch.uzh.ifi.hase.soprafs23.entity.User;
-import ch.uzh.ifi.hase.soprafs23.repository.UserRepository;
 
 /**
  * User Service - The "worker", responsible for all functionality related to the user
@@ -154,6 +155,28 @@ public class UserService {
         else if (!userByUsername.getPassword().equals(userLoggingIn.getPassword())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
                     String.format(baseErrorMessage, "password", "correct"));
+        }
+    }
+
+    public void saveRepoToDatabase() {
+        List<User> userList = userRepository.findAll();
+        String filePath = "../database/userRepository.csv";
+        try (FileWriter writer = new FileWriter(filePath, false)) {
+            writer.append("userId,username,password,status,createDay,birthDay");
+            writer.append(System.lineSeparator());
+            // write all records
+            for (User user : userList) {
+                writer.append(user.getUserId().toString()).append(",");
+                writer.append(user.getUsername()).append(",");
+                writer.append(user.getPassword()).append(",");
+                writer.append(user.getStatus().toString()).append(",");
+                writer.append(user.getCreateDay().toString()).append(",");
+                writer.append(user.getBirthDay().toString()).append(",");
+                writer.append(System.lineSeparator());
+            }
+            writer.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 

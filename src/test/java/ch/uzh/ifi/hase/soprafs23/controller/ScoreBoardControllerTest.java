@@ -33,7 +33,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * request without actually sending them over the network.
  * This tests if the ScoreBoardController works.
  */
-/*
 @WebMvcTest(ScoreBoardController.class)
 public class ScoreBoardControllerTest {
 
@@ -73,4 +72,4 @@ public class ScoreBoardControllerTest {
                 .andExpect(jsonPath("$[0].rank", is(Math.toIntExact(userRanking1.getRank()))));
     }
 
-} */
+}
