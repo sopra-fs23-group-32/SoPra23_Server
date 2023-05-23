@@ -349,6 +349,7 @@ public class GameService {
 
 
         URL citiesUrl = new URL(url);
+        System.out.println("get City names " + url);
         BufferedReader reader = new BufferedReader(new InputStreamReader(citiesUrl.openStream(), StandardCharsets.UTF_8));
         StringBuilder response = new StringBuilder();
         String line;
@@ -364,7 +365,8 @@ public class GameService {
         for (int i = 0; i < records.length() && cities.size() < NUM_CITIES; i++) {
             JSONObject record = records.getJSONObject(i);
             if (record.getJSONObject("fields").getString("cou_name_en").equals(country)) {
-                cities.add(record.getJSONObject("fields").getString("name"));
+                System.out.println("cityname " + record.getJSONObject("fields").getString("ascii_name"));
+                cities.add(record.getJSONObject("fields").getString("ascii_name"));
             }
         }
         Collections.shuffle(cities);
@@ -398,34 +400,31 @@ public class GameService {
 
         Collections.shuffle(countryNames);
 
-        if (countryNames.size() < NUM_CITIES) return countryNames;
-
-        Random random = new Random();
-        int randomIndex = random.nextInt(countryNames.size() - NUM_CITIES);
-        return countryNames.subList(randomIndex, randomIndex + NUM_CITIES);
+        return countryNames;
     }
 
 
     public static List<String> getRandomCities(String continentCode) throws Exception {
         List<String> allCities = new ArrayList<>();
         List<String> countries = getCountries_hardcoded(continentCode);
-        countries.remove("Bosnia and Herzegovina");
-
+        System.out.println("country count " + countries.size());
         for (String country : countries) {
-            try {
-                List<String> cities = getCities(country);
-                if (allCities.size() + cities.size() <= NUM_CITIES) {
-                    allCities.addAll(cities);
-                }
-                else {
-                    allCities.addAll(cities.subList(0, NUM_CITIES - allCities.size()));
-                }
+            System.out.println(country);
+            List<String> cities = getCities(country);
+            System.out.println(allCities.size() + " " + cities.size());
+            if (allCities.size() + cities.size() <= NUM_CITIES) {
+                System.out.println("first");
+                allCities.addAll(cities);
             }
-            catch (Exception e) {
-                e.printStackTrace();
+            else {
+                System.out.println("second");
+                allCities.addAll(cities.subList(0, NUM_CITIES - allCities.size()));
+            }
+            if(allCities.size() >= NUM_CITIES) {
+                Collections.shuffle(allCities);
+                return allCities.subList(0, NUM_CITIES);
             }
         }
-
         Collections.shuffle(allCities);
         return allCities.subList(0, NUM_CITIES);
     }
@@ -434,11 +433,11 @@ public class GameService {
     public static String getCityImage(String cityName) throws Exception {
 
         System.out.println("cityName " + cityName);
-
+        Random random = new Random();
+        int randomPage = (random.nextInt(10));
         String endPoint = "https://api.unsplash.com/search/photos";
         String accessKey = "9YFE_AZYXE1kg_-bYWyMRg3KaTyBEybGOgbjWaKIJqQ";
-        String searchParams = String.format("query=%s&per_page=1&client_id=%s", URLEncoder.encode(cityName + " city", StandardCharsets.UTF_8), accessKey);
-
+        String searchParams = String.format("query=%s&orientation=landscape&per_page=10&page=%s&client_id=%s", URLEncoder.encode(cityName + "+city+building", StandardCharsets.UTF_8), randomPage, accessKey);
         URL url = new URL(endPoint + "?" + searchParams);
         System.out.println("image" + url);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -461,7 +460,8 @@ public class GameService {
         JSONArray results = json.getJSONArray("results");
         System.out.println(results.length());
         if (results.length() > 0) {
-            JSONObject result = results.getJSONObject(0);
+            int randomImage = (random.nextInt(10));
+            JSONObject result = results.getJSONObject(randomImage);
             JSONObject urls = result.getJSONObject("urls");
             String fileTitle = urls.getString("regular");
             System.out.println(fileTitle);
@@ -471,14 +471,13 @@ public class GameService {
             return "";
         }
     }
-
 
     public static String getNewCityImage(String cityName) throws Exception {
         Random random = new Random();
         int randomPage = (random.nextInt(10));
         String endPoint = "https://api.unsplash.com/search/photos";
         String accessKey = "n_44tTFqKgUUalZYtv2UTmP-3rNunH-zak0X7yBgS8o";
-        String searchParams = String.format("query=%s&orientation=landscape&page=%s&per_page=2&client_id=%s", URLEncoder.encode(cityName + "+city", StandardCharsets.UTF_8), randomPage, accessKey);
+        String searchParams = String.format("query=%s&orientation=landscape&page=%s&per_page=10&client_id=%s", URLEncoder.encode(cityName + "+city", StandardCharsets.UTF_8), randomPage, accessKey);
 
         URL url = new URL(endPoint + "?" + searchParams);
         System.out.println("image" + url);
@@ -502,7 +501,8 @@ public class GameService {
         JSONArray results = json.getJSONArray("results");
         System.out.println(results.length());
         if (results.length() > 0) {
-            JSONObject result = results.getJSONObject(1);
+            int randomImage = (random.nextInt(10));
+            JSONObject result = results.getJSONObject(randomImage);
             JSONObject urls = result.getJSONObject("urls");
             String fileTitle = urls.getString("regular");
             System.out.println(fileTitle);
@@ -512,10 +512,4 @@ public class GameService {
             return "";
         }
     }
-
 }
-
-
-
-
-
