@@ -362,7 +362,7 @@ public class GameServiceTest {
       gameService.leaveGame(1L, userId);
 
       // then
-      Mockito.verify(gameRepository, Mockito.times(2)).findByGameId(Mockito.any());
+      Mockito.verify(gameRepository, Mockito.times(4)).findByGameId(Mockito.any());
 
       assertEquals(0, testGame.getPlayerNum());
   }
