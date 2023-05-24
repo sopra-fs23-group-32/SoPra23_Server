@@ -86,6 +86,9 @@ public class GameController {
         Game game = gameService.searchGameById(gameId);
         // tell guests that game has started
         if(game.getGameStatus().equals(GameStatus.SETUP)) {
+            if(game.getTotalRounds() > 1000) {
+                game.setPlayerNumForSur();
+            }
             game.setGameStatus(GameStatus.WAITING);
             gameService.updateGameStatus(gameId, WebSocketType.GAME_START, game.getGameStatus());
         }

@@ -59,6 +59,14 @@ public class GameService {
     }
 
     public List<Game> getAllGames() {
+        // check empty game and delete them
+        List<Game> gameList = gameRepository.findAll();
+        for(Game game:gameList) {
+            if(game.getPlayerNum()==0){
+                System.out.printf("Delete Game(ID %d)\n", game.getGameId());
+                gameRepository.delete(game);
+            }
+        }
         return gameRepository.findAll();
     }
 
@@ -243,7 +251,12 @@ public class GameService {
         gameInfo.setGameId(gameId);
         gameInfo.setCategory(game.getCategory());
         gameInfo.setGameRounds(game.getTotalRounds());
-        gameInfo.setPlayerNum(game.getPlayerNum());
+        if(game.getTotalRounds() > 1000) {
+            gameInfo.setPlayerNum(game.getPlayerNumForSur());
+        }
+        else {
+            gameInfo.setPlayerNum(game.getPlayerNum());
+        }
         Iterator<String> labelList = game.getLabelList();
         while (labelList.hasNext()) {
             gameInfo.addLabel(labelList.next());

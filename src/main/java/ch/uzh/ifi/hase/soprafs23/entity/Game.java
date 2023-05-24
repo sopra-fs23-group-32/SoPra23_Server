@@ -32,6 +32,7 @@ public class Game implements Serializable {
     private int currentRound;
     private String currentAnswer;
     private int playerNum;
+    private int playerNumForSur;
     private String Q1, Q2, Q3, Q4;
     private String ImgUrl;
 
@@ -49,6 +50,7 @@ public class Game implements Serializable {
         Q1 = "";Q2 = "";Q3 = "";Q4 = "";
         ImgUrl = "";
         playerNum = 0;
+        playerNumForSur = 0;
         gameStatus = GameStatus.SETUP;
     }
 
@@ -108,6 +110,9 @@ public class Game implements Serializable {
     }
     public Iterator<Player> getPlayerList() { return playerList.iterator();}
     public int getPlayerNum() {return playerNum;}
+
+    public void setPlayerNumForSur() {this.playerNumForSur = this.playerNum;}
+    public int getPlayerNumForSur() {return playerNumForSur;}
 
     public GameStatus getGameStatus(){return gameStatus;}
     public void setGameStatus(GameStatus gameStatus){this.gameStatus = gameStatus;}
