@@ -25,21 +25,24 @@ public class UserStatistics {
     @OneToMany(mappedBy = "userStatistics", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<UserGameHistory> gameHistories = new ArrayList<>();
 
+    //****CHANGE SAID 24.05.2023 ***************** */
     public void initUserStatistics() {
         totalScore = 0;
         totalGameNum = 0;
-        // Initialize the HashMap
-        specificScore = new HashMap<>() {{
-            for(CityCategory category:CityCategory.values()){
-                put(category, (long)0);
-            }
-        }};
-        specificGameNum = new HashMap<>() {{
-            for(CityCategory category:CityCategory.values()){
-                put(category, (long)0);
-            }
-        }};
+    
+        specificScore = new HashMap<>();
+        for (CityCategory category : CityCategory.values()) {
+            specificScore.put(category, (long) 0);
+        }
+    
+        specificGameNum = new HashMap<>();
+        for (CityCategory category : CityCategory.values()) {
+            specificGameNum.put(category, (long) 0);
+        }
     }
+    //****CHANGE SAID 24.05.2023 ***************** */
+
+    
 
     public Long getUserId() {return userId;}
     public void setUserId(Long userId) {this.userId = userId;}
