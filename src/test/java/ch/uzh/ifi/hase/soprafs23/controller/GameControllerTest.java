@@ -85,7 +85,7 @@ public class GameControllerTest {
 
         when(gameService.searchGameById(eq(gameId))).thenReturn(game);
 
-        MockHttpServletRequestBuilder getRequest = get("/gamestatus/{gameId}", gameId)
+        MockHttpServletRequestBuilder getRequest = get("/games/{gameId}/status", gameId)
                 .contentType(MediaType.APPLICATION_JSON);
 
         // Perform the GET request
@@ -101,7 +101,10 @@ public class GameControllerTest {
         // given
         Long gameId = 1L;
         Question question = new Question("Zurich", "Geneva", "Basel", "Bern","Basel", "pictureUrl");
+        Game game = new Game();
+        game.setGameStatus(GameStatus.SETUP);
 
+        when(gameService.searchGameById(eq(gameId))).thenReturn(game);
         when(gameService.goNextRound(eq(gameId))).thenReturn(question);
 
         MockHttpServletRequestBuilder putRequest = put("/games/{gameId}", gameId)
