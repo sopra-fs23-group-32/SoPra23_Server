@@ -106,7 +106,6 @@ public class UserStatisticsServiceTest {
       // given
       testUserStatistics.updateScore(20, CityCategory.AFRICA);
       testUserStatistics.updateScore(50, CityCategory.ASIA);
-      testUserStatistics.updateScore(90, CityCategory.OCEANIA);
 
       // when
       long totalScore = userStatisticsService.getUserTotalScore(1L);

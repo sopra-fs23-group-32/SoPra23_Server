@@ -65,22 +65,17 @@ public class ScoreBoardServiceTest {
       userStatistics1.setUserId(userId1);
       userStatistics1.updateScore(100, CityCategory.ASIA);
       userStatistics1.updateGameNum(CityCategory.ASIA);
-      userStatistics1.updateScore(70, CityCategory.OCEANIA);
-      userStatistics1.updateGameNum(CityCategory.OCEANIA);
+     
       UserStatistics userStatistics2 = new UserStatistics();
       userStatistics2.initUserStatistics();
       userStatistics2.setUserId(userId2);
       userStatistics2.updateScore(60, CityCategory.ASIA);
       userStatistics2.updateGameNum(CityCategory.ASIA);
-      userStatistics2.updateScore(30, CityCategory.OCEANIA);
-      userStatistics2.updateGameNum(CityCategory.OCEANIA);
       UserStatistics userStatistics3 = new UserStatistics();
       userStatistics3.initUserStatistics();
       userStatistics3.setUserId(userId3);
       userStatistics3.updateScore(120, CityCategory.ASIA);
       userStatistics3.updateGameNum(CityCategory.ASIA);
-      userStatistics3.updateScore(40, CityCategory.OCEANIA);
-      userStatistics3.updateGameNum(CityCategory.OCEANIA);
 
       // when -> any object is being found in the UserStatisticsRepository -> return the dummy
       Mockito.when(userRepository.findAll()).thenReturn(userList);

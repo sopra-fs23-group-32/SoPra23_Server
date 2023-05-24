@@ -30,7 +30,6 @@ enum CityCategory {
     NORTH_AMERICA
     SOUTH_AMERICA
     AFRICA
-    OCEANIA
     WORLD
 }
 
@@ -173,7 +172,6 @@ enum CityCategory {
     NORTH_AMERICA
     SOUTH_AMERICA
     AFRICA
-    OCEANIA
     WORLD
 }
 
