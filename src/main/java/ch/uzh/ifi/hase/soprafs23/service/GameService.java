@@ -341,7 +341,6 @@ public class GameService {
     public static final Map<CityCategory, List<String>> COUNTRIES_BY_CONTINENT = new HashMap<>();
     // all countries' name divided by category
     static {
-        COUNTRIES_BY_CONTINENT.put(CityCategory.OCEANIA, Arrays.asList("Australia", "Fiji", "Nauru", "New Zealand", "Palau", "Papua New Guinea", "Tonga"));
         COUNTRIES_BY_CONTINENT.put(CityCategory.NORTH_AMERICA, Arrays.asList("United States", "Canada", "Mexico", "Guatemala", "Haiti",
             "Dominican Republic", "Cuba", "Honduras", "Nicaragua", "El Salvador", "Costa Rica", "Panama", "Jamaica",
             "Trinidad and Tobago", "Barbados", "Dominica"));
@@ -365,7 +364,6 @@ public class GameService {
 //        worldCountries.addAll(COUNTRIES_BY_CONTINENT.get("ASIA"));
 //        worldCountries.addAll(COUNTRIES_BY_CONTINENT.get("EUROPE"));
 //        worldCountries.addAll(COUNTRIES_BY_CONTINENT.get("NORTH_AMERICA"));
-//        worldCountries.addAll(COUNTRIES_BY_CONTINENT.get("OCEANIA"));
 //        worldCountries.addAll(COUNTRIES_BY_CONTINENT.get("SOUTH_AMERICA"));
 //        COUNTRIES_BY_CONTINENT.put("WORLD", worldCountries);
     }
