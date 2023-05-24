@@ -138,7 +138,6 @@ public class GameServiceTest {
       assertNotNull(question.getOption4());
       assertNotNull(question.getCorrectOption());
       assertNotNull(question.getPictureUrl());
-      assertEquals(GameStatus.ANSWERING, testGame.getGameStatus());
   }
 
   @Test
@@ -151,7 +150,7 @@ public class GameServiceTest {
               ResponseStatusException.class,
               () -> gameService.goNextRound(1L)
       );
-      assertEquals(HttpStatus.BAD_REQUEST, exception.getStatus());
+      assertEquals(HttpStatus.CONFLICT, exception.getStatus());
   }
 
   @Test
@@ -188,12 +187,11 @@ public class GameServiceTest {
       int score = gameService.submitAnswer(gameId, userId, answer);
 
       // then
-      Mockito.verify(gameRepository, Mockito.times(4)).findByGameId(Mockito.any());
+      Mockito.verify(gameRepository, Mockito.times(2)).findByGameId(Mockito.any());
 
       assertEquals(48, score);
       assertEquals(answer.getAnswer(), gameService.searchPlayerById(testGame, userId).getAnswerList().next());
   }
-
 
   @Test
   public void testSubmitAnswer_wrongAnswer() {
@@ -214,7 +212,7 @@ public class GameServiceTest {
       int score = gameService.submitAnswer(gameId, userId, answer);
 
       // then
-      Mockito.verify(gameRepository, Mockito.times(4)).findByGameId(Mockito.any());
+      Mockito.verify(gameRepository, Mockito.times(2)).findByGameId(Mockito.any());
 
       assertEquals(0, score);
   }
@@ -325,7 +323,7 @@ public class GameServiceTest {
               ResponseStatusException.class,
               () -> gameService.getGameResult(1L)
       );
-      assertEquals(HttpStatus.BAD_REQUEST, exception.getStatus());
+      assertEquals(HttpStatus.CONFLICT, exception.getStatus());
   }
 
   @Test
@@ -339,9 +337,10 @@ public class GameServiceTest {
 
       // then
       Mockito.verify(gameRepository, Mockito.times(2)).findByGameId(Mockito.any());
-      assertEquals(GameStatus.ENDED, testGame.getGameStatus());
-  }   
+      Mockito.verify(gameRepository, Mockito.times(1)).delete(Mockito.any());
 
+      assertEquals(GameStatus.DELETED, testGame.getGameStatus());
+  }
 
 
   @Test

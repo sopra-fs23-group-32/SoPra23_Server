@@ -33,14 +33,10 @@ public class ScoreBoardService {
     private final UserService userService;
     private final UserStatisticsService userStatisticsService;
     private final Logger log = LoggerFactory.getLogger(ScoreBoardService.class);
-    private final SimpMessagingTemplate messagingTemplate;
-
 
     public ScoreBoardService(UserService userService, UserStatisticsService userStatisticsService, SimpMessagingTemplate messagingTemplate) {
         this.userService = userService;
         this.userStatisticsService = userStatisticsService;
-        this.messagingTemplate = messagingTemplate;
-
     }
 
     public List<UserRanking> getUserRanking(CityCategory category) {
