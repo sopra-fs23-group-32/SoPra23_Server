@@ -148,12 +148,13 @@ public class GameHistoryController {
         List<GameHistoryAnswerGetDTO> gameHistoryAnswerGetDTOList = new ArrayList<>();
         Iterator<String> answerIterator = userGameHistory.getAnswerList();
         Iterator<String> labelIterator = gameInfo.getLabelList();
-        while(answerIterator.hasNext()) {
+        while(labelIterator.hasNext()) {
+            String answer = "GameEnd";
+            if(answerIterator.hasNext()){answer = answerIterator.next();}
             gameHistoryAnswerGetDTOList.add(
-                    DTOMapper.INSTANCE.convertEntityToGameHistoryAnswerGetDTO(
-                            new GameHistoryAnswer(answerIterator.next(),
-                                    labelIterator.next())
-                    )
+                DTOMapper.INSTANCE.convertEntityToGameHistoryAnswerGetDTO(
+                    new GameHistoryAnswer(answer, labelIterator.next())
+                )
             );
         }
         return gameHistoryAnswerGetDTOList;

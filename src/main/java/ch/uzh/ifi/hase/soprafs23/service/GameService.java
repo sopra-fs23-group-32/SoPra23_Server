@@ -209,7 +209,7 @@ public class GameService {
 
     public List<String> getGameResult(Long gameId) {
         Game game = searchGameById(gameId);
-        if (!game.isGameEnded()) {
+        if (game.getTotalRounds() < 9000 && !game.isGameEnded()) {
             throw new ResponseStatusException(HttpStatus.CONFLICT,
                 String.format("Game with ID %d has not finished yet!\n", gameId));
         }
@@ -236,7 +236,7 @@ public class GameService {
     public GameInfo getGameInfo(Long gameId) {
         GameInfo gameInfo = new GameInfo();
         Game game = searchGameById(gameId);
-        if(!game.isGameEnded()) {
+        if(game.getTotalRounds() < 9000 && !game.isGameEnded()) {
             throw new ResponseStatusException(HttpStatus.CONFLICT,
                 String.format("Game with ID %d has not finished yet!\n", gameId));
         }
@@ -254,7 +254,7 @@ public class GameService {
     public UserGameHistory getUserGameHistory(Long gameId, Long userId) {
         UserGameHistory userGameHistory = new UserGameHistory();
         Game game = searchGameById(gameId);
-        if(!game.isGameEnded()) {
+        if(game.getTotalRounds() < 9000 && !game.isGameEnded()) {
             throw new ResponseStatusException(HttpStatus.CONFLICT,
                 String.format("Game with ID %d has not finished yet!\n", gameId));
         }
