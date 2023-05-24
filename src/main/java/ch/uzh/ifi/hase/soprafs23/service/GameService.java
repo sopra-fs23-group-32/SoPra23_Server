@@ -236,6 +236,7 @@ public class GameService {
         // remove player from the player list
         game.deletePlayer(playerId);
 		updateGameStatus(gameId, WebSocketType.PLAYER_REMOVE, game.getGameStatus());
+        checkIfAllAnswered(gameId);
     }
 
 
@@ -271,8 +272,9 @@ public class GameService {
             throw new ResponseStatusException(HttpStatus.CONFLICT,
                 String.format("Game with ID %d has not finished yet!\n", gameId));
         }
-        // First invoked by the host, to make sure the GameInfo has existed
-        if(game.getGameStatus() != GameStatus.ENDED && game.getGameStatus() != GameStatus.DELETED) {
+        // invoke by the last one in the Survival Mode
+        if(game.getTotalRounds()>1000 && game.getPlayerNum()==1
+            && game.getGameStatus() != GameStatus.DELETED) {
             game.setGameStatus(GameStatus.ENDED);
             updateGameStatus(gameId, WebSocketType.GAME_END, game.getGameStatus());
         }
