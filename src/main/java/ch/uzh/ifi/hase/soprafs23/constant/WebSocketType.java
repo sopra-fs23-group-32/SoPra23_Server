@@ -5,6 +5,7 @@ public enum WebSocketType {
     PLAYER_ADD,
 	PLAYER_REMOVE,
     ROUND_UPDATE,
-    ANSWER_UPDATE,
-    GAME_END
+    ALL_ANSWER,
+    GAME_END,
+    GAME_DELETED
 }

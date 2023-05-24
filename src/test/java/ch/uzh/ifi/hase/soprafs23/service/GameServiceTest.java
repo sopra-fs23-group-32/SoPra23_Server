@@ -151,7 +151,9 @@ public class GameServiceTest {
               ResponseStatusException.class,
               () -> gameService.goNextRound(1L)
       );
+
       assertEquals(HttpStatus.BAD_REQUEST, exception.getStatus());
+
   }
 
   @Test
@@ -325,7 +327,9 @@ public class GameServiceTest {
               ResponseStatusException.class,
               () -> gameService.getGameResult(1L)
       );
+
       assertEquals(HttpStatus.BAD_REQUEST, exception.getStatus());
+
   }
 
   @Test
@@ -339,8 +343,10 @@ public class GameServiceTest {
 
       // then
       Mockito.verify(gameRepository, Mockito.times(2)).findByGameId(Mockito.any());
+
       assertEquals(GameStatus.ENDED, testGame.getGameStatus());
   }   
+
 
 
 

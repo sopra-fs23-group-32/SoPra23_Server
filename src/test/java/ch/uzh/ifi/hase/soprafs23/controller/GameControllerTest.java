@@ -95,6 +95,7 @@ public class GameControllerTest {
     }
 
 
+
     @Test
     public void testGoNextRound() throws Exception {
         // given
@@ -116,6 +117,7 @@ public class GameControllerTest {
                 .andExpect(jsonPath("$.correctOption", is(question.getCorrectOption())))
                 .andExpect(jsonPath("$.pictureUrl", is(question.getPictureUrl())));
     }
+
 
     @Test
     public void testGetQuestions() throws Exception {
