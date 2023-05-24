@@ -146,10 +146,16 @@ public class GameService {
             game.setImgUrl(pictureUrl);
              //*********CHANGE SAID 24.05.2023 ********************************************** */
 
+            //*********CHANGE SAID 24.05.2023 ********************************************** */
+
             System.out.println(pictureUrl);
+            if (cityNames != null) {
             question= new Question(cityNames.get(0), cityNames.get(1),
                 cityNames.get(2),cityNames.get(3), correctOption, pictureUrl);
+            }
         }
+            //*********CHANGE SAID 24.05.2023 ********************************************** */
+
         catch (Exception e){
             System.out.printf("--------> Game %d - Unable to generate image.\n", gameId);
             game.setQuestions(0, option1);

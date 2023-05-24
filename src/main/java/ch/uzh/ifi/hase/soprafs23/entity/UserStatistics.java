@@ -24,7 +24,7 @@ public class UserStatistics {
 
     @OneToMany(mappedBy = "userStatistics", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<UserGameHistory> gameHistories = new ArrayList<>();
-
+    
     //****CHANGE SAID 24.05.2023 ***************** */
     public void initUserStatistics() {
         totalScore = 0;
@@ -41,6 +41,7 @@ public class UserStatistics {
         }
     }
     //****CHANGE SAID 24.05.2023 ***************** */
+
 
     
 
