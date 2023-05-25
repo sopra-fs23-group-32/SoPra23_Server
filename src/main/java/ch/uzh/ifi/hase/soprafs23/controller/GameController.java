@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.*;
 import ch.uzh.ifi.hase.soprafs23.constant.GameStatus;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
@@ -28,7 +30,7 @@ public class GameController {
     private final GameService gameService;
     private final Lock lock = new ReentrantLock();
     private final Condition executionCondition = lock.newCondition();
-    private boolean isExecuted = false;
+    private final Map<Long, Boolean> isExecuted = new HashMap<>();
 
     GameController(UserService userService, GameService gameService) {
         this.userService = userService;
@@ -52,14 +54,15 @@ public class GameController {
     @ResponseBody
     public List<GameGetDTO> getGames() {
         List<Game> allGames = gameService.getAllGames();
+        List<Long> allGameIds = new ArrayList<>();
         List<GameGetDTO> gameGetDTOList = new ArrayList<>();
         for (Game game: allGames) {
+            allGameIds.add(game.getGameId());
             if (game.getGameStatus() == GameStatus.SETUP) {
-                gameGetDTOList.add(
-                    DTOMapper.INSTANCE.convertEntityToGameGetDTO(game)
-                );
+                gameGetDTOList.add( DTOMapper.INSTANCE.convertEntityToGameGetDTO(game));
             }
         }
+        isExecuted.keySet().removeIf(id -> !allGameIds.contains(id));
         return gameGetDTOList;
     }
 
@@ -91,14 +94,15 @@ public class GameController {
     @ResponseStatus(HttpStatus.CREATED)
     public QuestionGetDTO goNextRound(@PathVariable Long gameId) {
         Game game = gameService.searchGameById(gameId);
+        if (!isExecuted.containsKey(gameId)) {isExecuted.put(gameId, false);}
 
         Question question = gameService.getQuestions(gameId);
-        if (!isExecuted) {
+        if (!isExecuted.get(gameId)) {
             lock.lock();
             try {
                 // double lock
-                if (!isExecuted) {
-                    isExecuted = true;
+                if (!isExecuted.get(gameId)) {
+                    isExecuted.put(gameId, true);
                     // tell all guests that game has started, for survival mode, record the initial playerNum
                     if(game.getGameStatus().equals(GameStatus.SETUP)) {
                         game.setGameStatus(GameStatus.WAITING);
@@ -112,6 +116,7 @@ public class GameController {
                         question = gameService.goNextRound(gameId);
                     }
                     executionCondition.signal();
+                    isExecuted.put(gameId, false);
                 }
             } finally {
                 lock.unlock();
@@ -119,7 +124,7 @@ public class GameController {
         } else {
             lock.lock();
             try {
-                while (!isExecuted) { executionCondition.await(); }
+                executionCondition.await();
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
             } finally {
@@ -127,7 +132,6 @@ public class GameController {
             }
         }
 
-        isExecuted = false;
         return DTOMapper.INSTANCE.convertEntityToQuestionGetDTO(question);
     }
 

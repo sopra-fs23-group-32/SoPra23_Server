@@ -361,11 +361,10 @@ public class GameService {
             "Trinidad and Tobago", "Barbados", "Dominica"));
         COUNTRIES_BY_CONTINENT.put(CityCategory.SOUTH_AMERICA, Arrays.asList("Argentina", "Bolivia", "Brazil", "Chile", "Colombia", "Ecuador",
             "Guyana", "Paraguay", "Peru", "Suriname", "Uruguay", "Venezuela"));
-        COUNTRIES_BY_CONTINENT.put(CityCategory.AFRICA, Arrays.asList("Algeria", "Angola", "Benin", "Botswana", "Burkina Faso", "Burundi",
-            "Cape Verde", "Cameroon", "Central African Republic", "Chad", "Congo", "Egypt", "Equatorial Guinea", "Eritrea", "Somalia", "South Africa",
-            "Ethiopia", "Gabon", "Gambia", "Ghana", "Guinea", "Kenya", "Lesotho", "Liberia", "Libya", "Madagascar", "Malawi", "Tanzania", "Togo", "Tunisia", "Uganda",
-            "Mauritania", "Mauritius", "Morocco", "Mozambique", "Namibia", "Niger", "Nigeria", "Rwanda", "Senegal", "Sierra Leone", "Mali", "South Sudan",
-            "Sudan", "Zambia", "Zimbabwe"));
+        COUNTRIES_BY_CONTINENT.put(CityCategory.AFRICA, Arrays.asList("Algeria", "Angola", "Benin", "Botswana", "Burkina Faso", "Egypt",
+            "Cameroon", "Central African Republic", "Chad", "Congo", "Eritrea", "Somalia", "South Africa", "Ethiopia", "Gabon", "Uganda", "Morocco",
+            "Ghana", "Kenya", "Lesotho", "Liberia", "Libya", "Madagascar", "Malawi", "Tanzania", "Tunisia", "Mauritania", "Mauritius",
+            "Mozambique", "Namibia", "Niger", "Nigeria", "Rwanda", "Senegal", "Sierra Leone", "Mali", "Zambia", "Zimbabwe"));
         COUNTRIES_BY_CONTINENT.put(CityCategory.EUROPE, Arrays.asList("Albania", "Austria", "Belarus", "Belgium", "Bulgaria", "Croatia", "Ireland",
             "Cyprus", "Czech Republic", "Denmark", "Estonia", "Finland", "France", "Germany", "Greece", "Hungary", "Iceland", "Netherlands",
             "Italy", "Latvia", "Lithuania", "Luxembourg", "Moldova", "Montenegro", "North Macedonia", "Norway", "Poland", "Portugal", "Romania",

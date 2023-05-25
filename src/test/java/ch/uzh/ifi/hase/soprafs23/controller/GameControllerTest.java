@@ -87,6 +87,7 @@ public class GameControllerTest {
         game1.updateCurrentAnswer("Zurich");
         game1.setGameStatus(GameStatus.SETUP);
         game1.addPlayer(new Player());
+        game1.setHostname("Test");
 
         List<Game> gameList = Collections.singletonList(game1);
         when(gameService.getAllGames()).thenReturn(gameList);
@@ -104,7 +105,8 @@ public class GameControllerTest {
                 .andExpect(jsonPath("$[0].countdownTime", is(game1.getCountdownTime())))
                 .andExpect(jsonPath("$[0].currentRound", is(game1.getCurrentRound())))
                 .andExpect(jsonPath("$[0].currentAnswer", is(game1.getCurrentAnswer())))
-                .andExpect(jsonPath("$[0].playerNum", is(game1.getPlayerNum())));
+                .andExpect(jsonPath("$[0].playerNum", is(game1.getPlayerNum())))
+                .andExpect(jsonPath("$[0].hostname", is(game1.getHostname())));
     }
 
     @Test

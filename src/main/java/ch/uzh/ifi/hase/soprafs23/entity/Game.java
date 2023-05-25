@@ -30,16 +30,17 @@ public class Game implements Serializable {
 
     GameStatus gameStatus;
     private int currentRound;
-    private String currentAnswer;
+    private String currentAnswer="";
     private int playerNum;
     private int playerNumForSur;
-    private String Q1, Q2, Q3, Q4;
-    private String ImgUrl;
+    private String Q1="", Q2="", Q3="", Q4="";
+    private String ImgUrl = "";
+    private String hostname = "none";
 
     @ElementCollection
     private List<String> labelList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "game", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "game", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private List<Player> playerList = new ArrayList<>();
 
     public void initGame() {
@@ -47,6 +48,7 @@ public class Game implements Serializable {
         currentAnswer = "";
         Q1 = "";Q2 = "";Q3 = "";Q4 = "";
         ImgUrl = "";
+        hostname = "none";
         playerNum = 0;
         playerNumForSur = 0;
         gameStatus = GameStatus.SETUP;
@@ -97,11 +99,15 @@ public class Game implements Serializable {
 
     public void addPlayer(Player newPlayer) {
         playerList.add(newPlayer);
-        playerNum = playerList.size();
+        if (hostname.equals("none")) {
+            hostname = newPlayer.getPlayerName();
+        }
+        playerNum += 1;
     }
+
     public void deletePlayer(Long playerId) {
         playerList.removeIf(player -> Objects.equals(player.getUserId(), playerId));
-        playerNum = playerList.size();
+        playerNum -= 1;
     }
     public Iterator<Player> getPlayerList() { return playerList.iterator();}
     public int getPlayerNum() {return playerNum;}
@@ -111,6 +117,9 @@ public class Game implements Serializable {
 
     public GameStatus getGameStatus(){return gameStatus;}
     public void setGameStatus(GameStatus gameStatus){this.gameStatus = gameStatus;}
+
+    public void setHostname(String hostname) {this.hostname = hostname;}
+    public String getHostname() {return hostname;}
 
     public List<PlayerRanking> getRanking() {
         // Sort player scores in descending order
@@ -144,4 +153,7 @@ public class Game implements Serializable {
         }
         return winnerList;
     }
+
+//    public void setExecuting(boolean executing) {isExecuting = executing;}
+//    public boolean isExecuting() {return isExecuting;}
 }

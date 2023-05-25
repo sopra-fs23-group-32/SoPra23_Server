@@ -14,9 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
@@ -29,7 +27,8 @@ public class GameHistoryController {
     private final UserStatisticsService userStatisticsService;
     private final Lock lock = new ReentrantLock();
     private final Condition executionCondition = lock.newCondition();
-    private boolean isExecuted = false;
+//    private boolean isExecuted = false;
+    private final Map<Long, Boolean> isExecuted = new HashMap<>();
 
     GameHistoryController(GameService gameService,
                           GameHistoryService gameHistoryService,
@@ -47,31 +46,34 @@ public class GameHistoryController {
         GameInfo newGameInfo = gameService.getGameInfo(gameId);
 
         if (game.getTotalRounds() == 10000) {
+            newGameInfo = gameHistoryService.createGameInfo(newGameInfo);
+            System.out.printf("GameInfo for Game %d created.\n", gameId);
             if(game.getPlayerNum() == 0) {
-                newGameInfo = gameHistoryService.createGameInfo(newGameInfo);
-                System.out.printf("GameInfo for Game %d created.\n", gameId);
                 // delete the Survival Mode at the end
                 gameService.deleteGame(game);
             }
             return DTOMapper.INSTANCE.convertEntityToGameInfoGetDTO(newGameInfo);
         }
 
+        if (!isExecuted.containsKey(gameId)) {isExecuted.put(gameId, false);}
+
         // only invoked once for normal
-        if (!isExecuted) {
+        if (!isExecuted.get(gameId)) {
             lock.lock();
             try {
                 // double lock
-                if (!isExecuted) {
-                    isExecuted = true;
+                if (!isExecuted.get(gameId)) {
                     if (!game.getGameStatus().equals(GameStatus.ENDED) && !game.getGameStatus().equals(GameStatus.DELETED)) {
+                        isExecuted.put(gameId, true);
                         if (game.getTotalRounds() < 1001 && game.isGameEnded()) {
                             game.setGameStatus(GameStatus.ENDED);
                             gameService.updateGameStatus(gameId, WebSocketType.GAME_END, game.getGameStatus());
                             newGameInfo = gameHistoryService.createGameInfo(newGameInfo);
                             System.out.printf("GameInfo for Game %d created.\n", gameId);
                         }
+                        executionCondition.signal();
+                        isExecuted.put(gameId, false);
                     }
-                    executionCondition.signal();
                 }
             } finally {
                 lock.unlock();
@@ -79,7 +81,7 @@ public class GameHistoryController {
         } else {
             lock.lock();
             try {
-                while (!isExecuted) { executionCondition.await(); }
+                executionCondition.await();
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
             } finally {
@@ -87,7 +89,7 @@ public class GameHistoryController {
             }
         }
 
-        isExecuted = false;
+
         return DTOMapper.INSTANCE.convertEntityToGameInfoGetDTO(newGameInfo);
     }
 
@@ -120,6 +122,7 @@ public class GameHistoryController {
             GameInfo gameInfo = gameHistoryService.searchGameInfoById(gameId);
             gameInfoGetDTOS.add(DTOMapper.INSTANCE.convertEntityToGameInfoGetDTO(gameInfo));
         }
+        isExecuted.keySet().removeIf(gameIdList::contains);
         return gameInfoGetDTOS;
     }
 
