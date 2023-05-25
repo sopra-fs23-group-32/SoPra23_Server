@@ -24,6 +24,8 @@ The Multiplayer Mode provides a platform for friendly competition, where players
 - [react-toastify](https://www.npmjs.com/package/react-toastify) - npm package for notifications.
 - [react-countdown-circle-timer](https://www.npmjs.com/package/react-countdown-circle-timer) - npm package for countdown timer.
 
+**<span style="color:red">Note: Please use the "https" protocol for correct connection!</span>**
+
 ## High-level Components
 ### [GameController](https://github.com/sopra-fs23-group-32/SoPra23_Server/blob/main/src/main/java/ch/uzh/ifi/hase/soprafs23/controller/GameController.java)
 A controller class that communicates with the client side through endpoints by handling REST requests.
