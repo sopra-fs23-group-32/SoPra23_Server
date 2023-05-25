@@ -24,6 +24,8 @@ The Multiplayer Mode provides a platform for friendly competition, where players
 - [react-toastify](https://www.npmjs.com/package/react-toastify) - npm package for notifications.
 - [react-countdown-circle-timer](https://www.npmjs.com/package/react-countdown-circle-timer) - npm package for countdown timer.
 
+**<span style="color:red">Note: Please use the "https" protocol for correct connection!</span>**
+
 ## High-level Components
 ### [GameController](https://github.com/sopra-fs23-group-32/SoPra23_Server/blob/main/src/main/java/ch/uzh/ifi/hase/soprafs23/controller/GameController.java)
 A controller class that communicates with the client side through endpoints by handling REST requests.
@@ -110,11 +112,27 @@ Have a look here: https://www.baeldung.com/spring-boot-testing
 
 ## Roadmap
 ![image](https://github.com/sopra-fs23-group-32/SoPra23_Client/blob/readme_branch/images/illustrations/roadmap.png?raw=true)
-- Difficulty Level - Implement difficulty levels that offer varying levels of challenge to players. For example, there can be easy, medium, and hard modes where the hints of images are progressively more limited. This feature would require designing new image sets and adjusting scoring mechanisms.
-- Social Integration - Allow players to connect their social media accounts to the game. This feature would require new developers to integrate social media sharing APIs.
-- Unlockable Content - Add a progressive map where players can unlock new cities. This feature involves tracking player achievements, integrating the global map and providing rewards for new milestones.
+- **Difficulty Level**
 
+  Implement difficulty levels that offer varying levels of challenge to players. For example, there can be easy, medium, and hard modes where the hints of images are progressively more limited. This feature would require designing new image sets and adjusting scoring mechanisms.
 
+- **Social Integration**
+
+  Allow players to connect their social media accounts to the game. This feature would require new developers to integrate social media sharing APIs.
+
+- **Unlockable Content**
+
+  Add a progressive map where players can unlock new cities. This feature involves tracking player achievements, integrating the global map and providing rewards for new milestones.
+
+- **Game Booster**
+
+  Allow players to use a certain number of boosters to get hints during the game. This feature requires to add an endpoint to provide hints for city images in the server side and design of boosters in the client side.
+
+- **More Game Modes**
+
+  Add game modes like Time Attack mode where players have to guess as many cities as possible within a given time limit. This feature involves
+
+Please check [Sprint 3 (Future Work) User Stories](https://github.com/orgs/sopra-fs23-group-32/projects/1/views/18) and [Sprint 3 (Future Work) Tasks](https://github.com/orgs/sopra-fs23-group-32/projects/1/views/17) for detailed information.
 
 ## Authors and Acknowledgment
 ### Authors
