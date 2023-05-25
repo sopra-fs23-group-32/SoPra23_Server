@@ -29,6 +29,9 @@ import java.net.URLEncoder;
 
 import java.nio.charset.StandardCharsets;
 import java.util.*;
+//****CHANGE SAID 24.05.2023 ***************** */
+import java.security.SecureRandom;
+//****CHANGE SAID 24.05.2023 ***************** */
 
 import static java.lang.Math.min;
 
@@ -45,6 +48,7 @@ public class GameService {
     private final Logger log = LoggerFactory.getLogger(GameService.class);
     private final SimpMessagingTemplate messagingTemplate;
 
+
     public GameService(@Qualifier("gameRepository") GameRepository gameRepository,SimpMessagingTemplate messagingTemplate) {
         this.gameRepository = gameRepository;
         this.messagingTemplate = messagingTemplate;
@@ -59,6 +63,14 @@ public class GameService {
     }
 
     public List<Game> getAllGames() {
+        // check empty game and delete them
+        List<Game> gameList = gameRepository.findAll();
+        for(Game game:gameList) {
+            if(game.getPlayerNum()==0){
+                System.out.printf("Delete Game(ID %d)\n", game.getGameId());
+                gameRepository.delete(game);
+            }
+        }
         return gameRepository.findAll();
     }
 
@@ -94,7 +106,9 @@ public class GameService {
         String option1="Geneva", option2="Basel", option3="Lausanne", option4="Bern";
         String defaultPicUrl="https://images.unsplash.com/photo-1591128481965-d59b938e7db1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=Mnw0NDQwMTF8MHwxfHNlYXJjaHwxfHxLbyVDNSVBMWljZSUyNTIwYnVpbGRpbmd8ZW58MHwwfHx8MTY4MzE0NjU1NA&ixlib=rb-4.0.3&q=80&w=1080";
         Question question = new Question(option1, option2, option3, option4, option4, defaultPicUrl);
-        Random random = new Random();
+        //****CHANGE SAID 24.05.2023 ***************** */
+        SecureRandom random = new SecureRandom();
+        //****CHANGE SAID 24.05.2023 ***************** */
         String pictureUrl = "";
         String correctOption = null;
         List<String> cityNames = null;
@@ -119,9 +133,18 @@ public class GameService {
                 pictureUrl = getCityImage(correctOption);
             }
 
-            for (int j=0; j<4; j++) {game.setQuestions(j, cityNames.get(j));}
+
+            //*********CHANGE SAID 24.05.2023 ********************************************** */
+            if (cityNames != null) {
+                for (int j=0; j<4; j++) {game.setQuestions(j, cityNames.get(j));}
+            
+            }
+            if (cityNames != null) {
+                for (int j=0; j<4; j++) {game.setQuestions(j, cityNames.get(j));}
+            }
             game.updateCurrentAnswer(correctOption);
             game.setImgUrl(pictureUrl);
+             //*********CHANGE SAID 24.05.2023 ********************************************** */
 
             System.out.println(pictureUrl);
             question= new Question(cityNames.get(0), cityNames.get(1),
@@ -228,6 +251,7 @@ public class GameService {
         // remove player from the player list
         game.deletePlayer(playerId);
 		updateGameStatus(gameId, WebSocketType.PLAYER_REMOVE, game.getGameStatus());
+        checkIfAllAnswered(gameId);
     }
 
 
@@ -243,7 +267,12 @@ public class GameService {
         gameInfo.setGameId(gameId);
         gameInfo.setCategory(game.getCategory());
         gameInfo.setGameRounds(game.getTotalRounds());
-        gameInfo.setPlayerNum(game.getPlayerNum());
+        if(game.getTotalRounds() > 1000) {
+            gameInfo.setPlayerNum(game.getPlayerNumForSur());
+        }
+        else {
+            gameInfo.setPlayerNum(game.getPlayerNum());
+        }
         Iterator<String> labelList = game.getLabelList();
         while (labelList.hasNext()) {
             gameInfo.addLabel(labelList.next());
@@ -258,8 +287,9 @@ public class GameService {
             throw new ResponseStatusException(HttpStatus.CONFLICT,
                 String.format("Game with ID %d has not finished yet!\n", gameId));
         }
-        // First invoked by the host, to make sure the GameInfo has existed
-        if(game.getGameStatus() != GameStatus.ENDED && game.getGameStatus() != GameStatus.DELETED) {
+        // invoke by the last one in the Survival Mode
+        if(game.getTotalRounds()>1000 && game.getPlayerNum()==1
+            && game.getGameStatus() != GameStatus.DELETED) {
             game.setGameStatus(GameStatus.ENDED);
             updateGameStatus(gameId, WebSocketType.GAME_END, game.getGameStatus());
         }
@@ -326,7 +356,6 @@ public class GameService {
     public static final Map<CityCategory, List<String>> COUNTRIES_BY_CONTINENT = new HashMap<>();
     // all countries' name divided by category
     static {
-        COUNTRIES_BY_CONTINENT.put(CityCategory.OCEANIA, Arrays.asList("Australia", "Fiji", "Nauru", "New Zealand", "Palau", "Papua New Guinea", "Tonga"));
         COUNTRIES_BY_CONTINENT.put(CityCategory.NORTH_AMERICA, Arrays.asList("United States", "Canada", "Mexico", "Guatemala", "Haiti",
             "Dominican Republic", "Cuba", "Honduras", "Nicaragua", "El Salvador", "Costa Rica", "Panama", "Jamaica",
             "Trinidad and Tobago", "Barbados", "Dominica"));
@@ -350,7 +379,6 @@ public class GameService {
 //        worldCountries.addAll(COUNTRIES_BY_CONTINENT.get("ASIA"));
 //        worldCountries.addAll(COUNTRIES_BY_CONTINENT.get("EUROPE"));
 //        worldCountries.addAll(COUNTRIES_BY_CONTINENT.get("NORTH_AMERICA"));
-//        worldCountries.addAll(COUNTRIES_BY_CONTINENT.get("OCEANIA"));
 //        worldCountries.addAll(COUNTRIES_BY_CONTINENT.get("SOUTH_AMERICA"));
 //        COUNTRIES_BY_CONTINENT.put("WORLD", worldCountries);
     }
@@ -404,26 +432,49 @@ public class GameService {
             + "&refine.cou_name_en=" + URLEncoder.encode(country, StandardCharsets.UTF_8.toString())
             + "&rows=" + CITIES_PER_COUNTRY;
         URL citiesUrl = new URL(url);
-
-        BufferedReader reader = new BufferedReader(
-            new InputStreamReader(citiesUrl.openStream(), StandardCharsets.UTF_8)
-        );
+    
+ /****CHANGE SAID 24.05.2023 ***************** */
+        try (BufferedReader reader = new BufferedReader(
+        new InputStreamReader(citiesUrl.openStream(), StandardCharsets.UTF_8))) {
         StringBuilder response = new StringBuilder();
         String line;
         while ((line = reader.readLine()) != null) {response.append(line);}
         reader.close();
-    
+
         JSONObject responseJson = new JSONObject(response.toString());
         JSONArray records = responseJson.getJSONArray("records");
         List<String> cities = new ArrayList<>();
         for (int i = 0; i < records.length() && cities.size() <= CITIES_PER_COUNTRY; i++) {
-            JSONObject record = records.getJSONObject(i).getJSONObject("fields");
-            if (record.getString("cou_name_en").equals(country)) {
-                cities.add(record.getString("name"));
+            JSONObject record1 = records.getJSONObject(i).getJSONObject("fields");
+            if (record1.getString("cou_name_en").equals(country)) {
+                cities.add(record1.getString("name"));
             }
         }
         Collections.shuffle(cities);
         return cities;
+
+        } catch (Exception e) {
+            List<String> questionList = new ArrayList<>();
+            String option1 = "Geneva";
+            String option2 = "Basel";
+            String option3 = "Lausanne";
+            String option4 = "Bern";
+            questionList.add(option1);
+            questionList.add(option2);
+            questionList.add(option3);
+            questionList.add(option4);
+            
+            return questionList;
+        
+                }
+ /****CHANGE SAID 24.05.2023 ***************** */
+
+
+
+
+        
+    
+
     }
 
     public static List<String> getRandomCities(CityCategory category){
@@ -480,7 +531,9 @@ public class GameService {
     }
 
     public static String refreshImage(String cityName) throws Exception{
-        Random random = new Random();
+        //****CHANGE SAID 24.05.2023 ***************** */
+        SecureRandom random = new SecureRandom();
+        //****CHANGE SAID 24.05.2023 ***************** */
         int randomPage = (random.nextInt(10));
         String endPoint = "https://api.unsplash.com/search/photos";
         String accessKey = "n_44tTFqKgUUalZYtv2UTmP-3rNunH-zak0X7yBgS8o";

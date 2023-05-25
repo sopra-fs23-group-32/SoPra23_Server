@@ -94,27 +94,33 @@ public class GameControllerTest {
                 .andExpect(jsonPath("$", is(game.getGameStatus().toString())));
     }
 
-//    @Test
-//    public void testGoNextRound() throws Exception {
-//        // given
-//        Long gameId = 1L;
-//        Question question = new Question("Zurich", "Geneva", "Basel", "Bern","Basel", "pictureUrl");
-//
-//        when(gameService.goNextRound(eq(gameId))).thenReturn(question);
-//
-//        MockHttpServletRequestBuilder putRequest = put("/games/{gameId}", gameId)
-//                .contentType(MediaType.APPLICATION_JSON);
-//
-//        // Perform the PUT request
-//        mockMvc.perform(putRequest)
-//                .andExpect(status().isCreated())
-//                .andExpect(jsonPath("$.option1", is(question.getOption1())))
-//                .andExpect(jsonPath("$.option2", is(question.getOption2())))
-//                .andExpect(jsonPath("$.option3", is(question.getOption3())))
-//                .andExpect(jsonPath("$.option4", is(question.getOption4())))
-//                .andExpect(jsonPath("$.correctOption", is(question.getCorrectOption())))
-//                .andExpect(jsonPath("$.pictureUrl", is(question.getPictureUrl())));
-//    }
+
+
+    @Test
+    public void testGoNextRound() throws Exception {
+        // given
+        Long gameId = 1L;
+        Question question = new Question("Zurich", "Geneva", "Basel", "Bern","Basel", "pictureUrl");
+        Game game = new Game();
+        game.setGameStatus(GameStatus.SETUP);
+
+        when(gameService.searchGameById(eq(gameId))).thenReturn(game);
+        when(gameService.goNextRound(eq(gameId))).thenReturn(question);
+
+        MockHttpServletRequestBuilder putRequest = put("/games/{gameId}", gameId)
+                .contentType(MediaType.APPLICATION_JSON);
+
+        // Perform the PUT request
+        mockMvc.perform(putRequest)
+                .andExpect(status().isCreated())
+                .andExpect(jsonPath("$.option1", is(question.getOption1())))
+                .andExpect(jsonPath("$.option2", is(question.getOption2())))
+                .andExpect(jsonPath("$.option3", is(question.getOption3())))
+                .andExpect(jsonPath("$.option4", is(question.getOption4())))
+                .andExpect(jsonPath("$.correctOption", is(question.getCorrectOption())))
+                .andExpect(jsonPath("$.pictureUrl", is(question.getPictureUrl())));
+    }
+
 
     @Test
     public void testGetQuestions() throws Exception {

@@ -48,14 +48,13 @@ public class GameHistoryController {
     @ResponseBody
     public GameHistoryGetDTO createUserGameHistory(@PathVariable Long userId, @PathVariable Long gameId) {
         GameInfo newGameInfo = gameService.getGameInfo(gameId);
-        UserGameHistory newGameHistory = gameService.getUserGameHistory(gameId, userId);
-        userStatisticsService.addUserGameHistory(userId, newGameHistory);
+        UserGameHistory newHistory = gameService.getUserGameHistory(gameId, userId);
+        userStatisticsService.addUserGameHistory(userId, newHistory);
         if(newGameInfo.getPlayerNum() > 1){
-            userStatisticsService.updateUserStatistics(
-                    userId, newGameHistory.getGameScore(), newGameInfo.getCategory());
+            userStatisticsService.updateUserStatistics(userId, newHistory.getGameScore(), newGameInfo.getCategory());
         }
         System.out.printf("GameHistory for Game %d saved by User %d.\n", gameId, userId);
-        return DTOMapper.INSTANCE.convertEntityToGameHistoryGetDTO(newGameHistory);
+        return DTOMapper.INSTANCE.convertEntityToGameHistoryGetDTO(newHistory);
     }
 
     /**
