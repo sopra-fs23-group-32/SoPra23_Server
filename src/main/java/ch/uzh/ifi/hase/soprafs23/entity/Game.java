@@ -38,8 +38,6 @@ public class Game implements Serializable {
 
     @ElementCollection
     private List<String> labelList = new ArrayList<>();
-    @ElementCollection
-    private List<String> countryList = new ArrayList<>();
 
     @OneToMany(mappedBy = "game", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Player> playerList = new ArrayList<>();
@@ -67,7 +65,7 @@ public class Game implements Serializable {
     public void setCountdownTime(int countdownTime) {this.countdownTime = countdownTime;}
 
     public int getCurrentRound() {return currentRound;}
-    public void addCurrentRound() {currentRound ++;}
+    public void addCurrentRound() {currentRound += 1;}
     public boolean isGameEnded() {return currentRound >= totalRounds;}
 
     public String getCurrentAnswer() {return currentAnswer;}
@@ -97,9 +95,6 @@ public class Game implements Serializable {
     public String getImgUrl() {return ImgUrl;}
     public void setImgUrl(String imgUrl) {ImgUrl = imgUrl;}
 
-    public List<String> getCountryList() {return countryList;}
-    public void setCountryList(List<String> countryList) {this.countryList = countryList;}
-
     public void addPlayer(Player newPlayer) {
         playerList.add(newPlayer);
         playerNum = playerList.size();
@@ -111,7 +106,7 @@ public class Game implements Serializable {
     public Iterator<Player> getPlayerList() { return playerList.iterator();}
     public int getPlayerNum() {return playerNum;}
 
-    public void setPlayerNumForSur() {this.playerNumForSur = this.playerNum;}
+    public void setPlayerNumForSur() {this.playerNumForSur = playerList.size();}
     public int getPlayerNumForSur() {return playerNumForSur;}
 
     public GameStatus getGameStatus(){return gameStatus;}

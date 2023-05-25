@@ -1,5 +1,6 @@
 package ch.uzh.ifi.hase.soprafs23.controller;
 
+import ch.uzh.ifi.hase.soprafs23.constant.CityCategory;
 import ch.uzh.ifi.hase.soprafs23.constant.WebSocketType;
 import ch.uzh.ifi.hase.soprafs23.entity.*;
 import ch.uzh.ifi.hase.soprafs23.rest.dto.*;
@@ -12,6 +13,9 @@ import ch.uzh.ifi.hase.soprafs23.constant.GameStatus;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.locks.Condition;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * User Controller - Responsible for handling all REST request that are related to the user.
@@ -22,6 +26,9 @@ import java.util.List;
 public class GameController {
     private final UserService userService;
     private final GameService gameService;
+    private final Lock lock = new ReentrantLock();
+    private final Condition executionCondition = lock.newCondition();
+    private boolean isExecuted = false;
 
     GameController(UserService userService, GameService gameService) {
         this.userService = userService;
@@ -84,15 +91,43 @@ public class GameController {
     @ResponseStatus(HttpStatus.CREATED)
     public QuestionGetDTO goNextRound(@PathVariable Long gameId) {
         Game game = gameService.searchGameById(gameId);
-        // tell guests that game has started
-        if(game.getGameStatus().equals(GameStatus.SETUP)) {
-            if(game.getTotalRounds() > 1000) {
-                game.setPlayerNumForSur();
+
+        Question question = gameService.getQuestions(gameId);
+        if (!isExecuted) {
+            lock.lock();
+            try {
+                // double lock
+                if (!isExecuted) {
+                    isExecuted = true;
+                    // tell all guests that game has started, for survival mode, record the initial playerNum
+                    if(game.getGameStatus().equals(GameStatus.SETUP)) {
+                        game.setGameStatus(GameStatus.WAITING);
+                        if(game.getTotalRounds()==10000) {
+                            game.setPlayerNumForSur();
+                        }
+                        gameService.updateGameStatus(gameId, WebSocketType.GAME_START, game.getGameStatus());
+                    }
+                    if (game.getGameStatus().equals(GameStatus.WAITING)) {
+                        game.setGameStatus(GameStatus.ANSWERING);
+                        question = gameService.goNextRound(gameId);
+                    }
+                    executionCondition.signal();
+                }
+            } finally {
+                lock.unlock();
             }
-            game.setGameStatus(GameStatus.WAITING);
-            gameService.updateGameStatus(gameId, WebSocketType.GAME_START, game.getGameStatus());
+        } else {
+            lock.lock();
+            try {
+                while (!isExecuted) { executionCondition.await(); }
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            } finally {
+                lock.unlock();
+            }
         }
-        Question question = gameService.goNextRound(gameId);
+
+        isExecuted = false;
         return DTOMapper.INSTANCE.convertEntityToQuestionGetDTO(question);
     }
 
@@ -142,11 +177,9 @@ public class GameController {
         List<Long> userIdList = gameService.getAllPlayers(gameId);
         List<UserGetDTO> userGetDTOList = new ArrayList<>();
         for(long userId: userIdList) {
-            userGetDTOList.add(
-                DTOMapper.INSTANCE.convertEntityToUserGetDTO(
-                    userService.searchUserById(userId)
-                )
-            );
+            userGetDTOList.add(DTOMapper.INSTANCE.convertEntityToUserGetDTO(
+                userService.searchUserById(userId)
+            ));
         }
         return userGetDTOList;
     }
@@ -166,8 +199,9 @@ public class GameController {
 
     @DeleteMapping("/games/{gameId}/players/{playerId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void closeGame(@PathVariable Long gameId, @PathVariable Long playerId) {
-        gameService.leaveGame(gameId, playerId);
+    public void closeGame(@PathVariable Long gameId, @PathVariable Long playerId,
+        @RequestParam(name = "check", defaultValue = "1") int check) {
+        gameService.leaveGame(gameId, playerId, check);
         System.out.printf("----> Player(ID %d) leave Game(ID %d).\n", playerId, gameId);
     }
 

@@ -1,8 +1,8 @@
 package ch.uzh.ifi.hase.soprafs23.controller;
 
-import ch.uzh.ifi.hase.soprafs23.entity.UserGameHistory;
-import ch.uzh.ifi.hase.soprafs23.entity.GameHistoryAnswer;
-import ch.uzh.ifi.hase.soprafs23.entity.GameInfo;
+import ch.uzh.ifi.hase.soprafs23.constant.GameStatus;
+import ch.uzh.ifi.hase.soprafs23.constant.WebSocketType;
+import ch.uzh.ifi.hase.soprafs23.entity.*;
 import ch.uzh.ifi.hase.soprafs23.rest.dto.GameHistoryGetDTO;
 import ch.uzh.ifi.hase.soprafs23.rest.mapper.DTOMapper;
 import ch.uzh.ifi.hase.soprafs23.rest.dto.GameInfoGetDTO;
@@ -17,6 +17,9 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.concurrent.locks.Condition;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 @RestController
 public class GameHistoryController {
@@ -24,6 +27,9 @@ public class GameHistoryController {
     private final GameService gameService;
     private final GameHistoryService gameHistoryService;
     private final UserStatisticsService userStatisticsService;
+    private final Lock lock = new ReentrantLock();
+    private final Condition executionCondition = lock.newCondition();
+    private boolean isExecuted = false;
 
     GameHistoryController(GameService gameService,
                           GameHistoryService gameHistoryService,
@@ -37,9 +43,51 @@ public class GameHistoryController {
     @ResponseStatus(HttpStatus.CREATED)
     @ResponseBody
     public GameInfoGetDTO createGameInfo(@PathVariable Long gameId) {
+        Game game = gameService.searchGameById(gameId);
         GameInfo newGameInfo = gameService.getGameInfo(gameId);
-        newGameInfo = gameHistoryService.createGameInfo(newGameInfo);
-        System.out.printf("GameInfo for Game %d created.\n", gameId);
+
+        if (game.getTotalRounds() == 10000) {
+            if(game.getPlayerNum() <= 1) {
+                newGameInfo = gameHistoryService.createGameInfo(newGameInfo);
+                System.out.printf("GameInfo for Game %d created.\n", gameId);
+                // delete the Survival Mode at the end
+                gameService.deleteGame(game);
+            }
+            return DTOMapper.INSTANCE.convertEntityToGameInfoGetDTO(newGameInfo);
+        }
+
+        // only invoked once for normal
+        if (!isExecuted) {
+            lock.lock();
+            try {
+                // double lock
+                if (!isExecuted) {
+                    isExecuted = true;
+                    if (!game.getGameStatus().equals(GameStatus.ENDED) && !game.getGameStatus().equals(GameStatus.DELETED)) {
+                        if (game.getTotalRounds() < 1001 && game.isGameEnded()) {
+                            game.setGameStatus(GameStatus.ENDED);
+                            gameService.updateGameStatus(gameId, WebSocketType.GAME_END, game.getGameStatus());
+                            newGameInfo = gameHistoryService.createGameInfo(newGameInfo);
+                            System.out.printf("GameInfo for Game %d created.\n", gameId);
+                        }
+                    }
+                    executionCondition.signal();
+                }
+            } finally {
+                lock.unlock();
+            }
+        } else {
+            lock.lock();
+            try {
+                while (!isExecuted) { executionCondition.await(); }
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            } finally {
+                lock.unlock();
+            }
+        }
+
+        isExecuted = false;
         return DTOMapper.INSTANCE.convertEntityToGameInfoGetDTO(newGameInfo);
     }
 

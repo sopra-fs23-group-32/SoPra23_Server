@@ -359,7 +359,7 @@ public class GameServiceTest {
       testGame.addPlayer(player);
 
       // when
-      gameService.leaveGame(1L, userId);
+      gameService.leaveGame(1L, userId, 1);
 
       // then
       Mockito.verify(gameRepository, Mockito.times(4)).findByGameId(Mockito.any());

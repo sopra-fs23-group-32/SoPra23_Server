@@ -58,7 +58,7 @@ public class GameService {
         newGame.initGame();
         newGame = gameRepository.save(newGame);
         gameRepository.flush();
-        System.out.printf("--> Created Game %d.", newGame.getGameId());
+        System.out.printf("--> Created Game %d.\n", newGame.getGameId());
         return newGame;
     }
 
@@ -67,7 +67,7 @@ public class GameService {
         List<Game> gameList = gameRepository.findAll();
         for(Game game:gameList) {
             if(game.getPlayerNum()==0){
-                System.out.printf("Delete Game(ID %d)\n", game.getGameId());
+                System.out.printf("Delete Empty Game(ID %d)\n", game.getGameId());
                 gameRepository.delete(game);
             }
         }
@@ -106,9 +106,8 @@ public class GameService {
         String option1="Geneva", option2="Basel", option3="Lausanne", option4="Bern";
         String defaultPicUrl="https://images.unsplash.com/photo-1591128481965-d59b938e7db1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=Mnw0NDQwMTF8MHwxfHNlYXJjaHwxfHxLbyVDNSVBMWljZSUyNTIwYnVpbGRpbmd8ZW58MHwwfHx8MTY4MzE0NjU1NA&ixlib=rb-4.0.3&q=80&w=1080";
         Question question = new Question(option1, option2, option3, option4, option4, defaultPicUrl);
-        //****CHANGE SAID 24.05.2023 ***************** */
+
         SecureRandom random = new SecureRandom();
-        //****CHANGE SAID 24.05.2023 ***************** */
         String pictureUrl = "";
         String correctOption = null;
         List<String> cityNames = null;
@@ -133,30 +132,17 @@ public class GameService {
                 pictureUrl = getCityImage(correctOption);
             }
 
-
-            //*********CHANGE SAID 24.05.2023 ********************************************** */
-            if (cityNames != null) {
-                for (int j=0; j<4; j++) {game.setQuestions(j, cityNames.get(j));}
-            
-            }
             if (cityNames != null) {
                 for (int j=0; j<4; j++) {game.setQuestions(j, cityNames.get(j));}
             }
             game.updateCurrentAnswer(correctOption);
             game.setImgUrl(pictureUrl);
-             //*********CHANGE SAID 24.05.2023 ********************************************** */
-
-            //*********CHANGE SAID 24.05.2023 ********************************************** */
-
             System.out.println(pictureUrl);
             if (cityNames != null) {
             question= new Question(cityNames.get(0), cityNames.get(1),
                 cityNames.get(2),cityNames.get(3), correctOption, pictureUrl);
             }
-        }
-            //*********CHANGE SAID 24.05.2023 ********************************************** */
-
-        catch (Exception e){
+        } catch (Exception e){
             System.out.printf("--------> Game %d - Unable to generate image.\n", gameId);
             game.setQuestions(0, option1);
             game.setQuestions(1, option2);
@@ -165,8 +151,8 @@ public class GameService {
             game.updateCurrentAnswer(option4);
             game.setImgUrl(defaultPicUrl);
         }
-        game.addCurrentRound();
         game.setGameStatus(GameStatus.ANSWERING);
+        game.addCurrentRound();
         updateGameStatus(gameId, WebSocketType.ROUND_UPDATE, game.getGameStatus());
         System.out.printf("---> Game %d - Question generated.\n", gameId);
         return question;
@@ -249,15 +235,22 @@ public class GameService {
         Game game = searchGameById(gameId);
         game.setGameStatus(GameStatus.DELETED);
         updateGameStatus(gameId, WebSocketType.GAME_DELETED, game.getGameStatus());
-        gameRepository.delete(game);
+        deleteGame(game);
     }
 
-    public void leaveGame(Long gameId, Long playerId) {
+    public void leaveGame(Long gameId, Long playerId, int isCheck) {
         Game game = searchGameById(gameId);
         // remove player from the player list
         game.deletePlayer(playerId);
 		updateGameStatus(gameId, WebSocketType.PLAYER_REMOVE, game.getGameStatus());
+        // update AllAnswer state
         checkIfAllAnswered(gameId);
+        // check if this game is empty
+        if(isCheck == 1) {
+            if(game.getPlayerNum()==0){
+                deleteGame(game);
+            }
+        }
     }
 
 
@@ -266,6 +259,7 @@ public class GameService {
     public GameInfo getGameInfo(Long gameId) {
         GameInfo gameInfo = new GameInfo();
         Game game = searchGameById(gameId);
+        // only for ended Normal Mode or Survival Mode
         if(game.getTotalRounds() < 9000 && !game.isGameEnded()) {
             throw new ResponseStatusException(HttpStatus.CONFLICT,
                 String.format("Game with ID %d has not finished yet!\n", gameId));
@@ -273,7 +267,7 @@ public class GameService {
         gameInfo.setGameId(gameId);
         gameInfo.setCategory(game.getCategory());
         gameInfo.setGameRounds(game.getTotalRounds());
-        if(game.getTotalRounds() > 1000) {
+        if(game.getTotalRounds()==10000) {
             gameInfo.setPlayerNum(game.getPlayerNumForSur());
         }
         else {
@@ -286,18 +280,17 @@ public class GameService {
         return gameInfo;
     }
 
+    public void deleteGame(Game game) {
+        System.out.printf("Delete Empty Game(ID %d)\n", game.getGameId());
+        gameRepository.delete(game);
+    }
+
     public UserGameHistory getUserGameHistory(Long gameId, Long userId) {
         UserGameHistory userGameHistory = new UserGameHistory();
         Game game = searchGameById(gameId);
         if(game.getTotalRounds() < 9000 && !game.isGameEnded()) {
             throw new ResponseStatusException(HttpStatus.CONFLICT,
                 String.format("Game with ID %d has not finished yet!\n", gameId));
-        }
-        // invoke by the last one in the Survival Mode
-        if(game.getTotalRounds()>1000 && game.getPlayerNum()==1
-            && game.getGameStatus() != GameStatus.DELETED) {
-            game.setGameStatus(GameStatus.ENDED);
-            updateGameStatus(gameId, WebSocketType.GAME_END, game.getGameStatus());
         }
         Player player = searchPlayerById(game, userId);
         userGameHistory.setGameId(gameId);
@@ -380,13 +373,13 @@ public class GameService {
             "Cambodia", "China", "Cyprus", "Georgia", "India", "Indonesia", "Iran", "Iraq", "Israel", "Japan", "Jordan", "Kuwait",
             "Laos", "Lebanon", "Malaysia", "Mongolia", "Nepal", "Oman", "Pakistan", "Philippines", "Qatar", "Turkey", "United Arab Emirates",
             "Saudi Arabia", "Singapore", "South Korea", "Sri Lanka", "Syria", "Tajikistan", "Thailand", "Uzbekistan", "Vietnam", "Yemen"));
-//        List<String> worldCountries = new ArrayList<>();
-//        worldCountries.addAll(COUNTRIES_BY_CONTINENT.get("AFRICA"));
-//        worldCountries.addAll(COUNTRIES_BY_CONTINENT.get("ASIA"));
-//        worldCountries.addAll(COUNTRIES_BY_CONTINENT.get("EUROPE"));
-//        worldCountries.addAll(COUNTRIES_BY_CONTINENT.get("NORTH_AMERICA"));
-//        worldCountries.addAll(COUNTRIES_BY_CONTINENT.get("SOUTH_AMERICA"));
-//        COUNTRIES_BY_CONTINENT.put("WORLD", worldCountries);
+        List<String> worldCountries = new ArrayList<>();
+        worldCountries.addAll(COUNTRIES_BY_CONTINENT.get(CityCategory.AFRICA));
+        worldCountries.addAll(COUNTRIES_BY_CONTINENT.get(CityCategory.ASIA));
+        worldCountries.addAll(COUNTRIES_BY_CONTINENT.get(CityCategory.EUROPE));
+        worldCountries.addAll(COUNTRIES_BY_CONTINENT.get(CityCategory.NORTH_AMERICA));
+        worldCountries.addAll(COUNTRIES_BY_CONTINENT.get(CityCategory.SOUTH_AMERICA));
+        COUNTRIES_BY_CONTINENT.put(CityCategory.WORLD, worldCountries);
     }
 
 //    public static List<String> getCountries(String continentCode) throws Exception {
@@ -438,8 +431,7 @@ public class GameService {
             + "&refine.cou_name_en=" + URLEncoder.encode(country, StandardCharsets.UTF_8.toString())
             + "&rows=" + CITIES_PER_COUNTRY;
         URL citiesUrl = new URL(url);
-    
- /****CHANGE SAID 24.05.2023 ***************** */
+
         try (BufferedReader reader = new BufferedReader(
         new InputStreamReader(citiesUrl.openStream(), StandardCharsets.UTF_8))) {
         StringBuilder response = new StringBuilder();
@@ -469,18 +461,9 @@ public class GameService {
             questionList.add(option2);
             questionList.add(option3);
             questionList.add(option4);
-            
             return questionList;
         
                 }
- /****CHANGE SAID 24.05.2023 ***************** */
-
-
-
-
-        
-    
-
     }
 
     public static List<String> getRandomCities(CityCategory category){

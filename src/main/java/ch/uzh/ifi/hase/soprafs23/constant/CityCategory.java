@@ -5,7 +5,8 @@ public enum CityCategory {
     ASIA("Asia"),
     NORTH_AMERICA("North America"),
     SOUTH_AMERICA("South America"),
-    AFRICA("Africa");
+    AFRICA("Africa"),
+    WORLD("World");
 
     private final String name;
 

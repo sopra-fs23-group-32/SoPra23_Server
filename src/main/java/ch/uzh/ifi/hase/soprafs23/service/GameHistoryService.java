@@ -46,7 +46,7 @@ public class GameHistoryService {
         GameInfo gameInfoById = gameInfoRepository.findByGameId(gameId);
         if(gameInfoById == null) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND,
-                    String.format("GameInfo with ID %d was not found!\n", gameId));
+                String.format("GameInfo with ID %d was not found!\n", gameId));
         }
     }
 
