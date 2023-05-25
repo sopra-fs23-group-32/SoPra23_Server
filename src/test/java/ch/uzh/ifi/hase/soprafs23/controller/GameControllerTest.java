@@ -19,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.ResultMatcher;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -75,6 +76,63 @@ public class GameControllerTest {
     }
 
     @Test
+    public void testGetGames() throws Exception {
+        // given
+        Game game1 = new Game();
+        game1.setGameId(1L);
+        game1.setCategory(CityCategory.AFRICA);
+        game1.setTotalRounds(3);
+        game1.setCountdownTime(15);
+        game1.addCurrentRound();
+        game1.updateCurrentAnswer("Zurich");
+        game1.setGameStatus(GameStatus.SETUP);
+        game1.addPlayer(new Player());
+
+        List<Game> gameList = Collections.singletonList(game1);
+        when(gameService.getAllGames()).thenReturn(gameList);
+
+        MockHttpServletRequestBuilder getRequest = get("/games")
+                .contentType(MediaType.APPLICATION_JSON);
+
+        // Perform the GET request
+        mockMvc.perform(getRequest)
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$", hasSize(1)))
+                .andExpect(jsonPath("$[0].gameId", is(game1.getGameId().intValue())))
+                .andExpect(jsonPath("$[0].category", is(game1.getCategory().name())))
+                .andExpect(jsonPath("$[0].totalRounds", is(game1.getTotalRounds())))
+                .andExpect(jsonPath("$[0].countdownTime", is(game1.getCountdownTime())))
+                .andExpect(jsonPath("$[0].currentRound", is(game1.getCurrentRound())))
+                .andExpect(jsonPath("$[0].currentAnswer", is(game1.getCurrentAnswer())))
+                .andExpect(jsonPath("$[0].playerNum", is(game1.getPlayerNum())));
+    }
+
+    @Test
+    public void testGetGame() throws Exception {
+        // given
+        Long gameId = 1L;
+        Game game = new Game();
+        game.initGame();
+        game.setGameId(gameId);
+        game.setTotalRounds(5);
+        game.setCountdownTime(10);
+        game.updateCurrentAnswer("Zurich");
+
+        when(gameService.searchGameById(eq(gameId))).thenReturn(game);
+
+        MockHttpServletRequestBuilder getRequest = get("/games/{gameId}", gameId)
+                .contentType(MediaType.APPLICATION_JSON);
+
+        // Perform the GET request
+        mockMvc.perform(getRequest)
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.gameId", is(game.getGameId().intValue())))
+                .andExpect(jsonPath("$.currentRound", is(game.getCurrentRound())))
+                .andExpect(jsonPath("$.totalRounds", is(game.getTotalRounds())))
+                .andExpect(jsonPath("$.countdownTime", is(game.getCountdownTime())))
+                .andExpect(jsonPath("$.currentAnswer", is(game.getCurrentAnswer())));
+    }
+    @Test
     public void testGetGameStatus() throws Exception {
         // given
         Long gameId = 1L;
@@ -121,6 +179,29 @@ public class GameControllerTest {
                 .andExpect(jsonPath("$.pictureUrl", is(question.getPictureUrl())));
     }
 
+//    @Test
+//    public void testRefreshImage() throws Exception {
+//        // given
+//        Long gameId = 1L;
+//        Game game = new Game();
+//        game.setGameId(gameId);
+//        String answer = "Zurich";
+//        game.updateCurrentAnswer(answer);
+//        game.setImgUrl("url");
+//
+//        String ImgUrl = "newUrl";
+//
+//        when(gameService.searchGameById(eq(gameId))).thenReturn(game);
+//        when(GameService.refreshImage(eq(answer))).thenReturn(ImgUrl);
+//
+//        MockHttpServletRequestBuilder putRequest = put("/games/{gameId}/refresh", gameId)
+//                .contentType(MediaType.APPLICATION_JSON);
+//
+//        // Perform the GET request
+//        mockMvc.perform(putRequest)
+//                .andExpect(status().isOk())
+//                .andExpect(jsonPath("$", is(ImgUrl)));
+//    }
 
     @Test
     public void testGetQuestions() throws Exception {
@@ -143,33 +224,6 @@ public class GameControllerTest {
                 .andExpect(jsonPath("$.correctOption", is(question.getCorrectOption())))
                 .andExpect(jsonPath("$.pictureUrl", is(question.getPictureUrl())));
     }
-
-    @Test
-    public void testGetGame() throws Exception {
-        // given
-        Long gameId = 1L;
-        Game game = new Game();
-        game.initGame();
-        game.setGameId(gameId);
-        game.setTotalRounds(5);
-        game.setCountdownTime(10);
-        game.updateCurrentAnswer("Zurich");
-
-        when(gameService.searchGameById(eq(gameId))).thenReturn(game);
-
-        MockHttpServletRequestBuilder getRequest = get("/games/{gameId}", gameId)
-                .contentType(MediaType.APPLICATION_JSON);
-
-        // Perform the GET request
-        mockMvc.perform(getRequest)
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.gameId", is(game.getGameId().intValue())))
-                .andExpect(jsonPath("$.currentRound", is(game.getCurrentRound())))
-                .andExpect(jsonPath("$.totalRounds", is(game.getTotalRounds())))
-                .andExpect(jsonPath("$.countdownTime", is(game.getCountdownTime())))
-                .andExpect(jsonPath("$.currentAnswer", is(game.getCurrentAnswer())));
-    }
-
 
     @Test
     public void testCloseGame() throws Exception {
@@ -208,7 +262,7 @@ public class GameControllerTest {
     }
 
     @Test
-    public void testCreatePlayer() throws Exception {
+    public void testAddPlayer() throws Exception {
         // given
         Long gameId = 1L;
         Long userId = 1L;
