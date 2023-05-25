@@ -44,6 +44,8 @@ public class GameServiceTest {
       testGame.setQuestions(3, "Bern");
       testGame.updateCurrentAnswer("Bern");
 
+
+
       // when -> any object is being found in the gameInfoRepository -> return the dummy
       Mockito.when(gameRepository.save(Mockito.any(Game.class))).thenReturn(testGame);
       Mockito.when(gameRepository.findByGameId(Mockito.eq(1L))).thenReturn(testGame);
@@ -71,6 +73,25 @@ public class GameServiceTest {
       assertEquals(testGame.getCountdownTime(), newGame.getCountdownTime());
       assertEquals(testGame.getTotalRounds(), newGame.getTotalRounds());
   }
+
+  @Test
+  public void testGetAllGames_withoutPlayer() {
+      // given
+//      testGame.addPlayer(new Player());
+
+//      List<Game> games = new ArrayList<>();
+//      games.add(testGame);
+
+      // when
+      List<Game> gameList = gameService.getAllGames();
+//      Mockito.when(gameRepository.findAll()).thenReturn(games);
+
+      // then
+      Mockito.verify(gameRepository, Mockito.times(2)).findAll();
+
+      assertEquals(0, gameList.size());
+//      assertEquals(testGame.getGameId(), gameList.get(0));
+    }
 
   @Test
   public void testAddPlayer_gameIdExists() {
