@@ -40,7 +40,8 @@ public class Game implements Serializable {
     @ElementCollection
     private List<String> labelList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "game", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    // orphanRemoval = true
+    @OneToMany(mappedBy = "game", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
     private List<Player> playerList = new ArrayList<>();
 
     public void initGame() {
