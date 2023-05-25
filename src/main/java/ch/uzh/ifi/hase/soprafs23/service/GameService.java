@@ -17,7 +17,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 
-
 import java.net.HttpURLConnection;
 import org.json.JSONArray;
 
@@ -29,10 +28,7 @@ import java.net.URLEncoder;
 
 import java.nio.charset.StandardCharsets;
 import java.util.*;
-//****CHANGE SAID 24.05.2023 ***************** */
 import java.security.SecureRandom;
-//****CHANGE SAID 24.05.2023 ***************** */
-
 import static java.lang.Math.min;
 
 /**
@@ -78,6 +74,7 @@ public class GameService {
         Game game = searchGameById(gameId);
         Player newPlayer = new Player();
         newPlayer.setUserId(userAsPlayer.getUserId());
+        newPlayer.setGameId(gameId);
         newPlayer.setPlayerName(userAsPlayer.getUsername());
         newPlayer.setGame(game);
         game.addPlayer(newPlayer);
@@ -95,6 +92,35 @@ public class GameService {
         return userIdList;
     }
 
+    public Question getDefaultQuestion(CityCategory category) {
+        switch (category) {
+            case EUROPE -> {
+                return new Question("Lausanne", "Geneva", "Bern", "Basel", "Bern",
+                "https://images.unsplash.com/photo-1591128481965-d59b938e7db1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=Mnw0NDQwMTF8MHwxfHNlYXJjaHwxfHxLbyVDNSVBMWljZSUyNTIwYnVpbGRpbmd8ZW58MHwwfHx8MTY4MzE0NjU1NA&ixlib=rb-4.0.3&q=80&w=1080");
+            }
+            case AFRICA -> {
+                return new Question("Marrakech", "Nairobi", "Accra", "Cape Town", "Nairobi",
+                "https://images.unsplash.com/photo-1611348524140-53c9a25263d6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NDQwMTF8MHwxfHNlYXJjaHwxfHxOYWlyb2JpfGVufDB8fHx8MTY4NTAzMTc2M3ww&ixlib=rb-4.0.3&q=80&w=1080");
+            }
+            case ASIA -> {
+                return new Question("Davao", "Shanghai", "Comilla", "Tehran", "Davao",
+                "https://images.unsplash.com/photo-1551333884-49c82dfe73b2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NDQwMTF8MHwxfHNlYXJjaHwxfHxEYXZhb3xlbnwwfHx8fDE2ODUwMzEwNTB8MA&ixlib=rb-4.0.3&q=80&w=1080");
+            }
+            case NORTH_AMERICA -> {
+                return new Question("Chicago", "Guadalajara", "Ottawa", "Havana", "Havana",
+                "https://images.unsplash.com/photo-1570299437488-d430e1e677c7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NDQwMTF8MHwxfHNlYXJjaHwxfHxIYXZhbmF8ZW58MHx8fHwxNjg1MDMwNjI1fDA&ixlib=rb-4.0.3&q=80&w=1080");
+            }
+            case SOUTH_AMERICA -> {
+                return new Question("Montevideo", "Rio de Janeiro", "Lima", "Quito", "Rio de Janeiro",
+                "https://images.unsplash.com/photo-1483729558449-99ef09a8c325?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NDQwMTF8MHwxfHNlYXJjaHwxfHxSaW8lMjBkZSUyMEphbmVpcm98ZW58MHx8fHwxNjg1MDMwODIxfDA&ixlib=rb-4.0.3&q=80&w=1080");
+            }
+            default -> {
+                return new Question("Zurich", "Cape Town", "Tokyo", "Mexico City", "Cape Town",
+                "https://images.unsplash.com/photo-1576485290814-1c72aa4bbb8e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NDQwMTF8MHwxfHNlYXJjaHwxfHxDYXBlJTIwVG93bnxlbnwwfHx8fDE2ODUwMzIwNDJ8MA&ixlib=rb-4.0.3&q=80&w=1080");
+            }
+        }
+    }
+
     public Question goNextRound(Long gameId) {
         Game game = searchGameById(gameId);
         if(game.isGameEnded()) {
@@ -103,9 +129,7 @@ public class GameService {
         }
         System.out.printf("--------> Game %d - Round %d reached.\n", gameId, game.getCurrentRound()+1);
 
-        String option1="Geneva", option2="Basel", option3="Lausanne", option4="Bern";
-        String defaultPicUrl="https://images.unsplash.com/photo-1591128481965-d59b938e7db1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=Mnw0NDQwMTF8MHwxfHNlYXJjaHwxfHxLbyVDNSVBMWljZSUyNTIwYnVpbGRpbmd8ZW58MHwwfHx8MTY4MzE0NjU1NA&ixlib=rb-4.0.3&q=80&w=1080";
-        Question question = new Question(option1, option2, option3, option4, option4, defaultPicUrl);
+        Question question = getDefaultQuestion(game.getCategory());
 
         SecureRandom random = new SecureRandom();
         String pictureUrl = "";
@@ -144,12 +168,12 @@ public class GameService {
             }
         } catch (Exception e){
             System.out.printf("--------> Game %d - Unable to generate image.\n", gameId);
-            game.setQuestions(0, option1);
-            game.setQuestions(1, option2);
-            game.setQuestions(2, option3);
-            game.setQuestions(3, option4);
-            game.updateCurrentAnswer(option4);
-            game.setImgUrl(defaultPicUrl);
+            game.setQuestions(0, question.getOption1());
+            game.setQuestions(1, question.getOption2());
+            game.setQuestions(2, question.getOption3());
+            game.setQuestions(3, question.getOption4());
+            game.updateCurrentAnswer(question.getCorrectOption());
+            game.setImgUrl(question.getPictureUrl());
         }
         game.setGameStatus(GameStatus.ANSWERING);
         game.addCurrentRound();
@@ -353,6 +377,9 @@ public class GameService {
     private static final int NUM_CITIES = 10;
     private static final int MIN_POPULATION = 700000;
 
+    private static final List<String> blackList = Arrays.asList("Faisalabad", "Comilla", "Rawalpindi", "Sanaa", "Klang", "Faisalabad", "Dammam", "Iztapalapa",
+    "Santa Cruz de la Sierra", "Kaduna", "Donetsk", "Callao", "Aden", "Rangpur");
+
     public static final Map<CityCategory, List<String>> COUNTRIES_BY_CONTINENT = new HashMap<>();
     // all countries' name divided by category
     static {
@@ -382,47 +409,6 @@ public class GameService {
         COUNTRIES_BY_CONTINENT.put(CityCategory.WORLD, worldCountries);
     }
 
-//    public static List<String> getCountries(String continentCode) throws Exception {
-//        String continentCode1 = switch (continentCode) {
-//            case "NORTH_AMERICA" -> "region/NORTH%20AMERICA";
-//            case "SOUTH_AMERICA" -> "region/SOUTH%20AMERICA";
-//            default -> "region/" + continentCode;
-//        };
-//        URL countriesUrl = new URL("https://restcountries.com/v3.1/" + continentCode1);
-//        HttpURLConnection connection = (HttpURLConnection) countriesUrl.openConnection();
-//        connection.setRequestMethod("GET");
-//        int responseCode = connection.getResponseCode();
-//        if (responseCode != 200) {
-//            throw new Exception("Failed to fetch countries: " + responseCode);
-//        }
-//
-//        BufferedReader reader =new BufferedReader(
-//            new InputStreamReader(connection.getInputStream(), StandardCharsets.UTF_8)
-//        );
-//        StringBuilder response = new StringBuilder();
-//        String line;
-//        while ((line = reader.readLine()) != null) {response.append(line);}
-//        reader.close();
-//        connection.disconnect();
-//
-//        JSONArray countryList = new JSONArray(response.toString());
-//        List<String> countryNames = new ArrayList<>();
-//        for (int i = 0; i < countryList.length(); i++) {
-//            JSONObject country = countryList.getJSONObject(i);
-//            if (country.get("name") instanceof JSONObject) {
-//                countryNames.add(country.getJSONObject("name").getString("common"));
-//            }
-//            else if (country.get("name") instanceof String) {
-//                countryNames.add(country.getString("name"));
-//            }
-//        }
-//        for(String country : countryNames){System.out.print(country + ", ");}
-//        System.out.println("\n--> Successfully get countries list.");
-////        if(countryNames.size() < NUM_COUNTRY) {return countryNames;}
-////        return countryNames.subList(0, NUM_COUNTRY);
-//        return countryNames;
-//    }
-
     public static List<String> getCities(String country) throws Exception {
         String url = "https://public.opendatasoft.com/api/records/1.0/search/"
             + "?dataset=geonames-all-cities-with-a-population-1000"
@@ -432,38 +418,30 @@ public class GameService {
             + "&rows=" + CITIES_PER_COUNTRY;
         URL citiesUrl = new URL(url);
 
-        try (BufferedReader reader = new BufferedReader(
-        new InputStreamReader(citiesUrl.openStream(), StandardCharsets.UTF_8))) {
-        StringBuilder response = new StringBuilder();
-        String line;
-        while ((line = reader.readLine()) != null) {response.append(line);}
-        reader.close();
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(
+            citiesUrl.openStream(), StandardCharsets.UTF_8
+        ))) {
+            StringBuilder response = new StringBuilder();
+            String line;
+            while ((line = reader.readLine()) != null) {response.append(line);}
+            reader.close();
 
-        JSONObject responseJson = new JSONObject(response.toString());
-        JSONArray records = responseJson.getJSONArray("records");
-        List<String> cities = new ArrayList<>();
-        for (int i = 0; i < records.length() && cities.size() <= CITIES_PER_COUNTRY; i++) {
-            JSONObject record1 = records.getJSONObject(i).getJSONObject("fields");
-            if (record1.getString("cou_name_en").equals(country)) {
-                cities.add(record1.getString("name"));
-            }
-        }
-        Collections.shuffle(cities);
-        return cities;
-
-        } catch (Exception e) {
-            List<String> questionList = new ArrayList<>();
-            String option1 = "Geneva";
-            String option2 = "Basel";
-            String option3 = "Lausanne";
-            String option4 = "Bern";
-            questionList.add(option1);
-            questionList.add(option2);
-            questionList.add(option3);
-            questionList.add(option4);
-            return questionList;
-        
+            JSONObject responseJson = new JSONObject(response.toString());
+            JSONArray records = responseJson.getJSONArray("records");
+            List<String> cities = new ArrayList<>();
+            for (int i = 0; i < records.length() && cities.size() <= CITIES_PER_COUNTRY; i++) {
+                JSONObject record1 = records.getJSONObject(i).getJSONObject("fields");
+                if (record1.getString("cou_name_en").equals(country)) {
+                    String newCity = record1.getString("name");
+                    if(newCity.equals("Kraków")) {newCity = "Krakow";}
+                    if(!blackList.contains(newCity)){
+                        cities.add(newCity);
+                    }
                 }
+            }
+            Collections.shuffle(cities);
+            return cities;
+        }
     }
 
     public static List<String> getRandomCities(CityCategory category){
@@ -520,9 +498,7 @@ public class GameService {
     }
 
     public static String refreshImage(String cityName) throws Exception{
-        //****CHANGE SAID 24.05.2023 ***************** */
         SecureRandom random = new SecureRandom();
-        //****CHANGE SAID 24.05.2023 ***************** */
         int randomPage = (random.nextInt(10));
         String endPoint = "https://api.unsplash.com/search/photos";
         String accessKey = "n_44tTFqKgUUalZYtv2UTmP-3rNunH-zak0X7yBgS8o";
