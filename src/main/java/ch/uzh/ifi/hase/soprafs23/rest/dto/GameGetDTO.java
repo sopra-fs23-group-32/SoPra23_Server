@@ -12,6 +12,7 @@ public class GameGetDTO {
     private int currentRound;
     private String currentAnswer;
     private int playerNum;
+    private String hostname;
 
     public Long getGameId() {return gameId;}
     public void setGameId(Long gameId) {this.gameId = gameId;}
@@ -33,4 +34,7 @@ public class GameGetDTO {
 
     public int getPlayerNum() {return playerNum;}
     public void setPlayerNum(int playerNum) {this.playerNum = playerNum;}
+
+    public void setHostname(String hostname) {this.hostname = hostname;}
+    public String getHostname() {return hostname;}
 }
