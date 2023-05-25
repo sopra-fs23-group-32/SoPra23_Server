@@ -243,6 +243,7 @@ public class GameService {
         // remove player from the player list
         game.deletePlayer(playerId);
 		updateGameStatus(gameId, WebSocketType.PLAYER_REMOVE, game.getGameStatus());
+        System.out.printf("----> Player(ID %d) leave Game(ID %d).\n", playerId, gameId);
         // update AllAnswer state
         checkIfAllAnswered(gameId);
         // check if this game is empty

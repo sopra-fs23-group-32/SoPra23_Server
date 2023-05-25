@@ -202,7 +202,6 @@ public class GameController {
     public void closeGame(@PathVariable Long gameId, @PathVariable Long playerId,
         @RequestParam(name = "check", defaultValue = "1") int check) {
         gameService.leaveGame(gameId, playerId, check);
-        System.out.printf("----> Player(ID %d) leave Game(ID %d).\n", playerId, gameId);
     }
 
     /**

@@ -47,7 +47,7 @@ public class GameHistoryController {
         GameInfo newGameInfo = gameService.getGameInfo(gameId);
 
         if (game.getTotalRounds() == 10000) {
-            if(game.getPlayerNum() <= 1) {
+            if(game.getPlayerNum() == 0) {
                 newGameInfo = gameHistoryService.createGameInfo(newGameInfo);
                 System.out.printf("GameInfo for Game %d created.\n", gameId);
                 // delete the Survival Mode at the end

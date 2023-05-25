@@ -106,7 +106,7 @@ public class Game implements Serializable {
     public Iterator<Player> getPlayerList() { return playerList.iterator();}
     public int getPlayerNum() {return playerNum;}
 
-    public void setPlayerNumForSur() {this.playerNumForSur = playerList.size();}
+    public void setPlayerNumForSur() {playerNumForSur = playerNum;}
     public int getPlayerNumForSur() {return playerNumForSur;}
 
     public GameStatus getGameStatus(){return gameStatus;}
