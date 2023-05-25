@@ -137,3 +137,43 @@ Said H.A., https://github.com/sopra-fs23-group-32/SoPra23_Client/issues/112 \
 
 Leyi Xu, https://github.com/sopra-fs23-group-32/SoPra23_Client/issues/68 \
 Leyi Xu, https://github.com/sopra-fs23-group-32/SoPra23_Server/issues/143 \
+
+
+## Week 23.05.2023-25.05.2023
+Dominic Vogel, https://github.com/sopra-fs23-group-32/SoPra23_Server/issues/70 \
+Dominic Vogel, https://github.com/sopra-fs23-group-32/SoPra23_Client/issues/100 \
+Dominic Vogel, https://github.com/sopra-fs23-group-32/SoPra23_Client/issues/101 \
+Dominic Vogel, https://github.com/sopra-fs23-group-32/SoPra23_Client/issues/113 \ 
+Dominic Vogel, https://github.com/sopra-fs23-group-32/SoPra23_Client/issues/142 \
+Dominic Vogel, https://github.com/sopra-fs23-group-32/SoPra23_Client/issues/159 \
+
+Said H.A., https://github.com/sopra-fs23-group-32/SoPra23_Client/issues/76 \
+Said H.A., https://github.com/sopra-fs23-group-32/SoPra23_Server/issues/133 \
+Said H.A., https://github.com/sopra-fs23-group-32/SoPra23_Server/issues/134 \
+Said H.A., https://github.com/sopra-fs23-group-32/SoPra23_Server/issues/64 \
+Said H.A., https://github.com/sopra-fs23-group-32/SoPra23_Server/issues/172 \
+Said H.A., https://github.com/sopra-fs23-group-32/SoPra23_Client/issues/163 \
+Said H.A., https://github.com/sopra-fs23-group-32/SoPra23_Server/issues/174 \
+Said H.A., https://github.com/sopra-fs23-group-32/SoPra23_Server/issues/175 \
+
+Zilong Deng, https://github.com/sopra-fs23-group-32/SoPra23_Client/issues/87 \
+Zilong Deng, https://github.com/sopra-fs23-group-32/SoPra23_Client/issues/76 \
+Zilong Deng, https://github.com/sopra-fs23-group-32/SoPra23_Server/issues/170 \
+Zilong Deng, https://github.com/sopra-fs23-group-32/SoPra23_Client/issues/163 \
+Zilong Deng, https://github.com/sopra-fs23-group-32/SoPra23_Server/issues/174 \
+Zilong Deng, https://github.com/sopra-fs23-group-32/SoPra23_Server/issues/176 \
+Zilong Deng, https://github.com/sopra-fs23-group-32/SoPra23_Client/issues/52 \
+
+Leyi Xu, https://github.com/sopra-fs23-group-32/SoPra23_Client/issues/85 \
+Leyi Xu, https://github.com/sopra-fs23-group-32/SoPra23_Server/issues/19 \
+Leyi Xu, https://github.com/sopra-fs23-group-32/SoPra23_Client/issues/161 \
+Leyi Xu, https://github.com/sopra-fs23-group-32/SoPra23_Server/issues/143 \
+
+Jano Vukadinovic, https://github.com/sopra-fs23-group-32/SoPra23_Client/issues/135 \
+Jano Vukadinovic, https://github.com/sopra-fs23-group-32/SoPra23_Client/issues/136 \
+Jano Vukadinovic, https://github.com/sopra-fs23-group-32/SoPra23_Client/issues/143 \
+Jano Vukadinovic, https://github.com/sopra-fs23-group-32/SoPra23_Client/issues/161 \
+Jano Vukadinovic, https://github.com/sopra-fs23-group-32/SoPra23_Client/issues/52 \
+
+
+
